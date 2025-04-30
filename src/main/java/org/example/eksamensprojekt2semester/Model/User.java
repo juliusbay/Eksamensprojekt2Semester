@@ -64,6 +64,6 @@ public class User {
         this.password = password;
     }
 
-    private enum Role {ADMIN, BUSINESS_DEVELOPER, MECHANIC, DATA_REGISTRATION}
+    private enum Role {ADMIN, FORRETNINGSUDVIKLER, DATAREGISTRERING, MEKANIKER}
 
 }
