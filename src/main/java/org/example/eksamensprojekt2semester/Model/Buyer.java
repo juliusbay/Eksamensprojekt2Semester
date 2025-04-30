@@ -8,8 +8,7 @@ public class Buyer {
     boolean isPreBought;
     int vehicleID;
 
-    public Buyer(int buyerID, String fullName, String email, int phoneNumber, boolean isPreBought, int vehicleID) {
-        this.buyerID = buyerID;
+    public Buyer(String fullName, String email, int phoneNumber, boolean isPreBought, int vehicleID) {
         this.fullName = fullName;
         this.email = email;
         this.phoneNumber = phoneNumber;
