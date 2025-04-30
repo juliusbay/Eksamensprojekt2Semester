@@ -7,8 +7,11 @@ public class User {
     private String shortName;
     private String email;
     private String password;
+    private Role role;
 
-    public User(String firstName, String lastName, String email, String password) {
+    public enum Role {ADMIN, FORRETNINGSUDVIKLER, DATAREGISTRERING, MEKANIKER};
+
+    public User(String firstName, String lastName, String email, String password, Role role) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -63,7 +66,4 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
-
-    private enum Role {ADMIN, FORRETNINGSUDVIKLER, DATAREGISTRERING, MEKANIKER}
-
 }
