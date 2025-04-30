@@ -14,7 +14,7 @@ CREATE TABLE users (
                            'MEKANIKER') NOT NULL
 );
 
-INSERT INTO users (user_id, first_name,last_name, short_name, email, password, role) VALUES
+INSERT INTO users (user_id, first_name, last_name, short_name, email, password, role) VALUES
                                     (1, 'demo','demo', 'demo', 'demo','demo','admin');
 
 CREATE TABLE car_model (
@@ -64,7 +64,7 @@ CREATE TABLE bookings (
 );
 
 INSERT INTO bookings (booking_id, vehicle_id, customer_name, customer_email, customer_phone, lease_type, lease_duration, lease_start_date, lease_end_date, contract_price, advance_buyer) VALUES
-                                    (1, 1, 'Frederik Morsing', 'frederikmorsing@gmail.com', 50496373, 'limited', 90, '2025-05-01', '2025-08-01', 30000, true);
+                                    (1, 1, 'Peter rasmussen', 'demotest@gmail.com', 30193122, 'limited', 90, '2025-05-01', '2025-08-01', 30000, true);
 
 CREATE TABLE buyers (
                         buyer_id INT PRIMARY KEY AUTO_INCREMENT,
@@ -77,7 +77,7 @@ CREATE TABLE buyers (
 );
 
 INSERT INTO buyers (buyer_id, full_name, email, phone_number, is_pre_bought, vehicle_id) VALUES
-                                    (1, 'Noah Thomsen', 'noah@email.dk', 33424101, true, 1);
+                                    (1, 'Peter Bastian', 'demotest@gmail.dk', 33424101, true, 1);
 
 CREATE TABLE damage_reports (
                         report_id INT PRIMARY KEY AUTO_INCREMENT,
