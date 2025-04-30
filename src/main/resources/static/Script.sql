@@ -10,7 +10,8 @@ CREATE TABLE users (
                        short_name VARCHAR(50),
                        email VARCHAR(255) UNIQUE NOT NULL,
                        password VARCHAR(255) NOT NULL,
-                       role ENUM('mekaniker', 'admin', 'regnskab') NOT NULL
+                       role ENUM('ADMIN', 'FORRETNINGSUDVIKLER', 'DATAREGISTRERING',
+                           'MEKANIKER') NOT NULL
 );
 
 INSERT INTO users (user_id, first_name,last_name, short_name, email, password, role) VALUES
