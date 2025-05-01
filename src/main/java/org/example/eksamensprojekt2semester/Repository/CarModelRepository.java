@@ -38,7 +38,7 @@ public class CarModelRepository {
                     String carEquipmentAsString = resultSet.getString("car_equipment");
                     CarModel.CarEquipment carEquipment = CarModel.CarEquipment.valueOf(carEquipmentAsString);
                     carModel.setCarEquipment(carEquipment);
-                    
+
                     carModel.setSteelPrice(resultSet.getInt("steel_price"));
                     carModel.setRegistrationFee(resultSet.getInt("registration_fee"));
                 }
