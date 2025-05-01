@@ -17,7 +17,7 @@ public class UserRepository {
     DataSource dataSource;
 
     // Method for retrieving specific users by userID
-    public User getUserbyUserId(int id){
+    public User getUserByUserId(int id){
         User user = new User();
         String sql = "SELECT * FROM users WHERE user_id = ?";
 
