@@ -19,6 +19,9 @@ public class User {
         shortName = (firstName.substring(0,2) + lastName.substring(0,3)).toUpperCase() + userID;
     }
 
+    public User(){
+    }
+
     public int getUserID() {
         return userID;
     }
@@ -65,5 +68,13 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 }
