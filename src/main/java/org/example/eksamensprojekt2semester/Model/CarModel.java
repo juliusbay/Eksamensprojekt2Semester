@@ -2,14 +2,47 @@ package org.example.eksamensprojekt2semester.Model;
 
 
 public class CarModel {
+
+    public enum CarEquipment {
+        LAPRIMA("La Prima"),
+        SPORT("Sport"),
+        ADVANCE("Advance"),
+        PERFORMANCE("Performance"),
+        ROCK("Rock"),
+        TECHNO("Techno"),
+        ICON("Icon"),
+        LONGRANGE("Long range"),
+        VAREBIL("Varebil");
+
+    private final String dbValue;
+
+    CarEquipment(String dbValue) {
+        this.dbValue = dbValue;
+    }
+    @Override
+    public String toString() {
+        return dbValue;
+    }
+
+    public static CarEquipment fromString(String value) {
+        for (CarEquipment ce : CarEquipment.values()) {
+            if (ce.dbValue.equalsIgnoreCase(value)) {
+                return ce;
+            }
+        }
+        throw new IllegalArgumentException("Unknown equipment: " + value);
+    }
+}
+
+
         private int car_model_id;
         private int model_year;
         private String brand;
         private String model;
         private String car_emission;
-        private CarEquipment car_equipment;
         private double steel_price;
         private int registration_fee;
+        private CarEquipment car_equipment;
 
 
     public CarModel(int car_model_id, int model_year, String brand, String model, String car_emission, CarEquipment car_equipment, double steel_price, int registration_fee) {
