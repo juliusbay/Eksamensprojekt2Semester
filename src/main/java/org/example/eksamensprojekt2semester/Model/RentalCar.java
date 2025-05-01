@@ -7,20 +7,23 @@ public class RentalCar {
     private String vin_number;
     private String color;
     private String return_address;
-    private double price;
+    private double monthly_price;
     private int mileage;
-    private Status status;
+    public Status status;
 
-    private enum Status {KLAR,SKADET,TIL_KLARGØRING,UDLEJET}
+    public enum Status {KLAR,SKADET,TIL_KLARGØRING,UDLEJET}
 
-    public RentalCar(int car_model_id, String vin_number, String color, String return_address, double price, int mileage, int vehicle_id) {
+    public RentalCar(int car_model_id, String vin_number, String color, String return_address, double monthly_price, int mileage, int vehicle_id) {
         this.car_model_id = car_model_id;
         this.vin_number = vin_number;
         this.color = color;
         this.return_address = return_address;
-        this.price = price;
+        this.monthly_price = monthly_price;
         this.mileage = mileage;
         this.vehicle_id = vehicle_id;
+        status = Status.KLAR;
+    }
+    public RentalCar() {
         status = Status.KLAR;
     }
 
@@ -64,12 +67,12 @@ public class RentalCar {
         this.return_address = return_adress;
     }
 
-    public double getPrice() {
-        return price;
+    public double getMonthly_Price() {
+        return monthly_price;
     }
 
-    public void setPrice(double price) {
-        this.price = price;
+    public void setMonthly_Price(double monthly_price) {
+        this.monthly_price = monthly_price;
     }
 
     public int getMileage() {

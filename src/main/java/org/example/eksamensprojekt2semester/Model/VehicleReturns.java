@@ -17,6 +17,9 @@ public class VehicleReturns {
         this.returnedTo = returnedTo;
         this.report_id = report_id;
     }
+    public VehicleReturns() {
+
+    }
 
     public int getReturn_id() {
         return return_id;
