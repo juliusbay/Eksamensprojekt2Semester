@@ -19,6 +19,8 @@ public class CarModel {
     CarEquipment(String dbValue) {
         this.dbValue = dbValue;
     }
+
+    //Changes "LAPRIMA" to "La Prima"
     @Override
     public String toString() {
         return dbValue;
