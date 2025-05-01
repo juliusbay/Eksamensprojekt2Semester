@@ -14,74 +14,74 @@ public class CarModel {
         LONGRANGE("Long range"),
         VAREBIL("Varebil");
 
-    private final String dbValue;
+        private final String dbValue;
 
-    CarEquipment(String dbValue) {
-        this.dbValue = dbValue;
-    }
-
-    //Changes "LAPRIMA" to "La Prima"
-    @Override
-    public String toString() {
-        return dbValue;
-    }
-
-    public static CarEquipment fromString(String value) {
-        for (CarEquipment ce : CarEquipment.values()) {
-            if (ce.dbValue.equalsIgnoreCase(value)) {
-                return ce;
-            }
+        CarEquipment(String dbValue) {
+            this.dbValue = dbValue;
         }
-        throw new IllegalArgumentException("Unknown equipment: " + value);
+
+        //Changes "LAPRIMA" to "La Prima"
+        @Override
+        public String toString() {
+            return dbValue;
+        }
+
+        public static CarEquipment fromString(String value) {
+            for (CarEquipment ce : CarEquipment.values()) {
+                if (ce.dbValue.equalsIgnoreCase(value)) {
+                    return ce;
+                }
+            }
+            throw new IllegalArgumentException("Unknown equipment: " + value);
+        }
     }
-}
 
+    private int carModelId;
+    private int modelYear;
+    private String brand;
+    private String model;
+    private int carEmission;
+    private double steelPrice;
+    private int registrationFee;
+    private CarEquipment carEquipment;
 
-        private int car_model_id;
-        private int model_year;
-        private String brand;
-        private String model;
-        private String car_emission;
-        private double steel_price;
-        private int registration_fee;
-        private CarEquipment car_equipment;
-
-
-    public CarModel(int car_model_id, int model_year, String brand, String model, String car_emission, CarEquipment car_equipment, double steel_price, int registration_fee) {
-        this.car_model_id = car_model_id;
-        this.model_year = model_year;
+    public CarModel(int carModelId, int modelYear, String brand, String model, int carEmission, CarEquipment carEquipment, double steelPrice, int registrationFee) {
+        this.carModelId = carModelId;
+        this.modelYear = modelYear;
         this.brand = brand;
         this.model = model;
-        this.car_emission = car_emission;
-        this.car_equipment = car_equipment;
-        this.steel_price = steel_price;
-        this.registration_fee = registration_fee;
+        this.carEmission = carEmission;
+        this.carEquipment = carEquipment;
+        this.steelPrice = steelPrice;
+        this.registrationFee = registrationFee;
     }
 
-    public CarModel(int model_year, String brand, String model, String car_emission, CarEquipment car_equipment, double steel_price, int registration_fee) {
-        this.model_year = model_year;
+    public CarModel(int modelYear, String brand, String model, int carEmission, CarEquipment carEquipment, double steelPrice, int registrationFee) {
+        this.modelYear = modelYear;
         this.brand = brand;
         this.model = model;
-        this.car_emission = car_emission;
-        this.car_equipment = car_equipment;
-        this.steel_price = steel_price;
-        this.registration_fee = registration_fee;
+        this.carEmission = carEmission;
+        this.carEquipment = carEquipment;
+        this.steelPrice = steelPrice;
+        this.registrationFee = registrationFee;
     }
 
-    public int getCar_model_id() {
-        return car_model_id;
+    public CarModel() {}
+
+    public int getCarModelId() {
+        return carModelId;
     }
 
-    public void setCar_model_id(int car_model_id) {
-        this.car_model_id = car_model_id;
+    public void setCarModelId(int carModelId) {
+        this.carModelId = carModelId;
     }
 
-    public int getModel_year() {
-        return model_year;
+    public int getModelYear() {
+        return modelYear;
     }
 
-    public void setModel_year(int model_year) {
-        this.model_year = model_year;
+    public void setModelYear(int modelYear) {
+        this.modelYear = modelYear;
     }
 
     public String getBrand() {
@@ -100,36 +100,36 @@ public class CarModel {
         this.model = model;
     }
 
-    public String getCar_emission() {
-        return car_emission;
+    public int getCarEmission() {
+        return carEmission;
     }
 
-    public void setCar_emission(String car_emission) {
-        this.car_emission = car_emission;
+    public void setCarEmission(int carEmission) {
+        this.carEmission = carEmission;
     }
 
-    public CarEquipment getCar_equipment() {
-        return car_equipment;
+    public CarEquipment getCarEquipment() {
+        return carEquipment;
     }
 
-    public void setCar_equipment(CarEquipment car_equipment) {
-        this.car_equipment = car_equipment;
+    public void setCarEquipment(CarEquipment carEquipment) {
+        this.carEquipment = carEquipment;
     }
 
-    public double getSteel_price() {
-        return steel_price;
+    public double getSteelPrice() {
+        return steelPrice;
     }
 
-    public void setSteel_price(double steel_price) {
-        this.steel_price = steel_price;
+    public void setSteelPrice(double steelPrice) {
+        this.steelPrice = steelPrice;
     }
 
-    public int getRegistration_fee() {
-        return registration_fee;
+    public int getRegistrationFee() {
+        return registrationFee;
     }
 
-    public void setRegistration_fee(int registration_fee) {
-        this.registration_fee = registration_fee;
+    public void setRegistrationFee(int registrationFee) {
+        this.registrationFee = registrationFee;
     }
 }
 
