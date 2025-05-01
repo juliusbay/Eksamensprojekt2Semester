@@ -3,35 +3,37 @@ package org.example.eksamensprojekt2semester.Model;
 import java.sql.Date;
 
 public class DamageReport {
-    int reportID;
-    int vehicleID;
+    int reportId;
+    int vehicleId;
     Date reportDate;
     String damageType;
     double damagePrice;
     int handledBy; // References userID
 
-    public DamageReport(int vehicleID, Date reportDate, String damageType, double damagePrice, int handledBy) {
-        this.vehicleID = vehicleID;
+    public DamageReport(int vehicleId, Date reportDate, String damageType, double damagePrice, int handledBy) {
+        this.vehicleId = vehicleId;
         this.reportDate = reportDate;
         this.damageType = damageType;
         this.damagePrice = damagePrice;
         this.handledBy = handledBy;
     }
 
-    public int getReportID() {
-        return reportID;
+    public DamageReport() {}
+
+    public int getReportId() {
+        return reportId;
     }
 
-    public void setReportID(int reportID) {
-        this.reportID = reportID;
+    public void setReportId(int reportId) {
+        this.reportId = reportId;
     }
 
-    public int getVehicleID() {
-        return vehicleID;
+    public int getVehicleId() {
+        return vehicleId;
     }
 
-    public void setVehicleID(int vehicleID) {
-        this.vehicleID = vehicleID;
+    public void setVehicleId(int vehicleId) {
+        this.vehicleId = vehicleId;
     }
 
     public Date getReportDate() {

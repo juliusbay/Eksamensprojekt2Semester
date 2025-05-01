@@ -1,7 +1,7 @@
 package org.example.eksamensprojekt2semester.Model;
 
 public class User {
-    private int userID;
+    private int userId;
     private String firstName;
     private String lastName;
     private String shortName;
@@ -16,18 +16,18 @@ public class User {
         this.lastName = lastName;
         this.email = email;
         this.password = password;
-        shortName = (firstName.substring(0,2) + lastName.substring(0,3)).toUpperCase() + userID;
+        shortName = (firstName.substring(0,2) + lastName.substring(0,3)).toUpperCase() + userId;
     }
 
     public User(){
     }
 
-    public int getUserID() {
-        return userID;
+    public int getUserId() {
+        return userId;
     }
 
-    public void setUserID(int userID) {
-        this.userID = userID;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     public String getFirstName() {
