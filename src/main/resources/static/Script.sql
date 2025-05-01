@@ -38,14 +38,14 @@ CREATE TABLE rental_car (
                             vin_number VARCHAR(50) UNIQUE,
                             color VARCHAR(50),
                             return_address VARCHAR(255),
-                            price DECIMAL(10,2),
+                            monthly_price DECIMAL(10,2),
                             mileage INT,
                             status ENUM('klar', 'skadet', 'til_klargøring', 'udlejet') DEFAULT 'klar',
                             FOREIGN KEY (car_model_id) REFERENCES car_model(car_model_id)
 
 );
 
-INSERT INTO rental_car(vehicle_id, car_model_id, vin_number, color, return_address, price, mileage, status) VALUES
+INSERT INTO rental_car(vehicle_id, car_model_id, vin_number, color, return_address, monthly_price, mileage, status) VALUES
                                     (1, 1, 'EW33357', 'black', 'Guldbergsgade 29', 10000, 5000, 'klar');
 
 CREATE TABLE bookings (
