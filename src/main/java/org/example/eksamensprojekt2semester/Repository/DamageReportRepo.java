@@ -34,7 +34,7 @@ public class DamageReportRepo {
                     dmgReport.setReportDate(resultSet.getDate("report_date"));
                     dmgReport.setDamageType(resultSet.getString("damage_type"));
                     dmgReport.setDamagePrice(resultSet.getDouble("damage_price"));
-                    dmgReport.setHandledBy(userRepository.getUserbyUserId(resultSet.getInt("handled_by")));
+                    dmgReport.setHandledBy(resultSet.getInt("handled_by"));
                 }
             }
         } catch (SQLException e) {
