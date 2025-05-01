@@ -1,27 +1,52 @@
 package org.example.eksamensprojekt2semester.Model;
 
-import java.util.Calendar;
 import java.util.Date;
 
 public class BookingModel {
+    public enum LeaseType {
+        LIMITED("Limited"),
+        UNLIMITED("Unlimited");
+
+        private final String dbValue;
+
+        LeaseType(String dbValue) {
+            this.dbValue = dbValue;
+        }
+
+        @Override
+        public String toString() {
+            return dbValue;
+        }
+
+        public static LeaseType fromString(String value) {
+            for (LeaseType lt : LeaseType.values()) {
+                if (lt.dbValue.equalsIgnoreCase(value)) {
+                    return lt;
+                }
+            }
+            throw new IllegalArgumentException("Unknown lease type: " + value);
+        }
+    }
     private int booking_id;
     private int vehicle_id;
     private String customer_name;
     private String customer_email;
     private String customer_phone;
-    private enum lease_type {LIMITED, UNLIMITED};
     private Date lease_start_date;
     private Date lease_end_date;
     private double contract_price;
     private boolean advance_buyer;
+    private LeaseType lease_type;
 
 
-    public BookingModel(int booking_id, int vehicle_id, String customer_name, String customer_email, String customer_phone, Date lease_start_date, Date lease_end_date, double contract_price, boolean advance_buyer) {
+
+    public BookingModel(int booking_id, int vehicle_id, String customer_name, String customer_email, String customer_phone, LeaseType lease_type, Date lease_start_date, Date lease_end_date, double contract_price, boolean advance_buyer) {
         this.booking_id = booking_id;
         this.vehicle_id = vehicle_id;
         this.customer_name = customer_name;
         this.customer_email = customer_email;
         this.customer_phone = customer_phone;
+        this.lease_type = lease_type;
         this.lease_start_date = lease_start_date;
         this.lease_end_date = lease_end_date;
         this.contract_price = contract_price;
@@ -38,6 +63,14 @@ public class BookingModel {
         this.lease_end_date = lease_end_date;
         this.contract_price = contract_price;
         this.advance_buyer = advance_buyer;
+    }
+
+    public LeaseType getLease_type() {
+        return lease_type;
+    }
+
+    public void setLease_type(LeaseType lease_type) {
+        this.lease_type = lease_type;
     }
 
     public int getBooking_id() {
@@ -80,7 +113,7 @@ public class BookingModel {
         this.customer_phone = customer_phone;
     }
 
-    public Date getLease_start_date() {
+    public java.sql.Date getLease_start_date() {
         return lease_start_date;
     }
 
@@ -88,7 +121,7 @@ public class BookingModel {
         this.lease_start_date = lease_start_date;
     }
 
-    public Date getLease_end_date() {
+    public java.sql.Date getLease_end_date() {
         return lease_end_date;
     }
 
