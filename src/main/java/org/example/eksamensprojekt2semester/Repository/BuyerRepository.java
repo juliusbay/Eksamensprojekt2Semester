@@ -61,6 +61,7 @@ public class BuyerRepository {
         }
     }
 
+    //Method for updating buyer details
     public void updateBuyer(Buyer buyer){
         String sql = "UPDATE buyers (full_name = ?, email = ?, phone_number = ?, is_pre_bought = ?, vehicle_id = ?) WHERE buyer_id = ?";
 
@@ -78,6 +79,22 @@ public class BuyerRepository {
             statement.executeUpdate();
 
         } catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
+
+    //Method for deleting buyer by their buyerId
+    public void deleteBuyerbyBuyerId(int id){
+        String sql = "DELETE FROM buyers WHERE buyer_id = ?";
+
+        try (Connection connection = dataSource.getConnection();
+            PreparedStatement statement = connection.prepareStatement(sql)){
+
+            statement.setInt(1,id);
+
+            statement.executeUpdate();
+
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
