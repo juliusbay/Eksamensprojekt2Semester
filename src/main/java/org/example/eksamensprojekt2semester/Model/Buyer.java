@@ -1,7 +1,7 @@
 package org.example.eksamensprojekt2semester.Model;
 
 public class Buyer {
-    int buyerID;
+    int buyerId;
     String fullName;
     String email;
     int phoneNumber;
@@ -16,12 +16,15 @@ public class Buyer {
         this.vehicleID = vehicleID;
     }
 
-    public int getBuyerID() {
-        return buyerID;
+    public Buyer(){
     }
 
-    public void setBuyerID(int buyerID) {
-        this.buyerID = buyerID;
+    public int getBuyerId() {
+        return buyerId;
+    }
+
+    public void setBuyerId(int buyerId) {
+        this.buyerId = buyerId;
     }
 
     public String getFullName() {

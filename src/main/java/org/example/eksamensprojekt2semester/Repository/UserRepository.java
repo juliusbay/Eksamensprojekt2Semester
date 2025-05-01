@@ -17,7 +17,7 @@ public class UserRepository {
     DataSource dataSource;
 
     // Method for retrieving specific users by userID
-    public User getUserbyUserID(int id){
+    public User getUserbyUserId(int id){
         User user = new User();
         String sql = "SELECT * FROM users WHERE user_id = ?";
 
@@ -27,7 +27,7 @@ public class UserRepository {
 
                 try (ResultSet resultSet = statement.executeQuery()){
                     if (resultSet.next()){
-                        user.setUserID(resultSet.getInt("user_id"));
+                        user.setUserId(resultSet.getInt("user_id"));
                         user.setFirstName(resultSet.getString("first_name"));
                         user.setLastName(resultSet.getString("last_name"));
                         user.setShortName(resultSet.getString("short_name"));
@@ -89,7 +89,7 @@ public class UserRepository {
             String roleAsString = user.getRole().toString();
             statement.setString(6, roleAsString);
 
-            statement.setInt(7, user.getUserID());
+            statement.setInt(7, user.getUserId());
 
             statement.executeUpdate();
 
@@ -99,7 +99,7 @@ public class UserRepository {
     }
 
     // Method for deleting users by their userID.
-    public void deleteUserByUserID(int id){
+    public void deleteUserByUserId(int id){
         String sql = "DELETE FROM users WHERE user_id = ?";
 
         try (Connection connection = dataSource.getConnection();
