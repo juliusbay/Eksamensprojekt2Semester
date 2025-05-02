@@ -46,6 +46,59 @@ public class CarModelRepository {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
         return carModel;
+    }
+
+    public void createCarModel (CarModel carModel) {
+        String sql = "INSERT INTO car_model (model_year, brand, model, car_emission, car_equipment, steel_price, registration_fee) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?)";
+
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, carModel.getModelYear());
+            statement.setString(2, carModel.getBrand());
+            statement.setString(3, carModel.getModel());
+            statement.setInt(4, carModel.getCarEmission());
+            statement.setString(5, carModel.getCarEquipment().toString()); // enum to string
+            statement.setDouble(6, carModel.getSteelPrice());
+            statement.setInt(7, carModel.getRegistrationFee());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void updateCarModel (CarModel carModel) {
+        String sql = "UPDATE car_model SET model_year = ?, brand = ?, model = ?, car_emission = ?, car_equipment = ?, steel_price = ?, registration_fee = ?" +
+                "WHERE car_model_id = ?";
+
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, carModel.getModelYear());
+            statement.setString(2, carModel.getBrand());
+            statement.setString(3, carModel.getModel());
+            statement.setInt(4, carModel.getCarEmission());
+            statement.setString(5, carModel.getCarEquipment().toString()); // enum to string
+            statement.setDouble(6, carModel.getSteelPrice());
+            statement.setInt(7, carModel.getRegistrationFee());
+            statement.setInt(8, carModel.getCarModelId());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void deleteCarModelById (int id) {
+        String sql = "DELETE FROM car_model WHERE car_model_id = ?";
+
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)){
+
+            statement.setInt(1, id);
+
+            statement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }
