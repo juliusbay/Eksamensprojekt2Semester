@@ -76,7 +76,8 @@ public class DamageReportRepository {
     }
 
     public void createDamageReport (DamageReport damageReport) {
-        String sql ="INSERT INTO damage_reports (vehicle_id, report_date, damage_type, damage_price, handled_by) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO damage_reports (vehicle_id, report_date, damage_type, damage_price, handled_by) " +
+                "VALUES (?, ?, ?, ?, ?)";
 
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -104,6 +105,21 @@ public class DamageReportRepository {
             statement.setDouble(4, damageReport.getDamagePrice());
             statement.setInt(5, damageReport.getHandledBy());
             statement.setInt(6, damageReport.getReportId());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void deleteDamageReportById (int id) {
+        String sql = "DELETE FROM damage_reports WHERE report_id = ?";
+
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)){
+
+            statement.setInt(1, id);
+
+            statement.executeUpdate();
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
