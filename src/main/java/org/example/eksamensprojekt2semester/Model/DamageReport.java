@@ -10,7 +10,8 @@ public class DamageReport {
     double damagePrice;
     int handledBy; // References userID
 
-    public DamageReport(int vehicleId, Date reportDate, String damageType, double damagePrice, int handledBy) {
+    public DamageReport(int reportId, int vehicleId, Date reportDate, String damageType, double damagePrice, int handledBy) {
+        this.reportId = reportId;
         this.vehicleId = vehicleId;
         this.reportDate = reportDate;
         this.damageType = damageType;

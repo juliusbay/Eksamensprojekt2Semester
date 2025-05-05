@@ -1,6 +1,6 @@
 package org.example.eksamensprojekt2semester.Repository;
 
-import org.example.eksamensprojekt2semester.Model.BookingModel;
+import org.example.eksamensprojekt2semester.Model.Booking;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -18,8 +18,8 @@ public class BookingRepository {
     DataSource dataSource;
 
 
-    public BookingModel getBookingById(int id) {
-        BookingModel booking = null;
+    public Booking getBookingById(int id) {
+        Booking booking = null;
         String sql = "SELECT * FROM bookings WHERE booking_id = ?";
 
         try (Connection connection = dataSource.getConnection();
@@ -29,13 +29,13 @@ public class BookingRepository {
 
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
-                    booking = new BookingModel(
+                    booking = new Booking(
                             resultSet.getInt("booking_id"),
                             resultSet.getInt("vehicle_id"),
                             resultSet.getString("customer_name"),
                             resultSet.getString("customer_email"),
                             resultSet.getString("customer_phone"),
-                            BookingModel.LeaseType.fromString(resultSet.getString("lease_type")),
+                            Booking.LeaseType.fromString(resultSet.getString("lease_type")),
                             resultSet.getDate("lease_start_date"),
                             resultSet.getDate("lease_end_date"),
                             resultSet.getDouble("contract_price"),
@@ -50,7 +50,7 @@ public class BookingRepository {
         return booking;
     }
 
-    public void createBooking(BookingModel booking) {
+    public void createBooking(Booking booking) {
         String sql = "INSERT INTO bookings (vehicle_id, customer_name, customer_email, customer_phone, lease_type, lease_start_date, lease_end_date, contract_price, advance_buyer) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         try (Connection connection = dataSource.getConnection();
@@ -86,8 +86,8 @@ public class BookingRepository {
         }
     }
 
-    public ArrayList<BookingModel> getAllBookings() {
-        ArrayList<BookingModel> bookings = new ArrayList<>();
+    public ArrayList<Booking> getAllBookings() {
+        ArrayList<Booking> bookings = new ArrayList<>();
         String sql = "SELECT * FROM bookings";
 
         try (Connection connection = dataSource.getConnection();
@@ -95,13 +95,13 @@ public class BookingRepository {
              ResultSet resultSet = statement.executeQuery()) {
 
             while (resultSet.next()) {
-                BookingModel booking = new BookingModel(
+                Booking booking = new Booking(
                         resultSet.getInt("booking_id"),
                         resultSet.getInt("vehicle_id"),
                         resultSet.getString("customer_name"),
                         resultSet.getString("customer_email"),
                         resultSet.getString("customer_phone"),
-                        BookingModel.LeaseType.fromString(resultSet.getString("lease_type")),
+                        Booking.LeaseType.fromString(resultSet.getString("lease_type")),
                         resultSet.getDate("lease_start_date"),
                         resultSet.getDate("lease_end_date"),
                         resultSet.getDouble("contract_price"),
@@ -117,7 +117,7 @@ public class BookingRepository {
     }
 
 
-    public void updateBooking(BookingModel booking) {
+    public void updateBooking(Booking booking) {
         String sql = "UPDATE bookings SET vehicle_id = ?, customer_name = ?, customer_email = ?, customer_phone = ?, lease_type = ?, lease_start_date = ?, lease_end_date = ?, contract_price = ?, advance_buyer = ? WHERE booking_id = ?";
 
         try (Connection connection = dataSource.getConnection();
