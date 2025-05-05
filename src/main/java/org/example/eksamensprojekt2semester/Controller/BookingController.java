@@ -1,14 +1,18 @@
 package org.example.eksamensprojekt2semester.Controller;
 
+import jakarta.servlet.http.HttpSession;
 import org.example.eksamensprojekt2semester.Model.Booking;
 import org.example.eksamensprojekt2semester.Repository.BookingRepository;
 import org.example.eksamensprojekt2semester.Service.BookingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 @Controller
@@ -43,7 +47,19 @@ public class BookingController {
         return "redirect:/dashboard";
     }
 
+    @GetMapping("/dashboard")
+    public String getAllBookings(Model model) {
 
+
+        ArrayList<Booking> bookings = bookingRepository.getAllBookings();
+        model.addAttribute("bookings", bookings);
+
+        return "redirect:/dashboard";
+    }
+
+    private boolean isUserLoggedIn(HttpSession session) {
+        return session.getAttribute("loggedInUser") != null;
+    }
 
 
 }
