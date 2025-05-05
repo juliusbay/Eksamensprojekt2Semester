@@ -122,7 +122,7 @@ public class BookingModel {
     }
 
     public java.sql.Date getLease_end_date() {
-        return lease_end_date;
+        return (java.sql.Date) lease_end_date;
     }
 
     public void setLease_end_date(Date lease_end_date) {
