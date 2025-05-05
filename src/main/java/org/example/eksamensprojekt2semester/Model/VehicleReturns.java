@@ -3,46 +3,46 @@ package org.example.eksamensprojekt2semester.Model;
 import java.sql.Date;
 
 public class VehicleReturns {
-    private int return_id;
-    private int vehicle_id;
-    private Date return_date;
+    private int returnId;
+    private int vehicleId;
+    private Date returnDate;
     private ReturnedTo returnedTo;
-    private int report_id;
+    private int reportId;
     public enum ReturnedTo {FDM,Bilabonnement}
 
-    public VehicleReturns(int return_id, int vehicle_id, Date return_date, ReturnedTo returnedTo, int report_id) {
-        this.return_id = return_id;
-        this.vehicle_id = vehicle_id;
-        this.return_date = return_date;
+    public VehicleReturns(int returnId, int vehicleId, Date returnDate, ReturnedTo returnedTo, int reportId) {
+        this.returnId = returnId;
+        this.vehicleId = vehicleId;
+        this.returnDate = returnDate;
         this.returnedTo = returnedTo;
-        this.report_id = report_id;
+        this.reportId = reportId;
     }
     public VehicleReturns() {
 
     }
 
-    public int getReturn_id() {
-        return return_id;
+    public int getReturnId() {
+        return returnId;
     }
 
-    public void setReturn_id(int return_id) {
-        this.return_id = return_id;
+    public void setReturnId(int returnId) {
+        this.returnId = returnId;
     }
 
-    public int getVehicle_id() {
-        return vehicle_id;
+    public int getVehicleId() {
+        return vehicleId;
     }
 
-    public void setVehicle_id(int vehicle_id) {
-        this.vehicle_id = vehicle_id;
+    public void setVehicleId(int vehicleId) {
+        this.vehicleId = vehicleId;
     }
 
-    public Date getReturn_date() {
-        return return_date;
+    public Date getReturnDate() {
+        return returnDate;
     }
 
-    public void setReturn_date(Date return_date) {
-        this.return_date = return_date;
+    public void setReturnDate(Date returnDate) {
+        this.returnDate = returnDate;
     }
 
     public ReturnedTo getReturnedTo() {
@@ -53,11 +53,11 @@ public class VehicleReturns {
         this.returnedTo = returnedTo;
     }
 
-    public int getReport_id() {
-        return report_id;
+    public int getReportId() {
+        return reportId;
     }
 
-    public void setReport_id(int report_id) {
-        this.report_id = report_id;
+    public void setReportId(int reportId) {
+        this.reportId = reportId;
     }
 }

@@ -19,7 +19,7 @@ public class RentalCarRepository {
 
     public RentalCar getRentalCarById(int id) {
         RentalCar rentalCar = new RentalCar();
-        String sql = "SELECT * FROM rental_car WHERE id = ?";
+        String sql = "SELECT * FROM rental_car WHERE vehicle_id = ?";
 
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)){
@@ -27,11 +27,11 @@ public class RentalCarRepository {
 
             try (ResultSet resultSet = statement.executeQuery()){
                 if (resultSet.next()){
-                    rentalCar.setCar_model_id(resultSet.getInt("car_model_id"));
-                    rentalCar.setVin_number(resultSet.getString("vin_number"));
+                    rentalCar.setCarModelId(resultSet.getInt("car_model_id"));
+                    rentalCar.setVinNumber(resultSet.getString("vin_number"));
                     rentalCar.setColor(resultSet.getString("color"));
-                    rentalCar.setReturn_address(resultSet.getString("return_address"));
-                    rentalCar.setMonthly_Price(resultSet.getDouble("price"));
+                    rentalCar.setReturnAddress(resultSet.getString("return_address"));
+                    rentalCar.setMonthlyPrice(resultSet.getDouble("price"));
                     rentalCar.setMileage(resultSet.getInt("mileage"));
 
                 }
@@ -48,11 +48,11 @@ public class RentalCarRepository {
 
         try(Connection connection = dataSource.getConnection();
             PreparedStatement statement = connection.prepareStatement(sql)){
-            statement.setInt(1,rentalCar.getCar_model_id());
-            statement.setString(2,rentalCar.getVin_number());
+            statement.setInt(1,rentalCar.getCarModelId());
+            statement.setString(2,rentalCar.getVinNumber());
             statement.setString(3,rentalCar.getColor());
-            statement.setString(4,rentalCar.getReturn_address());
-            statement.setDouble(5,rentalCar.getMonthly_Price());
+            statement.setString(4,rentalCar.getReturnAddress());
+            statement.setDouble(5,rentalCar.getMonthlyPrice());
             statement.setDouble(6,rentalCar.getMileage());
             statement.executeUpdate();
 
@@ -64,21 +64,21 @@ public class RentalCarRepository {
 
 
     public void updateRentalCar(RentalCar rentalCar) {
-        String sql = "UPDATE rental_car SET vehicle_id = ?, car_model_id = ?, vin_number = ?, color = ?, return_address = ?, monthly_price, mileage = ?, status = ? WHERE id = ?";
+        String sql = "UPDATE rental_car SET vehicle_id = ?, car_model_id = ?, vin_number = ?, color = ?, return_address = ?, monthly_price = ?, mileage = ?, status = ? WHERE vehicle_id = ?";
 
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)){
-            statement.setInt(1,rentalCar.getVehicle_id());
-            statement.setInt(2,rentalCar.getCar_model_id());
-            statement.setString(3,rentalCar.getVin_number());
+            statement.setInt(1,rentalCar.getVehicleId());
+            statement.setInt(2,rentalCar.getCarModelId());
+            statement.setString(3,rentalCar.getVinNumber());
             statement.setString(4,rentalCar.getColor());
-            statement.setString(5,rentalCar.getReturn_address());
-            statement.setDouble(6,rentalCar.getMonthly_Price());
+            statement.setString(5,rentalCar.getReturnAddress());
+            statement.setDouble(6,rentalCar.getMonthlyPrice());
             statement.setInt(7,rentalCar.getMileage());
 
             statement.setString(8,rentalCar.getStatus().name()); //Stores the string value of the Status enum by converting it to a string using .name();
                                                                 // OBS!!! Hvis der er problemer med setStatus, så er det muligvis her det sker. Dog "burde" den automatisk konvertere tilbage til enum i databasen.
-            statement.setInt(9,rentalCar.getVehicle_id());
+            statement.setInt(9,rentalCar.getVehicleId());
 
             statement.executeUpdate();
 

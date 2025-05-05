@@ -1,6 +1,5 @@
 package org.example.eksamensprojekt2semester.Repository;
 
-import org.example.eksamensprojekt2semester.Model.RentalCar;
 import org.example.eksamensprojekt2semester.Model.VehicleReturns;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -24,9 +23,9 @@ public class VehicleReturnsRepository {
 
             try(ResultSet resultSet = statement.executeQuery()){
                 if (resultSet.next()){
-                    vehicleReturn.setReturn_id(resultSet.getInt("return_id"));
-                    vehicleReturn.setVehicle_id(resultSet.getInt("vehicle_id"));
-                    vehicleReturn.setReturn_date(resultSet.getDate("return_date"));
+                    vehicleReturn.setReturnId(resultSet.getInt("return_id"));
+                    vehicleReturn.setVehicleId(resultSet.getInt("vehicle_id"));
+                    vehicleReturn.setReturnDate(resultSet.getDate("return_date"));
                     vehicleReturn.setReturnedTo(VehicleReturns.ReturnedTo.valueOf(resultSet.getString("returned_to"))); // OBS!!! Ikke helt sikker på om det virker som det skal. Den 'burde' konvertere til string, og automatisk konvertere tilbage i databasen.
                 }
             }

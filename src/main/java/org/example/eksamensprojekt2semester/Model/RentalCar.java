@@ -2,53 +2,53 @@ package org.example.eksamensprojekt2semester.Model;
 
 public class RentalCar {
 
-    private int vehicle_id;
-    private int car_model_id;
-    private String vin_number;
+    private int vehicleId;
+    private int carModelId;
+    private String vinNumber;
     private String color;
-    private String return_address;
-    private double monthly_price;
+    private String returnAddress;
+    private double monthlyPrice;
     private int mileage;
     public Status status;
 
     public enum Status {KLAR,SKADET,TIL_KLARGØRING,UDLEJET}
 
-    public RentalCar(int car_model_id, String vin_number, String color, String return_address, double monthly_price, int mileage, int vehicle_id) {
-        this.car_model_id = car_model_id;
-        this.vin_number = vin_number;
+    public RentalCar(int carModelId, String vinNumber, String color, String returnAddress, double monthlyPrice, int mileage, int vehicleId) {
+        this.carModelId = carModelId;
+        this.vinNumber = vinNumber;
         this.color = color;
-        this.return_address = return_address;
-        this.monthly_price = monthly_price;
+        this.returnAddress = returnAddress;
+        this.monthlyPrice = monthlyPrice;
         this.mileage = mileage;
-        this.vehicle_id = vehicle_id;
+        this.vehicleId = vehicleId;
         status = Status.KLAR;
     }
     public RentalCar() {
         status = Status.KLAR;
     }
 
-    public int getVehicle_id() {
-        return vehicle_id;
+    public int getVehicleId() {
+        return vehicleId;
     }
 
-    public void setVehicle_id(int vehicle_id) {
-        this.vehicle_id = vehicle_id;
+    public void setVehicleId(int vehicleId) {
+        this.vehicleId = vehicleId;
     }
 
-    public int getCar_model_id() {
-        return car_model_id;
+    public int getCarModelId() {
+        return carModelId;
     }
 
-    public void setCar_model_id(int car_model_id) {
-        this.car_model_id = car_model_id;
+    public void setCarModelId(int carModelId) {
+        this.carModelId = carModelId;
     }
 
-    public String getVin_number() {
-        return vin_number;
+    public String getVinNumber() {
+        return vinNumber;
     }
 
-    public void setVin_number(String vin_number) {
-        this.vin_number = vin_number;
+    public void setVinNumber(String vinNumber) {
+        this.vinNumber = vinNumber;
     }
 
     public String getColor() {
@@ -59,20 +59,20 @@ public class RentalCar {
         this.color = color;
     }
 
-    public String getReturn_address() {
-        return return_address;
+    public String getReturnAddress() {
+        return returnAddress;
     }
 
-    public void setReturn_address(String return_adress) {
-        this.return_address = return_adress;
+    public void setReturnAddress(String return_adress) {
+        this.returnAddress = return_adress;
     }
 
-    public double getMonthly_Price() {
-        return monthly_price;
+    public double getMonthlyPrice() {
+        return monthlyPrice;
     }
 
-    public void setMonthly_Price(double monthly_price) {
-        this.monthly_price = monthly_price;
+    public void setMonthlyPrice(double monthly_price) {
+        this.monthlyPrice = monthly_price;
     }
 
     public int getMileage() {
