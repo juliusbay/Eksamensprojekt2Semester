@@ -2,7 +2,8 @@ package org.example.eksamensprojekt2semester.Model;
 
 import java.util.Date;
 
-public class BookingModel {
+public class Booking {
+
     public enum LeaseType {
         LIMITED("Limited"),
         UNLIMITED("Unlimited");
@@ -40,7 +41,7 @@ public class BookingModel {
 
 
 
-    public BookingModel(int booking_id, int vehicle_id, String customer_name, String customer_email, String customer_phone, LeaseType lease_type, Date lease_start_date, Date lease_end_date, double contract_price, boolean advance_buyer) {
+    public Booking(int booking_id, int vehicle_id, String customer_name, String customer_email, String customer_phone, LeaseType lease_type, Date lease_start_date, Date lease_end_date, double contract_price, boolean advance_buyer) {
         this.booking_id = booking_id;
         this.vehicle_id = vehicle_id;
         this.customer_name = customer_name;
@@ -54,7 +55,7 @@ public class BookingModel {
     }
 
 
-    public BookingModel(int vehicle_id, String customer_name, String customer_email, String customer_phone, Date lease_start_date, Date lease_end_date, double contract_price, boolean advance_buyer) {
+    public Booking(int vehicle_id, String customer_name, String customer_email, String customer_phone, Date lease_start_date, Date lease_end_date, double contract_price, boolean advance_buyer) {
         this.vehicle_id = vehicle_id;
         this.customer_name = customer_name;
         this.customer_email = customer_email;
@@ -63,6 +64,18 @@ public class BookingModel {
         this.lease_end_date = lease_end_date;
         this.contract_price = contract_price;
         this.advance_buyer = advance_buyer;
+    }
+
+    public Booking(int vehicleId, String costumer_name, String customer_email, String customer_phone, LeaseType leaseType, java.sql.Date sqlDateStart, java.sql.Date sqlDateEnd, int contractPrice, boolean isAdvanceBuyer) {
+        this.vehicle_id = vehicleId;
+        this.customer_name=costumer_name;
+        this.customer_email=customer_email;
+        this.customer_phone=customer_phone;
+        this.lease_start_date = sqlDateStart;
+        this.lease_end_date = sqlDateEnd;
+        this.contract_price = contractPrice;
+        this.advance_buyer = isAdvanceBuyer;
+        this.lease_type=leaseType;
     }
 
     public LeaseType getLease_type() {
@@ -114,7 +127,7 @@ public class BookingModel {
     }
 
     public java.sql.Date getLease_start_date() {
-        return lease_start_date;
+        return (java.sql.Date) lease_start_date;
     }
 
     public void setLease_start_date(Date lease_start_date) {
@@ -122,7 +135,7 @@ public class BookingModel {
     }
 
     public java.sql.Date getLease_end_date() {
-        return lease_end_date;
+        return (java.sql.Date) lease_end_date;
     }
 
     public void setLease_end_date(Date lease_end_date) {
