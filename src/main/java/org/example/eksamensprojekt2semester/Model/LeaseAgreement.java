@@ -29,7 +29,7 @@ public class LeaseAgreement {
     }
 
     public int leaseAgreementId;
-    public int optionalId;
+    public int chosen_optionals;
     public int vehicleId;
     public int customerId;
     public LeaseType leaseType;
@@ -38,7 +38,6 @@ public class LeaseAgreement {
     public Date leaseEndDate;
     public boolean initialPayment;
     public String returnLocation;
-    public int monthlyPrice;
 
 
     public int getLeaseAgreementId() {
@@ -49,12 +48,12 @@ public class LeaseAgreement {
         this.leaseAgreementId = leaseAgreementId;
     }
 
-    public int getOptionalId() {
-        return optionalId;
+    public int getChosen_optionals() {
+        return chosen_optionals;
     }
 
-    public void setOptionalId(int optionalId) {
-        this.optionalId = optionalId;
+    public void setChosen_optionals(int chosen_optionals) {
+        this.chosen_optionals = chosen_optionals;
     }
 
     public int getVehicleId() {
@@ -123,11 +122,4 @@ public class LeaseAgreement {
         this.returnLocation = returnLocation;
     }
 
-    public int getMonthlyPrice() {
-        return monthlyPrice;
-    }
-
-    public void setMonthlyPrice(int monthlyPrice) {
-        this.monthlyPrice = monthlyPrice;
-    }
 }

@@ -49,13 +49,12 @@ CREATE TABLE lease_agreement (
                         lease_end_date DATE,
                         initial_payment BOOLEAN,
                         return_location VARCHAR(255),
-                        monthly_price INT,
                         FOREIGN KEY (vehicle_id) REFERENCES cars(vehicle_id),
-                        FOREIGN KEY (optional_id) REFERENCES optional(optional_id)
+                        FOREIGN KEY (optional_id) REFERENCES chosen_choice(choice_id)
 );
 
-CREATE TABLE optional(
-                        optional_id INT PRIMARY KEY AUTO_INCREMENT,
+CREATE TABLE chosen_choice(
+                        choice_id INT PRIMARY KEY AUTO_INCREMENT,
                         clever_unlimited_network DOUBLE ,
                         clever_unlimited_hybrid DOUBLE,
                         clever_unlimited DOUBLE,

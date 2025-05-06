@@ -1,6 +1,6 @@
 package org.example.eksamensprojekt2semester.Model;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class Damage {
     private int damageId;
@@ -58,7 +58,7 @@ public class Damage {
         this.damagePrice = damagePrice;
     }
 
-    public Date getDamageDate() {
+    public java.sql.Date getDamageDate() {
         return damageDate;
     }
 
