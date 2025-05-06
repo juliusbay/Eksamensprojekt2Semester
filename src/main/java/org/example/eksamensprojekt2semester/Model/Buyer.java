@@ -1,12 +1,12 @@
 package org.example.eksamensprojekt2semester.Model;
 
 public class Buyer {
-    int buyerId;
-    String fullName;
-    String email;
-    int phoneNumber;
-    boolean isPreBought;
-    int vehicleID;
+    private int buyerId;
+    private String fullName;
+    private String email;
+    private int phoneNumber;
+    private boolean isPreBought;
+    private int vehicleID;
 
     public Buyer(String fullName, String email, int phoneNumber, boolean isPreBought, int vehicleID) {
         this.fullName = fullName;
