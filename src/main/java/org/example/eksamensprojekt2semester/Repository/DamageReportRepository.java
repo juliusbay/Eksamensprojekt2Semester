@@ -35,7 +35,7 @@ public class DamageReportRepository {
                     damageReport.setReportDate(resultSet.getDate("report_date"));
                     damageReport.setDamageType(resultSet.getString("damage_type"));
                     damageReport.setDamagePrice(resultSet.getDouble("damage_price"));
-                    damageReport.setHandledBy(resultSet.getInt("handled_by"));
+                    damageReport.setHandledBy(userRepository.getUserByUserId(resultSet.getInt("handled_by")));
                 }
             }
         } catch (SQLException e) {
@@ -64,7 +64,7 @@ public class DamageReportRepository {
                             resultSet.getDate("report_date"),
                             resultSet.getString("damage_type"),
                             resultSet.getDouble("damage_price"),
-                            resultSet.getInt("user_id")
+                            userRepository.getUserByUserId(resultSet.getInt("user_id"))
                     );
                     listOfDamageReports.add(damageReport);
                 }
@@ -85,7 +85,7 @@ public class DamageReportRepository {
             statement.setDate(2, damageReport.getReportDate());
             statement.setString(3, damageReport.getDamageType());
             statement.setDouble(4, damageReport.getDamagePrice());
-            statement.setInt(5, damageReport.getHandledBy());
+            statement.setInt(5, damageReport.getHandledBy().getUserId());
 
             statement.executeUpdate();
         } catch (SQLException e) {
@@ -103,7 +103,7 @@ public class DamageReportRepository {
             statement.setDate(2, damageReport.getReportDate());
             statement.setString(3, damageReport.getDamageType());
             statement.setDouble(4, damageReport.getDamagePrice());
-            statement.setInt(5, damageReport.getHandledBy());
+            statement.setInt(5, damageReport.getHandledBy().getUserId());
             statement.setInt(6, damageReport.getReportId());
         } catch (SQLException e) {
             e.printStackTrace();

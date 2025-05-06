@@ -56,15 +56,15 @@ public class BookingRepository {
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
 
-            statement.setInt(1, booking.getVehicle_id());
-            statement.setString(2, booking.getCustomer_name());
-            statement.setString(3, booking.getCustomer_email());
-            statement.setString(4, booking.getCustomer_phone());
-            statement.setString(5, booking.getLease_type().toString());
-            statement.setDate(6, booking.getLease_start_date());
-            statement.setDate(7, booking.getLease_end_date());
-            statement.setDouble(8, booking.getContract_price());
-            statement.setBoolean(9, booking.isAdvance_buyer());
+            statement.setInt(1, booking.getVehicleId());
+            statement.setString(2, booking.getCustomerName());
+            statement.setString(3, booking.getCustomerEmail());
+            statement.setString(4, booking.getCustomerPhone());
+            statement.setString(5, booking.getLeaseType().toString());
+            statement.setDate(6, booking.getLeaseStartDate());
+            statement.setDate(7, booking.getLeaseEndDate());
+            statement.setDouble(8, booking.getContractPrice());
+            statement.setBoolean(9, booking.isAdvanceBuyer());
 
             statement.executeUpdate();
         } catch (SQLException e) {
@@ -123,16 +123,16 @@ public class BookingRepository {
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
 
-            statement.setInt(1, booking.getVehicle_id());
-            statement.setString(2, booking.getCustomer_name());
-            statement.setString(3, booking.getCustomer_email());
-            statement.setString(4, booking.getCustomer_phone());
-            statement.setString(5, booking.getLease_type().toString());
-            statement.setDate(6, booking.getLease_start_date());
-            statement.setDate(7, booking.getLease_end_date());
-            statement.setDouble(8, booking.getContract_price());
-            statement.setBoolean(9, booking.isAdvance_buyer());
-            statement.setInt(10, booking.getBooking_id());
+            statement.setInt(1, booking.getVehicleId());
+            statement.setString(2, booking.getCustomerName());
+            statement.setString(3, booking.getCustomerEmail());
+            statement.setString(4, booking.getCustomerPhone());
+            statement.setString(5, booking.getLeaseType().toString());
+            statement.setDate(6, booking.getLeaseStartDate());
+            statement.setDate(7, booking.getLeaseEndDate());
+            statement.setDouble(8, booking.getContractPrice());
+            statement.setBoolean(9, booking.isAdvanceBuyer());
+            statement.setInt(10, booking.getBookingId());
 
             statement.executeUpdate();
         } catch (SQLException e) {

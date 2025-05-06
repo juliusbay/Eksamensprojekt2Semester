@@ -74,7 +74,7 @@ public class UserRepository {
 
     // Method for updating users in the database.
     public void updateUser(User user){
-        String sql = "UPDATE users SET (first_name = ?, last_name = ?, short_name = ?, email = ?, password = ?, role = ?) WHERE user_id = ?";
+        String sql = "UPDATE users SET first_name = ?, last_name = ?, short_name = ?, email = ?, password = ?, role = ? WHERE user_id = ?";
 
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)){

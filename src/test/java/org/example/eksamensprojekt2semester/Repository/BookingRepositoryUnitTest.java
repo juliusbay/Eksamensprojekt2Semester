@@ -8,13 +8,11 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.ui.Model;
 
 import java.sql.Date;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.refEq;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -80,13 +78,13 @@ public class BookingRepositoryUnitTest {
         Booking actualBooking = bookingCaptor.getValue();
 
         // Compare each field individually to ensure the booking was created correctly
-        assertEquals(expectedBooking.getVehicle_id(), actualBooking.getVehicle_id());
-        assertEquals(expectedBooking.getCustomer_name(), actualBooking.getCustomer_name());
-        assertEquals(expectedBooking.getCustomer_email(), actualBooking.getCustomer_email());
-        assertEquals(expectedBooking.getCustomer_phone(), actualBooking.getCustomer_phone());
-        assertEquals(expectedBooking.getLease_type(), actualBooking.getLease_type());
-        assertEquals(expectedBooking.getContract_price(), actualBooking.getContract_price());
-        assertEquals(expectedBooking.isAdvance_buyer(), actualBooking.isAdvance_buyer());
+        assertEquals(expectedBooking.getVehicleId(), actualBooking.getVehicleId());
+        assertEquals(expectedBooking.getCustomerName(), actualBooking.getCustomerName());
+        assertEquals(expectedBooking.getCustomerEmail(), actualBooking.getCustomerEmail());
+        assertEquals(expectedBooking.getCustomerPhone(), actualBooking.getCustomerPhone());
+        assertEquals(expectedBooking.getLeaseType(), actualBooking.getLeaseType());
+        assertEquals(expectedBooking.getContractPrice(), actualBooking.getContractPrice());
+        assertEquals(expectedBooking.isAdvanceBuyer(), actualBooking.isAdvanceBuyer());
 
     }
 
