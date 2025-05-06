@@ -1,6 +1,6 @@
 package org.example.eksamensprojekt2semester.Model;
 
-public class RentalCar {
+public class Car {
 
     private int vehicleId;
     private int carModelId;
@@ -13,7 +13,7 @@ public class RentalCar {
 
     public enum Status {KLAR,SKADET,TIL_KLARGØRING,UDLEJET}
 
-    public RentalCar(int carModelId, String vinNumber, String color, String returnAddress, double monthlyPrice, int mileage, int vehicleId) {
+    public Car(int carModelId, String vinNumber, String color, String returnAddress, double monthlyPrice, int mileage, int vehicleId) {
         this.carModelId = carModelId;
         this.vinNumber = vinNumber;
         this.color = color;
@@ -23,7 +23,7 @@ public class RentalCar {
         this.vehicleId = vehicleId;
         status = Status.KLAR;
     }
-    public RentalCar() {
+    public Car() {
         status = Status.KLAR;
     }
 
