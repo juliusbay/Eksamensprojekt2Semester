@@ -37,6 +37,22 @@ CREATE TABLE cars (
                             FOREIGN KEY (car_model_id) REFERENCES car_model(car_model_id)
 );
 
+CREATE TABLE chosen_choice(
+                              choice_id INT PRIMARY KEY AUTO_INCREMENT,
+                              clever_unlimited_network DOUBLE ,
+                              clever_unlimited_hybrid DOUBLE,
+                              clever_unlimited DOUBLE,
+                              color_price DOUBLE,
+                              viking_road_help DOUBLE,
+                              green_tax DOUBLE,
+                              low_self_insurance DOUBLE,
+                              initial_payment DOUBLE,
+                              monthly_kilometers DOUBLE,
+                              drop_off_insurance DOUBLE,
+                              tyre_rental DOUBLE
+
+);
+
 
 CREATE TABLE lease_agreement (
                         lease_agreement_id INT PRIMARY KEY AUTO_INCREMENT,
@@ -51,22 +67,6 @@ CREATE TABLE lease_agreement (
                         return_location VARCHAR(255),
                         FOREIGN KEY (vehicle_id) REFERENCES cars(vehicle_id),
                         FOREIGN KEY (optional_id) REFERENCES chosen_choice(choice_id)
-);
-
-CREATE TABLE chosen_choice(
-                        choice_id INT PRIMARY KEY AUTO_INCREMENT,
-                        clever_unlimited_network DOUBLE ,
-                        clever_unlimited_hybrid DOUBLE,
-                        clever_unlimited DOUBLE,
-                        color_price DOUBLE,
-                        viking_road_help DOUBLE,
-                        green_tax DOUBLE,
-                        low_self_insurance DOUBLE,
-                        initial_payment DOUBLE,
-                        monthly_kilometers DOUBLE,
-                        drop_off_insurance DOUBLE,
-                        tyre_rental DOUBLE
-
 );
 
 CREATE TABLE customers (
@@ -92,6 +92,15 @@ CREATE TABLE purchase_agreement(
                         FOREIGN KEY (customer_id) REFERENCES customers(customer_id)
 );
 
+CREATE TABLE damage(
+                       damage_id INT PRIMARY KEY AUTO_INCREMENT,
+                       vehicle_id INT,
+                       damage_type VARCHAR(255),
+                       damage_price DECIMAL(10,2),
+                       damage_date DATE,
+                       FOREIGN KEY (vehicle_id) REFERENCES cars(vehicle_id)
+)
+
 
 CREATE TABLE condition_report (
                         condition_report_id INT PRIMARY KEY AUTO_INCREMENT,
@@ -104,14 +113,5 @@ CREATE TABLE condition_report (
                         FOREIGN KEY (vehicle_id) REFERENCES cars(vehicle_id),
                         FOREIGN KEY (damage_id) REFERENCES damage(damage_id)
 );
-
-CREATE TABLE damage(
-                        damage_id INT PRIMARY KEY AUTO_INCREMENT,
-                        vehicle_id INT,
-                        damage_type VARCHAR(255),
-                        damage_price DECIMAL(10,2),
-                        damage_date DATE,
-                        FOREIGN KEY (vehicle_id) REFERENCES cars(vehicle_id)
-)
 
 
