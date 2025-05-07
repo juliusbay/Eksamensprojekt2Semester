@@ -1,5 +1,7 @@
 package org.example.eksamensprojekt2semester.Model;
 
+import org.example.eksamensprojekt2semester.Enum.Role;
+
 public class Employee {
     private int employeeId;
     private String firstName;
@@ -9,25 +11,25 @@ public class Employee {
     private String password;
     private Role role;
 
-    public enum Role {ADMIN, FORRETNINGSUDVIKLER, DATAREGISTRERING, MEKANIKER};
-
-    public Employee(String firstName, String lastName, String email, String password, Role role) {
+    public Employee(int employeeId, String firstName, String lastName, String shortName, String email, String password, Role role) {
+        this.employeeId = employeeId;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.shortName = shortName;
         this.email = email;
         this.password = password;
-        shortName = (firstName.substring(0,2) + lastName.substring(0,3)).toUpperCase() + employeeId;
+        this.role = role;
     }
 
-    public Employee(){
+    public Employee() {
     }
 
     public int getEmployeeId() {
         return employeeId;
     }
 
-    public void setEmployeeId(int userId) {
-        this.employeeId = userId;
+    public void setEmployeeId(int employeeId) {
+        this.employeeId = employeeId;
     }
 
     public String getFirstName() {
@@ -74,7 +76,15 @@ public class Employee {
         return role;
     }
 
+    public String getRoleValue() {
+        return role.name();
+    }
+
     public void setRole(Role role) {
         this.role = role;
+    }
+
+    public void setRoleFromString(String role) {
+        this.role = Role.fromString(role);
     }
 }

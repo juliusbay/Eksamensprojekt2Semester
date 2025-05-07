@@ -10,7 +10,7 @@ CREATE TABLE employee (
                           short_name VARCHAR(5),
                           email VARCHAR(255) UNIQUE NOT NULL,
                           password VARCHAR(255) NOT NULL,
-                          role ENUM('ADMIN', 'FORRETNINGSUDVIKLER', 'DATAREGISTRERING', 'MEKANIKER') NOT NULL
+                          role ENUM('ADMIN', 'BUSINESS_DEVELOPER', 'DATA_RECORDING', 'MECHANIC') NOT NULL
 );
 
 INSERT INTO employee (employee_id, first_name, last_name, short_name, email, password, role) VALUES

@@ -33,11 +33,7 @@ public class EmployeeRepository {
                         employee.setShortName(resultSet.getString("short_name"));
                         employee.setEmail(resultSet.getString("email"));
                         employee.setPassword(resultSet.getString("password"));
-
-                        // The string value from the DB needs to be converted to an Enum again before it can be set for the user.
-                        String roleAsString = resultSet.getString("role");
-                        Employee.Role role = Employee.Role.valueOf(roleAsString);
-                        employee.setRole(role);
+                        employee.setRoleFromString(resultSet.getString("role"));
                     }
                 }
 
@@ -60,10 +56,7 @@ public class EmployeeRepository {
             statement.setString(3, employee.getShortName());
             statement.setString(4, employee.getEmail());
             statement.setString(5, employee.getPassword());
-
-            // The Role enum from the user object needs to be converted to a string before it can be stored in the database.
-            String roleAsString = employee.getRole().toString();
-            statement.setString(6, roleAsString);
+            statement.setString(6, employee.getRoleValue());
 
             statement.executeUpdate();
 
@@ -84,11 +77,7 @@ public class EmployeeRepository {
             statement.setString(3, employee.getShortName());
             statement.setString(4, employee.getEmail());
             statement.setString(5, employee.getPassword());
-
-            // The Role enum from the Employee object needs to be converted to a string before it can be stored in the database.
-            String roleAsString = employee.getRole().toString();
-            statement.setString(6, roleAsString);
-
+            statement.setString(6, employee.getRoleValue());
             statement.setInt(7, employee.getEmployeeId());
 
             statement.executeUpdate();
