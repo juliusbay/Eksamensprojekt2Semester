@@ -32,7 +32,7 @@ INSERT INTO car_model (model_name, brand, fuel_type, model_year, gear_box, car_e
 VALUES ('Model X', 'Tesla', 'ELECTRIC', 2024, 'AUTOMATIC', 0, 'Performance', 750000);
 
 
-CREATE TABLE cars (
+CREATE TABLE car (
                      vehicle_id INT PRIMARY KEY AUTO_INCREMENT UNIQUE,
                      fk_car_model_id INT,
                      vin_number VARCHAR(50) UNIQUE,
@@ -42,7 +42,7 @@ CREATE TABLE cars (
                      status ENUM('READY', 'DAMAGED', 'GETTING_REPAIRED', 'RENTED') DEFAULT 'READY',
                      FOREIGN KEY (fk_car_model_id) REFERENCES car_model(car_model_id)
 );
-INSERT INTO cars (fk_car_model_id, vin_number, color, monthly_price, bought, status)
+INSERT INTO car (fk_car_model_id, vin_number, color, monthly_price, bought, status)
 VALUES
     (1, '1HGBH41JXMN109186', 'Red', 199.99, TRUE, 'READY');
 
