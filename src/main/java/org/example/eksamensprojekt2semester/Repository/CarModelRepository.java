@@ -59,6 +59,8 @@ public class CarModelRepository {
             statement.setInt(5, carModel.getCarEmission());
             statement.setString(6, carModel.getCarEquipment());
             statement.setDouble(7, carModel.getSteelPrice());
+
+            statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -77,6 +79,8 @@ public class CarModelRepository {
             statement.setInt(5, carModel.getCarEmission());
             statement.setString(6, carModel.getCarEquipment());
             statement.setDouble(7, carModel.getSteelPrice());
+
+            statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }

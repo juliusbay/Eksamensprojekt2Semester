@@ -114,7 +114,6 @@ public class ConditionReportRepository {
             statement.setInt(1, id);
 
             statement.executeUpdate();
-
         } catch (SQLException e) {
             e.printStackTrace();
         }

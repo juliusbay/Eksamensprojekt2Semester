@@ -28,6 +28,7 @@ public class CarRepository {
 
             try (ResultSet resultSet = statement.executeQuery()){
                 if (resultSet.next()){
+                    car.setVehicleId(resultSet.getInt("vehicle_id"));
                     car.setFkCarModelId(resultSet.getInt("fk_car_model_id"));
                     car.setVinNumber(resultSet.getString("vin_number"));
                     car.setColor(resultSet.getString("color"));
@@ -80,6 +81,7 @@ public class CarRepository {
             statement.setDouble(4, car.getMonthlyPrice());
             statement.setBoolean(5, car.isBought());
             statement.setString(6, car.getStatus().name());
+
             statement.executeUpdate();
 
         } catch (SQLException e) {
@@ -106,8 +108,6 @@ public class CarRepository {
             statement.setInt(7,car.getVehicleId());
 
             statement.executeUpdate();
-
-
 
         }catch(SQLException e){
             e.printStackTrace();

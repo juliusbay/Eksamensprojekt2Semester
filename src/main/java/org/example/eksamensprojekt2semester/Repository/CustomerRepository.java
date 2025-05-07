@@ -26,6 +26,7 @@ public class CustomerRepository {
 
                 try (ResultSet resultSet = statement.executeQuery()){
                     if (resultSet.next()){
+                        customer.setCustomerId(resultSet.getInt("customer_id"));
                         customer.setFirstName(resultSet.getString("first_name"));
                         customer.setLastName(resultSet.getString("last_name"));
                         customer.setEmail(resultSet.getString("email"));
