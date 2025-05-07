@@ -58,7 +58,7 @@ CREATE TABLE customer (
                           postal_code INT,
                           cpr_number INT,
                           fk_vehicle_id INT,
-                          FOREIGN KEY (fk_vehicle_id) REFERENCES cars(vehicle_id)
+                          FOREIGN KEY (fk_vehicle_id) REFERENCES car(vehicle_id)
 );
 
 CREATE TABLE lease_agreement (
@@ -71,7 +71,7 @@ CREATE TABLE lease_agreement (
                                  lease_end_date DATE,
                                  lease_price DOUBLE,
                                  return_location VARCHAR(255),
-                                 FOREIGN KEY (fk_vehicle_id) REFERENCES cars(vehicle_id),
+                                 FOREIGN KEY (fk_vehicle_id) REFERENCES car(vehicle_id),
                                  FOREIGN KEY (fk_customer_id) REFERENCES customer(customer_id)
 );
 
@@ -81,7 +81,7 @@ CREATE TABLE purchase_agreement(
                                    fk_customer_id INT,
                                    paid BOOLEAN,
                                    car_price DOUBLE(10, 2),
-                                   FOREIGN KEY (fk_vehicle_id) REFERENCES cars(vehicle_id),
+                                   FOREIGN KEY (fk_vehicle_id) REFERENCES car(vehicle_id),
                                    FOREIGN KEY (fk_customer_id) REFERENCES customer(customer_id)
 );
 
@@ -111,7 +111,7 @@ CREATE TABLE damage(
                        damage_type VARCHAR(255),
                        damage_price DECIMAL(10,2),
                        damage_date DATE,
-                       FOREIGN KEY (fk_vehicle_id) REFERENCES cars(vehicle_id)
+                       FOREIGN KEY (fk_vehicle_id) REFERENCES car(vehicle_id)
 );
 
 CREATE TABLE condition_report (
@@ -120,7 +120,7 @@ CREATE TABLE condition_report (
                                   fk_vehicle_id INT,
                                   handled_by VARCHAR(50),
                                   report_date DATE,
-                                  FOREIGN KEY (fk_vehicle_id) REFERENCES cars(vehicle_id),
+                                  FOREIGN KEY (fk_vehicle_id) REFERENCES car(vehicle_id),
                                   FOREIGN KEY (fk_damage_id) REFERENCES damage(damage_id)
 );
 
