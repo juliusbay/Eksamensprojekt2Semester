@@ -1,120 +1,120 @@
-DROP DATABASE IF EXISTS Fleetmanager_db;
-CREATE DATABASE Fleetmanager_db;
-USE Fleetmanager_db;
+DROP DATABASE IF EXISTS fleetmanager_db;
+CREATE DATABASE fleetmanager_db;
+USE fleetmanager_db;
 
 
 CREATE TABLE employee (
-                       employee_id INT PRIMARY KEY AUTO_INCREMENT,
-                       first_name VARCHAR(255) NOT NULL,
-                       last_name VARCHAR(255) NOT NULL,
-                       short_name VARCHAR(50),
-                       email VARCHAR(255) UNIQUE NOT NULL,
-                       password VARCHAR(255) NOT NULL,
-                       role ENUM('ADMIN', 'FORRETNINGSUDVIKLER', 'DATAREGISTRERING',
-                           'MEKANIKER') NOT NULL
+                          employee_id INT PRIMARY KEY AUTO_INCREMENT UNIQUE,
+                          first_name VARCHAR(50) NOT NULL,
+                          last_name VARCHAR(50) NOT NULL,
+                          short_name VARCHAR(5),
+                          email VARCHAR(255) UNIQUE NOT NULL,
+                          password VARCHAR(255) NOT NULL,
+                          role ENUM('ADMIN', 'FORRETNINGSUDVIKLER', 'DATAREGISTRERING', 'MEKANIKER') NOT NULL
 );
 
 INSERT INTO employee (employee_id, first_name, last_name, short_name, email, password, role) VALUES
-                                                (1, "Demo", "Demo", "demo", "demo", "demo", "ADMIN");
+                                                (1, "Demo", "Demo", "demo", "demo@demo.demo", "demo", "ADMIN");
 
 CREATE TABLE car_model (
-                        car_model_id INT PRIMARY KEY AUTO_INCREMENT,
-                        model_year INT,
-                        brand VARCHAR(100),
-                        model_name VARCHAR(100),
-                        fuel_type ENUM ('El', 'Benzin', 'Hybrid'),
-                        gear_box ENUM ('Automatisk', 'Manuel'),
-                        car_emission INT,
-                        car_equipment ENUM('La Prima', 'Sport', 'Advance', 'Performance', 'Rock', 'Techno', 'Icon', 'Long range', 'Varebil'),
-                        steel_price INT
+                           car_model_id INT PRIMARY KEY AUTO_INCREMENT UNIQUE,
+                           model_name VARCHAR(100),
+                           brand VARCHAR(100),
+                           fuel_type ENUM ('ELECTRIC', 'GASOLINE', 'HYBRID'),
+                           model_year INT,
+                           gear_box ENUM ('AUTOMATIC', 'MANUAL'),
+                           car_emission INT,
+                           car_equipment ENUM('La Prima', 'Sport', 'Advance', 'Performance', 'Rock', 'Techno', 'Icon', 'Long range', 'Varebil'),
+                           steel_price INT
 );
 
-CREATE TABLE cars (
-                            vehicle_id INT PRIMARY KEY AUTO_INCREMENT UNIQUE,
-                            car_model_id INT,
-                            vin_number VARCHAR(50) UNIQUE,
-                            color VARCHAR(50),
-                            return_address VARCHAR(255),
-                            monthly_price DECIMAL(10,2),
-                            status ENUM('klar', 'skadet', 'til_klargøring', 'udlejet') DEFAULT 'klar',
-                            FOREIGN KEY (car_model_id) REFERENCES car_model(car_model_id)
+CREATE TABLE car (
+                     vehicle_id INT PRIMARY KEY AUTO_INCREMENT UNIQUE,
+                     fk_car_model_id INT,
+                     vin_number VARCHAR(50) UNIQUE,
+                     color VARCHAR(50),
+                     monthly_price DECIMAL(10,2),
+                     bought BOOLEAN,
+                     status ENUM('READY', 'DAMAGED', 'GETTING_REPAIRED', 'RENTED') DEFAULT 'READY',
+                     FOREIGN KEY (fk_car_model_id) REFERENCES car_model(car_model_id)
 );
 
-CREATE TABLE chosen_choice(
-                              choice_id INT PRIMARY KEY AUTO_INCREMENT,
-                              clever_unlimited_network DOUBLE ,
-                              clever_unlimited_hybrid DOUBLE,
-                              clever_unlimited DOUBLE,
-                              color_price DOUBLE,
-                              viking_road_help DOUBLE,
-                              green_tax DOUBLE,
-                              low_self_insurance DOUBLE,
-                              initial_payment DOUBLE,
-                              monthly_kilometers DOUBLE,
-                              drop_off_insurance DOUBLE,
-                              tyre_rental DOUBLE
-
+CREATE TABLE customer (
+                          customer_id INT PRIMARY KEY AUTO_INCREMENT,
+                          first_name VARCHAR(50) NOT NULL,
+                          last_name VARCHAR(50),
+                          email VARCHAR(255),
+                          phone_number VARCHAR(20),
+                          address VARCHAR(100),
+                          city VARCHAR(100),
+                          postal_code INT,
+                          cpr_number INT,
+                          fk_vehicle_id INT,
+                          FOREIGN KEY (fk_vehicle_id) REFERENCES car(vehicle_id)
 );
-
 
 CREATE TABLE lease_agreement (
-                        lease_agreement_id INT PRIMARY KEY AUTO_INCREMENT,
-                        optional_id INT,
-                        vehicle_id INT,
-                        customer_id INT,
-                        lease_type ENUM('Limited', 'Unlimited'),
-                        lease_price INT,
-                        lease_start_date DATE,
-                        lease_end_date DATE,
-                        initial_payment BOOLEAN,
-                        return_location VARCHAR(255),
-                        FOREIGN KEY (vehicle_id) REFERENCES cars(vehicle_id),
-                        FOREIGN KEY (optional_id) REFERENCES chosen_choice(choice_id)
-);
-
-CREATE TABLE customers (
-                        customer_id INT PRIMARY KEY AUTO_INCREMENT,
-                        full_name VARCHAR(255) NOT NULL,
-                        email VARCHAR(255),
-                        phone_number VARCHAR(20),
-                        address VARCHAR(100),
-                        city VARCHAR(100),
-                        postal_code INT,
-                        cpr_number INT,
-                        vehicle_id INT,
-                        FOREIGN KEY (vehicle_id) REFERENCES cars(vehicle_id)
+                                 lease_agreement_id INT PRIMARY KEY AUTO_INCREMENT,
+                                 fk_vehicle_id INT,
+                                 fk_customer_id INT,
+                                 fk_chosen_choice INT,
+                                 lease_type ENUM('LIMITED', 'UNLIMITED'),
+                                 lease_start_date DATE,
+                                 lease_end_date DATE,
+                                 lease_price DOUBLE,
+                                 return_location VARCHAR(255),
+                                 FOREIGN KEY (fk_vehicle_id) REFERENCES car(vehicle_id),
+                                 FOREIGN KEY (fk_customer_id) REFERENCES customer(customer_id)
 );
 
 CREATE TABLE purchase_agreement(
-                        purchase_agreement_id INT PRIMARY KEY AUTO_INCREMENT,
-                        vehicle_id INT,
-                        customer_id INT,
-                        advance_buyer BOOLEAN,
-                        car_price DOUBLE,
-                        FOREIGN KEY (vehicle_id) REFERENCES cars(vehicle_id),
-                        FOREIGN KEY (customer_id) REFERENCES customers(customer_id)
+                                   purchase_agreement_id INT PRIMARY KEY AUTO_INCREMENT UNIQUE,
+                                   fk_vehicle_id INT,
+                                   fk_customer_id INT,
+                                   paid BOOLEAN,
+                                   car_price DOUBLE(10, 2),
+                                   FOREIGN KEY (fk_vehicle_id) REFERENCES car(vehicle_id),
+                                   FOREIGN KEY (fk_customer_id) REFERENCES customer(customer_id)
+);
+
+CREATE TABLE choice(
+                       choice_id INT PRIMARY KEY AUTO_INCREMENT UNIQUE,
+                       choice_name VARCHAR(50),
+                       choice_price DOUBLE(10, 2)
+);
+
+CREATE TABLE chosen_choice(
+                              fk_choice_id INT,
+                              fk_lease_agreement_id INT,
+                              FOREIGN KEY (fk_choice_id) REFERENCES choice(choice_id),
+                              FOREIGN KEY (fk_lease_agreement_id) REFERENCES lease_agreement(lease_agreement_id)
+);
+
+CREATE TABLE available_choice(
+                                 fk_car_model_id INT,
+                                 fk_choice_id INT,
+                                 FOREIGN KEY (fk_car_model_id) REFERENCES car_model(car_model_id),
+                                 FOREIGN KEY (fk_choice_id) REFERENCES choice(choice_id)
 );
 
 CREATE TABLE damage(
-                       damage_id INT PRIMARY KEY AUTO_INCREMENT,
-                       vehicle_id INT,
+                       damage_id INT PRIMARY KEY AUTO_INCREMENT UNIQUE ,
+                       fk_vehicle_id INT,
                        damage_type VARCHAR(255),
                        damage_price DECIMAL(10,2),
                        damage_date DATE,
-                       FOREIGN KEY (vehicle_id) REFERENCES cars(vehicle_id)
-)
-
+                       FOREIGN KEY (fk_vehicle_id) REFERENCES car(vehicle_id)
+);
 
 CREATE TABLE condition_report (
-                        condition_report_id INT PRIMARY KEY AUTO_INCREMENT,
-                        damage_id INT,
-                        vehicle_id INT,
-                        handled_by INT,
-                        report_date DATE,
-                        damage_type VARCHAR(255),
-                        damage_price DECIMAL(10,2),
-                        FOREIGN KEY (vehicle_id) REFERENCES cars(vehicle_id),
-                        FOREIGN KEY (damage_id) REFERENCES damage(damage_id)
+                                  condition_report_id INT PRIMARY KEY AUTO_INCREMENT UNIQUE ,
+                                  fk_damage_id INT,
+                                  fk_vehicle_id INT,
+                                  handled_by VARCHAR(50),
+                                  report_date DATE,
+                                  FOREIGN KEY (fk_vehicle_id) REFERENCES car(vehicle_id),
+                                  FOREIGN KEY (fk_damage_id) REFERENCES damage(damage_id)
 );
+
 
 
