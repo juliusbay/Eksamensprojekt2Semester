@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Login page</title>
+    <link th:href="@{/CSS/Login.css}" rel="stylesheet">
+</head>
+<body>
+
+<div class="main-div">
+    <h1>
+        Velkommen til Fleet Manager, login for at komme igang
+    </h1>
+
+    <div class="login-form">
+        <form>
+            <div>
+                <label for="shortname">Brugernavn:</label>
+                <input type="text" id="shortname" name="shortname" />
+            </div>
+            <div>
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" />
+            </div>
+            <div>
+                <button type="submit">Login</button>
+            </div>
+        </form>
+    </div>
+
+</div>
+
+</body>
+</html>

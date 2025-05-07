@@ -8,9 +8,9 @@ public class DamageReport {
     Date reportDate;
     String damageType;
     double damagePrice;
-    User handledBy; // References userID
+    Employee handledBy; // References employeeId
 
-    public DamageReport(int reportId, int vehicleId, Date reportDate, String damageType, double damagePrice, User handledBy) {
+    public DamageReport(int reportId, int vehicleId, Date reportDate, String damageType, double damagePrice, Employee handledBy) {
         this.reportId = reportId;
         this.vehicleId = vehicleId;
         this.reportDate = reportDate;
@@ -61,11 +61,11 @@ public class DamageReport {
         this.damagePrice = damagePrice;
     }
 
-    public User getHandledBy() {
+    public Employee getHandledBy() {
         return handledBy;
     }
 
-    public void setHandledBy(User handledBy) {
+    public void setHandledBy(Employee handledBy) {
         this.handledBy = handledBy;
     }
 }

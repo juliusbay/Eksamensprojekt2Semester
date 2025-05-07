@@ -17,7 +17,7 @@ public class CarModelRepository {
     DataSource dataSource;
 
     @Autowired
-    UserRepository userRepository;
+    EmployeeRepository employeeRepository;
 
     public CarModel getCarModelById (int id) {
         CarModel carModel = new CarModel();

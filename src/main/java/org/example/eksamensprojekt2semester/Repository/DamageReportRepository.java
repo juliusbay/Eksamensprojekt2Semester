@@ -18,7 +18,7 @@ public class DamageReportRepository {
     DataSource dataSource;
 
     @Autowired
-    UserRepository userRepository;
+    EmployeeRepository employeeRepository;
 
     public DamageReport getDamageReportById (int id) {
         DamageReport damageReport = new DamageReport();
@@ -35,7 +35,7 @@ public class DamageReportRepository {
                     damageReport.setReportDate(resultSet.getDate("report_date"));
                     damageReport.setDamageType(resultSet.getString("damage_type"));
                     damageReport.setDamagePrice(resultSet.getDouble("damage_price"));
-                    damageReport.setHandledBy(userRepository.getUserByUserId(resultSet.getInt("handled_by")));
+                    damageReport.setHandledBy(employeeRepository.getEmployeeByEmployeeId(resultSet.getInt("handled_by")));
                 }
             }
         } catch (SQLException e) {
@@ -44,17 +44,17 @@ public class DamageReportRepository {
         return damageReport;
     }
 
-    public ArrayList<DamageReport> getDamageReportByUserId (int userId) {
+    public ArrayList<DamageReport> getDamageReportByEmployeeId (int employeeId) {
         ArrayList<DamageReport> listOfDamageReports = new ArrayList<>();
-        String sql = "SELECT dr.report_id, dr.vehicle_id, dr.report_date, dr.damage_type, dr.damage_price, users.user_id " +
+        String sql = "SELECT dr.report_id, dr.vehicle_id, dr.report_date, dr.damage_type, dr.damage_price, employee.employee_id " +
                 "FROM damage_reports dr " +
-                "INNER JOIN users ON dr.handled_by = users.user_id " +
+                "INNER JOIN employee ON dr.handled_by = employee.employee_id " +
                 "WHERE handled_by = ?";
 
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
 
-            statement.setInt(1, userId);
+            statement.setInt(1, employeeId);
 
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
@@ -64,7 +64,7 @@ public class DamageReportRepository {
                             resultSet.getDate("report_date"),
                             resultSet.getString("damage_type"),
                             resultSet.getDouble("damage_price"),
-                            userRepository.getUserByUserId(resultSet.getInt("user_id"))
+                            employeeRepository.getEmployeeByEmployeeId(resultSet.getInt("employee_id"))
                     );
                     listOfDamageReports.add(damageReport);
                 }
@@ -85,7 +85,7 @@ public class DamageReportRepository {
             statement.setDate(2, damageReport.getReportDate());
             statement.setString(3, damageReport.getDamageType());
             statement.setDouble(4, damageReport.getDamagePrice());
-            statement.setInt(5, damageReport.getHandledBy().getUserId());
+            statement.setInt(5, damageReport.getHandledBy().getEmployeeId());
 
             statement.executeUpdate();
         } catch (SQLException e) {
@@ -103,7 +103,7 @@ public class DamageReportRepository {
             statement.setDate(2, damageReport.getReportDate());
             statement.setString(3, damageReport.getDamageType());
             statement.setDouble(4, damageReport.getDamagePrice());
-            statement.setInt(5, damageReport.getHandledBy().getUserId());
+            statement.setInt(5, damageReport.getHandledBy().getEmployeeId());
             statement.setInt(6, damageReport.getReportId());
         } catch (SQLException e) {
             e.printStackTrace();

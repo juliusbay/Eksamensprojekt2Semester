@@ -1,7 +1,7 @@
 package org.example.eksamensprojekt2semester.Model;
 
-public class User {
-    private int userId;
+public class Employee {
+    private int employeeId;
     private String firstName;
     private String lastName;
     private String shortName;
@@ -11,23 +11,23 @@ public class User {
 
     public enum Role {ADMIN, FORRETNINGSUDVIKLER, DATAREGISTRERING, MEKANIKER};
 
-    public User(String firstName, String lastName, String email, String password, Role role) {
+    public Employee(String firstName, String lastName, String email, String password, Role role) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
-        shortName = (firstName.substring(0,2) + lastName.substring(0,3)).toUpperCase() + userId;
+        shortName = (firstName.substring(0,2) + lastName.substring(0,3)).toUpperCase() + employeeId;
     }
 
-    public User(){
+    public Employee(){
     }
 
-    public int getUserId() {
-        return userId;
+    public int getEmployeeId() {
+        return employeeId;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setEmployeeId(int userId) {
+        this.employeeId = userId;
     }
 
     public String getFirstName() {

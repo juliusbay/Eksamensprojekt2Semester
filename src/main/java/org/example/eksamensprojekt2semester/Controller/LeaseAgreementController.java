@@ -1,6 +1,5 @@
 package org.example.eksamensprojekt2semester.Controller;
 
-import org.example.eksamensprojekt2semester.Repository.BookingRepository;
 import org.springframework.stereotype.Controller;
 
 @Controller
