@@ -24,7 +24,7 @@ CREATE TABLE car_model (
                            model_year INT,
                            gear_box ENUM ('AUTOMATIC', 'MANUAL'),
                            car_emission INT,
-                           car_equipment ENUM('La Prima', 'Sport', 'Advance', 'Performance', 'Rock', 'Techno', 'Icon', 'Long range', 'Varebil'),
+                           car_equipment ENUM('LAPRIMA', 'SPORT', 'ADVANCE', 'PERFORMANCE', 'ROCK', 'TECHNO', 'ICON', 'LONG_RANGE', 'VAREBIL'),
                            steel_price INT
 );
 
