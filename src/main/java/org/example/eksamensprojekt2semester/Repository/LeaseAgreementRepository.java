@@ -27,7 +27,6 @@ public class LeaseAgreementRepository {
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
                     leaseAgreement.setLeaseAgreementId(resultSet.getInt("lease_agreement_id"));
-                    leaseAgreement.setFkChosenChoice(resultSet.getInt("fk_chosen_optionals"));
                     leaseAgreement.setFkVehicleId(resultSet.getInt("fk_vehicle_id"));
                     leaseAgreement.setFkCustomerId(resultSet.getInt("fk_customer_id"));
                     leaseAgreement.setLeaseType(LeaseAgreement.LeaseType.valueOf(resultSet.getString("lease_type")));
@@ -57,18 +56,17 @@ public class LeaseAgreementRepository {
     }
 
     public void createLeaseAgreement(LeaseAgreement leaseAgreement) throws SQLException {
-        String sql = "INSERT INTO lease_agreement (fk_chosen_choice, fk_vehicle_id, fk_customer_id, lease_type, lease_price, lease_start_date, lease_end_date, return_location) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO lease_agreement (fk_vehicle_id, fk_customer_id, lease_type, lease_price, lease_start_date, lease_end_date, return_location) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
-                statement.setInt(1, leaseAgreement.getFkChosenChoice());
-                statement.setInt(2, leaseAgreement.getFkVehicleId());
-                statement.setInt(3, leaseAgreement.getFkCustomerId());
-                statement.setString(4, leaseAgreement.getLeaseType().toString());
-                statement.setDouble(5, leaseAgreement.getLeasePrice());
-                statement.setDate(6, leaseAgreement.getLeaseStartDate());
-                statement.setDate(7, leaseAgreement.getLeaseEndDate());
-                statement.setString(8, leaseAgreement.getReturnLocation());
+                statement.setInt(1, leaseAgreement.getFkVehicleId());
+                statement.setInt(2, leaseAgreement.getFkCustomerId());
+                statement.setString(3, leaseAgreement.getLeaseType().toString());
+                statement.setDouble(4, leaseAgreement.getLeasePrice());
+                statement.setDate(5, leaseAgreement.getLeaseStartDate());
+                statement.setDate(6, leaseAgreement.getLeaseEndDate());
+                statement.setString(7, leaseAgreement.getReturnLocation());
 
                 statement.executeUpdate();
 
@@ -78,19 +76,18 @@ public class LeaseAgreementRepository {
     }
 
     public void updateLeaseAgreement(LeaseAgreement leaseAgreement) throws SQLException {
-        String sql = "UPDATE lease_agreement SET fk_chosen_choice = ?, fk_vehicle_id = ?, fk_customer_id = ?, lease_type = ?, lease_price = ?, lease_start_date = ?, lease_end_date = ?, return_location = ?, WHERE lease_agreement_id =?";
+        String sql = "UPDATE lease_agreement SET fk_vehicle_id = ?, fk_customer_id = ?, lease_type = ?, lease_price = ?, lease_start_date = ?, lease_end_date = ?, return_location = ?, WHERE lease_agreement_id =?";
 
         try (Connection connection = dataSource.getConnection();
             PreparedStatement statement = connection.prepareStatement(sql)){
-                statement.setInt(1, leaseAgreement.getFkChosenChoice());
-                statement.setInt(2, leaseAgreement.getFkVehicleId());
-                statement.setInt(3, leaseAgreement.getFkCustomerId());
-                statement.setString(4, leaseAgreement.getLeaseType().toString());
-                statement.setDouble(5, leaseAgreement.getLeasePrice());
-                statement.setDate(6, leaseAgreement.getLeaseStartDate());
-                statement.setDate(7, leaseAgreement.getLeaseEndDate());
-                statement.setString(8, leaseAgreement.getReturnLocation());
-                statement.setInt(9, leaseAgreement.getLeaseAgreementId());
+                statement.setInt(1, leaseAgreement.getFkVehicleId());
+                statement.setInt(2, leaseAgreement.getFkCustomerId());
+                statement.setString(3, leaseAgreement.getLeaseType().toString());
+                statement.setDouble(4, leaseAgreement.getLeasePrice());
+                statement.setDate(5, leaseAgreement.getLeaseStartDate());
+                statement.setDate(6, leaseAgreement.getLeaseEndDate());
+                statement.setString(7, leaseAgreement.getReturnLocation());
+                statement.setInt(8, leaseAgreement.getLeaseAgreementId());
 
 
                 statement.executeUpdate();

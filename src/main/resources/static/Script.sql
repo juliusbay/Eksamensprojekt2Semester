@@ -65,7 +65,6 @@ CREATE TABLE lease_agreement (
                                  lease_agreement_id INT PRIMARY KEY AUTO_INCREMENT,
                                  fk_vehicle_id INT,
                                  fk_customer_id INT,
-                                 fk_chosen_choice INT,
                                  lease_type ENUM('LIMITED', 'UNLIMITED'),
                                  lease_start_date DATE,
                                  lease_end_date DATE,
@@ -73,6 +72,7 @@ CREATE TABLE lease_agreement (
                                  return_location VARCHAR(255),
                                  FOREIGN KEY (fk_vehicle_id) REFERENCES car(vehicle_id),
                                  FOREIGN KEY (fk_customer_id) REFERENCES customer(customer_id)
+
 );
 
 CREATE TABLE purchase_agreement(

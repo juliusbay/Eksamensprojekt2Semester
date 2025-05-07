@@ -29,7 +29,6 @@ public class LeaseAgreement {
     }
 
     public int leaseAgreementId;
-    public int fkChosenChoice;
     public int fkVehicleId;
     public int fkCustomerId;
     public LeaseType leaseType;
@@ -45,14 +44,6 @@ public class LeaseAgreement {
 
     public void setLeaseAgreementId(int leaseAgreementId) {
         this.leaseAgreementId = leaseAgreementId;
-    }
-
-    public int getFkChosenChoice() {
-        return fkChosenChoice;
-    }
-
-    public void setFkChosenChoice(int fkChosenChoice) {
-        this.fkChosenChoice = fkChosenChoice;
     }
 
     public int getFkVehicleId() {

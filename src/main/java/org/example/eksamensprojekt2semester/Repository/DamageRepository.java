@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 
 @Repository
@@ -87,6 +88,33 @@ public class DamageRepository {
         }catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+
+    public ArrayList<Damage> getDamageByVehicleID(int vehicleId) {
+        ArrayList<Damage> damages = new ArrayList<>();
+        String sql = "SELECT * FROM damage WHERE vehicle_id = ?";
+
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, vehicleId);
+
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    Damage damage = new Damage();
+                    damage.setDamageId(resultSet.getInt("damage_id"));
+                    damage.setFkVehicleId(resultSet.getInt("vehicle_id"));
+                    damage.setDamageType(resultSet.getString("damage_type"));
+                    damage.setDamageDate(resultSet.getDate("damage_date"));
+                    damage.setDamagePrice(resultSet.getDouble("damage_price"));
+                    damages.add(damage);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return damages;
     }
 
 }
