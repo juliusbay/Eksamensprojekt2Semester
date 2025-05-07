@@ -14,6 +14,9 @@ CREATE TABLE employee (
                            'MEKANIKER') NOT NULL
 );
 
+INSERT INTO employee (employee_id, first_name, last_name, short_name, email, password, role) VALUES
+                                                (1, "Demo", "Demo", "demo", "demo", "demo", "ADMIN");
+
 CREATE TABLE car_model (
                         car_model_id INT PRIMARY KEY AUTO_INCREMENT,
                         model_year INT,

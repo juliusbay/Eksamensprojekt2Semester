@@ -24,7 +24,7 @@ public class EmployeeController {
     @Autowired
     DataSource dataSource;
 
-    @PostMapping
+    @PostMapping("/processLogin")
     public String processLogin(
             @RequestParam("shortname") String shortName,
             @RequestParam("password") String password,
@@ -43,7 +43,7 @@ public class EmployeeController {
                     if (storedPassword.equals(password))
                     {
                         Employee employee = new Employee();
-                        employee.setEmployeeId((resultSet.getInt("user_id")));
+                        employee.setEmployeeId((resultSet.getInt("employee_id")));
                         employee.setFirstName(resultSet.getString("first_name"));
                         employee.setLastName(resultSet.getString("last_name"));
                         employee.setShortName(resultSet.getString("short_name"));
@@ -55,14 +55,14 @@ public class EmployeeController {
 
                         session.setAttribute("loggedInUser", employee);
 
-                        return "redirect:/profile";
+                        return "redirect:/";
                     } else { // If the user cannot be validated, it will display "error" attribute.
                         redirectAttributes.addFlashAttribute("error", "Ugyldigt brugernavn eller kode");
-                        return "redirect:/";
+                        return "redirect:/login";
                     }
                 } else {
                     redirectAttributes.addFlashAttribute("error", "Ugyldigt brugernavn eller kode");
-                    return "redirect:/";
+                    return "redirect:/login";
                 }
             }
         }
@@ -71,6 +71,6 @@ public class EmployeeController {
             e.printStackTrace();
             redirectAttributes.addFlashAttribute("error", "Database fejl:" +e.getMessage());
         }
-        return "redirect:/profile";
+        return "redirect:/";
     }
 }
