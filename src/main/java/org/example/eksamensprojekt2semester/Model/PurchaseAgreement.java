@@ -3,23 +3,23 @@ package org.example.eksamensprojekt2semester.Model;
 public class PurchaseAgreement {
 
         private int purchaseAgreementId;
-        private int vehicleId;
-        private int customerId;
-        private boolean advanceBuyer;
+        private int fkVehicleId;
+        private int fkCustomerId;
+        private boolean paid;
         private double carPrice;
 
-        public PurchaseAgreement(int purchaseAgreementId, int vehicleId, int customerId, boolean advanceBuyer, double carPrice) {
+        public PurchaseAgreement(int purchaseAgreementId, int fkVehicleId, int fkCustomerId, boolean paid, double carPrice) {
             this.purchaseAgreementId = purchaseAgreementId;
-            this.vehicleId = vehicleId;
-            this.customerId = customerId;
-            this.advanceBuyer = advanceBuyer;
+            this.fkVehicleId = fkVehicleId;
+            this.fkCustomerId = fkCustomerId;
+            this.paid = paid;
             this.carPrice = carPrice;
         }
 
-        public PurchaseAgreement(int vehicleId, int customerId, boolean advanceBuyer, double carPrice) {
-            this.vehicleId = vehicleId;
-            this.customerId = customerId;
-            this.advanceBuyer = advanceBuyer;
+        public PurchaseAgreement(int fkVehicleId, int fkCustomerId, boolean paid, double carPrice) {
+            this.fkVehicleId = fkVehicleId;
+            this.fkCustomerId = fkCustomerId;
+            this.paid = paid;
             this.carPrice = carPrice;
         }
 
@@ -33,28 +33,28 @@ public class PurchaseAgreement {
             this.purchaseAgreementId = purchaseAgreementId;
         }
 
-        public int getVehicleId() {
-            return vehicleId;
+        public int getFkVehicleId() {
+            return fkVehicleId;
         }
 
-        public void setVehicleId(int vehicleId) {
-            this.vehicleId = vehicleId;
+        public void setFkVehicleId(int fkVehicleId) {
+            this.fkVehicleId = fkVehicleId;
         }
 
-        public int getCustomerId() {
-            return customerId;
+        public int getFkCustomerId() {
+            return fkCustomerId;
         }
 
-        public void setCustomerId(int customerId) {
-            this.customerId = customerId;
+        public void setFkCustomerId(int fkCustomerId) {
+            this.fkCustomerId = fkCustomerId;
         }
 
-        public boolean isAdvanceBuyer() {
-            return advanceBuyer;
+        public boolean isPaid() {
+            return paid;
         }
 
-        public void setAdvanceBuyer(boolean advanceBuyer) {
-            this.advanceBuyer = advanceBuyer;
+        public void setPaid(boolean paid) {
+            this.paid = paid;
         }
 
         public double getCarPrice() {

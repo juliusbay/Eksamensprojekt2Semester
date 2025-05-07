@@ -4,21 +4,21 @@ import java.sql.Date;
 
 public class Damage {
     private int damageId;
-    private int vehicleId;
+    private int fkVehicleId;
     private String damageType;
     private double damagePrice;
     private Date damageDate;
 
-    public Damage(int damageId, int vehicleId, String damageType, double damagePrice, Date damageDate) {
+    public Damage(int damageId, int fkVehicleId, String damageType, double damagePrice, Date damageDate) {
         this.damageId = damageId;
-        this.vehicleId = vehicleId;
+        this.fkVehicleId = fkVehicleId;
         this.damageType = damageType;
         this.damagePrice = damagePrice;
         this.damageDate = damageDate;
     }
 
-    public Damage(int vehicleId, String damageType, double damagePrice, Date damageDate) {
-        this.vehicleId = vehicleId;
+    public Damage(int fkVehicleId, String damageType, double damagePrice, Date damageDate) {
+        this.fkVehicleId = fkVehicleId;
         this.damageType = damageType;
         this.damagePrice = damagePrice;
         this.damageDate = damageDate;
@@ -34,12 +34,12 @@ public class Damage {
         this.damageId = damageId;
     }
 
-    public int getVehicleId() {
-        return vehicleId;
+    public int getFkVehicleId() {
+        return fkVehicleId;
     }
 
-    public void setVehicleId(int vehicleId) {
-        this.vehicleId = vehicleId;
+    public void setFkVehicleId(int fkVehicleId) {
+        this.fkVehicleId = fkVehicleId;
     }
 
     public String getDamageType() {

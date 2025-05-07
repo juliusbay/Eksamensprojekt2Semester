@@ -29,14 +29,13 @@ public class LeaseAgreement {
     }
 
     public int leaseAgreementId;
-    public int chosen_optionals;
-    public int vehicleId;
-    public int customerId;
+    public int fkChosenChoice;
+    public int fkVehicleId;
+    public int fkCustomerId;
     public LeaseType leaseType;
     public int leasePrice;
     public Date leaseStartDate;
     public Date leaseEndDate;
-    public boolean initialPayment;
     public String returnLocation;
 
 
@@ -48,28 +47,28 @@ public class LeaseAgreement {
         this.leaseAgreementId = leaseAgreementId;
     }
 
-    public int getChosen_optionals() {
-        return chosen_optionals;
+    public int getFkChosenChoice() {
+        return fkChosenChoice;
     }
 
-    public void setChosen_optionals(int chosen_optionals) {
-        this.chosen_optionals = chosen_optionals;
+    public void setFkChosenChoice(int fkChosenChoice) {
+        this.fkChosenChoice = fkChosenChoice;
     }
 
-    public int getVehicleId() {
-        return vehicleId;
+    public int getFkVehicleId() {
+        return fkVehicleId;
     }
 
-    public void setVehicleId(int vehicleId) {
-        this.vehicleId = vehicleId;
+    public void setFkVehicleId(int fkVehicleId) {
+        this.fkVehicleId = fkVehicleId;
     }
 
-    public int getCustomerId() {
-        return customerId;
+    public int getFkCustomerId() {
+        return fkCustomerId;
     }
 
-    public void setCustomerId(int customerId) {
-        this.customerId = customerId;
+    public void setFkCustomerId(int fkCustomerId) {
+        this.fkCustomerId = fkCustomerId;
     }
 
 
@@ -104,14 +103,6 @@ public class LeaseAgreement {
 
     public void setLeaseEndDate(Date leaseEndDate) {
         this.leaseEndDate = leaseEndDate;
-    }
-
-    public boolean isInitialPayment() {
-        return initialPayment;
-    }
-
-    public void setInitialPayment(boolean initialPayment) {
-        this.initialPayment = initialPayment;
     }
 
     public String getReturnLocation() {
