@@ -6,21 +6,16 @@ public class Car {
     private int carModelId;
     private String vinNumber;
     private String color;
-    private String returnAddress;
     private double monthlyPrice;
-    private int mileage;
     public Status status;
 
     public enum Status {KLAR,SKADET,TIL_KLARGØRING,UDLEJET}
 
-    public Car(int carModelId, String vinNumber, String color, String returnAddress, double monthlyPrice, int mileage, int vehicleId) {
+    public Car(int carModelId, String vinNumber, String color, double monthlyPrice) {
         this.carModelId = carModelId;
         this.vinNumber = vinNumber;
         this.color = color;
-        this.returnAddress = returnAddress;
         this.monthlyPrice = monthlyPrice;
-        this.mileage = mileage;
-        this.vehicleId = vehicleId;
         status = Status.KLAR;
     }
     public Car() {
@@ -59,13 +54,7 @@ public class Car {
         this.color = color;
     }
 
-    public String getReturnAddress() {
-        return returnAddress;
-    }
 
-    public void setReturnAddress(String return_adress) {
-        this.returnAddress = return_adress;
-    }
 
     public double getMonthlyPrice() {
         return monthlyPrice;
@@ -75,13 +64,7 @@ public class Car {
         this.monthlyPrice = monthly_price;
     }
 
-    public int getMileage() {
-        return mileage;
-    }
 
-    public void setMileage(int mileage) {
-        this.mileage = mileage;
-    }
 
     public Status getStatus() {
         return status;

@@ -14,7 +14,7 @@ CREATE TABLE employee (
 );
 
 INSERT INTO employee (employee_id, first_name, last_name, short_name, email, password, role) VALUES
-                                                (1, "Demo", "Demo", "demo", "demo@demo.demo", "demo", "ADMIN");
+                                                (1, 'Demo', 'Demo', 'demo', 'demo@demo.demo', 'demo', 'ADMIN');
 
 CREATE TABLE car_model (
                            car_model_id INT PRIMARY KEY AUTO_INCREMENT UNIQUE,
@@ -28,7 +28,11 @@ CREATE TABLE car_model (
                            steel_price INT
 );
 
-CREATE TABLE car (
+INSERT INTO car_model (model_name, brand, fuel_type, model_year, gear_box, car_emission, car_equipment, steel_price)
+VALUES ('Model X', 'Tesla', 'ELECTRIC', 2024, 'AUTOMATIC', 0, 'Performance', 750000);
+
+
+CREATE TABLE cars (
                      vehicle_id INT PRIMARY KEY AUTO_INCREMENT UNIQUE,
                      fk_car_model_id INT,
                      vin_number VARCHAR(50) UNIQUE,
@@ -38,6 +42,10 @@ CREATE TABLE car (
                      status ENUM('READY', 'DAMAGED', 'GETTING_REPAIRED', 'RENTED') DEFAULT 'READY',
                      FOREIGN KEY (fk_car_model_id) REFERENCES car_model(car_model_id)
 );
+INSERT INTO cars (fk_car_model_id, vin_number, color, monthly_price, bought, status)
+VALUES
+    (1, '1HGBH41JXMN109186', 'Red', 199.99, TRUE, 'READY');
+
 
 CREATE TABLE customer (
                           customer_id INT PRIMARY KEY AUTO_INCREMENT,
@@ -50,7 +58,7 @@ CREATE TABLE customer (
                           postal_code INT,
                           cpr_number INT,
                           fk_vehicle_id INT,
-                          FOREIGN KEY (fk_vehicle_id) REFERENCES car(vehicle_id)
+                          FOREIGN KEY (fk_vehicle_id) REFERENCES cars(vehicle_id)
 );
 
 CREATE TABLE lease_agreement (
@@ -63,7 +71,7 @@ CREATE TABLE lease_agreement (
                                  lease_end_date DATE,
                                  lease_price DOUBLE,
                                  return_location VARCHAR(255),
-                                 FOREIGN KEY (fk_vehicle_id) REFERENCES car(vehicle_id),
+                                 FOREIGN KEY (fk_vehicle_id) REFERENCES cars(vehicle_id),
                                  FOREIGN KEY (fk_customer_id) REFERENCES customer(customer_id)
 );
 
@@ -73,7 +81,7 @@ CREATE TABLE purchase_agreement(
                                    fk_customer_id INT,
                                    paid BOOLEAN,
                                    car_price DOUBLE(10, 2),
-                                   FOREIGN KEY (fk_vehicle_id) REFERENCES car(vehicle_id),
+                                   FOREIGN KEY (fk_vehicle_id) REFERENCES cars(vehicle_id),
                                    FOREIGN KEY (fk_customer_id) REFERENCES customer(customer_id)
 );
 
@@ -103,7 +111,7 @@ CREATE TABLE damage(
                        damage_type VARCHAR(255),
                        damage_price DECIMAL(10,2),
                        damage_date DATE,
-                       FOREIGN KEY (fk_vehicle_id) REFERENCES car(vehicle_id)
+                       FOREIGN KEY (fk_vehicle_id) REFERENCES cars(vehicle_id)
 );
 
 CREATE TABLE condition_report (
@@ -112,7 +120,7 @@ CREATE TABLE condition_report (
                                   fk_vehicle_id INT,
                                   handled_by VARCHAR(50),
                                   report_date DATE,
-                                  FOREIGN KEY (fk_vehicle_id) REFERENCES car(vehicle_id),
+                                  FOREIGN KEY (fk_vehicle_id) REFERENCES cars(vehicle_id),
                                   FOREIGN KEY (fk_damage_id) REFERENCES damage(damage_id)
 );
 

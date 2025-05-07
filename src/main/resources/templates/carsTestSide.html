@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href = "../static/css/layer.css" th:href="@{/css/layout.css}" rel = "stylesheet">
+</head>
+<body>
+
+<div class="container">
+<div class="form-container">
+    <h2> Opret en ny bil </h2>
+    <form class="form2" th:action="@{/getCreateCar}" method="post">
+        <label for="car-model-id">Model id:</label>
+        <input type="text" id="car-model-id" name="car-model-id" placeholder="Indtast bilens model id" required>
+
+        <label for="vin-number">Stelnummer:</label>
+        <input type="text" id="vin-number" name="vin-number" placeholder="Indtast bilens stelnummer" required>
+
+        <label for="monthly-price">Indtast bilens månedlige pris:</label>
+        <input type="number" id="monthly-price" name="monthly-price" placeholder="Indtast bilens månedlige pris" required>
+
+        <label for="color">Indtast bilens farve:</label>
+        <input type="text" id="color" name="color" placeholder="Indtast bilens farve" required>
+
+        <button type="submit"> Opret bil </button>
+    </form>
+</div>
+</div>
+
+<h2>Biler i systemet</h2>
+<div class="container">
+    <div class="square" th:each="car :${cars}">
+
+        <div>
+            <label>CarVehicleId:</label>
+            <span th:text="${car.vehicleId}">CarVehicleId:</span>
+        </div>
+
+        <div>
+            <label>CarModelId:</label>
+            <span th:text="${car.carModelId}">CarModelId:</span>
+        </div>
+
+        <div>
+            <label>VinNumber:</label>
+            <span th:text="${car.vinNumber}">VinNumber</span>
+        </div>
+
+        <div>
+            <label>Color:</label>
+            <span th:text="${car.color}">Color</span>
+        </div>
+
+        <div>
+            <label>MonthlyPrice:</label>
+            <span th:text="${car.monthlyPrice}">MonthlyPrice</span>
+        </div>
+
+        <br><br><br><br><br>
+
+    </div>
+
+
+</div>
+
+
+</body>
+</html>

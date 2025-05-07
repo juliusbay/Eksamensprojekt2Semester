@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 @Repository
 
@@ -19,7 +20,7 @@ public class CarRepository {
 
     public Car getCarById(int id) {
         Car car = new Car();
-        String sql = "SELECT * FROM rental_car WHERE vehicle_id = ?";
+        String sql = "SELECT * FROM cars WHERE vehicle_id = ?";
 
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)){
@@ -27,12 +28,10 @@ public class CarRepository {
 
             try (ResultSet resultSet = statement.executeQuery()){
                 if (resultSet.next()){
-                    car.setCarModelId(resultSet.getInt("car_model_id"));
+                    car.setCarModelId(resultSet.getInt("fk_car_model_id"));
                     car.setVinNumber(resultSet.getString("vin_number"));
                     car.setColor(resultSet.getString("color"));
-                    car.setReturnAddress(resultSet.getString("return_address"));
                     car.setMonthlyPrice(resultSet.getDouble("price"));
-                    car.setMileage(resultSet.getInt("mileage"));
 
                 }
             }
@@ -42,18 +41,39 @@ public class CarRepository {
         return car;
     }
 
+    public ArrayList<Car> getAllCars() {
+        ArrayList<Car> cars = new ArrayList<>();
+        String sql = "SELECT * FROM cars";
+        try(Connection connection = dataSource.getConnection();
+        PreparedStatement statement = connection.prepareStatement(sql);
+        ResultSet resultSet = statement.executeQuery()){
+            while (resultSet.next()) {
+                Car car = new Car();
+                car.setVehicleId(resultSet.getInt("vehicle_id"));
+                car.setCarModelId(resultSet.getInt("fk_car_model_id"));
+                car.setVinNumber(resultSet.getString("vin_number"));
+                car.setColor(resultSet.getString("color"));
+                car.setMonthlyPrice(resultSet.getDouble("monthly_price"));
+
+                cars.add(car);
+            }
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+        return cars;
+
+    }
+
 
     public void createCar(Car car){
-        String sql = "INSERT INTO rental_car(car_model_id, vin_number, color, return_address, monthly_price, mileage) VALUES(?,?,?,?,?,?)";
+        String sql = "INSERT INTO cars(car_model_id, vin_number, color, monthly_price) VALUES(?,?,?,?)";
 
         try(Connection connection = dataSource.getConnection();
             PreparedStatement statement = connection.prepareStatement(sql)){
             statement.setInt(1, car.getCarModelId());
             statement.setString(2, car.getVinNumber());
             statement.setString(3, car.getColor());
-            statement.setString(4, car.getReturnAddress());
-            statement.setDouble(5, car.getMonthlyPrice());
-            statement.setDouble(6, car.getMileage());
+            statement.setDouble(4, car.getMonthlyPrice());
             statement.executeUpdate();
 
         } catch (SQLException e) {
@@ -64,7 +84,7 @@ public class CarRepository {
 
 
     public void updateCar(Car car) {
-        String sql = "UPDATE rental_car SET vehicle_id = ?, car_model_id = ?, vin_number = ?, color = ?, return_address = ?, monthly_price = ?, mileage = ?, status = ? WHERE vehicle_id = ?";
+        String sql = "UPDATE cars SET vehicle_id = ?, fk_car_model_id = ?, vin_number = ?, color = ?, monthly_price = ?, status = ? WHERE vehicle_id = ?";
 
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)){
@@ -72,13 +92,11 @@ public class CarRepository {
             statement.setInt(2,car.getCarModelId());
             statement.setString(3,car.getVinNumber());
             statement.setString(4,car.getColor());
-            statement.setString(5,car.getReturnAddress());
-            statement.setDouble(6,car.getMonthlyPrice());
-            statement.setInt(7,car.getMileage());
+            statement.setDouble(5,car.getMonthlyPrice());
 
-            statement.setString(8,car.getStatus().name()); //Stores the string value of the Status enum by converting it to a string using .name();
+            statement.setString(6,car.getStatus().name()); //Stores the string value of the Status enum by converting it to a string using .name();
                                                                 // OBS!!! Hvis der er problemer med setStatus, så er det muligvis her det sker. Dog "burde" den automatisk konvertere tilbage til enum i databasen.
-            statement.setInt(9,car.getVehicleId());
+            statement.setInt(7,car.getVehicleId());
 
             statement.executeUpdate();
 
@@ -89,5 +107,21 @@ public class CarRepository {
         }
 
 
+    }
+
+    public void saveCar(Car car) {
+        String sql = "INSERT INTO cars(fk_car_model_id, vin_number,color, monthly_price) VALUES(?,?,?,?)";
+
+        try (Connection connection = dataSource.getConnection();
+        PreparedStatement statement = connection.prepareStatement(sql)){
+            statement.setInt(1,car.getCarModelId());
+            statement.setString(2,car.getVinNumber());
+            statement.setString(3,car.getColor());
+            statement.setDouble(4,car.getMonthlyPrice());
+
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }
