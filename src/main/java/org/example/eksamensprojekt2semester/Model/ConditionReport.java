@@ -3,11 +3,11 @@ package org.example.eksamensprojekt2semester.Model;
 import java.sql.Date;
 
 public class ConditionReport {
-    int ConditionReportId;
-    int fkDamageId;
-    int fkVehicleId;
-    String handledBy;
-    Date reportDate;
+    private int ConditionReportId;
+    private int fkDamageId;
+    private int fkVehicleId;
+    private String handledBy;
+    private Date reportDate;
 
     public ConditionReport(int conditionReportId, int fkDamageId, int fkVehicleId, String handledBy, Date reportDate) {
         ConditionReportId = conditionReportId;

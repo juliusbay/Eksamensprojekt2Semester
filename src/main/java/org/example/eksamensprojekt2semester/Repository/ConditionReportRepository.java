@@ -20,7 +20,7 @@ public class ConditionReportRepository {
     @Autowired
     EmployeeRepository employeeRepository;
 
-    public ConditionReport getDamageReportById (int id) {
+    public ConditionReport getConditionReportById (int id) {
         ConditionReport conditionReport = new ConditionReport();
         String sql = "SELECT * FROM condition_report WHERE condition_report_id = ?";
 
@@ -43,7 +43,7 @@ public class ConditionReportRepository {
         return conditionReport;
     }
 
-    public ArrayList<ConditionReport> getDamageReportByEmployeeId (int employeeId) {
+    public ArrayList<ConditionReport> getConditionReportByEmployeeId (int employeeId) {
         ArrayList<ConditionReport> listOfConditionReports = new ArrayList<>();
         String sql = "SELECT conRepo.condition_report_id, conRepo.fk_damage_id, conRepo.fk_vehicle_id, employee.short_name, conRepo.report_date " +
                 "FROM condition_report conRepo " +
@@ -73,7 +73,7 @@ public class ConditionReportRepository {
         return listOfConditionReports;
     }
 
-    public void createDamageReport (ConditionReport conditionReport) {
+    public void createConditionReport (ConditionReport conditionReport) {
         String sql = "INSERT INTO condition_report (fk_damage_id, fk_vehicle_id, handled_by, report_date) " +
                 "VALUES (?, ?, ?, ?)";
 
@@ -90,7 +90,7 @@ public class ConditionReportRepository {
         }
     }
 
-    public void updateDamageReport (ConditionReport conditionReport) {
+    public void updateConditionReport (ConditionReport conditionReport) {
         String sql = "UPDATE condition_report SET fk_damage_id = ?, fk_vehicle_id = ?, handled_by = ?, report_date = ?" +
                 "WHERE condition_report_id = ?";
 
@@ -105,7 +105,7 @@ public class ConditionReportRepository {
         }
     }
 
-    public void deleteDamageReportById (int id) {
+    public void deleteConditionReportById (int id) {
         String sql = "DELETE FROM condition_report WHERE condition_report_id = ?";
 
         try (Connection connection = dataSource.getConnection();
