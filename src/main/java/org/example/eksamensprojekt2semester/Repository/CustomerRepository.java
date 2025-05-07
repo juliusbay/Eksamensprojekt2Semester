@@ -97,7 +97,7 @@ public class CustomerRepository {
     }
 
     //Method for deleting buyer by their buyerId
-    public void deleteCustomerByCustomerId(int id){
+    public void deleteCustomerFromCustomerId(int id){
         String sql = "DELETE FROM customer WHERE customer_id = ?";
 
         try (Connection connection = dataSource.getConnection();

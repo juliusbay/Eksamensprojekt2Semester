@@ -1,72 +1,34 @@
 package org.example.eksamensprojekt2semester.Model;
 
+import org.example.eksamensprojekt2semester.Enum.FuelType;
+import org.example.eksamensprojekt2semester.Enum.GearBox;
 
 public class CarModel {
 
-    public enum CarEquipment {
-        LAPRIMA("La Prima"),
-        SPORT("Sport"),
-        ADVANCE("Advance"),
-        PERFORMANCE("Performance"),
-        ROCK("Rock"),
-        TECHNO("Techno"),
-        ICON("Icon"),
-        LONGRANGE("Long range"),
-        VAREBIL("Varebil");
-
-        private final String dbValue;
-
-        CarEquipment(String dbValue) {
-            this.dbValue = dbValue;
-        }
-
-        //Changes "LAPRIMA" to "La Prima"
-        @Override
-        public String toString() {
-            return dbValue;
-        }
-
-        public static CarEquipment fromString(String value) {
-            for (CarEquipment ce : CarEquipment.values()) {
-                if (ce.dbValue.equalsIgnoreCase(value)) {
-                    return ce;
-                }
-            }
-            throw new IllegalArgumentException("Unknown equipment: " + value);
-        }
-    }
-
     private int carModelId;
-    private int modelYear;
+    private String modelName;
     private String brand;
-    private String model;
+    private FuelType fuelType;
+    private int modelYear;
+    private GearBox gearBox;
     private int carEmission;
+    private String carEquipment;
     private double steelPrice;
-    private int registrationFee;
-    private CarEquipment carEquipment;
 
-    public CarModel(int carModelId, int modelYear, String brand, String model, int carEmission, CarEquipment carEquipment, double steelPrice, int registrationFee) {
+    public CarModel(int carModelId, String modelName, String brand, FuelType fuelType, int modelYear, GearBox gearBox, int carEmission, String carEquipment, double steelPrice) {
         this.carModelId = carModelId;
-        this.modelYear = modelYear;
+        this.modelName = modelName;
         this.brand = brand;
-        this.model = model;
+        this.fuelType = fuelType;
+        this.modelYear = modelYear;
+        this.gearBox = gearBox;
         this.carEmission = carEmission;
         this.carEquipment = carEquipment;
         this.steelPrice = steelPrice;
-        this.registrationFee = registrationFee;
     }
 
-    public CarModel(int modelYear, String brand, String model, int carEmission, CarEquipment carEquipment, double steelPrice, int registrationFee) {
-        this.modelYear = modelYear;
-        this.brand = brand;
-        this.model = model;
-        this.carEmission = carEmission;
-        this.carEquipment = carEquipment;
-        this.steelPrice = steelPrice;
-        this.registrationFee = registrationFee;
+    public CarModel() {
     }
-
-    public CarModel() {}
 
     public int getCarModelId() {
         return carModelId;
@@ -76,12 +38,12 @@ public class CarModel {
         this.carModelId = carModelId;
     }
 
-    public int getModelYear() {
-        return modelYear;
+    public String getModelName() {
+        return modelName;
     }
 
-    public void setModelYear(int modelYear) {
-        this.modelYear = modelYear;
+    public void setModelName(String modelName) {
+        this.modelName = modelName;
     }
 
     public String getBrand() {
@@ -92,12 +54,28 @@ public class CarModel {
         this.brand = brand;
     }
 
-    public String getModel() {
-        return model;
+    public FuelType getFuelType() {
+        return fuelType;
     }
 
-    public void setModel(String model) {
-        this.model = model;
+    public void setFuelType(FuelType fuelType) {
+        this.fuelType = fuelType;
+    }
+
+    public int getModelYear() {
+        return modelYear;
+    }
+
+    public void setModelYear(int modelYear) {
+        this.modelYear = modelYear;
+    }
+
+    public GearBox getGearBox() {
+        return gearBox;
+    }
+
+    public void setGearBox(GearBox gearBox) {
+        this.gearBox = gearBox;
     }
 
     public int getCarEmission() {
@@ -108,11 +86,11 @@ public class CarModel {
         this.carEmission = carEmission;
     }
 
-    public CarEquipment getCarEquipment() {
+    public String getCarEquipment() {
         return carEquipment;
     }
 
-    public void setCarEquipment(CarEquipment carEquipment) {
+    public void setCarEquipment(String carEquipment) {
         this.carEquipment = carEquipment;
     }
 
@@ -122,14 +100,6 @@ public class CarModel {
 
     public void setSteelPrice(double steelPrice) {
         this.steelPrice = steelPrice;
-    }
-
-    public int getRegistrationFee() {
-        return registrationFee;
-    }
-
-    public void setRegistrationFee(int registrationFee) {
-        this.registrationFee = registrationFee;
     }
 }
 

@@ -1,5 +1,6 @@
 package org.example.eksamensprojekt2semester.Repository;
 
+import org.example.eksamensprojekt2semester.Enum.FuelType;
 import org.example.eksamensprojekt2semester.Model.CarModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -16,8 +17,6 @@ public class CarModelRepository {
     @Autowired
     DataSource dataSource;
 
-    @Autowired
-    EmployeeRepository employeeRepository;
 
     public CarModel getCarModelById (int id) {
         CarModel carModel = new CarModel();
@@ -30,17 +29,10 @@ public class CarModelRepository {
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
                     carModel.setCarModelId(resultSet.getInt("car_model_id"));
-                    carModel.setModelYear(resultSet.getInt("model_year"));
+                    carModel.setModelName(resultSet.getString("model_name"));
                     carModel.setBrand(resultSet.getString("brand"));
-                    carModel.setModel(resultSet.getString("model"));
-                    carModel.setCarEmission(resultSet.getInt("car_emission"));
-
-                    String carEquipmentAsString = resultSet.getString("car_equipment");
-                    CarModel.CarEquipment carEquipment = CarModel.CarEquipment.valueOf(carEquipmentAsString);
-                    carModel.setCarEquipment(carEquipment);
-
-                    carModel.setSteelPrice(resultSet.getInt("steel_price"));
-                    carModel.setRegistrationFee(resultSet.getInt("registration_fee"));
+                    carModel.setFuelType(FuelType.valueOf("fuel_type"));
+                    carModel.setModelYear(resultSet.getInt("model_year"));
                 }
             }
         } catch (SQLException e) {
@@ -51,43 +43,42 @@ public class CarModelRepository {
     }
 
     public void createCarModel (CarModel carModel) {
-        String sql = "INSERT INTO car_model (model_year, brand, model, car_emission, car_equipment, steel_price, registration_fee) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO car_model (model_name, brand, fuel_type, model_year, gear_box, car_emission, car_equipment, steel_price) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setInt(1, carModel.getModelYear());
+            statement.setString(1, carModel.getModelName());
             statement.setString(2, carModel.getBrand());
-            statement.setString(3, carModel.getModel());
-            statement.setInt(4, carModel.getCarEmission());
-            statement.setString(5, carModel.getCarEquipment().toString()); // enum to string
-            statement.setDouble(6, carModel.getSteelPrice());
-            statement.setInt(7, carModel.getRegistrationFee());
+            statement.setString(3, carModel.getFuelType().name());
+            statement.setInt(4, carModel.getModelYear());
+            statement.setInt(5, carModel.getCarEmission());
+            statement.setString(6, carModel.getCarEquipment());
+            statement.setDouble(7, carModel.getSteelPrice());
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
     public void updateCarModel (CarModel carModel) {
-        String sql = "UPDATE car_model SET model_year = ?, brand = ?, model = ?, car_emission = ?, car_equipment = ?, steel_price = ?, registration_fee = ?" +
-                "WHERE car_model_id = ?";
+        String sql = "UPDATE car_model SET model_name = ?, brand = ?, fuel_type = ?, model_year = ?, gear_box = ?, car_emission = ?, car_equipment = ?, steel_price = ?" +
+                " car_model_id = ?";
 
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setInt(1, carModel.getModelYear());
+            statement.setString(1, carModel.getModelName());
             statement.setString(2, carModel.getBrand());
-            statement.setString(3, carModel.getModel());
-            statement.setInt(4, carModel.getCarEmission());
-            statement.setString(5, carModel.getCarEquipment().toString()); // enum to string
-            statement.setDouble(6, carModel.getSteelPrice());
-            statement.setInt(7, carModel.getRegistrationFee());
-            statement.setInt(8, carModel.getCarModelId());
+            statement.setString(3, carModel.getFuelType().name());
+            statement.setInt(4, carModel.getModelYear());
+            statement.setInt(5, carModel.getCarEmission());
+            statement.setString(6, carModel.getCarEquipment());
+            statement.setDouble(7, carModel.getSteelPrice());
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    public void deleteCarModelById (int id) {
+    public void deleteCarModelFromId (int id) {
         String sql = "DELETE FROM car_model WHERE car_model_id = ?";
 
         try (Connection connection = dataSource.getConnection();

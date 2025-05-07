@@ -105,7 +105,7 @@ public class ConditionReportRepository {
         }
     }
 
-    public void deleteConditionReportById (int id) {
+    public void deleteConditionReportFromId (int id) {
         String sql = "DELETE FROM condition_report WHERE condition_report_id = ?";
 
         try (Connection connection = dataSource.getConnection();
