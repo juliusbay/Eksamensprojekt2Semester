@@ -1,25 +1,35 @@
 package org.example.eksamensprojekt2semester.Model;
 
+import org.example.eksamensprojekt2semester.Enum.Status;
+
 public class Car {
 
     private int vehicleId;
-    private int carModelId;
+    private int fkCarModelId;
     private String vinNumber;
     private String color;
     private double monthlyPrice;
-    public Status status;
+    private boolean bought;
+    private Status status;
 
-    public enum Status {KLAR,SKADET,TIL_KLARGØRING,UDLEJET}
-
-    public Car(int carModelId, String vinNumber, String color, double monthlyPrice) {
-        this.carModelId = carModelId;
+    public Car(int vehicleId, int fkCarModelId, String vinNumber, String color, double monthlyPrice, boolean bought, Status status) {
+        this.vehicleId = vehicleId;
+        this.fkCarModelId = fkCarModelId;
         this.vinNumber = vinNumber;
         this.color = color;
         this.monthlyPrice = monthlyPrice;
-        status = Status.KLAR;
+        this.bought = bought;
+        this.status = status;
     }
+
+    public Car(int fkCarModelId, String vinNumber, String color, double monthlyPrice) {
+        this.fkCarModelId = fkCarModelId;
+        this.vinNumber = vinNumber;
+        this.color = color;
+        this.monthlyPrice = monthlyPrice;
+    }
+
     public Car() {
-        status = Status.KLAR;
     }
 
     public int getVehicleId() {
@@ -30,12 +40,12 @@ public class Car {
         this.vehicleId = vehicleId;
     }
 
-    public int getCarModelId() {
-        return carModelId;
+    public int getFkCarModelId() {
+        return fkCarModelId;
     }
 
-    public void setCarModelId(int carModelId) {
-        this.carModelId = carModelId;
+    public void setFkCarModelId(int fkCarModelId) {
+        this.fkCarModelId = fkCarModelId;
     }
 
     public String getVinNumber() {
@@ -54,23 +64,35 @@ public class Car {
         this.color = color;
     }
 
-
-
     public double getMonthlyPrice() {
         return monthlyPrice;
     }
 
-    public void setMonthlyPrice(double monthly_price) {
-        this.monthlyPrice = monthly_price;
+    public void setMonthlyPrice(double monthlyPrice) {
+        this.monthlyPrice = monthlyPrice;
     }
 
+    public boolean isBought() {
+        return bought;
+    }
 
+    public void setBought(boolean bought) {
+        this.bought = bought;
+    }
 
     public Status getStatus() {
         return status;
     }
 
+    public String getStatusValue() {
+        return status.name();
+    }
+
     public void setStatus(Status status) {
         this.status = status;
+    }
+
+    public void setStatusFromString(String status) {
+        this.status = Status.fromString(status);
     }
 }

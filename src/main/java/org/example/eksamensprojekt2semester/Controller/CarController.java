@@ -52,7 +52,7 @@ public class CarController {
                                @RequestParam("monthly-price") double monthlyPrice,
                                @RequestParam("color") String color){
 
-    String sql = "SELECT * FROM cars WHERE vin_number = ?";
+    String sql = "SELECT * FROM car WHERE vin_number = ?";
 
     try(Connection connection = dataSource.getConnection();
         PreparedStatement statement = connection.prepareStatement(sql)){
@@ -60,7 +60,7 @@ public class CarController {
 
         try (ResultSet resultSet = statement.executeQuery()){
             if (!resultSet.next()){ //Hvis denne ikke kører, er der ikke nogen bil med samme vinNumber i databasen.
-                Car car = new Car(carModelId,vinNumber,color,monthlyPrice);
+                Car car = new Car(carModelId, vinNumber, color, monthlyPrice);
                 carRepository.saveCar(car);
 
                 return "redirect:/";

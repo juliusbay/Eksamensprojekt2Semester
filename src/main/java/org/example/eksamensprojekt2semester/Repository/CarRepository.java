@@ -20,7 +20,7 @@ public class CarRepository {
 
     public Car getCarById(int id) {
         Car car = new Car();
-        String sql = "SELECT * FROM cars WHERE vehicle_id = ?";
+        String sql = "SELECT * FROM car WHERE vehicle_id = ?";
 
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)){
@@ -28,11 +28,12 @@ public class CarRepository {
 
             try (ResultSet resultSet = statement.executeQuery()){
                 if (resultSet.next()){
-                    car.setCarModelId(resultSet.getInt("fk_car_model_id"));
+                    car.setFkCarModelId(resultSet.getInt("fk_car_model_id"));
                     car.setVinNumber(resultSet.getString("vin_number"));
                     car.setColor(resultSet.getString("color"));
-                    car.setMonthlyPrice(resultSet.getDouble("price"));
-
+                    car.setMonthlyPrice(resultSet.getDouble("monthly_price"));
+                    car.setBought(resultSet.getBoolean("bought"));
+                    car.setStatusFromString(resultSet.getString("status"));
                 }
             }
         } catch (SQLException e){
@@ -43,17 +44,20 @@ public class CarRepository {
 
     public ArrayList<Car> getAllCars() {
         ArrayList<Car> cars = new ArrayList<>();
-        String sql = "SELECT * FROM cars";
+        String sql = "SELECT * FROM car";
         try(Connection connection = dataSource.getConnection();
         PreparedStatement statement = connection.prepareStatement(sql);
         ResultSet resultSet = statement.executeQuery()){
             while (resultSet.next()) {
                 Car car = new Car();
+
                 car.setVehicleId(resultSet.getInt("vehicle_id"));
-                car.setCarModelId(resultSet.getInt("fk_car_model_id"));
+                car.setFkCarModelId(resultSet.getInt("fk_car_model_id"));
                 car.setVinNumber(resultSet.getString("vin_number"));
                 car.setColor(resultSet.getString("color"));
                 car.setMonthlyPrice(resultSet.getDouble("monthly_price"));
+                car.setBought(resultSet.getBoolean("bought"));
+                car.setStatusFromString(resultSet.getString("status"));
 
                 cars.add(car);
             }
@@ -66,14 +70,16 @@ public class CarRepository {
 
 
     public void createCar(Car car){
-        String sql = "INSERT INTO cars(car_model_id, vin_number, color, monthly_price) VALUES(?,?,?,?)";
+        String sql = "INSERT INTO car(fk_car_model_id, vin_number, color, monthly_price, bought, status) VALUES(?, ?, ?, ?, ?, ?)";
 
         try(Connection connection = dataSource.getConnection();
             PreparedStatement statement = connection.prepareStatement(sql)){
-            statement.setInt(1, car.getCarModelId());
+            statement.setInt(1, car.getFkCarModelId());
             statement.setString(2, car.getVinNumber());
             statement.setString(3, car.getColor());
             statement.setDouble(4, car.getMonthlyPrice());
+            statement.setBoolean(5, car.isBought());
+            statement.setString(6, car.getStatus().name());
             statement.executeUpdate();
 
         } catch (SQLException e) {
@@ -84,18 +90,19 @@ public class CarRepository {
 
 
     public void updateCar(Car car) {
-        String sql = "UPDATE cars SET vehicle_id = ?, fk_car_model_id = ?, vin_number = ?, color = ?, monthly_price = ?, status = ? WHERE vehicle_id = ?";
+        String sql = "UPDATE car SET vehicle_id = ?, fk_car_model_id = ?, vin_number = ?, color = ?, monthly_price = ?, bought = ?, status = ? " +
+                "WHERE vehicle_id = ?";
 
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)){
-            statement.setInt(1,car.getVehicleId());
-            statement.setInt(2,car.getCarModelId());
-            statement.setString(3,car.getVinNumber());
-            statement.setString(4,car.getColor());
-            statement.setDouble(5,car.getMonthlyPrice());
-
-            statement.setString(6,car.getStatus().name()); //Stores the string value of the Status enum by converting it to a string using .name();
-                                                                // OBS!!! Hvis der er problemer med setStatus, så er det muligvis her det sker. Dog "burde" den automatisk konvertere tilbage til enum i databasen.
+            statement.setInt(1, car.getFkCarModelId());
+            statement.setString(2, car.getVinNumber());
+            statement.setString(3, car.getColor());
+            statement.setDouble(4, car.getMonthlyPrice());
+            statement.setBoolean(5, car.isBought());
+            statement.setString(6, car.getStatus().name()); //Stores the string value of the Status enum by converting it to a string using .name();
+                                                                // OBS!!! Hvis der er problemer med setStatus, så er det muligvis her det sker.
+                                                                //Dog "burde" den automatisk konvertere tilbage til enum i databasen.
             statement.setInt(7,car.getVehicleId());
 
             statement.executeUpdate();
@@ -110,14 +117,17 @@ public class CarRepository {
     }
 
     public void saveCar(Car car) {
-        String sql = "INSERT INTO cars(fk_car_model_id, vin_number,color, monthly_price) VALUES(?,?,?,?)";
+        String sql = "INSERT INTO car(fk_car_model_id, vin_number, color, monthly_price, bought, status) " +
+                "VALUES(?, ?, ?, ?, ?, ?)";
 
         try (Connection connection = dataSource.getConnection();
         PreparedStatement statement = connection.prepareStatement(sql)){
-            statement.setInt(1,car.getCarModelId());
-            statement.setString(2,car.getVinNumber());
-            statement.setString(3,car.getColor());
-            statement.setDouble(4,car.getMonthlyPrice());
+            statement.setInt(1, car.getFkCarModelId());
+            statement.setString(2, car.getVinNumber());
+            statement.setString(3, car.getColor());
+            statement.setDouble(4, car.getMonthlyPrice());
+            statement.setBoolean(5, car.isBought());
+            statement.setString(6, car.getStatusValue());
 
             statement.executeUpdate();
         } catch (SQLException e) {

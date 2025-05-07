@@ -38,7 +38,7 @@ CREATE TABLE car (
                      vin_number VARCHAR(50) UNIQUE,
                      color VARCHAR(50),
                      monthly_price DECIMAL(10,2),
-                     bought BOOLEAN,
+                     bought BOOLEAN DEFAULT FALSE,
                      status ENUM('READY', 'DAMAGED', 'GETTING_REPAIRED', 'RENTED') DEFAULT 'READY',
                      FOREIGN KEY (fk_car_model_id) REFERENCES car_model(car_model_id)
 );
