@@ -48,10 +48,7 @@ public class EmployeeController {
                         employee.setLastName(resultSet.getString("last_name"));
                         employee.setShortName(resultSet.getString("short_name"));
                         employee.setEmail(resultSet.getString("email"));
-
-                        // Parsing string value to Role enum
-                        Employee.Role role = Employee.Role.valueOf(resultSet.getString("role"));
-                        employee.setRole(role);
+                        employee.setRoleFromString(resultSet.getString("role"));
 
                         session.setAttribute("loggedInUser", employee);
 

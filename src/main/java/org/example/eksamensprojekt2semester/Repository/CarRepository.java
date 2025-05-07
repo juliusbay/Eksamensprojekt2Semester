@@ -71,7 +71,8 @@ public class CarRepository {
 
 
     public void createCar(Car car){
-        String sql = "INSERT INTO car(fk_car_model_id, vin_number, color, monthly_price, bought, status) VALUES(?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO car(fk_car_model_id, vin_number, color, monthly_price, bought, status) " +
+                "VALUES(?, ?, ?, ?, ?, ?)";
 
         try(Connection connection = dataSource.getConnection();
             PreparedStatement statement = connection.prepareStatement(sql)){
