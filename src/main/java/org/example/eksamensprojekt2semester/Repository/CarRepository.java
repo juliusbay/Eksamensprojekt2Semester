@@ -113,26 +113,5 @@ public class CarRepository {
         }catch(SQLException e){
             e.printStackTrace();
         }
-
-
-    }
-
-    public void saveCar(Car car) {
-        String sql = "INSERT INTO car(fk_car_model_id, vin_number, color, monthly_price, bought, status) " +
-                "VALUES(?, ?, ?, ?, ?, ?)";
-
-        try (Connection connection = dataSource.getConnection();
-        PreparedStatement statement = connection.prepareStatement(sql)){
-            statement.setInt(1, car.getFkCarModelId());
-            statement.setString(2, car.getVinNumber());
-            statement.setString(3, car.getColor());
-            statement.setDouble(4, car.getMonthlyPrice());
-            statement.setBoolean(5, car.isBought());
-            statement.setString(6, car.getStatusValue());
-
-            statement.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
     }
 }

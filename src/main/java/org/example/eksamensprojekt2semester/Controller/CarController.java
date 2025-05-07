@@ -61,7 +61,7 @@ public class CarController {
         try (ResultSet resultSet = statement.executeQuery()){
             if (!resultSet.next()){ //Hvis denne ikke kører, er der ikke nogen bil med samme vinNumber i databasen.
                 Car car = new Car(carModelId, vinNumber, color, monthlyPrice);
-                carRepository.saveCar(car);
+                carRepository.createCar(car);
 
                 return "redirect:/";
             } else{
