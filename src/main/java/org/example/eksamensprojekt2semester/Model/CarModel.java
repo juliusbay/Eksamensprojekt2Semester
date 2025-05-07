@@ -62,6 +62,10 @@ public class CarModel {
         this.fuelType = fuelType;
     }
 
+    public void setFuelTypeFromString(String fuelType) {
+        this.fuelType = FuelType.fromString(fuelType);
+    }
+
     public int getModelYear() {
         return modelYear;
     }
@@ -76,6 +80,10 @@ public class CarModel {
 
     public void setGearBox(GearBox gearBox) {
         this.gearBox = gearBox;
+    }
+
+    public void setGearBoxFromString(String gearBox) {
+        this.gearBox = GearBox.fromString(gearBox);
     }
 
     public int getCarEmission() {

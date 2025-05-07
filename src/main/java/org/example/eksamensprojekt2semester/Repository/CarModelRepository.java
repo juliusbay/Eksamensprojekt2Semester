@@ -31,8 +31,12 @@ public class CarModelRepository {
                     carModel.setCarModelId(resultSet.getInt("car_model_id"));
                     carModel.setModelName(resultSet.getString("model_name"));
                     carModel.setBrand(resultSet.getString("brand"));
-                    carModel.setFuelType(FuelType.valueOf("fuel_type"));
+                    carModel.setFuelTypeFromString(resultSet.getString("fuel_type"));
                     carModel.setModelYear(resultSet.getInt("model_year"));
+                    carModel.setGearBoxFromString(resultSet.getString("gear_box"));
+                    carModel.setCarEmission(resultSet.getInt("car_emission"));
+                    carModel.setCarEquipment(resultSet.getString("car_equipment"));
+                    carModel.setSteelPrice(resultSet.getInt("steel_price"));
                 }
             }
         } catch (SQLException e) {
@@ -62,7 +66,7 @@ public class CarModelRepository {
 
     public void updateCarModel (CarModel carModel) {
         String sql = "UPDATE car_model SET model_name = ?, brand = ?, fuel_type = ?, model_year = ?, gear_box = ?, car_emission = ?, car_equipment = ?, steel_price = ?" +
-                " car_model_id = ?";
+                "WHERE car_model_id = ?";
 
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
