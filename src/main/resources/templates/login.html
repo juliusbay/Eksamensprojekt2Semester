@@ -13,7 +13,7 @@
     </h1>
 
     <div class="login-form">
-        <form>
+        <form th:action="@{/processLogin}" method="post">
             <div>
                 <label for="shortname">Brugernavn:</label>
                 <input type="text" id="shortname" name="shortname" />

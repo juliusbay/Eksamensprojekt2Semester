@@ -5,6 +5,7 @@ import org.example.eksamensprojekt2semester.Model.Employee;
 import org.example.eksamensprojekt2semester.Repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -23,8 +24,9 @@ public class EmployeeController {
     @Autowired
     DataSource dataSource;
 
+    @PostMapping
     public String processLogin(
-            @RequestParam("username") String shortName,
+            @RequestParam("shortname") String shortName,
             @RequestParam("password") String password,
             HttpSession session,
             RedirectAttributes redirectAttributes) {
@@ -36,18 +38,25 @@ public class EmployeeController {
             statement.setString(1, shortName);
 
             try (ResultSet resultSet = statement.executeQuery()){
-                if (resultSet.next()){ //Hvis denne kører, er brugeren fundet. Kodeord bliver valideret i de to næste linjer.
+                if (resultSet.next()){ // If resultSet.next runs, it has found a shortname and will start to validate password
                     String storedPassword = resultSet.getString("password");
                     if (storedPassword.equals(password))
                     {
                         Employee employee = new Employee();
                         employee.setEmployeeId((resultSet.getInt("user_id")));
+                        employee.setFirstName(resultSet.getString("first_name"));
+                        employee.setLastName(resultSet.getString("last_name"));
+                        employee.setShortName(resultSet.getString("short_name"));
                         employee.setEmail(resultSet.getString("email"));
+
+                        // Parsing string value to Role enum
+                        Employee.Role role = Employee.Role.valueOf(resultSet.getString("role"));
+                        employee.setRole(role);
 
                         session.setAttribute("loggedInUser", employee);
 
                         return "redirect:/profile";
-                    } else { // Hvis ikke den kan validere loginet, bliver "error"-model displayet
+                    } else { // If the user cannot be validated, it will display "error" attribute.
                         redirectAttributes.addFlashAttribute("error", "Ugyldigt brugernavn eller kode");
                         return "redirect:/";
                     }
