@@ -11,10 +11,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 @Controller
@@ -46,20 +42,14 @@ public class CarController {
     }
 
 
-    @PostMapping("/getCreateCar")
+    @PostMapping("/createCar")
     public String getCreateCar(@RequestParam("car-model-id") int carModelId,
                                @RequestParam("vin-number") String vinNumber,
                                @RequestParam("monthly-price") double monthlyPrice,
                                @RequestParam("color") String color){
 
-    String sql = "SELECT * FROM car WHERE vin_number = ?";
 
-    try(Connection connection = dataSource.getConnection();
-        PreparedStatement statement = connection.prepareStatement(sql)){
-        statement.setString(1,vinNumber);
-
-        try (ResultSet resultSet = statement.executeQuery()){
-            if (!resultSet.next()){ //Hvis denne ikke kører, er der ikke nogen bil med samme vinNumber i databasen.
+            if (!carRepository.existsByVinNumber(vinNumber)){ //Hvis denne ikke kører, er der ikke nogen bil med samme vinNumber i databasen.
                 Car car = new Car(carModelId, vinNumber, color, monthlyPrice);
                 carRepository.createCar(car);
 
@@ -68,10 +58,23 @@ public class CarController {
                 // OBS!!!!!! SKAL TILFØJES EN ERROR HVIS BILEN ALLEREDE EKSISTERER. Muligvis i fragments hvis vi bruger dette.
                 return "redirect:/";
             }
-        }
-    }catch (SQLException e){
-        e.printStackTrace();
     }
+
+    @PostMapping("/deleteCar")
+    public String deleteCar(@RequestParam("car-id") int carId){
+        carRepository.deleteCarById(carId);
         return "redirect:/";
     }
+
+    @PostMapping("/getUpdateCar")
+    public String updateCar(Model model, String vinNumber){
+
+        Car car = carRepository.getCarByVinNumber(vinNumber);
+        model.addAttribute("car", car);
+        carRepository.updateCar(car);
+        return "updateCar";
+
+    }
+
+
 }

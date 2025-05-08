@@ -28,6 +28,13 @@ public class Car {
         this.color = color;
         this.monthlyPrice = monthlyPrice;
     }
+    public Car(int fkCarModelId, String vinNumber, String color, double monthlyPrice,  boolean bought) {
+        this.fkCarModelId = fkCarModelId;
+        this.vinNumber = vinNumber;
+        this.color = color;
+        this.monthlyPrice = monthlyPrice;
+        this.bought = bought;
+    }
 
     public Car() {
     }
