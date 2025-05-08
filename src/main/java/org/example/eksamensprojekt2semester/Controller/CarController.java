@@ -30,8 +30,6 @@ public class CarController {
     }
 
 
-
-
     @GetMapping("/cars")
     public String getCars(Model model) {
 

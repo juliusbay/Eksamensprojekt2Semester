@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 @Repository
 public class LeaseAgreementRepository {
@@ -15,6 +16,34 @@ public class LeaseAgreementRepository {
 
     @Autowired
     DataSource dataSource;
+
+
+    public ArrayList<LeaseAgreement> getAllLeaseAgreements() {
+        ArrayList<LeaseAgreement> leaseAgreements = new ArrayList<>();
+        String sql = "SELECT * FROM lease_agreement";
+
+        try(Connection connection = dataSource.getConnection();
+            PreparedStatement statement = connection.prepareStatement(sql)){
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                LeaseAgreement leaseAgreement = new LeaseAgreement();
+                leaseAgreement.setLeaseAgreementId(resultSet.getInt("lease_agreement_id"));
+                leaseAgreement.setFkVehicleId(resultSet.getInt("fk_vehicle_id"));
+                leaseAgreement.setFkCustomerId(resultSet.getInt("fk_customer_id"));
+                leaseAgreement.setLeaseType(LeaseAgreement.LeaseType.valueOf(resultSet.getString("lease_type")));
+                leaseAgreement.setLeasePrice(resultSet.getInt("lease_price"));
+                leaseAgreement.setLeaseStartDate(resultSet.getDate("lease_start_date"));
+                leaseAgreement.setLeaseEndDate(resultSet.getDate("lease_end_date"));
+                leaseAgreement.setReturnLocation(resultSet.getString("return_location"));
+            }
+        }catch (SQLException e){
+                e.printStackTrace();
+        }
+        return leaseAgreements;
+    }
+
+
 
     public LeaseAgreement getLeaseAgreementById(int id) throws SQLException {
         LeaseAgreement leaseAgreement = new LeaseAgreement();

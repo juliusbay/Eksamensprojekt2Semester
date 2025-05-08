@@ -3,6 +3,8 @@ package org.example.eksamensprojekt2semester.Model;
 import java.sql.Date;
 
 public class LeaseAgreement {
+
+
     public enum LeaseType {
         LIMITED("Limited"),
         UNLIMITED("Unlimited");
@@ -37,6 +39,19 @@ public class LeaseAgreement {
     public Date leaseEndDate;
     public String returnLocation;
 
+    public LeaseAgreement(int fkVehicleId, int fkCustomerId, LeaseType leaseType, int leasePrice, java.sql.Date leaseStartDate, java.sql.Date leaseEndDate, String returnLocation) {
+    this.fkVehicleId = fkVehicleId;
+    this.fkCustomerId = fkCustomerId;
+    this.leaseType = leaseType;
+    this.leasePrice = leasePrice;
+    this.leaseStartDate =leaseStartDate;
+    this.leaseEndDate =leaseEndDate;
+    this.returnLocation = returnLocation;
+    }
+
+    public LeaseAgreement() {
+
+    }
 
     public int getLeaseAgreementId() {
         return leaseAgreementId;
