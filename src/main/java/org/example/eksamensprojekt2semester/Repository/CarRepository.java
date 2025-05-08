@@ -32,7 +32,6 @@ public class CarRepository {
                     car.setFkCarModelId(resultSet.getInt("fk_car_model_id"));
                     car.setVinNumber(resultSet.getString("vin_number"));
                     car.setColor(resultSet.getString("color"));
-                    car.setMonthlyPrice(resultSet.getDouble("monthly_price"));
                     car.setBought(resultSet.getBoolean("bought"));
                     car.setStatusFromString(resultSet.getString("status"));
                 }
@@ -57,7 +56,6 @@ public class CarRepository {
                     car.setFkCarModelId(resultSet.getInt("fk_car_model_id"));
                     car.setVinNumber(resultSet.getString("vin_number"));
                     car.setColor(resultSet.getString("color"));
-                    car.setMonthlyPrice(resultSet.getDouble("monthly_price"));
                     car.setBought(resultSet.getBoolean("bought"));
                     car.setStatusFromString(resultSet.getString("status"));
                 }
@@ -83,7 +81,6 @@ public class CarRepository {
                 car.setFkCarModelId(resultSet.getInt("fk_car_model_id"));
                 car.setVinNumber(resultSet.getString("vin_number"));
                 car.setColor(resultSet.getString("color"));
-                car.setMonthlyPrice(resultSet.getDouble("monthly_price"));
                 car.setBought(resultSet.getBoolean("bought"));
                 car.setStatusFromString(resultSet.getString("status"));
 
@@ -112,15 +109,14 @@ public class CarRepository {
 
 
     public void createCar(Car car){
-        String sql = "INSERT INTO car(fk_car_model_id, vin_number, color, monthly_price, bought, status) " +
-                "VALUES(?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO car(fk_car_model_id, vin_number, color, bought, status) " +
+                "VALUES(?, ?, ?, ?, ?)";
 
         try(Connection connection = dataSource.getConnection();
             PreparedStatement statement = connection.prepareStatement(sql)){
             statement.setInt(1, car.getFkCarModelId());
             statement.setString(2, car.getVinNumber());
             statement.setString(3, car.getColor());
-            statement.setDouble(4, car.getMonthlyPrice());
             statement.setBoolean(5, car.isBought());
             statement.setString(6, car.getStatus().name());
 
@@ -146,7 +142,7 @@ public class CarRepository {
 
 
     public void updateCar(Car car) {
-        String sql = "UPDATE car SET vehicle_id = ?, fk_car_model_id = ?, vin_number = ?, color = ?, monthly_price = ?, bought = ?, status = ? " +
+        String sql = "UPDATE car SET vehicle_id = ?, fk_car_model_id = ?, vin_number = ?, color = ?, bought = ?, status = ? " +
                 "WHERE vehicle_id = ?";
 
         try (Connection connection = dataSource.getConnection();
@@ -154,7 +150,6 @@ public class CarRepository {
             statement.setInt(1, car.getFkCarModelId());
             statement.setString(2, car.getVinNumber());
             statement.setString(3, car.getColor());
-            statement.setDouble(4, car.getMonthlyPrice());
             statement.setBoolean(5, car.isBought());
             statement.setString(6, car.getStatus().name()); //Stores the string value of the Status enum by converting it to a string using .name();
                                                                 // OBS!!! Hvis der er problemer med setStatus, så er det muligvis her det sker.

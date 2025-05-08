@@ -8,31 +8,29 @@ public class Car {
     private int fkCarModelId;
     private String vinNumber;
     private String color;
-    private double monthlyPrice;
+    // private double monthlyPrice;
     private boolean bought;
     private Status status;
 
-    public Car(int vehicleId, int fkCarModelId, String vinNumber, String color, double monthlyPrice, boolean bought, Status status) {
+    public Car(int vehicleId, int fkCarModelId, String vinNumber, String color, boolean bought, Status status) {
         this.vehicleId = vehicleId;
         this.fkCarModelId = fkCarModelId;
         this.vinNumber = vinNumber;
         this.color = color;
-        this.monthlyPrice = monthlyPrice;
+        // this.monthlyPrice = monthlyPrice;
         this.bought = bought;
         this.status = status;
     }
 
-    public Car(int fkCarModelId, String vinNumber, String color, double monthlyPrice) {
+    public Car(int fkCarModelId, String vinNumber, String color) {
         this.fkCarModelId = fkCarModelId;
         this.vinNumber = vinNumber;
         this.color = color;
-        this.monthlyPrice = monthlyPrice;
     }
-    public Car(int fkCarModelId, String vinNumber, String color, double monthlyPrice,  boolean bought) {
+    public Car(int fkCarModelId, String vinNumber, String color,  boolean bought) {
         this.fkCarModelId = fkCarModelId;
         this.vinNumber = vinNumber;
         this.color = color;
-        this.monthlyPrice = monthlyPrice;
         this.bought = bought;
     }
 
@@ -71,13 +69,13 @@ public class Car {
         this.color = color;
     }
 
-    public double getMonthlyPrice() {
-        return monthlyPrice;
-    }
-
-    public void setMonthlyPrice(double monthlyPrice) {
-        this.monthlyPrice = monthlyPrice;
-    }
+//    public double getMonthlyPrice() {
+//        return monthlyPrice;
+//    }
+//
+//    public void setMonthlyPrice(double monthlyPrice) {
+//        this.monthlyPrice = monthlyPrice;
+//    }
 
     public boolean isBought() {
         return bought;

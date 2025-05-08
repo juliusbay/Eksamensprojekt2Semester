@@ -48,7 +48,7 @@ public class CarController {
 
 
             if (!carRepository.existsByVinNumber(vinNumber)){ //Hvis denne ikke kører, er der ikke nogen bil med samme vinNumber i databasen.
-                Car car = new Car(carModelId, vinNumber, color, monthlyPrice);
+                Car car = new Car(carModelId, vinNumber, color);
                 carRepository.createCar(car);
 
                 return "redirect:/";

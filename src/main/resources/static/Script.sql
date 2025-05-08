@@ -29,7 +29,11 @@ CREATE TABLE car_model (
 );
 
 INSERT INTO car_model (model_name, brand, fuel_type, model_year, gear_box, car_emission, car_equipment, steel_price)
-VALUES ('Model X', 'Tesla', 'ELECTRIC', 2024, 'AUTOMATIC', 0, 'Performance', 750000);
+VALUES ('Model X', 'Tesla', 'ELECTRIC', 2024, 'AUTOMATIC', 0, 'Performance', 750000),
+       ('Ariya', 'Nissan', 'ELECTRIC', 2025, 'AUTOMATIC', 0, 'Evolve', 550000),
+       ('500', 'Fiat', 'GASOLINE', 2025, 'MANUAL', 105, 'Vita Comfort', 250000),
+       ('500e', 'Fiat', 'ELECTRIC', 2025, 'AUTOMATIC', 0, 'La Prima', 250000),
+       ('500e', 'Fiat', 'ELECTRIC', 2025, 'AUTOMATIC', null, 'Icon', 250000);
 
 
 CREATE TABLE car (
@@ -37,14 +41,21 @@ CREATE TABLE car (
                      fk_car_model_id INT,
                      vin_number VARCHAR(50) UNIQUE,
                      color VARCHAR(50),
-                     monthly_price DECIMAL(10,2),
                      bought BOOLEAN DEFAULT FALSE,
                      status ENUM('READY', 'DAMAGED', 'GETTING_REPAIRED', 'RENTED') DEFAULT 'READY',
                      FOREIGN KEY (fk_car_model_id) REFERENCES car_model(car_model_id)
 );
-INSERT INTO car (fk_car_model_id, vin_number, color, monthly_price, bought, status)
+INSERT INTO car (fk_car_model_id, vin_number, color, bought, status)
 VALUES
-    (1, '1HGBH41JXMN109186', 'Red', 199.99, TRUE, 'READY');
+    (1, '1HGBH41JXMN109186', 'Red', TRUE, 'READY');
+
+INSERT INTO car (fk_car_model_id, vin_number, color)
+VALUES
+    (2, 'JH4DA9470PS008042', 'Bronze'),
+    (5, 'WBABW33426PX70804', 'Black'),
+    (3, '3C3CFFBRXF1509101', 'Grey'),
+    (4, 'ZFAGA491XD3202032', 'Blue'),
+    (4, '3C3AFFAR9FT534410', 'Black');
 
 
 CREATE TABLE customer (
