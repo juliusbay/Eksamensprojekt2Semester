@@ -31,38 +31,24 @@
 
 <h2>Biler i systemet</h2>
 <div class="container">
-    <div class="square" th:each="car :${cars}">
-
-        <div>
-            <label>CarVehicleId:</label>
-            <span th:text="${car.vehicleId}">CarVehicleId:</span>
-        </div>
-
-        <div>
-            <label>CarModelId:</label>
-            <span th:text="${car.fkCarModelId}">CarModelId:</span>
-        </div>
-
-        <div>
-            <label>VinNumber:</label>
-            <span th:text="${car.vinNumber}">VinNumber</span>
-        </div>
-
-        <div>
-            <label>Color:</label>
-            <span th:text="${car.color}">Color</span>
-        </div>
-
-        <div>
-            <label>MonthlyPrice:</label>
-            <span th:text="${car.monthlyPrice}">MonthlyPrice</span>
-        </div>
-
-        <br><br><br><br><br>
-
-    </div>
-
-
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Car Model</th>
+            <th>VIN Number</th>
+            <th>Colour</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each="car: ${cars}">
+            <td th:text="${car.vehicleId}" />
+            <td th:text="${car.fkCarModelId}" />
+            <td th:text="${car.vinNumber}" />
+            <td th:text="${car.color}" />
+        </tr>
+    </tbody>
+</table>
 </div>
 
 

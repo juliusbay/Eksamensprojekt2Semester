@@ -66,8 +66,6 @@ public class CarRepository {
         return car;
     }
 
-
-
     public ArrayList<Car> getAllCars() {
         ArrayList<Car> cars = new ArrayList<>();
         String sql = "SELECT * FROM car";
@@ -138,8 +136,6 @@ public class CarRepository {
             e.printStackTrace();
         }
     }
-
-
 
     public void updateCar(Car car) {
         String sql = "UPDATE car SET vehicle_id = ?, fk_car_model_id = ?, vin_number = ?, color = ?, bought = ?, status = ? " +
