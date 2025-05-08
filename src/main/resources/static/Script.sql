@@ -55,7 +55,7 @@ VALUES
     (5, 'WBABW33426PX70804', 'Black'),
     (3, '3C3CFFBRXF1509101', 'Grey'),
     (4, 'ZFAGA491XD3202032', 'Blue'),
-    (4, '3C3AFFAR9FT534410', 'Black');
+    (5, '3C3AFFAR9FT534410', 'Black');
 
 
 CREATE TABLE customer (

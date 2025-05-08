@@ -38,6 +38,8 @@
             <th>Car Model</th>
             <th>VIN Number</th>
             <th>Colour</th>
+            <th>Forkøbt</th>
+            <th>Status</th>
         </tr>
     </thead>
     <tbody>
@@ -46,6 +48,8 @@
             <td th:text="${car.fkCarModelId}" />
             <td th:text="${car.vinNumber}" />
             <td th:text="${car.color}" />
+            <td th:text="${car.bought}" />
+            <td th:text="${car.status}" />
         </tr>
     </tbody>
 </table>
