@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin</title>
+  <link href = "../static/css/layer.css" th:href="@{/css/layout.css}" rel = "stylesheet">
+</head>
+<body>
+<div>
+  <form th:action="@{/createEmployee}" method="post">
+    <label>Fornavn:</label>
+    <input type="text" name="first_name" />
+
+    <label>Efternavn:</label>
+    <input type="text" name="last_name" />
+
+    <label>Email:</label>
+    <input type="email" name="email"/>
+
+    <label>Rolle:</label>
+    <select name="role">
+      <option> Admin </option>
+      <option> Dataregistrering </option>
+      <option> Forretningsudvikler </option>
+      <option> Mekaniker </option>
+    </select>
+
+    <label>Kodeord:</label>
+    <input type="password" name="password" />
+    <button type="submit"> Opret medarbejder </button>
+
+  </form>
+
+  <table>
+    <tr>
+      <th>ID</th>
+      <th>Fornavn</th>
+      <th>Efternavn</th>
+      <th>Brugernavn</th>
+      <th>Email</th>
+      <th>Rolle</th>
+    </tr>
+    <tr th:each="employee : ${employees}">
+      <td th:text="${employee.employeeId}"></td>
+      <td th:text="${employee.firstName}"></td>
+      <td th:text="${employee.lastName}"></td>
+      <td th:text="${employee.shortName}"></td>
+      <td th:text="${employee.email}"></td>
+      <td th:text="${employee.role}"></td>
+      <td>
+        <form th:action="@{/edit-employee(employee_id=${employee.employeeId})}">
+          <input type="hidden" name="employee_id" th:value="${employee.employeeId}">
+          <button type="submit" class="btn">Rediger</button>
+        </form>
+      </td>
+      <td>
+        <form th:action="@{/deleteEmployee}" method="post">
+          <input type="hidden" name="employee_id" th:value="${employee.employeeId}">
+          <button type="submit" class="btn">Slet</button>
+        </form>
+      </td>
+
+    </tr>
+
+  </table>
+
+
+</div>
+
+</body>
+</html>

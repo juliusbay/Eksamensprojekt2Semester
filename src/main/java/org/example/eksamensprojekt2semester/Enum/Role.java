@@ -1,10 +1,10 @@
 package org.example.eksamensprojekt2semester.Enum;
 
 public enum Role {
-    ADMIN("admin"),
-    BUSINESS_DEVELOPER("foretningsudvikler"),
-    DATA_RECORDING("dataregistrering"),
-    MECHANIC("mekaniker");
+    ADMIN("Admin"),
+    BUSINESS_DEVELOPER("Forretningsudvikler"),
+    DATA_RECORDING("Dataregistrering"),
+    MECHANIC("Mekaniker");
 
     private final String prettyPrint;
 

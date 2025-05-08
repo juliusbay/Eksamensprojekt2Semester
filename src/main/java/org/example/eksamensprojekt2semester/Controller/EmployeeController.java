@@ -1,10 +1,14 @@
 package org.example.eksamensprojekt2semester.Controller;
 
 import jakarta.servlet.http.HttpSession;
+import org.example.eksamensprojekt2semester.Enum.Role;
 import org.example.eksamensprojekt2semester.Model.Employee;
 import org.example.eksamensprojekt2semester.Repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.relational.core.sql.SQL;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -14,6 +18,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 @Controller
 public class EmployeeController {
@@ -70,4 +75,71 @@ public class EmployeeController {
         }
         return "redirect:/";
     }
+
+    // Method to display all employees in a th:each statement
+    @GetMapping ("/admin")
+    public String getEmployees(Model model){
+        List<Employee> employees = employeeRepo.getAllEmployees();
+        model.addAttribute("employees", employees);
+
+        return "admin";
+    }
+
+    // Method for deleting employees
+    @PostMapping("/deleteEmployee")
+    public String deleteEmployee(@RequestParam("employee_id") int employeeId) {
+        employeeRepo.deleteEmployeeByEmployeeId(employeeId);
+
+        return "redirect:/admin";
+    }
+
+    @GetMapping("/edit-employee")
+    public String Employee(@RequestParam("employee_id") int employeeId, Model model, HttpSession session){
+        Employee employee = employeeRepo.getEmployeeByEmployeeId(employeeId);
+        model.addAttribute(employee);
+
+        return "edit-employee";
+    }
+
+
+    @PostMapping("/postEditEmployee")
+    public String postEditEmployee(
+            @RequestParam("employee_id") int employeeId,
+            @RequestParam("first_name") String firstName,
+            @RequestParam("last_name") String lastName,
+            @RequestParam("short_name") String shortName,
+            @RequestParam("email") String email,
+            @RequestParam("password") String password,
+            @RequestParam("role") String roleAsString) {
+
+        String upperCaseRole = roleAsString.toUpperCase();
+        Role role = Role.valueOf(upperCaseRole);
+
+
+        Employee employee = new Employee(employeeId, firstName, lastName, shortName, email, password, role);
+
+        employeeRepo.updateEmployee(employee);
+
+        return "redirect:/admin";
+    }
+
+    @PostMapping("/createEmployee")
+    public String createEmployee(
+            @RequestParam("first_name") String firstName,
+            @RequestParam("last_name") String lastName,
+            @RequestParam("email") String email,
+            @RequestParam("password") String password,
+            @RequestParam("role") String roleAsString) {
+
+        String upperCaseRole = roleAsString.toUpperCase();
+        Role role = Role.valueOf(upperCaseRole);
+
+
+        Employee employee = new Employee(firstName, lastName, email, password, role);
+
+        employeeRepo.updateEmployee(employee);
+
+        return "redirect:/admin";
+    }
 }
+

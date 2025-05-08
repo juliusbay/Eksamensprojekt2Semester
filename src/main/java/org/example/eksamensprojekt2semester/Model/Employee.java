@@ -21,6 +21,14 @@ public class Employee {
         this.role = role;
     }
 
+    public Employee(String firstName, String lastName, String email, String password, Role role) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = password;
+        this.role = role;
+    }
+
     public Employee() {
     }
 

@@ -9,12 +9,44 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 @Repository
 public class EmployeeRepository {
 
     @Autowired
     DataSource dataSource;
+
+    //Method for retrieving all employees
+    public List<Employee> getAllEmployees(){
+        List<Employee> allEmployees = new ArrayList<>();
+        String sql = "SELECT * FROM employee";
+
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)){
+
+            try (ResultSet resultSet = statement.executeQuery()){
+                while (resultSet.next()){
+                    Employee employee = new Employee();
+
+                    employee.setEmployeeId(resultSet.getInt("employee_id"));
+                    employee.setFirstName(resultSet.getString("first_name"));
+                    employee.setLastName(resultSet.getString("last_name"));
+                    employee.setShortName(resultSet.getString("short_name"));
+                    employee.setEmail(resultSet.getString("email"));
+                    employee.setPassword(resultSet.getString("password"));
+                    employee.setRoleFromString(resultSet.getString("role"));
+
+                    allEmployees.add(employee);
+                }
+            }
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+
+        return allEmployees;
+    }
 
     // Method for retrieving specific employees by employeeId
     public Employee getEmployeeByEmployeeId(int id){
