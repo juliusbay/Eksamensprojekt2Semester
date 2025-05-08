@@ -137,7 +137,7 @@ public class EmployeeController {
 
         Employee employee = new Employee(firstName, lastName, email, password, role);
 
-        employeeRepo.updateEmployee(employee);
+        employeeRepo.createEmployee(employee);
 
         return "redirect:/admin";
     }
