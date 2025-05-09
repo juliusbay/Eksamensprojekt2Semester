@@ -19,8 +19,8 @@ public class EmployeeRepository {
     DataSource dataSource;
 
     //Method for retrieving all employees
-    public List<Employee> getAllEmployees(){
-        List<Employee> allEmployees = new ArrayList<>();
+    public ArrayList<Employee> getAllEmployees(){
+        ArrayList<Employee> allEmployees = new ArrayList<>();
         String sql = "SELECT * FROM employee";
 
         try (Connection connection = dataSource.getConnection();

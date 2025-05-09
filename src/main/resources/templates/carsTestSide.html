@@ -100,6 +100,42 @@
 
 </div>
 
+<div class="ConditionReports-Container">
+    <table id="" class="display">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Damage ID</th>
+            <th>Vehicle ID</th>
+            <th>Handled By</th>
+            <th>Report Date</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="ConditionReport: ${conditionReports}">
+            <td th:text="${car.vehicleId}" />
+            <td th:text="${car.vinNumber}" />
+            <td th:text="${car.getCarModel().getBrand()}" />
+            <td th:text="${car.getCarModel().getModelName()}" />
+            <td th:text="${car.getCarModel().getCarEquipment()}" />
+            <td th:text="${car.color}" />
+            <td th:text="${car.bought}" />
+            <td th:text="${car.status}" />
+            <td>
+                <!--Skal laves i purchaseController
+                <form th:action="@{/deleteCar}" method="post">
+                    <input type="hidden" name="vehicleId" th:value="${car.vehicleId}">
+                    <button type="submit">Delete</button>
+                </form>
+                -->
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+
 <script src="https://code.jquery.com/jquery-3.7.1.js"> </script>
 <script src="https://cdn.datatables.net/2.3.0/js/dataTables.js"></script>
 

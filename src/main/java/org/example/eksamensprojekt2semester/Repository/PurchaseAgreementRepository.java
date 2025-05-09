@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 @Repository
 public class PurchaseAgreementRepository {
@@ -17,7 +18,34 @@ public class PurchaseAgreementRepository {
     @Autowired
     DataSource dataSource;
 
-    public PurchaseAgreement getPurchaseAgreementById(int id) throws SQLException {
+    public ArrayList<PurchaseAgreement> getAllPurchaseAgreements() {
+        ArrayList<PurchaseAgreement> purchaseAgreements = new ArrayList<>();
+        String sql = "SELECT * FROM purchase_agreement";
+
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                PurchaseAgreement purchaseAgreement = new PurchaseAgreement();
+                purchaseAgreement.setPurchaseAgreementId(resultSet.getInt("purchase_agreement_id"));
+                purchaseAgreement.setFkVehicleId(resultSet.getInt("fk_vehicle_id"));
+                purchaseAgreement.setFkCustomerId(resultSet.getInt("fk_customer_id"));
+                purchaseAgreement.setPaid(resultSet.getBoolean("paid"));
+                purchaseAgreement.setCarPrice(resultSet.getDouble("car_price"));
+                purchaseAgreements.add(purchaseAgreement);
+
+
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return purchaseAgreements;
+    }
+
+
+
+        public PurchaseAgreement getPurchaseAgreementById(int id) throws SQLException {
         PurchaseAgreement purchaseAgreement = new PurchaseAgreement();
         String sql = "SELECT * FROM purchase_agreement WHERE purchase_agreement_id = ?";
 

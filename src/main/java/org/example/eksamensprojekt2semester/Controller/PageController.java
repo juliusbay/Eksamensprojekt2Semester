@@ -1,13 +1,71 @@
 package org.example.eksamensprojekt2semester.Controller;
 
+import org.example.eksamensprojekt2semester.Model.*;
+import org.example.eksamensprojekt2semester.Repository.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+
+import java.util.ArrayList;
 
 @Controller
 public class PageController {
 
+    @Autowired
+    LeaseAgreementRepository leaseAgreementRepository;
+
+    @Autowired
+    CarRepository carRepository;
+
+    @Autowired
+    CarModelRepository carModelRepository;
+
+    @Autowired
+    ConditionReportRepository conditionReportRepository;
+
+    @Autowired
+    DamageRepository damageRepository;
+
+    @Autowired
+    CustomerRepository customerRepository;
+
+    @Autowired
+    EmployeeRepository employeeRepository;
+
+    @Autowired
+    PurchaseAgreementRepository purchaseAgreementRepository;
+
+    @Autowired
+    ChoiceRepository choiceRepository;
+
+
     @GetMapping("/login")
     public String loginPage(){
         return "login";
+    }
+
+
+    @GetMapping("/cars")
+    public String getEveryTable(Model model) {
+        ArrayList<LeaseAgreement> leaseAgreements = leaseAgreementRepository.getAllLeaseAgreements();
+        ArrayList<Car> cars = carRepository.getAllCars();
+        ArrayList<CarModel> carModels = carModelRepository.getAllCarModels();
+        ArrayList<ConditionReport> conditionReports = conditionReportRepository.getAllConditionReports();
+        ArrayList<Damage> damages = damageRepository.getAllDamages();
+        ArrayList<Employee> employees = employeeRepository.getAllEmployees();
+        ArrayList<PurchaseAgreement> purchaseAgreements = purchaseAgreementRepository.getAllPurchaseAgreements();
+
+
+        model.addAttribute("cars", cars);
+        model.addAttribute("leaseAgreements", leaseAgreements);
+        model.addAttribute("carModels", carModels);
+        model.addAttribute("conditionReports", conditionReports);
+        model.addAttribute("damages", damages);
+        model.addAttribute("employees", employees);
+        model.addAttribute("purchaseAgreements", purchaseAgreements);
+
+
+        return "carsTestSide";
     }
 }

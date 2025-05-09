@@ -20,7 +20,32 @@ public class DamageRepository {
     @Autowired
     DataSource dataSource;
 
-    public Damage getDamageByID(int id) {
+    public ArrayList<Damage> getAllDamages() {
+        ArrayList<Damage> damages = new ArrayList<>();
+        String sql = "SELECT * FROM damage";
+
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                Damage damage = new Damage();
+                damage.setDamageId(resultSet.getInt("damage_id"));
+                damage.setFkVehicleId(resultSet.getInt("fk_vehicle_id"));
+                damage.setDamageType(resultSet.getString("damage_type"));
+                damage.setDamageDate(resultSet.getDate("damage_date"));
+                damages.add(damage);
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return damages;
+    }
+
+
+
+        public Damage getDamageByID(int id) {
         Damage damage = new Damage();
         String sql = "SELECT * FROM damage WHERE damage_id = ?";
 
