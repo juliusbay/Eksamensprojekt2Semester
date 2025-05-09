@@ -19,19 +19,22 @@ public class Car {
         this.color = color;
         // this.monthlyPrice = monthlyPrice;
         this.bought = bought;
-        this.status = status;
+
     }
 
     public Car(int fkCarModelId, String vinNumber, String color) {
         this.fkCarModelId = fkCarModelId;
         this.vinNumber = vinNumber;
         this.color = color;
+        status = Status.READY;
+
     }
     public Car(int fkCarModelId, String vinNumber, String color,  boolean bought) {
         this.fkCarModelId = fkCarModelId;
         this.vinNumber = vinNumber;
         this.color = color;
         this.bought = bought;
+        status = Status.READY;
     }
 
     public Car() {
@@ -98,6 +101,6 @@ public class Car {
     }
 
     public void setStatusFromString(String status) {
-        this.status = Status.fromString(status);
+        this.status = Status.valueOf(status);
     }
 }

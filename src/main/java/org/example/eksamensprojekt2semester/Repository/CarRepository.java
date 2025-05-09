@@ -1,5 +1,6 @@
 package org.example.eksamensprojekt2semester.Repository;
 
+import org.example.eksamensprojekt2semester.Enum.Status;
 import org.example.eksamensprojekt2semester.Model.Car;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -10,6 +11,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+
+import static org.example.eksamensprojekt2semester.Enum.Status.READY;
+import static org.example.eksamensprojekt2semester.Enum.Status.valueOf;
 
 @Repository
 
@@ -92,7 +96,7 @@ public class CarRepository {
     }
 
     public boolean existsByVinNumber(String vinNumber) {
-        String sql = "SELECT 1 FROM car WHERE vehicle_id = ?";
+        String sql = "SELECT 1 FROM car WHERE vin_number = ?";
         try(Connection connection = dataSource.getConnection();
         PreparedStatement statement = connection.prepareStatement(sql)){
             statement.setString(1,vinNumber);
@@ -115,8 +119,8 @@ public class CarRepository {
             statement.setInt(1, car.getFkCarModelId());
             statement.setString(2, car.getVinNumber());
             statement.setString(3, car.getColor());
-            statement.setBoolean(5, car.isBought());
-            statement.setString(6, car.getStatus().name());
+            statement.setBoolean(4, car.isBought());
+            statement.setString(5, car.getStatus().name());
 
             statement.executeUpdate();
 
@@ -143,14 +147,14 @@ public class CarRepository {
 
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)){
-            statement.setInt(1, car.getFkCarModelId());
-            statement.setString(2, car.getVinNumber());
-            statement.setString(3, car.getColor());
+            statement.setInt(1,car.getVehicleId());
+            statement.setInt(2, car.getFkCarModelId());
+            statement.setString(3, car.getVinNumber());
+            statement.setString(4, car.getColor());
             statement.setBoolean(5, car.isBought());
             statement.setString(6, car.getStatus().name()); //Stores the string value of the Status enum by converting it to a string using .name();
                                                                 // OBS!!! Hvis der er problemer med setStatus, så er det muligvis her det sker.
                                                                 //Dog "burde" den automatisk konvertere tilbage til enum i databasen.
-            statement.setInt(7,car.getVehicleId());
 
             statement.executeUpdate();
 

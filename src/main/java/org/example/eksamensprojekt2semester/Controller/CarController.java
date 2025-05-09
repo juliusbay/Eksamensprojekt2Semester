@@ -43,16 +43,18 @@ public class CarController {
     @PostMapping("/createCar")
     public String getCreateCar(@RequestParam("car-model-id") int carModelId,
                                @RequestParam("vin-number") String vinNumber,
-                               @RequestParam("color") String color){
+                               @RequestParam("color") String color, Model model) {
 
             if (!carRepository.existsByVinNumber(vinNumber)){ //Hvis denne ikke kører, er der ikke nogen bil med samme vinNumber i databasen.
                 Car car = new Car(carModelId, vinNumber, color);
                 carRepository.createCar(car);
+                model.addAttribute("cars", car);
 
-                return "redirect:/";
+
+                return "redirect:/cars";
             } else{
                 // OBS!!!!!! SKAL TILFØJES EN ERROR HVIS BILEN ALLEREDE EKSISTERER. Muligvis i fragments hvis vi bruger dette.
-                return "redirect:/";
+                return "redirect:/cars";
             }
     }
 
