@@ -93,6 +93,6 @@ public class Employee {
     }
 
     public void setRoleFromString(String role) {
-        this.role = Role.fromString(role);
+        this.role = Role.valueOf(role);
     }
 }
