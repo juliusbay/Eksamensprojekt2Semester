@@ -1,6 +1,5 @@
 package org.example.eksamensprojekt2semester.Repository;
 
-import org.example.eksamensprojekt2semester.Enum.FuelType;
 import org.example.eksamensprojekt2semester.Model.CarModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;

@@ -5,16 +5,16 @@ import org.example.eksamensprojekt2semester.Enum.Status;
 public class Car {
 
     private int vehicleId;
-    private int fkCarModelId;
+    private CarModel carModel;
     private String vinNumber;
     private String color;
     // private double monthlyPrice;
     private boolean bought;
     private Status status;
 
-    public Car(int vehicleId, int fkCarModelId, String vinNumber, String color, boolean bought, Status status) {
+    public Car(int vehicleId, CarModel carModel, String vinNumber, String color, boolean bought, Status status) {
         this.vehicleId = vehicleId;
-        this.fkCarModelId = fkCarModelId;
+        this.carModel = carModel;
         this.vinNumber = vinNumber;
         this.color = color;
         // this.monthlyPrice = monthlyPrice;
@@ -22,15 +22,15 @@ public class Car {
 
     }
 
-    public Car(int fkCarModelId, String vinNumber, String color) {
-        this.fkCarModelId = fkCarModelId;
+    public Car(CarModel carModel, String vinNumber, String color) {
+        this.carModel = carModel;
         this.vinNumber = vinNumber;
         this.color = color;
         status = Status.READY;
 
     }
-    public Car(int fkCarModelId, String vinNumber, String color,  boolean bought) {
-        this.fkCarModelId = fkCarModelId;
+    public Car(CarModel carModel, String vinNumber, String color,  boolean bought) {
+        this.carModel = carModel;
         this.vinNumber = vinNumber;
         this.color = color;
         this.bought = bought;
@@ -48,12 +48,12 @@ public class Car {
         this.vehicleId = vehicleId;
     }
 
-    public int getFkCarModelId() {
-        return fkCarModelId;
+    public CarModel getCarModel() {
+        return carModel;
     }
 
-    public void setFkCarModelId(int fkCarModelId) {
-        this.fkCarModelId = fkCarModelId;
+    public void setCarModel(CarModel carModel) {
+        this.carModel = carModel;
     }
 
     public String getVinNumber() {

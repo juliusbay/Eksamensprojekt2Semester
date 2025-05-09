@@ -1,6 +1,5 @@
 package org.example.eksamensprojekt2semester.Repository;
 
-import org.example.eksamensprojekt2semester.Enum.Status;
 import org.example.eksamensprojekt2semester.Model.Car;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -12,15 +11,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import static org.example.eksamensprojekt2semester.Enum.Status.READY;
-import static org.example.eksamensprojekt2semester.Enum.Status.valueOf;
-
 @Repository
 
 public class CarRepository {
 
    @Autowired
    DataSource dataSource;
+
+   @Autowired
+   CarModelRepository carModelRepo;
 
     public Car getCarById(int id) {
         Car car = new Car();
@@ -33,7 +32,7 @@ public class CarRepository {
             try (ResultSet resultSet = statement.executeQuery()){
                 if (resultSet.next()){
                     car.setVehicleId(resultSet.getInt("vehicle_id"));
-                    car.setFkCarModelId(resultSet.getInt("fk_car_model_id"));
+                    car.setCarModel(carModelRepo.getCarModelById(resultSet.getInt("car_model_id")));
                     car.setVinNumber(resultSet.getString("vin_number"));
                     car.setColor(resultSet.getString("color"));
                     car.setBought(resultSet.getBoolean("bought"));
@@ -57,7 +56,7 @@ public class CarRepository {
             try (ResultSet resultSet = statement.executeQuery()){
                 if (resultSet.next()){
                     car.setVehicleId(resultSet.getInt("vehicle_id"));
-                    car.setFkCarModelId(resultSet.getInt("fk_car_model_id"));
+                    car.setCarModel(carModelRepo.getCarModelById(resultSet.getInt("car_model_id")));
                     car.setVinNumber(resultSet.getString("vin_number"));
                     car.setColor(resultSet.getString("color"));
                     car.setBought(resultSet.getBoolean("bought"));
@@ -72,7 +71,9 @@ public class CarRepository {
 
     public ArrayList<Car> getAllCars() {
         ArrayList<Car> cars = new ArrayList<>();
-        String sql = "SELECT * FROM car";
+        String sql = "SELECT car.vehicle_id, car.vin_number, cm.car_model_id, cm.brand, cm.model_name, cm.car_equipment, car.color, car.bought, car.status " +
+                "FROM car " +
+                "INNER JOIN car_model cm ON car.fk_car_model_id = cm.car_model_id";
         try(Connection connection = dataSource.getConnection();
         PreparedStatement statement = connection.prepareStatement(sql);
         ResultSet resultSet = statement.executeQuery()){
@@ -80,7 +81,7 @@ public class CarRepository {
                 Car car = new Car();
 
                 car.setVehicleId(resultSet.getInt("vehicle_id"));
-                car.setFkCarModelId(resultSet.getInt("fk_car_model_id"));
+                car.setCarModel(carModelRepo.getCarModelById(resultSet.getInt("car_model_id")));
                 car.setVinNumber(resultSet.getString("vin_number"));
                 car.setColor(resultSet.getString("color"));
                 car.setBought(resultSet.getBoolean("bought"));
@@ -116,7 +117,7 @@ public class CarRepository {
 
         try(Connection connection = dataSource.getConnection();
             PreparedStatement statement = connection.prepareStatement(sql)){
-            statement.setInt(1, car.getFkCarModelId());
+            statement.setInt(1, car.getCarModel().getCarModelId());
             statement.setString(2, car.getVinNumber());
             statement.setString(3, car.getColor());
             statement.setBoolean(4, car.isBought());
@@ -148,7 +149,7 @@ public class CarRepository {
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)){
             statement.setInt(1,car.getVehicleId());
-            statement.setInt(2, car.getFkCarModelId());
+            statement.setInt(2, car.getCarModel().getCarModelId());
             statement.setString(3, car.getVinNumber());
             statement.setString(4, car.getColor());
             statement.setBoolean(5, car.isBought());
