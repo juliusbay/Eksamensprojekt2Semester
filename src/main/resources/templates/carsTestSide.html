@@ -68,9 +68,11 @@
     <thead>
         <tr>
             <th>ID</th>
-            <th>Car Model</th>
             <th>VIN Number</th>
-            <th>Colour</th>
+            <th>Mærke</th>
+            <th>Model</th>
+            <th>Udstyr</th>
+            <th>Farve</th>
             <th>Forkøbt</th>
             <th>Status</th>
             <th>Delete</th>
@@ -79,8 +81,10 @@
     <tbody>
         <tr th:each="car: ${cars}">
             <td th:text="${car.vehicleId}" />
-            <td th:text="${car.fkCarModelId}" />
             <td th:text="${car.vinNumber}" />
+            <td th:text="${car.getCarModel().getBrand()}" />
+            <td th:text="${car.getCarModel().getModelName()}" />
+            <td th:text="${car.getCarModel().getCarEquipment()}" />
             <td th:text="${car.color}" />
             <td th:text="${car.bought}" />
             <td th:text="${car.status}" />

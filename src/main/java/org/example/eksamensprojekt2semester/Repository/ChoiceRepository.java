@@ -247,7 +247,7 @@ public class ChoiceRepository {
     }
 
     public void updateAvailableChoice(AvailableChoice availableChoice){
-        String sql = "UPDATE available_choice SET fk_car_model_id, fk_choice_id = ?" +
+        String sql = "UPDATE available_choice SET fk_car_model_id = ?, fk_choice_id = ?" +
                 "WHERE (fk_car_model_id, fk_choice_id = ?)";
 
         try (Connection connection = dataSource.getConnection();
