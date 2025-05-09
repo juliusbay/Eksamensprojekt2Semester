@@ -1,5 +1,6 @@
 package org.example.eksamensprojekt2semester.Repository;
 
+
 import org.example.eksamensprojekt2semester.Model.CarModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -9,6 +10,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 @Repository
 public class CarModelRepository {
@@ -16,6 +18,35 @@ public class CarModelRepository {
     @Autowired
     DataSource dataSource;
 
+
+    public ArrayList<CarModel> getAllCarModels() {
+        ArrayList<CarModel> carModels = new ArrayList<>();
+        String sql = "SELECT * FROM car";
+
+        try (Connection connection = dataSource.getConnection();
+            PreparedStatement statement = connection.prepareStatement(sql)){
+            ResultSet resultSet = statement.executeQuery();
+
+            while(resultSet.next()){
+                CarModel carModel = new CarModel();
+                carModel.setCarModelId(resultSet.getInt("car_model_id"));
+                carModel.setModelName(resultSet.getString("model_name"));
+                carModel.setBrand(resultSet.getString("brand"));
+                carModel.setFuelTypeFromString(resultSet.getString("fuel_type"));
+                carModel.setModelYear(resultSet.getInt("model_year"));
+                carModel.setGearBoxFromString(resultSet.getString("gear_box"));
+                carModel.setCarEmission(resultSet.getInt("car_emission"));
+                carModel.setCarEquipment(resultSet.getString("car_equipment"));
+                carModel.setSteelPrice(resultSet.getDouble("steel_price"));
+
+                carModels.add(carModel);
+
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return carModels;
+    }
 
     public CarModel getCarModelById (int id) {
         CarModel carModel = new CarModel();

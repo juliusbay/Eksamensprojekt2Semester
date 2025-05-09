@@ -20,7 +20,29 @@ public class ConditionReportRepository {
     @Autowired
     EmployeeRepository employeeRepository;
 
-    public ConditionReport getConditionReportById (int id) {
+    public ArrayList<ConditionReport> getAllConditionReports() {
+        ArrayList<ConditionReport> conditionReports = new ArrayList<>();
+        String sql = "SELECT * FROM CONDITION_REPORT";
+
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                ConditionReport conditionReport = new ConditionReport();
+                conditionReport.setConditionReportId(resultSet.getInt("condition_report_id"));
+                conditionReport.setFkDamageId(resultSet.getInt("fk_damage_id"));
+                conditionReport.setFkVehicleId(resultSet.getInt("fk_vehicle_id"));
+                conditionReport.setHandledBy(resultSet.getString("handled_by"));
+                conditionReport.setReportDate(resultSet.getDate("report_date"));
+                conditionReports.add(conditionReport);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return conditionReports;
+    }
+        public ConditionReport getConditionReportById (int id) {
         ConditionReport conditionReport = new ConditionReport();
         String sql = "SELECT * FROM condition_report WHERE condition_report_id = ?";
 

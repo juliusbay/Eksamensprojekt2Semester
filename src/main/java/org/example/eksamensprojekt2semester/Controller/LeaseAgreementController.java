@@ -91,31 +91,22 @@ public class LeaseAgreementController {
 
         return "redirect:/lease_agreement_details" +leaseAgreementId;
     }
-    /*
+
     //Get all leaseAgreements
-    @GetMapping("/cars")
+    @GetMapping("/bingo")
     public String getAllLeaseAgreements(Model model) {
         ArrayList<LeaseAgreement> leaseAgreements= leaseAgreementRepository.getAllLeaseAgreements();
         model.addAttribute("leaseAgreements", leaseAgreements);
 
 
-        return "carsTestSide";
+        return "bango";
     }
-    */
+
     public boolean isUserLoggedIn(HttpSession session) {
         return session.getAttribute("loggedInUser") != null;
     }
 
-    @GetMapping("/cars")
-    public String getCarsAndLeaseAgreements(Model model) {
-        ArrayList<Car> cars = carRepository.getAllCars();
-        ArrayList<LeaseAgreement> leaseAgreements = leaseAgreementRepository.getAllLeaseAgreements();
 
-        model.addAttribute("cars", cars);
-        model.addAttribute("leaseAgreements", leaseAgreements);
-
-        return "carsTestSide";
-    }
 
 
 }

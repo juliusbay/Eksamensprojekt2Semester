@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <link href = "../static/css/layer.css" th:href="@{/css/layout.css}" rel = "stylesheet">
-    <link href="https://cdn.datatables.net/2.3.0/css/dataTables.dataTables.css" rel="stylesheet" />
+    <link href = "../static/css/datatables.css" th:href="@{/css/datatables.css}" rel = "stylesheet">
+    <link th:href="@{https://cdn.datatables.net/2.3.0/css/dataTables.dataTables.css}" rel="stylesheet" />
 
 </head>
 <body>
@@ -29,7 +29,7 @@
 </div>
 </div>
 <div class="lease_container">
-    <table id="" class="display">
+    <table id="" class="display compact">
         <thead>
         <tr>
             <th>Vehicle Id</th>
@@ -64,7 +64,7 @@
 
 <h2>Biler i systemet</h2>
 <div class="container">
-<table id="" class="display">
+<table id="" class="display compact">
     <thead>
         <tr>
             <th>ID</th>
@@ -108,7 +108,11 @@
         $('#myTable').DataTable();
     } );
 
-    new DataTable('table.display');
+    new DataTable('table.display', {
+        paging: false,
+            scrollCollapse: true,
+            scrollY: '50vh'
+    });
 </script>
 
 
