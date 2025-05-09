@@ -59,9 +59,11 @@ public class CarController {
     }
 
     @PostMapping("/deleteCar")
-    public String deleteCar(@RequestParam("car-id") int carId){
-        carRepository.deleteCarById(carId);
-        return "redirect:/";
+    public String deleteCar(@RequestParam("vehicleId") int vehicleId){
+        System.out.println("Received vehicleId to delete: " + vehicleId);
+
+        carRepository.deleteCarById(vehicleId);
+        return "redirect:/cars";
     }
 
     @PostMapping("/getUpdateCar")

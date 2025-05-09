@@ -56,7 +56,6 @@
 </div>
 
 <h2>Biler i systemet</h2>
-<form th:action="@{/createCar}" method="post">
 <div class="container">
 <table id="" class="display">
     <thead>
@@ -77,11 +76,20 @@
             <td th:text="${car.color}" />
             <td th:text="${car.bought}" />
             <td th:text="${car.status}" />
+            <td>
+                <form th:action="@{/deleteCar}" method="post">
+                <input type="hidden" name="vehicleId" th:value="${car.vehicleId}">
+                <button type="submit">Delete</button>
+
+                </form>
+            <td th:text="${car.vehicleId}"></td>
+
+            </td>
         </tr>
     </tbody>
 </table>
+
 </div>
-</form>
 
 <script src="https://code.jquery.com/jquery-3.7.1.js"> </script>
 <script src="https://cdn.datatables.net/2.3.0/js/dataTables.js"></script>
