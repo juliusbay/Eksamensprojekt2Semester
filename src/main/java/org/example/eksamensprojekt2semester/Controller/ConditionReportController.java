@@ -1,6 +1,7 @@
 package org.example.eksamensprojekt2semester.Controller;
 
 import jakarta.servlet.http.HttpSession;
+import org.example.eksamensprojekt2semester.Model.ConditionReport;
 import org.example.eksamensprojekt2semester.Model.Damage;
 import org.example.eksamensprojekt2semester.Repository.ConditionReportRepository;
 import org.example.eksamensprojekt2semester.Repository.DamageRepository;
@@ -23,6 +24,9 @@ public class ConditionReportController {
     @Autowired
     DamageRepository damageRepo;
 
+    @Autowired
+    ConditionReportService conditionReportService;
+
     @GetMapping ("/create-condition-report")
     public String createConditionReport(@RequestParam("fk_vehicle_id") int vehicleID, Model model){
         List<Damage> damages = damageRepo.getDamageByVehicleID(vehicleID);
@@ -35,15 +39,16 @@ public class ConditionReportController {
     @PostMapping ("createConditionReport")
     public String saveCreateConditionReport(@RequestParam("fk_vehicle_id") int vehicleID,
                                             @RequestParam("handled_by") String handledBy,
-                                            @RequestParam("report_date")Date reportDate,
-                                            @RequestParam("fk_damage_id") int damageId,
-                                            Model model,
                                             HttpSession session){
+        java.sql.Date today = new java.sql.Date(System.currentTimeMillis());
 
+        java.util.Date convert = conditionReportService.dateFormatter(today);
 
+        // We need to convert from java.util.date to java.sql.date
+        java.sql.Date sqlDate=new java.sql.Date(convert.getTime());
 
-
-
-        return "redirect:/create-condition-report?fk_vehicle_id"+vehicleID;
+        ConditionReport conditionReport = new ConditionReport(vehicleID, handledBy, today);
+        conditionReportRepo.createConditionReport(conditionReport);
+        return "redirect:/";
     }
 }
