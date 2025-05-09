@@ -68,14 +68,14 @@ public class LeaseAgreementController {
 
 
     //Delete a specific leaseAgreement by its id
-    @PostMapping("/dashboard")
+    @PostMapping("/deleteLease")
     public String deleteLeaseAgreement(@RequestParam("lease_agreement_id") int leaseAgreementId,
                                        HttpSession session) throws SQLException {
         if (!isUserLoggedIn(session)){
             return "redirect:/";
         }
         leaseAgreementRepository.deleteLeaseAgreementById(leaseAgreementId);
-        return "redirect:/dashboard";
+        return "redirect:/carTestSide";
     }
 
     //Get one specific leaseAgreement by its id
