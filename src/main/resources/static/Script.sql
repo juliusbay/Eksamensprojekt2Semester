@@ -126,23 +126,23 @@ CREATE TABLE available_choice(
                                  FOREIGN KEY (fk_choice_id) REFERENCES choice(choice_id)
 );
 
-CREATE TABLE damage(
-                       damage_id INT PRIMARY KEY AUTO_INCREMENT UNIQUE ,
-                       fk_vehicle_id INT,
-                       damage_type VARCHAR(255),
-                       damage_price DECIMAL(10,2),
-                       damage_date DATE,
-                       FOREIGN KEY (fk_vehicle_id) REFERENCES car(vehicle_id)
-);
-
 CREATE TABLE condition_report (
                                   condition_report_id INT PRIMARY KEY AUTO_INCREMENT UNIQUE ,
-                                  fk_damage_id INT,
                                   fk_vehicle_id INT,
                                   handled_by VARCHAR(50),
                                   report_date DATE,
-                                  FOREIGN KEY (fk_vehicle_id) REFERENCES car(vehicle_id),
-                                  FOREIGN KEY (fk_damage_id) REFERENCES damage(damage_id)
+                                  FOREIGN KEY (fk_vehicle_id) REFERENCES car(vehicle_id)
+);
+
+CREATE TABLE damage(
+                       damage_id INT PRIMARY KEY AUTO_INCREMENT UNIQUE ,
+                       fk_vehicle_id INT,
+                        fk_condition_report_id INT,
+                       damage_type VARCHAR(255),
+                       damage_price DECIMAL(10,2),
+                       damage_date DATE,
+                       FOREIGN KEY (fk_vehicle_id) REFERENCES car(vehicle_id),
+                        FOREIGN KEY (fk_condition_report_id) REFERENCES condition_report(condition_report_id)
 );
 
 
