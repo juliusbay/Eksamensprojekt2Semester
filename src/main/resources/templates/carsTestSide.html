@@ -4,8 +4,11 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <link href = "../static/css/layer.css" th:href="@{/css/layout.css}" rel = "stylesheet">
+    <link href="https://cdn.datatables.net/2.3.0/css/dataTables.dataTables.css" rel="stylesheet" />
+
 </head>
 <body>
+
 
 <div class="container">
 <div class="form-container">
@@ -26,7 +29,7 @@
 </div>
 </div>
 <div class="lease_container">
-    <table class="lease_table">
+    <table id="" class="display">
         <thead>
         <tr>
             <th>Vehicle Id</th>
@@ -53,9 +56,8 @@
 </div>
 
 <h2>Biler i systemet</h2>
-<form th:action="@{/createCar}" method="post">
 <div class="container">
-<table class="table">
+<table id="" class="display">
     <thead>
         <tr>
             <th>ID</th>
@@ -78,11 +80,32 @@
             <td th:text="${car.color}" />
             <td th:text="${car.bought}" />
             <td th:text="${car.status}" />
+            <td>
+                <form th:action="@{/deleteCar}" method="post">
+                <input type="hidden" name="vehicleId" th:value="${car.vehicleId}">
+                <button type="submit">Delete</button>
+
+                </form>
+            <td th:text="${car.vehicleId}"></td>
+
+            </td>
         </tr>
     </tbody>
 </table>
+
 </div>
-</form>
+
+<script src="https://code.jquery.com/jquery-3.7.1.js"> </script>
+<script src="https://cdn.datatables.net/2.3.0/js/dataTables.js"></script>
+
+<script>
+    $(document).ready( function () {
+        $('#myTable').DataTable();
+    } );
+
+    new DataTable('table.display');
+</script>
+
 
 </body>
 </html>
