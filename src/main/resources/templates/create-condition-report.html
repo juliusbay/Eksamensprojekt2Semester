@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Opret tilstandsrapport</title>
+</head>
+<body>
+<h1> Opret skade her </h1>
+<form th:action="@{/saveUpdateDamage}" method="post">
+    <input type="hidden" name="fk_vehicle_id" th:value="${vehicle_id}">
+
+  <label>Skadestype:</label>
+  <input type="text" name="damage_type" />
+
+  <label>Pris:</label>
+  <input type="number" name="damage_price" />
+
+  <label>Date:</label>
+  <input type="date" name="damage_date"/>
+
+
+  <button type="submit"> Tilføj skade </button>
+</form>
+
+<h1> Overblik over skader på rapporten </h1>
+<table>
+    <tr>
+        <th>Skade-ID</th>
+        <th>Skadestype</th>
+        <th>Pris</th>
+        <th>Dato</th>
+    </tr>
+    <tr th:each="damage : ${damages}">
+        <td th:text="${damage.damageId}"></td>
+        <td th:text="${damage.damageType}"></td>
+        <td th:text="${damage.damagePrice}"></td>
+        <td th:text="${damage.damageDate}"></td>
+        <td>
+            <form th:action="@{/deleteEmployee}" method="post">
+                <input type="hidden" name="damage_id" th:value="${damage.damageId}">
+                <button type="submit" class="btn">Slet</button>
+            </form>
+        </td>
+
+    </tr>
+
+</table>
+
+
+</body>
+</html>
