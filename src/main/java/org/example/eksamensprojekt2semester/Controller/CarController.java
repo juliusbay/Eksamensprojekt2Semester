@@ -29,7 +29,7 @@ public class CarController {
         return "redirect:/cars"; //Returnere til testsiden, skal ændres.
     }
 
-
+/*
     @GetMapping("/cars")
     public String getCars(Model model) {
 
@@ -38,7 +38,7 @@ public class CarController {
         return "carsTestSide";
 
     }
-
+    */
 
     @PostMapping("/createCar")
     public String getCreateCar(@RequestParam("car-model-id") int carModelId,

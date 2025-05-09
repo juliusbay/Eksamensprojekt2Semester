@@ -13,6 +13,7 @@ CREATE TABLE employee (
                           role ENUM('ADMIN', 'BUSINESS_DEVELOPER', 'DATA_RECORDING', 'MECHANIC') NOT NULL
 );
 
+
 INSERT INTO employee (employee_id, first_name, last_name, short_name, email, password, role) VALUES
                                                 (1, 'Demo', 'Demo', 'demo', 'demo@demo.demo', 'demo', 'ADMIN');
 
@@ -72,6 +73,10 @@ CREATE TABLE customer (
                           FOREIGN KEY (fk_vehicle_id) REFERENCES car(vehicle_id)
 );
 
+INSERT INTO customer (customer_id, first_name, last_name, email, phone_number, address, city, postal_code, cpr_number, fk_vehicle_id)
+    VALUES (1, 'DemoKunde', 'DemoKunde', 'demo@kunde.dk', 87654321,
+            'Gadevej 17','Herning', 0000, 123456-1234, 1);
+
 CREATE TABLE lease_agreement (
                                  lease_agreement_id INT PRIMARY KEY AUTO_INCREMENT,
                                  fk_vehicle_id INT,
@@ -84,7 +89,12 @@ CREATE TABLE lease_agreement (
                                  FOREIGN KEY (fk_vehicle_id) REFERENCES car(vehicle_id),
                                  FOREIGN KEY (fk_customer_id) REFERENCES customer(customer_id)
 
+
 );
+
+INSERT INTO lease_agreement(lease_agreement_id, fk_vehicle_id, fk_customer_id, lease_type, lease_start_date, lease_end_date, lease_price, return_location)
+VALUES
+    (1, 1, 1, 'UNLIMITED','2025-05-01', '2025-11-01', 10000, 'Guldgade');
 
 CREATE TABLE purchase_agreement(
                                    purchase_agreement_id INT PRIMARY KEY AUTO_INCREMENT UNIQUE,

@@ -36,11 +36,14 @@ public class LeaseAgreementRepository {
                 leaseAgreement.setLeaseStartDate(resultSet.getDate("lease_start_date"));
                 leaseAgreement.setLeaseEndDate(resultSet.getDate("lease_end_date"));
                 leaseAgreement.setReturnLocation(resultSet.getString("return_location"));
+
+                leaseAgreements.add(leaseAgreement);
             }
         }catch (SQLException e){
                 e.printStackTrace();
         }
         return leaseAgreements;
+
     }
 
 

@@ -25,6 +25,32 @@
     </form>
 </div>
 </div>
+<div class="lease_container">
+    <table class="lease_table">
+        <thead>
+        <tr>
+            <th>Vehicle Id</th>
+            <th>Customer Id</th>
+            <th>Lease Type</th>
+            <th>Lease Price</th>
+            <th>Lease Start Date</th>
+            <th>Lease End Date</th>
+            <th>Return Location</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each= "leaseAgreement: ${leaseAgreements}">
+            <td th:text="${leaseAgreement.fkVehicleId}" />
+            <td th:text="${leaseAgreement.fkCustomerId}" />
+            <td th:text="${leaseAgreement.leaseType}" />
+            <td th:text="${leaseAgreement.leasePrice}" />
+            <td th:text="${leaseAgreement.leaseStartDate}" />
+            <td th:text="${leaseAgreement.leaseEndDate}" />
+            <td th:text="${leaseAgreement.returnLocation}" />
+        </tr>
+        </tbody>
+    </table>
+</div>
 
 <h2>Biler i systemet</h2>
 <form th:action="@{/createCar}" method="post">

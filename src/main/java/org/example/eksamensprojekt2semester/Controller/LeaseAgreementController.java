@@ -1,7 +1,9 @@
 package org.example.eksamensprojekt2semester.Controller;
 
 import jakarta.servlet.http.HttpSession;
+import org.example.eksamensprojekt2semester.Model.Car;
 import org.example.eksamensprojekt2semester.Model.LeaseAgreement;
+import org.example.eksamensprojekt2semester.Repository.CarRepository;
 import org.example.eksamensprojekt2semester.Repository.LeaseAgreementRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,9 +22,12 @@ public class LeaseAgreementController {
     @Autowired
     LeaseAgreementRepository leaseAgreementRepository;
 
+    @Autowired
+    CarRepository carRepository;
+
 
     //Create a leaseAgreement
-    @PostMapping("/createBooking")
+    @PostMapping("/carsTestSide")
     public String createLeaseAgreement(@RequestParam("fk_vehicle_id") int fkVehicleId,
                                        @RequestParam("fk_customer_id") int fkCustomerId,
                                        @RequestParam("lease_type")LeaseAgreement.LeaseType leaseType,
@@ -86,19 +91,30 @@ public class LeaseAgreementController {
 
         return "redirect:/lease_agreement_details" +leaseAgreementId;
     }
-
+    /*
     //Get all leaseAgreements
-    @GetMapping("/dashboard")
+    @GetMapping("/cars")
     public String getAllLeaseAgreements(Model model) {
-        ArrayList<LeaseAgreement> leaseAgreements;
-        leaseAgreements = leaseAgreementRepository.getAllLeaseAgreements();
-        model.addAttribute("leaseAgreement", leaseAgreements);
+        ArrayList<LeaseAgreement> leaseAgreements= leaseAgreementRepository.getAllLeaseAgreements();
+        model.addAttribute("leaseAgreements", leaseAgreements);
 
-        return "redirect:/dashboard";
+
+        return "carsTestSide";
     }
-
+    */
     public boolean isUserLoggedIn(HttpSession session) {
         return session.getAttribute("loggedInUser") != null;
+    }
+
+    @GetMapping("/cars")
+    public String getCarsAndLeaseAgreements(Model model) {
+        ArrayList<Car> cars = carRepository.getAllCars();
+        ArrayList<LeaseAgreement> leaseAgreements = leaseAgreementRepository.getAllLeaseAgreements();
+
+        model.addAttribute("cars", cars);
+        model.addAttribute("leaseAgreements", leaseAgreements);
+
+        return "carsTestSide";
     }
 
 
