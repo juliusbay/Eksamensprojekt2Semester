@@ -98,6 +98,7 @@
             <th>Forkøbt</th>
             <th>Status</th>
             <th>Delete</th>
+            <th>Reports</th>
         </tr>
     </thead>
     <tbody>
@@ -114,6 +115,12 @@
                 <form th:action="@{/deleteCar}" method="post">
                 <input type="hidden" name="vehicleId" th:value="${car.vehicleId}">
                 <button type="submit">Delete</button>
+                </form>
+            </td>
+            <td>
+                <form th:action="@{/create-condition-report(vehicle_id=${car.vehicleId})}">
+                    <input type="hidden" name="vehicle_id" th:value="${car.vehicleId}">
+                    <button type="submit">Create report</button>
                 </form>
             </td>
         </tr>

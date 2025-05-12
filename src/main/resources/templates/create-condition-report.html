@@ -22,6 +22,11 @@
   <button type="submit"> Tilføj skade </button>
 </form>
 
+<form th:action="@{/createConditionReport}">
+    <input type="hidden" name="vehicle_id">
+
+</form>
+
 <h1> Overblik over skader på rapporten </h1>
 <table>
     <tr>
