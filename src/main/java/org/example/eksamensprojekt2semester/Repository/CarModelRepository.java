@@ -21,7 +21,7 @@ public class CarModelRepository {
 
     public ArrayList<CarModel> getAllCarModels() {
         ArrayList<CarModel> carModels = new ArrayList<>();
-        String sql = "SELECT * FROM car";
+        String sql = "SELECT * FROM car_model";
 
         try (Connection connection = dataSource.getConnection();
             PreparedStatement statement = connection.prepareStatement(sql)){

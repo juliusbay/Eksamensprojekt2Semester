@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 @Controller
@@ -47,7 +48,7 @@ public class PageController {
 
 
     @GetMapping("/cars")
-    public String getEveryTable(Model model) {
+    public String getEveryTable(Model model) throws SQLException {
         ArrayList<LeaseAgreement> leaseAgreements = leaseAgreementRepository.getAllLeaseAgreements();
         ArrayList<Car> cars = carRepository.getAllCars();
         ArrayList<CarModel> carModels = carModelRepository.getAllCarModels();
@@ -55,7 +56,7 @@ public class PageController {
         ArrayList<Damage> damages = damageRepository.getAllDamages();
         ArrayList<Employee> employees = employeeRepository.getAllEmployees();
         ArrayList<PurchaseAgreement> purchaseAgreements = purchaseAgreementRepository.getAllPurchaseAgreements();
-
+        ArrayList<Customer> customers = customerRepository.getAllCustomers();
 
         model.addAttribute("cars", cars);
         model.addAttribute("leaseAgreements", leaseAgreements);
@@ -64,6 +65,7 @@ public class PageController {
         model.addAttribute("damages", damages);
         model.addAttribute("employees", employees);
         model.addAttribute("purchaseAgreements", purchaseAgreements);
+        model.addAttribute("customers", customers);
 
 
         return "carsTestSide";

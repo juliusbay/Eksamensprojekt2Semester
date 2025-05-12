@@ -22,7 +22,7 @@ public class ConditionReportRepository {
 
     public ArrayList<ConditionReport> getAllConditionReports() {
         ArrayList<ConditionReport> conditionReports = new ArrayList<>();
-        String sql = "SELECT * FROM CONDITION_REPORT";
+        String sql = "SELECT * FROM condition_report";
 
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {

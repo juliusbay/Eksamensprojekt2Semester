@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 @Repository
 public class CustomerRepository {
@@ -44,6 +45,34 @@ public class CustomerRepository {
         }
 
         return customer;
+    }
+
+    public ArrayList<Customer> getAllCustomers() throws SQLException {
+        ArrayList<Customer> customers = new ArrayList<>();
+        String sql = "SELECT * FROM customer";
+
+        try(Connection connection = dataSource.getConnection();
+            PreparedStatement statement = connection.prepareStatement(sql)){
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()){
+                Customer customer = new Customer();
+                customer.setCustomerId(resultSet.getInt("customer_id"));
+                customer.setFirstName(resultSet.getString("first_name"));
+                customer.setLastName(resultSet.getString("last_name"));
+                customer.setEmail(resultSet.getString("email"));
+                customer.setPhoneNumber(resultSet.getInt("phone_number"));
+                customer.setAddress(resultSet.getString("address"));
+                customer.setCity(resultSet.getString("city"));
+                customer.setPostalCode(resultSet.getInt("postal_code"));
+                customer.setCprNumber(resultSet.getInt("cpr_number"));
+                customer.setFkVehicleId(resultSet.getInt("fk_vehicle_id"));
+                customers.add(customer);
+            }
+        }catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return customers;
     }
 
     //Method for creating customer.

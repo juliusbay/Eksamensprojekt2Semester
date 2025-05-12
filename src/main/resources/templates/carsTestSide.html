@@ -28,8 +28,21 @@
     </form>
 </div>
 </div>
-<div class="lease_container">
-    <table id="" class="display compact">
+
+<label for="tableSelector">Choose a table:</label>
+<select id="tableSelector">
+    <option value="car_table">Biler</option>
+    <option value="lease_table">Leasingaftaler</option>
+    <option value="condition_report_table">Tilstandsrapporter</option>
+    <option value="damage_table">Skader</option>
+    <option value="employee_table">Ansatte</option>
+    <option value="purchaseAgreement_table">Købsaftaler</option>
+    <option value="Customer_table">Kunder</option>
+</select>
+
+
+<div class="dataTable" id="lease_table">
+    <table class="display compact">
         <thead>
         <tr>
             <th>Vehicle Id</th>
@@ -62,9 +75,8 @@
     </table>
 </div>
 
-<h2>Biler i systemet</h2>
-<div class="container">
-<table id="" class="display compact">
+<div class="dataTable" id="car_table">
+<table class="display compact">
     <thead>
         <tr>
             <th>ID</th>
@@ -80,7 +92,7 @@
     </thead>
     <tbody>
         <tr th:each="car: ${cars}">
-            <td th:text="${car.vehicleId}" />
+            <td th:text="${car.getVehicleId()}" />
             <td th:text="${car.vinNumber}" />
             <td th:text="${car.getCarModel().getBrand()}" />
             <td th:text="${car.getCarModel().getModelName()}" />
@@ -97,16 +109,188 @@
         </tr>
     </tbody>
 </table>
-
 </div>
+
+<div class="dataTable" id="condition_report_table">
+    <table class="display compact" >
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Handler</th>
+            <th>Dato</th>
+            <th>Delete</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="conditionReport: ${conditionReports}">
+            <td th:text="${conditionReport.conditionReportId}" />
+            <td th:text="${conditionReport.handledBy}" />
+            <td th:text="${conditionReport.reportDate}" />
+            <td>
+                <form th:action="@{/deleteConditionReport}" method="post">
+                    <input type="hidden" name="conditionReportId" th:value="${conditionReport.conditionReportId}">
+                    <button type="submit">Delete</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="dataTable" id="damage_table">
+    <table class="display compact" >
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Bil id</th>
+            <th>Pris</th>
+            <th>Type skade</th>
+            <th>Dato</th>
+            <th>Delete</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="damage: ${damages}">
+            <td th:text="${damage.damageId}" />
+            <td th:text="${damage.fkVehicleId}" />
+            <td th:text="${damage.damagePrice}" />
+            <td th:text="${damage.damageType}" />
+            <td th:text="${damage.damageDate}" />
+            <td>
+                <form th:action="@{/deleteDamage}" method="post">
+                    <input type="hidden" name="damageId" th:value="${damage.damageId}">
+                    <button type="submit">Delete</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="dataTable" id="employee_table">
+    <table class="display compact" >
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Fornavn</th>
+            <th>Efternavn</th>
+            <th>Shortname</th>
+            <th>Email</th>
+            <th>Rolle</th>
+            <th>Delete</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="employee: ${employees}">
+            <td th:text="${employee.employeeId}" />
+            <td th:text="${employee.firstName}" />
+            <td th:text="${employee.lastName}" />
+            <td th:text="${employee.shortName}" />
+            <td th:text="${employee.email}" />
+            <td th:text="${employee.role}" />
+            <td>
+                <form th:action="@{/deleteEmployee}" method="post">
+                    <input type="hidden" name="empployeeId" th:value="${employee.employeeId}">
+                    <button type="submit">Delete</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="dataTable" id="purchaseAgreements_table">
+    <table class="display compact">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Kunde id</th>
+            <th>Bil id</th>
+            <th>Pris</th>
+            <th>Betalt?</th>
+            <th>Delete</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="purchaseAgreement: ${purchaseAgreements}">
+            <td th:text="${purchaseAgreement.purchaseAgreementId}" />
+            <td th:text="${purchaseAgreement.fkCustomerId}" />
+            <td th:text="${purchaseAgreement.fkVehicleId}" />
+            <td th:text="${purchaseAgreement.carPrice}" />
+            <td th:text="${purchaseAgreement.paid}" />
+            <td>
+                <form th:action="@{/deletePurchaseAgreement}" method="post">
+                    <input type="hidden" name="purchaseAgreementId" th:value="${purchaseAgreement.purchaseAgreementId}">
+                    <button type="submit">Delete</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="dataTable" id="customer_table">
+    <table class="display compact">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Fornavn</th>
+            <th>Efternavn</th>
+            <th>Email</th>
+            <th>Cpr-nummer</th>
+            <th>TelefonNummer</th>
+            <th>Adresse</th>
+            <th>By</th>
+            <th>Postnummer</th>
+            <th>Bil id</th>
+            <th>Delete</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="customer: ${customers}">
+            <td th:text="${customer.customerId}" />
+            <td th:text="${customer.firstName}" />
+            <td th:text="${customer.lastName}" />
+            <td th:text="${customer.email}" />
+            <td th:text="${customer.cprNumber}" />
+            <td th:text="${customer.phoneNumber}" />
+            <td th:text="${customer.address}" />
+            <td th:text="${customer.city}" />
+            <td th:text="${customer.postalCode}" />
+            <td th:text="${customer.fkVehicleId}" />
+            <td>
+                <form th:action="@{/deleteCustomer}" method="post">
+                    <input type="hidden" name="customerId" th:value="${customer.customerId}">
+                    <button type="submit">Delete</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
 
 <script src="https://code.jquery.com/jquery-3.7.1.js"> </script>
 <script src="https://cdn.datatables.net/2.3.0/js/dataTables.js"></script>
 
 <script>
-    $(document).ready( function () {
-        $('#myTable').DataTable();
-    } );
+    $(document).ready(function() {
+        // Initialize all DataTables
+        $('#carsTable table').DataTable();
+        $('#leasesTable table').DataTable();
+        $('#condition_report_table table').DataTable();
+        $('#damage_table table').DataTable();
+        $('#employee_table table').DataTable();
+        $('#purchaseAgreements_table table').DataTable();
+        $('#customer_table table').DataTable();
+
+        $('#tableSelector').on('change', function() {
+            let selected = $(this).val();
+
+            $('.data-table').hide();
+            $('#' + selected).show();
+        });
+    });
 
     new DataTable('table.display', {
         paging: false,

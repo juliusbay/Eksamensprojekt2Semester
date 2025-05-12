@@ -15,7 +15,8 @@ CREATE TABLE employee (
 
 
 INSERT INTO employee (employee_id, first_name, last_name, short_name, email, password, role) VALUES
-                                                (1, 'Demo', 'Demo', 'demo', 'demo@demo.demo', 'demo', 'ADMIN');
+                                                (1, 'Demo', 'Demo', 'demo', 'demo@demo.demo', 'demo', 'ADMIN'),
+                                                (2, 'Jürgen', 'Hinterseer', 'JÜHIN', 'Jürgen@email.dk', 'Lagkage', 'DATA_RECORDING');
 
 CREATE TABLE car_model (
                            car_model_id INT PRIMARY KEY AUTO_INCREMENT UNIQUE,
@@ -34,7 +35,13 @@ VALUES ('Model X', 'Tesla', 'ELECTRIC', 2024, 'AUTOMATIC', 0, 'Performance', 750
        ('Ariya', 'Nissan', 'ELECTRIC', 2025, 'AUTOMATIC', 0, 'Evolve', 550000),
        ('500', 'Fiat', 'GASOLINE', 2025, 'MANUAL', 105, 'Vita Comfort', 250000),
        ('500e', 'Fiat', 'ELECTRIC', 2025, 'AUTOMATIC', 0, 'La Prima', 250000),
-       ('500e', 'Fiat', 'ELECTRIC', 2025, 'AUTOMATIC', null, 'Icon', 250000);
+       ('500e', 'Fiat', 'ELECTRIC', 2025, 'AUTOMATIC', null, 'Icon', 250000),
+       ('Malibu', 'Chevrolet', 'GASOLINE', 2024, 'AUTOMATIC', 135, 'LT', 320000),
+       ('Golf', 'Volkswagen', 'GASOLINE', 2025, 'MANUAL', 120, 'Comfortline', 300000),
+       ('Accord Hybrid', 'Honda', 'HYBRID', 2023, 'AUTOMATIC', 90, 'EX-L', 380000),
+       ('Jetta', 'Volkswagen', 'GASOLINE', 2025, 'MANUAL', 110, 'Trendline', 290000),
+       ('9-3 Coupe', 'Saab', 'GASOLINE', 2024, 'MANUAL', 150, 'Vector', 270000);
+
 
 
 CREATE TABLE car (
@@ -56,7 +63,12 @@ VALUES
     (5, 'WBABW33426PX70804', 'Black'),
     (3, '3C3CFFBRXF1509101', 'Grey'),
     (4, 'ZFAGA491XD3202032', 'Blue'),
-    (5, '3C3AFFAR9FT534410', 'Black');
+    (5, '3C3AFFAR9FT534410', 'Black'),
+    (6,'1G1ZD5ST9RS123456','Grey'),
+    (7, 'WVWZZZ3BZSE456789','White'),
+    (8, 'JHMFA165XPS987654', 'Orange'),
+    (9, '3VW2K7AJ1SM234321', 'Red'),
+    (10,'YS3FD59Y9R7001122','Black');
 
 
 CREATE TABLE customer (
@@ -74,27 +86,45 @@ CREATE TABLE customer (
 );
 
 INSERT INTO customer (customer_id, first_name, last_name, email, phone_number, address, city, postal_code, cpr_number, fk_vehicle_id)
-    VALUES (1, 'DemoKunde', 'DemoKunde', 'demo@kunde.dk', 87654321,
-            'Gadevej 17','Herning', 0000, 123456-1234, 1);
+    VALUES (1, 'DemoKunde', 'DemoKunde', 'demo@kunde.dk', 87654321, 'Gadevej 17','Herning', 0000, 123456-1234, 1),
+           (2, 'Oliver', 'Larsen', 'oliver.larsen@example.com', 87654321, 'Elm St 3', 'Aarhus', 8000, 202901-2345, 2),
+           (3, 'Sofie', 'Nielsen', 'sofie.nielsen@example.com', 11112222, 'Birch Ave 5', 'Odense', 5000, 303901-3456, 3),
+           (4, 'William', 'Pedersen', 'william.pedersen@example.com', 22223333, 'Oak St 7', 'Aalborg', 9000, 404901-4567, 4),
+           (5, 'Freja', 'Andersen', 'freja.andersen@example.com', 33334444, 'Pine Rd 9', 'Esbjerg', 6700, 505903-5678, 5),
+           (6, 'Lucas', 'Christensen', 'lucas.christensen@example.com', 44445555, 'Maple St 11', 'Randers', 8900, 606910-6789, 6),
+           (7, 'Ida', 'Jensen', 'ida.jensen@example.com', 55556666, 'Fir Ln 13', 'Horsens', 8700, 707903-7890, 7),
+           (8, 'Noah', 'Madsen', 'noah.madsen@example.com', 66667777, 'Cedar Blvd 15', 'Kolding', 6000, 808901-8901, 8),
+           (9, 'Clara', 'Thomsen', 'clara.thomsen@example.com', 77778888, 'Spruce Dr 17', 'Vejle', 7100, 909904-9012, 9),
+           (10, 'Oscar', 'Poulsen', 'oscar.poulsen@example.com', 88889999, 'Ash Ct 19', 'Herning', 7400, 101091-0123, 10);
+
 
 CREATE TABLE lease_agreement (
-                                 lease_agreement_id INT PRIMARY KEY AUTO_INCREMENT,
-                                 fk_vehicle_id INT,
-                                 fk_customer_id INT,
-                                 lease_type ENUM('LIMITED', 'UNLIMITED'),
-                                 lease_start_date DATE,
-                                 lease_end_date DATE,
-                                 lease_price DOUBLE,
-                                 return_location VARCHAR(255),
-                                 FOREIGN KEY (fk_vehicle_id) REFERENCES car(vehicle_id),
-                                 FOREIGN KEY (fk_customer_id) REFERENCES customer(customer_id)
+                            lease_agreement_id INT PRIMARY KEY AUTO_INCREMENT,
+                            fk_vehicle_id INT,
+                            fk_customer_id INT,
+                            lease_type ENUM('LIMITED', 'UNLIMITED'),
+                            lease_start_date DATE,
+                            lease_end_date DATE,
+                            lease_price DOUBLE,
+                            return_location VARCHAR(255),
+                            FOREIGN KEY (fk_vehicle_id) REFERENCES car(vehicle_id),
+                            FOREIGN KEY (fk_customer_id) REFERENCES customer(customer_id)
 
 
 );
 
 INSERT INTO lease_agreement(lease_agreement_id, fk_vehicle_id, fk_customer_id, lease_type, lease_start_date, lease_end_date, lease_price, return_location)
 VALUES
-    (1, 1, 1, 'UNLIMITED','2025-05-01', '2025-11-01', 10000, 'Guldgade');
+    (1, 1, 1, 'UNLIMITED','2025-05-01', '2025-11-01', 10000, 'Guldgade'),
+    (2, 2, 2, 'UNLIMITED', '2023-11-01', '2024-11-01', 12000, 'Aarhus'),
+    (3, 3, 3, 'LIMITED', '2024-03-15', '2024-09-15', 8000, 'Odense'),
+    (4, 4, 4, 'UNLIMITED', '2025-01-10', '2025-07-10', 11000, 'Aalborg'),
+    (5, 5, 5, 'LIMITED', '2024-06-01', '2024-12-01', 9000, 'Esbjerg'),
+    (6, 6, 6, 'LIMITED', '2024-04-20', '2024-10-20', 8500, 'Randers'),
+    (7, 7, 7, 'UNLIMITED', '2023-09-05', '2024-09-05', 13000, 'Horsens'),
+    (8, 8, 8, 'LIMITED', '2024-02-01', '2024-08-01', 7800, 'Kolding'),
+    (9, 9, 9, 'UNLIMITED', '2024-07-01', '2025-01-01', 10000, 'Vejle'),
+    (10, 10, 10, 'LIMITED', '2024-05-01', '2024-11-01', 9500, 'Herning');
 
 CREATE TABLE purchase_agreement(
                                    purchase_agreement_id INT PRIMARY KEY AUTO_INCREMENT UNIQUE,
@@ -105,6 +135,20 @@ CREATE TABLE purchase_agreement(
                                    FOREIGN KEY (fk_vehicle_id) REFERENCES car(vehicle_id),
                                    FOREIGN KEY (fk_customer_id) REFERENCES customer(customer_id)
 );
+INSERT INTO purchase_agreement(fk_vehicle_id, fk_customer_id, paid, car_price)
+VALUES
+    (1, 1, TRUE, 150000.00),
+    (2, 2, FALSE, 135000.00),
+    (3, 3, TRUE, 142000.00),
+    (4, 4, TRUE, 160000.00),
+    (5, 5, FALSE, 128000.00),
+    (6, 6, TRUE, 147000.00),
+    (7, 7, TRUE, 133000.00),
+    (8, 8, FALSE, 139000.00),
+    (9, 9, TRUE, 145000.00),
+    (10, 10, FALSE, 150000.00);
+
+
 
 CREATE TABLE choice(
                        choice_id INT PRIMARY KEY AUTO_INCREMENT UNIQUE,
@@ -134,6 +178,33 @@ CREATE TABLE condition_report (
                                   FOREIGN KEY (fk_vehicle_id) REFERENCES car(vehicle_id)
 );
 
+INSERT INTO condition_report(fk_vehicle_id, handled_by, report_date)
+VALUES
+    (1, 'JÜHIN', '2024-01-15'),
+    (2, 'JÜHIN', '2024-02-10'),
+    (3, 'JÜHIN', '2024-03-05'),
+    (4, 'JÜHIN', '2024-03-20'),
+    (5, 'JÜHIN', '2024-04-01'),
+    (6, 'JÜHIN', '2024-04-15'),
+    (7, 'JÜHIN', '2024-05-01'),
+    (8, 'JÜHIN', '2024-05-20'),
+    (9, 'JÜHIN', '2024-06-01'),
+    (10, 'JÜHIN', '2024-06-15');
+
+INSERT INTO purchase_agreement(fk_vehicle_id, fk_customer_id, paid, car_price)
+VALUES
+    (1, 1, TRUE, 150000.00),
+    (2, 2, FALSE, 135000.00),
+    (3, 3, TRUE, 142000.00),
+    (4, 4, TRUE, 160000.00),
+    (5, 5, FALSE, 128000.00),
+    (6, 6, TRUE, 147000.00),
+    (7, 7, TRUE, 133000.00),
+    (8, 8, FALSE, 139000.00),
+    (9, 9, TRUE, 145000.00),
+    (10, 10, FALSE, 150000.00);
+
+
 CREATE TABLE damage(
                        damage_id INT PRIMARY KEY AUTO_INCREMENT UNIQUE ,
                        fk_vehicle_id INT,
@@ -144,6 +215,18 @@ CREATE TABLE damage(
                        FOREIGN KEY (fk_vehicle_id) REFERENCES car(vehicle_id),
                         FOREIGN KEY (fk_condition_report_id) REFERENCES condition_report(condition_report_id)
 );
+INSERT INTO damage(damage_id,fk_vehicle_id, fk_condition_report_id, damage_type, damage_price, damage_date)
+VALUES
+    (1, 1,1, 'Scratch on left door', 500.00, '2024-01-15'),
+    (2, 2,2 ,'Broken tail light', 300.00, '2024-02-10'),
+    (3, 3, 3,'Dented front bumper', 750.00, '2024-03-05'),
+    (4, 4, 4,'Windshield crack', 600.00, '2024-03-20'),
+    (5, 5,5 ,'Flat tire', 250.00, '2024-04-01'),
+    (6, 6, 6,'Paint damage', 400.00, '2024-04-15'),
+    (7, 7,7 ,'Mirror replacement', 350.00, '2024-05-01'),
+    (8, 8,8 ,'Back bumper dent', 500.00, '2024-05-20'),
+    (9, 9, 9,'Interior cleaning', 200.00, '2024-06-01'),
+    (10, 10,10, 'Minor engine fix', 1000.00, '2024-06-15');
 
 
 
