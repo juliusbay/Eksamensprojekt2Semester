@@ -1,29 +1,29 @@
 package org.example.eksamensprojekt2semester.Model;
 
-import java.sql.Date;
-
 public class Damage {
     private int damageId;
-    private int fkVehicleId;
     private int conditionReportId;
     private String damageType;
     private double damagePrice;
-    private Date damageDate;
 
-    public Damage(int damageId, int fkVehicleId, String damageType, double damagePrice, Date damageDate) {
+    public Damage(int damageId, String damageType, double damagePrice) {
         this.damageId = damageId;
-        this.fkVehicleId = fkVehicleId;
         this.damageType = damageType;
         this.damagePrice = damagePrice;
-        this.damageDate = damageDate;
     }
 
-    public Damage(int fkVehicleId, String damageType, double damagePrice, Date damageDate) {
-        this.fkVehicleId = fkVehicleId;
+    public Damage(String damageType, double damagePrice) {
         this.damageType = damageType;
         this.damagePrice = damagePrice;
-        this.damageDate = damageDate;
     }
+
+    public Damage(int damageId, int conditionReportId, String damageType, double damagePrice) {
+        this.damageId = damageId;
+        this.conditionReportId = conditionReportId;
+        this.damageType = damageType;
+        this.damagePrice = damagePrice;
+    }
+
 
     public Damage() {}
 
@@ -33,14 +33,6 @@ public class Damage {
 
     public void setDamageId(int damageId) {
         this.damageId = damageId;
-    }
-
-    public int getFkVehicleId() {
-        return fkVehicleId;
-    }
-
-    public void setFkVehicleId(int fkVehicleId) {
-        this.fkVehicleId = fkVehicleId;
     }
 
     public String getDamageType() {
@@ -57,14 +49,6 @@ public class Damage {
 
     public void setDamagePrice(double damagePrice) {
         this.damagePrice = damagePrice;
-    }
-
-    public java.sql.Date getDamageDate() {
-        return damageDate;
-    }
-
-    public void setDamageDate(Date damageDate) {
-        this.damageDate = damageDate;
     }
 
     public int getConditionReportId() {

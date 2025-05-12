@@ -3,6 +3,7 @@ package org.example.eksamensprojekt2semester.Controller;
 import jakarta.servlet.http.HttpSession;
 import org.example.eksamensprojekt2semester.Model.ConditionReport;
 import org.example.eksamensprojekt2semester.Model.Damage;
+import org.example.eksamensprojekt2semester.Model.Employee;
 import org.example.eksamensprojekt2semester.Repository.ConditionReportRepository;
 import org.example.eksamensprojekt2semester.Repository.DamageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,11 +28,19 @@ public class ConditionReportController {
     @Autowired
     ConditionReportService conditionReportService;
 
-    // Page for creating a condition report (consisting of damages) based on the vehicle's ID
+    @Autowired
+    EmployeeController employeeController;
+
+    // Page for creating a condition report (consisting of damages) based on the condition report's ID
     @GetMapping ("/create-condition-report")
-    public String createConditionReport(@RequestParam("vehicle_id") int vehicleID, Model model){
-        List<Damage> damages = damageRepo.getDamageByVehicleID(vehicleID);
-        model.addAttribute("vehicle_id", vehicleID);
+    public String createConditionReport(@RequestParam("condition_report_id") int conditionReportId, Model model,
+                                        HttpSession session){
+        if (!employeeController.isUserLoggedIn(session)) {
+            return "redirect:/";
+        }
+
+        List<Damage> damages = damageRepo.getDamageByConditionReportId(conditionReportId);
+        model.addAttribute("condition_report_id", conditionReportId);
         model.addAttribute("damages", damages);
 
         return "create-condition-report";
@@ -39,8 +48,12 @@ public class ConditionReportController {
 
     // Postmapping for creating the condition report itself
     @PostMapping ("createConditionReport")
-    public String saveCreateConditionReport(@RequestParam("fk_vehicle_id") int vehicleID,
-                                            @RequestParam("handled_by") String handledBy){
+    public String saveCreateConditionReport(@RequestParam("vehicle_id") int vehicleID,
+                                            HttpSession session){
+        if (!employeeController.isUserLoggedIn(session)) {
+            return "redirect:/";
+        }
+
         java.sql.Date today = new java.sql.Date(System.currentTimeMillis());
 
         java.util.Date convert = conditionReportService.dateFormatter(today);
@@ -48,16 +61,26 @@ public class ConditionReportController {
         // We need to convert from java.util.date to java.sql.date
         java.sql.Date sqlDate=new java.sql.Date(convert.getTime());
 
+        Employee employee = (Employee) session.getAttribute("loggedInUser");
+        String handledBy = employee.getShortName();
+
         ConditionReport conditionReport = new ConditionReport(vehicleID, handledBy, sqlDate);
         conditionReportRepo.createConditionReport(conditionReport);
-        return "redirect:/";
+        int reportId = conditionReportRepo.getConditionReportByVehicleId(vehicleID).getConditionReportId();
+
+        return "redirect:/create-condition-report?condition_report_id="+reportId;
     }
 
     // Postmapping for editing the condition report
     @PostMapping ("editConditionReport")
     public String saveEditConditionReport(@RequestParam("fk_vehicle_id") int vehicleID,
                                           @RequestParam("condition_report_id") int reportId,
-                                            @RequestParam("handled_by") String handledBy){
+                                            @RequestParam("handled_by") String handledBy,
+                                          HttpSession session){
+        if (!employeeController.isUserLoggedIn(session)) {
+            return "redirect:/";
+        }
+
         java.sql.Date today = new java.sql.Date(System.currentTimeMillis());
 
         java.util.Date convert = conditionReportService.dateFormatter(today);
@@ -72,7 +95,11 @@ public class ConditionReportController {
 
     // Postmapping to delete condition reports
     @PostMapping ("deleteConditionReport")
-    public String deleteConditionReport(@RequestParam("condition_report_id") int reportId){
+    public String deleteConditionReport(@RequestParam("condition_report_id") int reportId,
+                                        HttpSession session){
+        if (!employeeController.isUserLoggedIn(session)) {
+            return "redirect:/";
+        }
 
         conditionReportRepo.deleteConditionReportFromId(reportId);
         return "redirect:/";

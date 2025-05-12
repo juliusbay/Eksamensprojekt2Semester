@@ -18,6 +18,10 @@ public class ConditionReport {
     public ConditionReport() {
     }
 
+    public ConditionReport(int fkVehicleId) {
+        this.fkVehicleId = fkVehicleId;
+    }
+
     public ConditionReport(int fkVehicleId, String handledBy, Date reportDate) {
         this.fkVehicleId = fkVehicleId;
         this.handledBy = handledBy;

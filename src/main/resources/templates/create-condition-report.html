@@ -9,8 +9,8 @@
 <header th:replace="~{fragments.html :: navbar}"></header>
 
 <h1> Opret skade her </h1>
-<form th:action="@{/saveUpdateDamage}" method="post">
-    <input type="hidden" name="fk_vehicle_id" th:value="${vehicle_id}">
+<form th:action="@{/createDamage}" method="post">
+    <input type="hidden" name="condition_report_id" th:value="${condition_report_id}">
 
   <label>Skadestype:</label>
   <input type="text" name="damage_type" />
@@ -18,16 +18,7 @@
   <label>Pris:</label>
   <input type="number" name="damage_price" />
 
-  <label>Date:</label>
-  <input type="date" name="damage_date"/>
-
-
   <button type="submit"> Tilføj skade </button>
-</form>
-
-<form th:action="@{/createConditionReport}">
-    <input type="hidden" name="vehicle_id">
-
 </form>
 
 <h1> Overblik over skader på rapporten </h1>
@@ -36,19 +27,23 @@
         <th>Skade-ID</th>
         <th>Skadestype</th>
         <th>Pris</th>
-        <th>Dato</th>
     </tr>
     <tr th:each="damage : ${damages}">
         <td th:text="${damage.damageId}"></td>
         <td th:text="${damage.damageType}"></td>
         <td th:text="${damage.damagePrice}"></td>
         <td>
+            <form th:action="@{/saveUpdateDamage}" method="post">
+                <input type="hidden" name="damage_id" th:value="${damage.damageId}">
+                <button type="submit" class="btn">Rediger</button>
+            </form>
+        </td>
+        <td>
             <form th:action="@{/deleteDamage}" method="post">
                 <input type="hidden" name="damage_id" th:value="${damage.damageId}">
                 <button type="submit" class="btn">Slet</button>
             </form>
         </td>
-
     </tr>
 
 </table>

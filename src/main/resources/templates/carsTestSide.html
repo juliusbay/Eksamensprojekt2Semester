@@ -118,7 +118,7 @@
                 </form>
             </td>
             <td>
-                <form th:action="@{/create-condition-report(vehicle_id=${car.vehicleId})}">
+                <form th:action="@{/createConditionReport}" method="post">
                     <input type="hidden" name="vehicle_id" th:value="${car.vehicleId}">
                     <button type="submit">Create report</button>
                 </form>
@@ -146,7 +146,7 @@
             <td th:text="${conditionReport.reportDate}" />
             <td>
                 <form th:action="@{/deleteConditionReport}" method="post">
-                    <input type="hidden" name="conditionReportId" th:value="${conditionReport.conditionReportId}">
+                    <input type="hidden" name="condition_report_id" th:value="${conditionReport.conditionReportId}">
                     <button type="submit">Delete</button>
                 </form>
             </td>
@@ -161,20 +161,18 @@
         <thead>
         <tr>
             <th>ID</th>
-            <th>Bil id</th>
+            <th>Tilstandsrapport-ID</th>
             <th>Pris</th>
             <th>Type skade</th>
-            <th>Dato</th>
             <th>Delete</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="damage: ${damages}">
             <td th:text="${damage.damageId}" />
-            <td th:text="${damage.fkVehicleId}" />
+            <td th:text="${damage.conditionReportId}" />
             <td th:text="${damage.damagePrice}" />
             <td th:text="${damage.damageType}" />
-            <td th:text="${damage.damageDate}" />
             <td>
                 <form th:action="@{/deleteDamage}" method="post">
                     <input type="hidden" name="damageId" th:value="${damage.damageId}">

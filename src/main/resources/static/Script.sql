@@ -207,26 +207,23 @@ VALUES
 
 CREATE TABLE damage(
                        damage_id INT PRIMARY KEY AUTO_INCREMENT UNIQUE ,
-                       fk_vehicle_id INT,
                         fk_condition_report_id INT,
                        damage_type VARCHAR(255),
                        damage_price DECIMAL(10,2),
-                       damage_date DATE,
-                       FOREIGN KEY (fk_vehicle_id) REFERENCES car(vehicle_id),
                         FOREIGN KEY (fk_condition_report_id) REFERENCES condition_report(condition_report_id)
 );
-INSERT INTO damage(damage_id,fk_vehicle_id, fk_condition_report_id, damage_type, damage_price, damage_date)
+INSERT INTO damage(damage_id, fk_condition_report_id, damage_type, damage_price)
 VALUES
-    (1, 1,1, 'Scratch on left door', 500.00, '2024-01-15'),
-    (2, 2,2 ,'Broken tail light', 300.00, '2024-02-10'),
-    (3, 3, 3,'Dented front bumper', 750.00, '2024-03-05'),
-    (4, 4, 4,'Windshield crack', 600.00, '2024-03-20'),
-    (5, 5,5 ,'Flat tire', 250.00, '2024-04-01'),
-    (6, 6, 6,'Paint damage', 400.00, '2024-04-15'),
-    (7, 7,7 ,'Mirror replacement', 350.00, '2024-05-01'),
-    (8, 8,8 ,'Back bumper dent', 500.00, '2024-05-20'),
-    (9, 9, 9,'Interior cleaning', 200.00, '2024-06-01'),
-    (10, 10,10, 'Minor engine fix', 1000.00, '2024-06-15');
+    (1,1, 'Scratch on left door', 500.00),
+    (2,2 ,'Broken tail light', 300.00),
+    (3, 3,'Dented front bumper', 750.00),
+    (4, 4,'Windshield crack', 600.00),
+    (5,5 ,'Flat tire', 250.00),
+    (6, 6,'Paint damage', 400.00),
+    (7,7 ,'Mirror replacement', 350.00),
+    (8,8 ,'Back bumper dent', 500.00),
+    (9, 9,'Interior cleaning', 200.00),
+    (10,10, 'Minor engine fix', 1000.00);
 
 
 

@@ -141,5 +141,9 @@ public class EmployeeController {
 
         return "redirect:/admin";
     }
+
+    public boolean isUserLoggedIn(HttpSession session) {
+        return session.getAttribute("loggedInUser") != null;
+    }
 }
 

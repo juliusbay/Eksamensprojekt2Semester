@@ -11,6 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 
 @Repository
@@ -31,10 +32,8 @@ public class DamageRepository {
             while (resultSet.next()) {
                 Damage damage = new Damage();
                 damage.setDamageId(resultSet.getInt("damage_id"));
-                damage.setFkVehicleId(resultSet.getInt("fk_vehicle_id"));
                 damage.setConditionReportId(resultSet.getInt("fk_condition_report_id"));
                 damage.setDamageType(resultSet.getString("damage_type"));
-                damage.setDamageDate(resultSet.getDate("damage_date"));
                 damages.add(damage);
             }
 
@@ -57,10 +56,8 @@ public class DamageRepository {
             try (ResultSet resultSet = statement.executeQuery()){
                 if (resultSet.next()) {
                     damage.setDamageId(resultSet.getInt("damage_id"));
-                    damage.setFkVehicleId(resultSet.getInt("fk_vehicle_id"));
                     damage.setConditionReportId(resultSet.getInt("fk_condition_report_id"));
                     damage.setDamageType(resultSet.getString("damage_type"));
-                    damage.setDamageDate(resultSet.getDate("damage_date"));
                     damage.setDamagePrice(resultSet.getDouble("damage_price"));
                 }
             }
@@ -83,16 +80,13 @@ public class DamageRepository {
     }
 
     public void createDamage(Damage damage) {
-        String sql = "INSERT INTO damage (fk_vehicle_id, fk_condition_report_id, damage_date, damage_price, damage_type) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO damage (fk_condition_report_id, damage_price, damage_type) VALUES (?, ?, ?)";
 
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setInt(1, damage.getDamageId());
-            statement.setInt(2, damage.getFkVehicleId());
-            statement.setInt(3, damage.getConditionReportId());
-            statement.setDate(4, damage.getDamageDate());
-            statement.setDouble(5, damage.getDamagePrice());
-            statement.setString(6, damage.getDamageType());
+            statement.setInt(1, damage.getConditionReportId());
+            statement.setDouble(2, damage.getDamagePrice());
+            statement.setString(3, damage.getDamageType());
 
             statement.executeUpdate();
         } catch (SQLException e) {
@@ -102,16 +96,14 @@ public class DamageRepository {
     }
 
     public void updateDamage(Damage damage) throws SQLException {
-        String sql = "UPDATE damage SET fk_vehicle_id = ?, fk_condition_report_id = ?, damage_date = ?, damage_price = ?, damage_type = ? WHERE damage_id = ?";
+        String sql = "UPDATE damage SET fk_condition_report_id = ?, damage_price = ?, damage_type = ? WHERE damage_id = ?";
 
         try(Connection connection = dataSource.getConnection();
             PreparedStatement statement =connection.prepareStatement(sql)){
-            statement.setInt(1, damage.getFkVehicleId());
-            statement.setInt(2, damage.getConditionReportId());
-            statement.setDate(3, damage.getDamageDate());
-            statement.setDouble(4, damage.getDamagePrice());
-            statement.setString(5, damage.getDamageType());
-            statement.setInt(6, damage.getDamageId());
+            statement.setInt(1, damage.getConditionReportId());
+            statement.setDouble(2, damage.getDamagePrice());
+            statement.setString(3, damage.getDamageType());
+            statement.setInt(4, damage.getDamageId());
 
             statement.executeUpdate();
         }catch (SQLException e) {
@@ -120,22 +112,20 @@ public class DamageRepository {
     }
 
 
-    public ArrayList<Damage> getDamageByVehicleID(int vehicleId) {
+    public List<Damage> getDamageByConditionReportId(int conditionReportId) {
         ArrayList<Damage> damages = new ArrayList<>();
-        String sql = "SELECT * FROM damage WHERE vehicle_id = ?";
+        String sql = "SELECT * FROM damage WHERE fk_condition_report_id = ?";
 
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setInt(1, vehicleId);
+            statement.setInt(1, conditionReportId);
 
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
                     Damage damage = new Damage();
                     damage.setDamageId(resultSet.getInt("damage_id"));
-                    damage.setFkVehicleId(resultSet.getInt("fk_vehicle_id"));
                     damage.setConditionReportId(resultSet.getInt("fk_condition_report_id"));
                     damage.setDamageType(resultSet.getString("damage_type"));
-                    damage.setDamageDate(resultSet.getDate("damage_date"));
                     damage.setDamagePrice(resultSet.getDouble("damage_price"));
                     damages.add(damage);
                 }

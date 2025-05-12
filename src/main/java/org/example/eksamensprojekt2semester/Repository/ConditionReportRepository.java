@@ -17,9 +17,6 @@ public class ConditionReportRepository {
     @Autowired
     DataSource dataSource;
 
-    @Autowired
-    EmployeeRepository employeeRepository;
-
     public ArrayList<ConditionReport> getAllConditionReports() {
         ArrayList<ConditionReport> conditionReports = new ArrayList<>();
         String sql = "SELECT * FROM condition_report";
@@ -41,13 +38,13 @@ public class ConditionReportRepository {
         }
         return conditionReports;
     }
-        public ConditionReport getConditionReportById (int id) {
+        public ConditionReport getConditionReportByVehicleId (int vehicleId) {
         ConditionReport conditionReport = new ConditionReport();
-        String sql = "SELECT * FROM condition_report WHERE condition_report_id = ?";
+        String sql = "SELECT * FROM condition_report WHERE fk_vehicle_id = ?";
 
         try (Connection connection = dataSource.getConnection();
         PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setInt(1, id);
+            statement.setInt(1, vehicleId);
 
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
@@ -94,7 +91,7 @@ public class ConditionReportRepository {
 
     public void createConditionReport (ConditionReport conditionReport) {
         String sql = "INSERT INTO condition_report (fk_vehicle_id, handled_by, report_date) " +
-                "VALUES (?, ?, ?, ?)";
+                "VALUES (?, ?, ?)";
 
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
