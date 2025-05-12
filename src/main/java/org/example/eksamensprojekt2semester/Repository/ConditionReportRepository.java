@@ -10,6 +10,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 @Repository
 public class ConditionReportRepository {
@@ -17,8 +19,8 @@ public class ConditionReportRepository {
     @Autowired
     DataSource dataSource;
 
-    public ArrayList<ConditionReport> getAllConditionReports() {
-        ArrayList<ConditionReport> conditionReports = new ArrayList<>();
+    public Map<Integer, ConditionReport> getAllConditionReports() {
+        Map<Integer, ConditionReport> conditionReports = new HashMap<>();
         String sql = "SELECT * FROM condition_report";
 
         try (Connection connection = dataSource.getConnection();
@@ -31,7 +33,7 @@ public class ConditionReportRepository {
                 conditionReport.setFkVehicleId(resultSet.getInt("fk_vehicle_id"));
                 conditionReport.setHandledBy(resultSet.getString("handled_by"));
                 conditionReport.setReportDate(resultSet.getDate("report_date"));
-                conditionReports.add(conditionReport);
+                conditionReports.put(conditionReport.getFkVehicleId(), conditionReport);
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);

@@ -117,11 +117,21 @@
                 <button type="submit">Delete</button>
                 </form>
             </td>
-            <td>
-                <form th:action="@{/createConditionReport}" method="post">
-                    <input type="hidden" name="vehicle_id" th:value="${car.vehicleId}">
-                    <button type="submit">Create report</button>
-                </form>
+            <td>   <!-- Below statement checks whether there is a condition report for said vehicle ID, and prints
+                    a different button, depending on whether or not there is-->
+                <div th:if="${conditionReportsMap[car.vehicleId] != null}">
+                    <form th:action="@{/create-condition-report}" method="get">
+                        <input type="hidden" name="condition_report_id"
+                               th:value="${conditionReportsMap[car.vehicleId].conditionReportId}" />
+                        <button type="submit">Rediger tilstandsrapport</button>
+                    </form>
+                </div>
+                <div th:unless="${conditionReportsMap[car.vehicleId] != null}">
+                    <form th:action="@{/createConditionReport}" method="post">
+                        <input type="hidden" name="vehicle_id" th:value="${car.vehicleId}" />
+                        <button type="submit"> Opret tilstandsrapport </button>
+                    </form>
+                </div>
             </td>
         </tr>
     </tbody>
