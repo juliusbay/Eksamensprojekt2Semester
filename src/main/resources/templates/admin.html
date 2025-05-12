@@ -4,8 +4,11 @@
   <meta charset="UTF-8">
   <title>Admin</title>
   <link href = "../static/css/layer.css" th:href="@{/css/layout.css}" rel = "stylesheet">
+  <link th:href="@{/css/navbar.css}" rel="stylesheet">
 </head>
 <body>
+<header th:replace="~{fragments.html :: navbar}"></header>
+
 <div>
   <form th:action="@{/createEmployee}" method="post">
     <label>Fornavn:</label>

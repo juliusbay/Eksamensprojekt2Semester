@@ -3,8 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Opret tilstandsrapport</title>
+    <link th:href="@{/css/navbar.css}" rel="stylesheet">
 </head>
 <body>
+<header th:replace="~{fragments.html :: navbar}"></header>
+
 <h1> Opret skade her </h1>
 <form th:action="@{/saveUpdateDamage}" method="post">
     <input type="hidden" name="fk_vehicle_id" th:value="${vehicle_id}">

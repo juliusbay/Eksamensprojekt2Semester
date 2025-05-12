@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!-- fragments that's meant to be used on multiple pages -->
+
+<!-- Header for when not logged in -->
+<div id="navbar" th:fragment="navbar">
+
+    <!-- Header for when logged in -->
+    <div th:if="${session.loggedInUser}!= null" id="header-logged-in" th:fragment="headerLoggedIn">
+        <div class="navbar">
+            <div class="logo">
+                <a th:href="@{/}">
+                    <img src="/images/fleetmanager-logo.png" alt="fleetmanager logo">
+                </a>
+            </div>
+            <div class="clickable">
+                <div class="link-container">
+                    <a id="index" th:href="@{/}">FORSIDE</a>
+                    <a id="admin" th:href="@{/admin}">ADMIN</a>
+                    <a id="statistics" th:href="@{/}">STATISTIK</a>
+                </div>
+                <div class="button-container">
+                    <a class="navbar-link-btn" th:href="@{/logout}">LOG UD</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="navbar-blank-box"></div>
+</div>
+
+</body>
+</html>
