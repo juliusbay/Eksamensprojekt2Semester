@@ -35,12 +35,14 @@
         <td>
             <form th:action="@{/saveUpdateDamage}" method="post">
                 <input type="hidden" name="damage_id" th:value="${damage.damageId}">
+                <input type="hidden" name="condition_report_id" th:value="${condition_report_id}">
                 <button type="submit" class="btn">Rediger</button>
             </form>
         </td>
         <td>
             <form th:action="@{/deleteDamage}" method="post">
                 <input type="hidden" name="damage_id" th:value="${damage.damageId}">
+                <input type="hidden" name="condition_report_id" th:value="${condition_report_id}">
                 <button type="submit" class="btn">Slet</button>
             </form>
         </td>

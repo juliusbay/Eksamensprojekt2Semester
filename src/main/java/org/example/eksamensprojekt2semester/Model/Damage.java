@@ -6,8 +6,8 @@ public class Damage {
     private String damageType;
     private double damagePrice;
 
-    public Damage(int damageId, String damageType, double damagePrice) {
-        this.damageId = damageId;
+    public Damage(int conditionReportId, String damageType, double damagePrice) {
+        this.conditionReportId = conditionReportId;
         this.damageType = damageType;
         this.damagePrice = damagePrice;
     }
