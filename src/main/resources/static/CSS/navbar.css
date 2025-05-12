@@ -1,5 +1,5 @@
 .navbar-blank-box{
-    padding-bottom: 50px;
+    padding-bottom: 30px;
 }
 
 .logo {
@@ -14,7 +14,7 @@
 }
 
 .logo img {
-    height: 50px;
+    height: 30px;
 }
 
 #header-logged-in {
@@ -26,7 +26,7 @@
 }
 
 .navbar {
-    height: 50px;
+    height: 30px;
     display: flex;
     background-color: hotpink;
 }
@@ -79,7 +79,7 @@
 }
 
 .navbar a.navbar-link-btn {
-    height: 40px;
+    height: 26px;
     font-size: 1rem;
     font-weight: lighter;
     color: #fff;
@@ -87,8 +87,8 @@
     border-radius: 3px;
     text-align: center;
     vertical-align: middle;
-    line-height: 40px;
-    margin: 5px;
+    line-height: 1.5;
+    margin: 2px;
 }
 
 .navbar a.navbar-link-btn:hover {
