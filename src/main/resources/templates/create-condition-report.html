@@ -34,7 +34,6 @@
         <td th:text="${damage.damageId}"></td>
         <td th:text="${damage.damageType}"></td>
         <td th:text="${damage.damagePrice}"></td>
-        <td th:text="${damage.damageDate}"></td>
         <td>
             <form th:action="@{/deleteDamage}" method="post">
                 <input type="hidden" name="damage_id" th:value="${damage.damageId}">

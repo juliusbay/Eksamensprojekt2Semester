@@ -27,8 +27,9 @@ public class ConditionReportController {
     @Autowired
     ConditionReportService conditionReportService;
 
+    // Page for creating a condition report (consisting of damages) based on the vehicle's ID
     @GetMapping ("/create-condition-report")
-    public String createConditionReport(@RequestParam("fk_vehicle_id") int vehicleID, Model model){
+    public String createConditionReport(@RequestParam("vehicle_id") int vehicleID, Model model){
         List<Damage> damages = damageRepo.getDamageByVehicleID(vehicleID);
         model.addAttribute("vehicle_id", vehicleID);
         model.addAttribute("damages", damages);
@@ -36,10 +37,10 @@ public class ConditionReportController {
         return "create-condition-report";
     }
 
+    // Postmapping for creating the condition report itself
     @PostMapping ("createConditionReport")
     public String saveCreateConditionReport(@RequestParam("fk_vehicle_id") int vehicleID,
-                                            @RequestParam("handled_by") String handledBy,
-                                            HttpSession session){
+                                            @RequestParam("handled_by") String handledBy){
         java.sql.Date today = new java.sql.Date(System.currentTimeMillis());
 
         java.util.Date convert = conditionReportService.dateFormatter(today);
@@ -47,8 +48,33 @@ public class ConditionReportController {
         // We need to convert from java.util.date to java.sql.date
         java.sql.Date sqlDate=new java.sql.Date(convert.getTime());
 
-        ConditionReport conditionReport = new ConditionReport(vehicleID, handledBy, today);
+        ConditionReport conditionReport = new ConditionReport(vehicleID, handledBy, sqlDate);
         conditionReportRepo.createConditionReport(conditionReport);
+        return "redirect:/";
+    }
+
+    // Postmapping for editing the condition report
+    @PostMapping ("editConditionReport")
+    public String saveEditConditionReport(@RequestParam("fk_vehicle_id") int vehicleID,
+                                          @RequestParam("condition_report_id") int reportId,
+                                            @RequestParam("handled_by") String handledBy){
+        java.sql.Date today = new java.sql.Date(System.currentTimeMillis());
+
+        java.util.Date convert = conditionReportService.dateFormatter(today);
+
+        // We need to convert from java.util.date to java.sql.date
+        java.sql.Date sqlDate=new java.sql.Date(convert.getTime());
+
+        ConditionReport conditionReport = new ConditionReport(reportId, vehicleID, handledBy, sqlDate);
+        conditionReportRepo.updateConditionReport(conditionReport);
+        return "redirect:/";
+    }
+
+    // Postmapping to delete condition reports
+    @PostMapping ("deleteConditionReport")
+    public String deleteConditionReport(@RequestParam("condition_report_id") int reportId){
+
+        conditionReportRepo.deleteConditionReportFromId(reportId);
         return "redirect:/";
     }
 }

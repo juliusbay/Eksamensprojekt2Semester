@@ -5,6 +5,7 @@ import java.sql.Date;
 public class Damage {
     private int damageId;
     private int fkVehicleId;
+    private int conditionReportId;
     private String damageType;
     private double damagePrice;
     private Date damageDate;
@@ -64,5 +65,13 @@ public class Damage {
 
     public void setDamageDate(Date damageDate) {
         this.damageDate = damageDate;
+    }
+
+    public int getConditionReportId() {
+        return conditionReportId;
+    }
+
+    public void setConditionReportId(int conditionReportId) {
+        this.conditionReportId = conditionReportId;
     }
 }

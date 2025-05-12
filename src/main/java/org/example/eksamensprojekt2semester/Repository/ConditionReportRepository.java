@@ -52,7 +52,6 @@ public class ConditionReportRepository {
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
                     conditionReport.setConditionReportId(resultSet.getInt("condition_report_id"));
-                    conditionReport.setFkDamageId(resultSet.getInt("fk_damage_id"));
                     conditionReport.setFkVehicleId(resultSet.getInt("fk_vehicle_id"));
                     conditionReport.setHandledBy(resultSet.getString("handled_by"));
                     conditionReport.setReportDate(resultSet.getDate("report_date"));
@@ -66,7 +65,7 @@ public class ConditionReportRepository {
 
     public ArrayList<ConditionReport> getConditionReportByEmployeeId (int employeeId) {
         ArrayList<ConditionReport> listOfConditionReports = new ArrayList<>();
-        String sql = "SELECT conRepo.condition_report_id, conRepo.fk_damage_id, conRepo.fk_vehicle_id, employee.short_name, conRepo.report_date " +
+        String sql = "SELECT conRepo.condition_report_id, conRepo.fk_vehicle_id, employee.short_name, conRepo.report_date " +
                 "FROM condition_report conRepo " +
                 "INNER JOIN employee ON conRepo.handled_by = employee.short_name " +
                 "WHERE handled_by = ?";
@@ -80,7 +79,6 @@ public class ConditionReportRepository {
                 while (resultSet.next()) {
                     ConditionReport conditionReport = new ConditionReport(
                             resultSet.getInt("condition_report_id"),
-                            resultSet.getInt("fk_damage_id"),
                             resultSet.getInt("fk_vehicle_id"),
                             resultSet.getString("handled_by"),
                             resultSet.getDate("report_date")
@@ -95,15 +93,14 @@ public class ConditionReportRepository {
     }
 
     public void createConditionReport (ConditionReport conditionReport) {
-        String sql = "INSERT INTO condition_report (fk_damage_id, fk_vehicle_id, handled_by, report_date) " +
+        String sql = "INSERT INTO condition_report (fk_vehicle_id, handled_by, report_date) " +
                 "VALUES (?, ?, ?, ?)";
 
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setInt(1, conditionReport.getFkDamageId());
-            statement.setInt(2, conditionReport.getFkVehicleId());
-            statement.setString(3, conditionReport.getHandledBy());
-            statement.setDate(4, conditionReport.getReportDate());
+            statement.setInt(1, conditionReport.getFkVehicleId());
+            statement.setString(2, conditionReport.getHandledBy());
+            statement.setDate(3, conditionReport.getReportDate());
 
             statement.executeUpdate();
         } catch (SQLException e) {
@@ -112,15 +109,14 @@ public class ConditionReportRepository {
     }
 
     public void updateConditionReport (ConditionReport conditionReport) {
-        String sql = "UPDATE condition_report SET fk_damage_id = ?, fk_vehicle_id = ?, handled_by = ?, report_date = ?" +
+        String sql = "UPDATE condition_report SET fk_vehicle_id = ?, handled_by = ?, report_date = ?" +
                 "WHERE condition_report_id = ?";
 
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setInt(1, conditionReport.getFkDamageId());
-            statement.setInt(2, conditionReport.getFkVehicleId());
-            statement.setString(3, conditionReport.getHandledBy());
-            statement.setDate(4, conditionReport.getReportDate());
+            statement.setInt(1, conditionReport.getFkVehicleId());
+            statement.setString(2, conditionReport.getHandledBy());
+            statement.setDate(3, conditionReport.getReportDate());
         } catch (SQLException e) {
             e.printStackTrace();
         }

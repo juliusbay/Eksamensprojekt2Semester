@@ -4,14 +4,12 @@ import java.sql.Date;
 
 public class ConditionReport {
     private int ConditionReportId;
-    private int fkDamageId;
     private int fkVehicleId;
     private String handledBy;
     private Date reportDate;
 
-    public ConditionReport(int conditionReportId, int fkDamageId, int fkVehicleId, String handledBy, Date reportDate) {
+    public ConditionReport(int conditionReportId, int fkVehicleId, String handledBy, Date reportDate) {
         ConditionReportId = conditionReportId;
-        this.fkDamageId = fkDamageId;
         this.fkVehicleId = fkVehicleId;
         this.handledBy = handledBy;
         this.reportDate = reportDate;
@@ -32,14 +30,6 @@ public class ConditionReport {
 
     public void setConditionReportId(int conditionReportId) {
         ConditionReportId = conditionReportId;
-    }
-
-    public int getFkDamageId() {
-        return fkDamageId;
-    }
-
-    public void setFkDamageId(int fkDamageId) {
-        this.fkDamageId = fkDamageId;
     }
 
     public int getFkVehicleId() {
