@@ -79,17 +79,18 @@ public class LeaseAgreementController {
     }
 
     //Get one specific leaseAgreement by its id
-    @PostMapping("lease_agreement_details")
+    @GetMapping("/leaseDetails")
     public String getLeaseAgreementById(@RequestParam("lease_agreement_id") int leaseAgreementId,
                                         HttpSession session, Model model) throws SQLException {
-        if (!isUserLoggedIn(session)){
+
+        /*if (!isUserLoggedIn(session)){
             return "redirect:/";
-        }
+        }*/
 
         LeaseAgreement leaseAgreement = leaseAgreementRepository.getLeaseAgreementById(leaseAgreementId);
         model.addAttribute("leaseAgreement", leaseAgreement);
 
-        return "redirect:/lease_agreement_details" +leaseAgreementId;
+        return "show-leases-page";
     }
 
     //Get all leaseAgreements

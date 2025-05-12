@@ -38,6 +38,7 @@ public class LeaseAgreement {
     public Date leaseStartDate;
     public Date leaseEndDate;
     public String returnLocation;
+    private Customer customer;
 
     public LeaseAgreement(int fkVehicleId, int fkCustomerId, LeaseType leaseType, int leasePrice, java.sql.Date leaseStartDate, java.sql.Date leaseEndDate, String returnLocation) {
     this.fkVehicleId = fkVehicleId;
@@ -76,7 +77,12 @@ public class LeaseAgreement {
     public void setFkCustomerId(int fkCustomerId) {
         this.fkCustomerId = fkCustomerId;
     }
-
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
+    public Customer getCustomer() {
+        return customer;
+    }
 
     public LeaseType getLeaseType() {
         return leaseType;

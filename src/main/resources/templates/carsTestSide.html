@@ -46,6 +46,7 @@
     <table class="display compact">
         <thead>
         <tr>
+            <th>Lease detaljer</th>
             <th>Vehicle Id</th>
             <th>Customer Id</th>
             <th>Lease Type</th>
@@ -56,10 +57,17 @@
             <th>Delete</th>
         </tr>
         </thead>
+
         <tbody>
         <tr th:each= "leaseAgreement: ${leaseAgreements}">
+            <td>
+                <form th:action="@{/leaseDetails}" method="get">
+                    <input type="hidden" th:value="${leaseAgreement.leaseAgreementId}" name="lease_agreement_id">
+                    <button type="submit"> Vis lease </button>
+                </form>
+            </td>
             <td th:text="${leaseAgreement.fkVehicleId}" />
-            <td th:text="${leaseAgreement.fkCustomerId}" />
+            <td th:text="${leaseAgreement.getCustomer().getCustomerId()}" />
             <td th:text="${leaseAgreement.leaseType}" />
             <td th:text="${leaseAgreement.leasePrice}" />
             <td th:text="${leaseAgreement.leaseStartDate}" />

@@ -24,7 +24,7 @@ public class CustomerRepository {
 
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)){
-
+                statement.setInt(1, id);
                 try (ResultSet resultSet = statement.executeQuery()){
                     if (resultSet.next()){
                         customer.setCustomerId(resultSet.getInt("customer_id"));
@@ -117,7 +117,7 @@ public class CustomerRepository {
             statement.setInt(8, customer.getCprNumber());
             statement.setInt(9, customer.getFkVehicleId());
 
-            statement.setInt(6, customer.getCustomerId());
+            statement.setInt(10, customer.getCustomerId());
 
             statement.executeUpdate();
 
