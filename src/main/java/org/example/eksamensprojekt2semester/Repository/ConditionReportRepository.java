@@ -31,7 +31,6 @@ public class ConditionReportRepository {
             while (resultSet.next()) {
                 ConditionReport conditionReport = new ConditionReport();
                 conditionReport.setConditionReportId(resultSet.getInt("condition_report_id"));
-                conditionReport.setFkDamageId(resultSet.getInt("fk_damage_id"));
                 conditionReport.setFkVehicleId(resultSet.getInt("fk_vehicle_id"));
                 conditionReport.setHandledBy(resultSet.getString("handled_by"));
                 conditionReport.setReportDate(resultSet.getDate("report_date"));
