@@ -51,24 +51,25 @@ CREATE TABLE car (
                      color VARCHAR(50),
                      bought BOOLEAN DEFAULT FALSE,
                      status ENUM('READY', 'DAMAGED', 'GETTING_REPAIRED', 'RENTED') DEFAULT 'READY',
-                     FOREIGN KEY (fk_car_model_id) REFERENCES car_model(car_model_id)
+                     FOREIGN KEY (fk_car_model_id) REFERENCES car_model(car_model_id),
+                     rented_out BOOLEAN DEFAULT FALSE
 );
-INSERT INTO car (fk_car_model_id, vin_number, color, bought, status)
+INSERT INTO car (fk_car_model_id, vin_number, color, bought, status, rented_out)
 VALUES
-    (1, '1HGBH41JXMN109186', 'Red', TRUE, 'READY');
+    (1, '1HGBH41JXMN109186', 'Red', TRUE, 'READY', TRUE);
 
-INSERT INTO car (fk_car_model_id, vin_number, color)
+INSERT INTO car (fk_car_model_id, vin_number, color, rented_out)
 VALUES
-    (2, 'JH4DA9470PS008042', 'Bronze'),
-    (5, 'WBABW33426PX70804', 'Black'),
-    (3, '3C3CFFBRXF1509101', 'Grey'),
-    (4, 'ZFAGA491XD3202032', 'Blue'),
-    (5, '3C3AFFAR9FT534410', 'Black'),
-    (6,'1G1ZD5ST9RS123456','Grey'),
-    (7, 'WVWZZZ3BZSE456789','White'),
-    (8, 'JHMFA165XPS987654', 'Orange'),
-    (9, '3VW2K7AJ1SM234321', 'Red'),
-    (10,'YS3FD59Y9R7001122','Black');
+    (2, 'JH4DA9470PS008042', 'Bronze', TRUE),
+    (5, 'WBABW33426PX70804', 'Black', TRUE),
+    (3, '3C3CFFBRXF1509101', 'Grey', TRUE),
+    (4, 'ZFAGA491XD3202032', 'Blue', TRUE),
+    (5, '3C3AFFAR9FT534410', 'Black', TRUE),
+    (6,'1G1ZD5ST9RS123456','Grey', TRUE),
+    (7, 'WVWZZZ3BZSE456789','White', TRUE),
+    (8, 'JHMFA165XPS987654', 'Orange', TRUE),
+    (9, '3VW2K7AJ1SM234321', 'Red', TRUE),
+    (10,'YS3FD59Y9R7001122','Black', TRUE);
 
 
 CREATE TABLE customer (

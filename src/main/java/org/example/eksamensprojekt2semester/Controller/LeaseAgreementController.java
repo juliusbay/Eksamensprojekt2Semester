@@ -43,6 +43,9 @@ public class LeaseAgreementController {
             fkCustomerId, leaseType,
             leasePrice, leaseStartDate, leaseEndDate, returnLocation);
     leaseAgreementRepository.createLeaseAgreement(leaseAgreement);
+
+    carRepository.getCarById(fkVehicleId).setRentedOut(true);
+
         return "redirect:/dashboard";
     }
 

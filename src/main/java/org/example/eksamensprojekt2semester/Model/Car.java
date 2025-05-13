@@ -11,6 +11,7 @@ public class Car {
     // private double monthlyPrice;
     private boolean bought;
     private Status status;
+    private boolean rentedOut;
 
     public Car(int vehicleId, CarModel carModel, String vinNumber, String color, boolean bought, Status status) {
         this.vehicleId = vehicleId;
@@ -102,5 +103,13 @@ public class Car {
 
     public void setStatusFromString(String status) {
         this.status = Status.valueOf(status);
+    }
+
+    public boolean isRentedOut() {
+        return rentedOut;
+    }
+
+    public void setRentedOut(boolean rentedOut) {
+        this.rentedOut = rentedOut;
     }
 }

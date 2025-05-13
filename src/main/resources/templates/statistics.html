@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>KPIer</title>
+    <link href = "../static/css/datatables.css" th:href="@{/css/datatables.css}" rel="stylesheet">
+    <link th:href="@{/css/navbar.css}" rel="stylesheet">
+    <link th:href="@{https://cdn.datatables.net/2.3.0/css/dataTables.dataTables.css}" rel="stylesheet" />
+
+</head>
+<body>
+<table>
+    <tr>
+        <th>Biler i alt</th>
+        <th>Biler lejet ud</th>
+        <th>Ledige biler</th>
+    </tr>
+
+    <tr>
+        <td th:text="${numberOfCars}"></td>
+        <td th:text="${numberOfCarsRentedOut}"></td>
+        <td th:text="${numberOfCarsAvailable}"></td>
+    </tr>
+
+</table>
+
+</body>
+</html>
