@@ -6,6 +6,7 @@
     <link href = "../static/css/datatables.css" th:href="@{/css/datatables.css}" rel="stylesheet">
     <link th:href="@{/css/navbar.css}" rel="stylesheet">
     <link th:href="@{https://cdn.datatables.net/2.3.0/css/dataTables.dataTables.css}" rel="stylesheet" />
+
 </head>
 <body>
 <header th:replace="~{fragments.html :: navbar}"></header>
@@ -31,8 +32,8 @@
 
 <label for="tableSelector">Choose a table:</label>
 <select id="tableSelector">
-    <option value="car_table">Biler</option>
     <option value="lease_table">Leasingaftaler</option>
+    <option value="car_table">Biler</option>
     <option value="condition_report_table">Tilstandsrapporter</option>
     <option value="damage_table">Skader</option>
     <option value="employee_table">Ansatte</option>
@@ -98,7 +99,7 @@
             <th>Forkøbt</th>
             <th>Status</th>
             <th>Delete</th>
-            <th>Reports</th>
+            <th>Create</th>
         </tr>
     </thead>
     <tbody>
@@ -215,7 +216,7 @@
             <td th:text="${employee.lastName}" />
             <td th:text="${employee.shortName}" />
             <td th:text="${employee.email}" />
-            <td th:text="${employee.role}" />
+            <td th:text="${employee.getRole()}" />
             <td>
                 <form th:action="@{/deleteEmployee}" method="post">
                     <input type="hidden" name="empployeeId" th:value="${employee.employeeId}">
@@ -259,9 +260,10 @@
 </div>
 
 
-<h2>Kunder</h2>
+
 <div class="dataTable" id="customer_table">
     <table class="display compact">
+        <h2>Kunder</h2>
         <thead>
         <tr>
             <th>ID</th>
@@ -305,31 +307,53 @@
 <script src="https://cdn.datatables.net/2.3.0/js/dataTables.js"></script>
 
 <script>
-    $(document).ready(function() {
-        // Initialize all DataTables
-        $('#carsTable table').DataTable();
-        $('#leasesTable table').DataTable();
-        $('#condition_report_table table').DataTable();
-        $('#damage_table table').DataTable();
-        $('#employee_table table').DataTable();
-        $('#purchaseAgreements_table table').DataTable();
-        $('#customer_table table').DataTable();
+    $(document).ready(function () {
+        // Cache the table selector
+        const $tableSelector = $('#tableSelector');
 
-        $('#tableSelector').on('change', function() {
-            let selected = $(this).val();
+        // Keep track of initialized tables
+        const initializedTables = {};
 
-            $('.data-table').hide();
+        // Initially hide all tables
+        $('.dataTable').hide();
+
+        // Show and initialize the default table
+        const defaultTableId = $tableSelector.val();
+        $('#' + defaultTableId).show();
+        initializeTable(defaultTableId);
+
+        // On table selection change
+        $tableSelector.on('change', function () {
+            const selected = $(this).val();
+
+            // Hide all tables
+            $('.dataTable').hide();
+
+            // Show the selected table
             $('#' + selected).show();
-        });
-    });
 
-    new DataTable('table.display', {
-        paging: false,
-            scrollCollapse: true,
-            scrollY: '50vh'
+            initializeTable(selected);
+        });
+
+
+
+        function initializeTable(tableId) {
+            const $tableElement = $('#' + tableId).find('table.display');
+
+            // If DataTable is already initialized, destroy it first
+            if (initializedTables[tableId]) {
+                initializedTables[tableId].destroy(); // Destroy the existing DataTable
+            }
+
+            // Reinitialize the DataTable for the selected table
+            initializedTables[tableId] = $tableElement.DataTable({
+                paging: false,
+                scrollCollapse: true,
+                scrollY: '50vh',
+                destroy: true, // Allow reinitialization
+            });
+        }
     });
 </script>
-
-
 </body>
 </html>
