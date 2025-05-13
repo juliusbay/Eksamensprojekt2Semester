@@ -102,6 +102,19 @@ public class LeaseAgreementController {
 
         return "bango";
     }
+    @GetMapping("/toggleLeaseStatus")
+    public String toggleLeaseStatus(@RequestParam("lease_agreement_id") int leaseAgreementId,HttpSession session) throws SQLException {
+        if (!isUserLoggedIn(session)) {
+            return "redirect:/";
+        }
+
+        LeaseAgreement leaseAgreement = leaseAgreementRepository.getLeaseAgreementById(leaseAgreementId);
+        leaseAgreement.setActive(!leaseAgreement.isActive());
+        leaseAgreementRepository.setLeaseAgreementActive(leaseAgreement);
+
+        return "redirect:/leaseDetails?lease_agreement_id=" + leaseAgreementId;
+
+    }
 
     public boolean isUserLoggedIn(HttpSession session) {
         return session.getAttribute("loggedInUser") != null;

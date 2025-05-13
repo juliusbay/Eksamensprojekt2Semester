@@ -10,20 +10,26 @@
 <table>
     <tr><th>Vehicle ID:</th><td th:text="${leaseAgreement.fkVehicleId}"></td></tr>
     <tr><th>Customer ID:</th><td th:text="${leaseAgreement.getCustomer().getCustomerId()}"> </tr>
-    <tr><th>Customer Name:</th><td th:text="${leaseAgreement.getCustomer().getFirstName()}"> <td th:text="${leaseAgreement.getCustomer().getLastName()}"> </tr>
+    <tr><th>Customer Name:</th><td th:text="${leaseAgreement.getCustomer().getFirstName()}"> <td th:text="${leaseAgreement.getCustomer().getLastName()}"> </td> </tr>
 
     <tr><th>Leasetype:</th><td th:text="${leaseAgreement.leaseType}"></td></tr>
     <tr><th>Pris:</th><td th:text="${leaseAgreement.leasePrice}"></td></tr>
     <tr><th>Startdato:</th><td th:text="${leaseAgreement.leaseStartDate}"></td></tr>
     <tr><th>Slutdato:</th><td th:text="${leaseAgreement.leaseEndDate}"></td></tr>
     <tr><th>Returneringssted:</th><td th:text="${leaseAgreement.returnLocation}"></td></tr>
+    <tr><th>Er lease aktiv?:</th><td th:text="${leaseAgreement.active}"></td></tr>
+
 </table>
 
 <br>
 
 <form th:action="@{/cars}" method="get">
     <button type="submit">← Tilbage til oversigten </button>
+</form>
 
+<form th:action="@{/toggleLeaseStatus}" method="get">
+    <input type="hidden" name="lease_agreement_id" th:value="${leaseAgreement.leaseAgreementId}">
+    <button type="submit">skift lease status</button>
 </form>
 
 

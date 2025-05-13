@@ -38,6 +38,7 @@ public class LeaseAgreementRepository {
                 leaseAgreement.setLeaseStartDate(resultSet.getDate("lease_start_date"));
                 leaseAgreement.setLeaseEndDate(resultSet.getDate("lease_end_date"));
                 leaseAgreement.setReturnLocation(resultSet.getString("return_location"));
+                leaseAgreement.setActive(resultSet.getBoolean("lease_active"));
 
                 leaseAgreements.add(leaseAgreement);
             }
@@ -68,6 +69,7 @@ public class LeaseAgreementRepository {
                     leaseAgreement.setLeaseStartDate(resultSet.getDate("lease_start_date"));
                     leaseAgreement.setLeaseEndDate(resultSet.getDate("lease_end_date"));
                     leaseAgreement.setReturnLocation(resultSet.getString("return_location"));
+                    leaseAgreement.setActive(resultSet.getBoolean("lease_active"));
 
                 }
             }
@@ -110,7 +112,7 @@ public class LeaseAgreementRepository {
     }
 
     public void updateLeaseAgreement(LeaseAgreement leaseAgreement) throws SQLException {
-        String sql = "UPDATE lease_agreement SET fk_vehicle_id = ?, fk_customer_id = ?, lease_type = ?, lease_price = ?, lease_start_date = ?, lease_end_date = ?, return_location = ? WHERE lease_agreement_id =?";
+        String sql = "UPDATE lease_agreement SET fk_vehicle_id = ?, fk_customer_id = ?, lease_type = ?, lease_price = ?, lease_start_date = ?, lease_end_date = ?, return_location = ?, lease_active = ? WHERE lease_agreement_id =?";
 
         try (Connection connection = dataSource.getConnection();
             PreparedStatement statement = connection.prepareStatement(sql)){
@@ -121,7 +123,9 @@ public class LeaseAgreementRepository {
                 statement.setDate(5, leaseAgreement.getLeaseStartDate());
                 statement.setDate(6, leaseAgreement.getLeaseEndDate());
                 statement.setString(7, leaseAgreement.getReturnLocation());
-                statement.setInt(8, leaseAgreement.getLeaseAgreementId());
+                statement.setBoolean(8, leaseAgreement.isActive());
+
+                statement.setInt(9, leaseAgreement.getLeaseAgreementId());
 
 
                 statement.executeUpdate();
@@ -130,6 +134,22 @@ public class LeaseAgreementRepository {
         }
 
     }
+
+    public void setLeaseAgreementActive(LeaseAgreement leaseAgreement) throws SQLException {
+        String sql = "UPDATE lease_agreement SET lease_active = ? WHERE lease_agreement_id = ?";
+
+        try (Connection connection = dataSource.getConnection();
+        PreparedStatement statement = connection.prepareStatement(sql)){
+            statement.setBoolean(1, leaseAgreement.isActive());
+            statement.setInt(2, leaseAgreement.getLeaseAgreementId());
+
+            statement.executeUpdate();
+
+
+        }
+    }
+
+
 }
 
 
