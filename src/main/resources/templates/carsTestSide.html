@@ -111,6 +111,7 @@
                     <input type="hidden" th:value="${leaseAgreement.leaseAgreementId}" name="lease_agreement_id">
                     <button type="submit"> Vis lease </button>
                 </form>
+            </td>
             <td th:text="${leaseAgreement.fkVehicleId}" />
             <td th:text="${leaseAgreement.getCustomer().getCustomerId()}" />
             <td th:text="${leaseAgreement.leaseType}" />

@@ -5,6 +5,7 @@ import org.example.eksamensprojekt2semester.Model.Car;
 import org.example.eksamensprojekt2semester.Model.LeaseAgreement;
 import org.example.eksamensprojekt2semester.Repository.CarRepository;
 import org.example.eksamensprojekt2semester.Repository.LeaseAgreementRepository;
+import org.example.eksamensprojekt2semester.Service.LeaseAgreementService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,6 +22,9 @@ public class LeaseAgreementController {
 
     @Autowired
     LeaseAgreementRepository leaseAgreementRepository;
+
+    @Autowired
+    LeaseAgreementService leaseAgreementService;
 
     @Autowired
     CarRepository carRepository;
@@ -42,12 +46,42 @@ public class LeaseAgreementController {
     LeaseAgreement leaseAgreement = new LeaseAgreement(fkVehicleId,
             fkCustomerId, leaseType,
             leasePrice, leaseStartDate, leaseEndDate, returnLocation);
+
+        leaseAgreementService.noNegativePriceLease(leaseAgreement);
+        leaseAgreementService.isEndDateBeforeStartDate(leaseAgreement);
+
     leaseAgreementRepository.createLeaseAgreement(leaseAgreement);
 
     carRepository.getCarById(fkVehicleId).setRentedOut(true);
 
         return "redirect:/dashboard";
     }
+
+    //Mock create lease without Http
+    @PostMapping("/bongo")
+    public String createLeaseAgreementMock(@RequestParam("fk_vehicle_id") int fkVehicleId,
+                                       @RequestParam("fk_customer_id") int fkCustomerId,
+                                       @RequestParam("lease_type")LeaseAgreement.LeaseType leaseType,
+                                       @RequestParam("lease_price") int leasePrice,
+                                       @RequestParam("lease_start_date")Date leaseStartDate,
+                                       @RequestParam("lease_end_date") Date leaseEndDate,
+                                       @RequestParam("return_location") String returnLocation) throws SQLException {
+
+
+
+        LeaseAgreement leaseAgreement = new LeaseAgreement(fkVehicleId,
+                fkCustomerId, leaseType,
+                leasePrice, leaseStartDate, leaseEndDate, returnLocation);
+
+        leaseAgreementService.noNegativePriceLease(leaseAgreement);
+        leaseAgreementService.isEndDateBeforeStartDate(leaseAgreement);
+        
+
+
+        leaseAgreementRepository.createLeaseAgreement(leaseAgreement);
+        return "redirect:/dashboard";
+    }
+
 
     //Update an existing leaseAgreement
     @PostMapping("saveUpdateLeaseAgreement")
@@ -103,7 +137,7 @@ public class LeaseAgreementController {
         model.addAttribute("leaseAgreements", leaseAgreements);
 
 
-        return "bango";
+        return "redirect:/dashboard";
     }
     @GetMapping("/toggleLeaseStatus")
     public String toggleLeaseStatus(@RequestParam("lease_agreement_id") int leaseAgreementId,HttpSession session) throws SQLException {
