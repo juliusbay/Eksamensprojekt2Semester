@@ -3,14 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <link href = "../static/css/datatables.css" th:href="@{/css/datatables.css}" rel="stylesheet">
     <link th:href="@{/css/navbar.css}" rel="stylesheet">
-    <link th:href="@{https://cdn.datatables.net/2.3.0/css/dataTables.dataTables.css}" rel="stylesheet" />
-
+    <script src="https://code.jquery.com/jquery-3.7.1.js"> </script>
+    <!--
+    <link href = "../static/css/datatables.css" th:href="@{/css/datatables.css}" rel="stylesheet">
+    <script src="https://cdn.datatables.net/2.3.0/js/dataTables.js"></script>
+    -->
 </head>
 <body>
 <header th:replace="~{fragments.html :: navbar}"></header>
 
+<!--
 <div class="container">
 <div class="form-container">
     <h2> Opret en ny bil </h2>
@@ -29,21 +32,23 @@
     </form>
 </div>
 </div>
+-->
 
 <label for="tableSelector">Choose a table:</label>
 <select id="tableSelector">
     <option value="lease_table">Leasingaftaler</option>
+    <option value="lease_table_inactive">Færdige leasingaftaler</option>
     <option value="car_table">Biler</option>
     <option value="condition_report_table">Tilstandsrapporter</option>
     <option value="damage_table">Skader</option>
     <option value="employee_table">Ansatte</option>
-    <option value="purchaseAgreement_table">Købsaftaler</option>
+    <option value="purchase_agreement_table">Købsaftaler</option>
     <option value="Customer_table">Kunder</option>
 </select>
 
 
-<h2>Aktive leasing aftaler</h2>
 <div class="dataTable" id="lease_table">
+<h2>Aktive leasing aftaler</h2>
     <table class="display compact">
         <thead>
         <tr>
@@ -84,11 +89,8 @@
     </table>
 </div>
 
-
-
-
-<h2>Inaktive leasing aftaler</h2>
 <div class="dataTable" id="lease_table_inactive">
+<h2>Inaktive leasing aftaler</h2>
     <table class="display compact">
         <thead>
         <tr>
@@ -130,71 +132,62 @@
     </table>
 </div>
 
-
-
-
-
-
-
-
-
-
-<h2>Biler</h2>
 <div class="dataTable" id="car_table">
-<table class="display compact">
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>VIN Number</th>
-            <th>Mærke</th>
-            <th>Model</th>
-            <th>Udstyr</th>
-            <th>Farve</th>
-            <th>Forkøbt</th>
-            <th>Status</th>
-            <th>Delete</th>
-            <th>Create</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr th:each="car: ${cars}">
-            <td th:text="${car.getVehicleId()}" />
-            <td th:text="${car.vinNumber}" />
-            <td th:text="${car.getCarModel().getBrand()}" />
-            <td th:text="${car.getCarModel().getModelName()}" />
-            <td th:text="${car.getCarModel().getCarEquipment()}" />
-            <td th:text="${car.color}" />
-            <td th:text="${car.bought}" />
-            <td th:text="${car.status}" />
-            <td>
-                <form th:action="@{/deleteCar}" method="post">
-                <input type="hidden" name="vehicleId" th:value="${car.vehicleId}">
-                <button type="submit">Delete</button>
-                </form>
-            </td>
-            <td>   <!-- Below statement checks whether there is a condition report for said vehicle ID, and prints
-                    a different button, depending on whether or not there is-->
-                <div th:if="${conditionReportsMap[car.vehicleId] != null}">
-                    <form th:action="@{/create-condition-report}" method="get">
-                        <input type="hidden" name="condition_report_id"
-                               th:value="${conditionReportsMap[car.vehicleId].conditionReportId}" />
-                        <button type="submit">Rediger tilstandsrapport</button>
+<h2>Biler</h2>
+    <table class="display compact">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>VIN Number</th>
+                <th>Mærke</th>
+                <th>Model</th>
+                <th>Udstyr</th>
+                <th>Farve</th>
+                <th>Forkøbt</th>
+                <th>Status</th>
+                <th>Delete</th>
+                <th>Create</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="car: ${cars}">
+                <td th:text="${car.getVehicleId()}" />
+                <td th:text="${car.vinNumber}" />
+                <td th:text="${car.getCarModel().getBrand()}" />
+                <td th:text="${car.getCarModel().getModelName()}" />
+                <td th:text="${car.getCarModel().getCarEquipment()}" />
+                <td th:text="${car.color}" />
+                <td th:text="${car.bought}" />
+                <td th:text="${car.status}" />
+                <td>
+                    <form th:action="@{/deleteCar}" method="post">
+                    <input type="hidden" name="vehicleId" th:value="${car.vehicleId}">
+                    <button type="submit">Delete</button>
                     </form>
-                </div>
-                <div th:unless="${conditionReportsMap[car.vehicleId] != null}">
-                    <form th:action="@{/createConditionReport}" method="post">
-                        <input type="hidden" name="vehicle_id" th:value="${car.vehicleId}" />
-                        <button type="submit"> Opret tilstandsrapport </button>
-                    </form>
-                </div>
-            </td>
-        </tr>
-    </tbody>
-</table>
+                </td>
+                <td>   <!-- Below statement checks whether there is a condition report for said vehicle ID, and prints
+                        a different button, depending on whether or not there is-->
+                    <div th:if="${conditionReportsMap[car.vehicleId] != null}">
+                        <form th:action="@{/create-condition-report}" method="get">
+                            <input type="hidden" name="condition_report_id"
+                                   th:value="${conditionReportsMap[car.vehicleId].conditionReportId}" />
+                            <button type="submit">Rediger tilstandsrapport</button>
+                        </form>
+                    </div>
+                    <div th:unless="${conditionReportsMap[car.vehicleId] != null}">
+                        <form th:action="@{/createConditionReport}" method="post">
+                            <input type="hidden" name="vehicle_id" th:value="${car.vehicleId}" />
+                            <button type="submit"> Opret tilstandsrapport </button>
+                        </form>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
 </div>
 
-<h2>Tilstandsrapporter</h2>
 <div class="dataTable" id="condition_report_table">
+<h2>Tilstandsrapporter</h2>
     <table class="display compact" >
         <thead>
         <tr>
@@ -220,8 +213,8 @@
     </table>
 </div>
 
-<h2>Skader </h2>
 <div class="dataTable" id="damage_table">
+<h2>Skader</h2>
     <table class="display compact" >
         <thead>
         <tr>
@@ -249,8 +242,8 @@
     </table>
 </div>
 
-<h2>Ansatte</h2>
 <div class="dataTable" id="employee_table">
+<h2>Ansatte</h2>
     <table class="display compact" >
         <thead>
         <tr>
@@ -282,8 +275,8 @@
     </table>
 </div>
 
+<div class="dataTable" id="purchase_agreements_table">
 <h2>Købsaftaler</h2>
-<div class="dataTable" id="purchaseAgreements_table">
     <table class="display compact">
         <thead>
         <tr>
@@ -312,8 +305,6 @@
         </tbody>
     </table>
 </div>
-
-
 
 <div class="dataTable" id="customer_table">
     <table class="display compact">
@@ -356,28 +347,24 @@
     </table>
 </div>
 
-
-<script src="https://code.jquery.com/jquery-3.7.1.js"> </script>
-<script src="https://cdn.datatables.net/2.3.0/js/dataTables.js"></script>
-
 <script>
     $(document).ready(function () {
         // Cache the table selector
-        const $tableSelector = $('#tableSelector');
+        const tableSelector = $('#tableSelector');
 
         // Keep track of initialized tables
-        const initializedTables = {};
+        // const initializedTables = {};
 
         // Initially hide all tables
         $('.dataTable').hide();
 
         // Show and initialize the default table
-        const defaultTableId = $tableSelector.val();
+        const defaultTableId = tableSelector.val();
         $('#' + defaultTableId).show();
-        initializeTable(defaultTableId);
+        //initializeTable(defaultTableId);
 
         // On table selection change
-        $tableSelector.on('change', function () {
+        tableSelector.on('change', function ()  {
             const selected = $(this).val();
 
             // Hide all tables
@@ -386,26 +373,29 @@
             // Show the selected table
             $('#' + selected).show();
 
-            initializeTable(selected);
+            //initializeTable(selected);
         });
 
-
-
         function initializeTable(tableId) {
-            const $tableElement = $('#' + tableId).find('table.display');
-
-            // If DataTable is already initialized, destroy it first
-            if (initializedTables[tableId]) {
-                initializedTables[tableId].destroy(); // Destroy the existing DataTable
-            }
-
-            // Reinitialize the DataTable for the selected table
-            initializedTables[tableId] = $tableElement.DataTable({
+            const tableElement = $('#' + tableId).find('table.display').DataTable({
                 paging: false,
                 scrollCollapse: true,
                 scrollY: '50vh',
                 destroy: true, // Allow reinitialization
             });
+
+            // If DataTable is already initialized, destroy it first
+            // if (initializedTables[tableId]) {
+            //     initializedTables[tableId].destroy(); // Destroy the existing DataTable
+            // }
+
+            // Reinitialize the DataTable for the selected table
+            // initializedTables[tableId] = tableElement.DataTable({
+            //     paging: false,
+            //     scrollCollapse: true,
+            //     scrollY: '50vh',
+            //     destroy: true, // Allow reinitialization
+            // });
         }
     });
 </script>
