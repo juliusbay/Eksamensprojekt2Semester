@@ -4,6 +4,7 @@ import jakarta.servlet.http.HttpSession;
 import org.example.eksamensprojekt2semester.Model.Car;
 import org.example.eksamensprojekt2semester.Model.LeaseAgreement;
 import org.example.eksamensprojekt2semester.Repository.CarRepository;
+import org.example.eksamensprojekt2semester.Repository.CustomerRepository;
 import org.example.eksamensprojekt2semester.Repository.LeaseAgreementRepository;
 import org.example.eksamensprojekt2semester.Service.LeaseAgreementService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,10 +29,12 @@ public class LeaseAgreementController {
 
     @Autowired
     CarRepository carRepository;
+    @Autowired
+    private CustomerRepository customerRepository;
 
 
     //Create a leaseAgreement
-    @PostMapping("/carsTestSide")
+    @PostMapping("/createLease")
     public String createLeaseAgreement(@RequestParam("fk_vehicle_id") int fkVehicleId,
                                        @RequestParam("fk_customer_id") int fkCustomerId,
                                        @RequestParam("lease_type")LeaseAgreement.LeaseType leaseType,
@@ -56,6 +59,23 @@ public class LeaseAgreementController {
 
         return "redirect:/dashboard";
     }
+
+
+    @GetMapping("/createLeasePage")
+    public String showCreateLeasePage(Model model, HttpSession session) throws SQLException {
+        Object employee = session.getAttribute("loggedInUser");
+        model.addAttribute("cars",carRepository.getAllCars());
+        model.addAttribute("customers",customerRepository.getAllCustomers());
+        model.addAttribute("leaseTypes", LeaseAgreement.LeaseType.values());
+        return "createLeasePage";
+    }
+
+
+
+
+
+
+
 
     //Mock create lease without Http
     public LeaseAgreement createLeaseAgreementMock( int fkVehicleId,
