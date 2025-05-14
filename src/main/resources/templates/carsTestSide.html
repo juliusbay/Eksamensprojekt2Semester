@@ -4,7 +4,49 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <link th:href="@{/css/navbar.css}" rel="stylesheet">
-    <script src="https://code.jquery.com/jquery-3.7.1.js"> </script>
+    <style>
+        table {
+            border-spacing: 0;
+            width: 100%;
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            text-align: left;
+
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <script type="text/javascript" th:src="@{/javascript/tableProperties.js}"></script>
+    <!--
+    <script>
+        function searchFunction() {
+        // declare variables
+        let input, filter, table, tr, td, i, textValue;
+        input = document.getElementById('myInput');
+        filter = input.value.toUpperCase();
+        table = document.getElementById('lease_table');
+        tr = table.getElementsByTagName('tr');
+
+        // loop through all the table rows, and hide those who don't match the search query
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName('td')[0];
+            if (td) {
+                textValue = td.textContent || td.innerText;
+                if (textValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = 'none';
+                }
+            }
+        }
+    }
+    </script>
+    -->
     <!--
     <link href = "../static/css/datatables.css" th:href="@{/css/datatables.css}" rel="stylesheet">
     <script src="https://cdn.datatables.net/2.3.0/js/dataTables.js"></script>
@@ -49,18 +91,20 @@
 
 <div class="dataTable" id="lease_table">
 <h2>Aktive leasing aftaler</h2>
-    <table class="display compact">
+    <!--<input type="text" id="myInput" onkeyup="searchFunction()" placeholder="Search..">-->
+
+    <table>
         <thead>
         <tr>
-            <th>Lease detaljer</th>
-            <th>Vehicle Id</th>
-            <th>Customer Id</th>
-            <th>Lease Type</th>
-            <th>Lease Price</th>
-            <th>Lease Start Date</th>
-            <th>Lease End Date</th>
-            <th>Return Location</th>
-            <th>Delete</th>
+            <th onclick="sortTable(0)">Lease detaljer</th>
+            <th onclick="sortTable(1)">Vehicle Id</th>
+            <th onclick="sortTable(2)">Customer Id</th>
+            <th onclick="sortTable(3)">Lease Type</th>
+            <th onclick="sortTable(4)">Lease Price</th>
+            <th onclick="sortTable(5)">Lease Start Date</th>
+            <th onclick="sortTable(6)">Lease End Date</th>
+            <th onclick="sortTable(7)">Return Location</th>
+            <th onclick="sortTable(8)">Delete</th>
         </tr>
         </thead>
 
@@ -88,8 +132,7 @@
         </tbody>
     </table>
     <form th:action="@{/createLeasePage}" method="get">
-        <button type="submit"> Create Lease </button>
-
+        <button type="submit">Create Lease</button>
     </form>
 
 </div>
@@ -135,10 +178,6 @@
         </tr>
         </tbody>
     </table>
-
-
-
-
 </div>
 
 <div class="dataTable" id="car_table">
@@ -356,58 +395,5 @@
     </table>
 </div>
 
-<script>
-    $(document).ready(function () {
-        // Cache the table selector
-        const tableSelector = $('#tableSelector');
-
-        // Keep track of initialized tables
-        // const initializedTables = {};
-
-        // Initially hide all tables
-        $('.dataTable').hide();
-
-        // Show and initialize the default table
-        const defaultTableId = tableSelector.val();
-        $('#' + defaultTableId).show();
-        //initializeTable(defaultTableId);
-
-        // On table selection change
-        tableSelector.on('change', function ()  {
-            const selected = $(this).val();
-
-            // Hide all tables
-            $('.dataTable').hide();
-
-            // Show the selected table
-            $('#' + selected).show();
-
-            //initializeTable(selected);
-        });
-
-        function initializeTable(tableId) {
-            const tableElement = $('#' + tableId).find('table.display').DataTable({
-                paging: false,
-                scrollCollapse: true,
-                scrollY: '50vh',
-                destroy: true, // Allow reinitialization
-            });
-
-            // If DataTable is already initialized, destroy it first
-            // if (initializedTables[tableId]) {
-            //     initializedTables[tableId].destroy(); // Destroy the existing DataTable
-            // }
-
-            // Reinitialize the DataTable for the selected table
-            // initializedTables[tableId] = tableElement.DataTable({
-            //     paging: false,
-            //     scrollCollapse: true,
-            //     scrollY: '50vh',
-            //     destroy: true, // Allow reinitialization
-            // });
-
-        }
-    });
-</script>
 </body>
 </html>
