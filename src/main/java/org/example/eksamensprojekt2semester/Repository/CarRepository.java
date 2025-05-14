@@ -33,7 +33,7 @@ public class CarRepository {
             try (ResultSet resultSet = statement.executeQuery()){
                 if (resultSet.next()){
                     car.setVehicleId(resultSet.getInt("vehicle_id"));
-                    car.setCarModel(carModelRepo.getCarModelById(resultSet.getInt("car_model_id")));
+                    car.setCarModel(carModelRepo.getCarModelById(resultSet.getInt("fk_car_model_id")));
                     car.setVinNumber(resultSet.getString("vin_number"));
                     car.setColor(resultSet.getString("color"));
                     car.setBought(resultSet.getBoolean("bought"));

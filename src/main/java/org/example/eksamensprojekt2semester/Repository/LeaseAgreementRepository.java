@@ -152,7 +152,9 @@ public class LeaseAgreementRepository {
     }
 
     public void createLeaseAgreement(LeaseAgreement leaseAgreement) throws SQLException {
-        String sql = "INSERT INTO lease_agreement (fk_vehicle_id, fk_customer_id, lease_type, lease_price, lease_start_date, lease_end_date, return_location) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO lease_agreement (fk_vehicle_id, fk_customer_id, lease_type, lease_price, lease_start_date, lease_end_date, return_location, lease_active) VALUES (?, ?, ?, ?, ?, ?, ?,?)";
+
+        leaseAgreement.setActive(true);
 
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -163,7 +165,7 @@ public class LeaseAgreementRepository {
                 statement.setDate(5, leaseAgreement.getLeaseStartDate());
                 statement.setDate(6, leaseAgreement.getLeaseEndDate());
                 statement.setString(7, leaseAgreement.getReturnLocation());
-
+                statement.setBoolean(8, leaseAgreement.isActive());
                 statement.executeUpdate();
 
         } catch (SQLException e) {

@@ -19,7 +19,7 @@
             <label for="fk_customer_id">kundeId:</label>
             <select id="fk_customer_id" name="fk_customer_id">
                 <option value="">vælg kunde</option>
-                <option th:each="customer : ${customers}" th:value="${customer.customerId()}" th:text="${ customer.customerId+' '+customer.firstName + ' ' + customer.lastName}"></option>
+                <option th:each="customer : ${customers}" th:value="${customer.getCustomerId()}" th:text="${ customer.customerId+' '+customer.firstName + ' ' + customer.lastName}"></option>
             </select>
 
             <label for="lease_type">Indtast lease type:</label>

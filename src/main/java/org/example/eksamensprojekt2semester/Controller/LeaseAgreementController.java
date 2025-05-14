@@ -2,6 +2,7 @@ package org.example.eksamensprojekt2semester.Controller;
 
 import jakarta.servlet.http.HttpSession;
 import org.example.eksamensprojekt2semester.Model.Car;
+import org.example.eksamensprojekt2semester.Model.Customer;
 import org.example.eksamensprojekt2semester.Model.LeaseAgreement;
 import org.example.eksamensprojekt2semester.Repository.CarRepository;
 import org.example.eksamensprojekt2semester.Repository.CustomerRepository;
@@ -37,7 +38,7 @@ public class LeaseAgreementController {
     @PostMapping("/createLease")
     public String createLeaseAgreement(@RequestParam("fk_vehicle_id") int fkVehicleId,
                                        @RequestParam("fk_customer_id") int fkCustomerId,
-                                       @RequestParam("lease_type")LeaseAgreement.LeaseType leaseType,
+                                       @RequestParam("lease_type")String leaseTypeString,
                                        @RequestParam("lease_price") int leasePrice,
                                        @RequestParam("lease_start_date")Date leaseStartDate,
                                        @RequestParam("lease_end_date") Date leaseEndDate,
@@ -46,18 +47,24 @@ public class LeaseAgreementController {
 
     Object employee = session.getAttribute("loggedInUser");
 
+    LeaseAgreement.LeaseType leaseType = LeaseAgreement.LeaseType.valueOf(leaseTypeString.toUpperCase());
+
     LeaseAgreement leaseAgreement = new LeaseAgreement(fkVehicleId,
             fkCustomerId, leaseType,
             leasePrice, leaseStartDate, leaseEndDate, returnLocation);
 
+
         leaseAgreementService.noNegativePriceLease(leaseAgreement);
         leaseAgreementService.isEndDateBeforeStartDate(leaseAgreement);
 
+        leaseAgreement.setCustomer(customerRepository.getCustomerByCustomerId(fkCustomerId));
+
     leaseAgreementRepository.createLeaseAgreement(leaseAgreement);
+    leaseAgreementRepository.setLeaseAgreementActive(leaseAgreement);
+
 
     carRepository.getCarById(fkVehicleId).setRentedOut(true);
-
-        return "redirect:/dashboard";
+        return "redirect:/";
     }
 
 
@@ -130,7 +137,7 @@ public class LeaseAgreementController {
             return "redirect:/";
         }
         leaseAgreementRepository.deleteLeaseAgreementById(leaseAgreementId);
-        return "redirect:/carTestSide";
+        return "redirect:/";
     }
 
     //Get one specific leaseAgreement by its id
