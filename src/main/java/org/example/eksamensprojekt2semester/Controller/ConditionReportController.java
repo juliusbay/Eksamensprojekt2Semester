@@ -1,11 +1,10 @@
 package org.example.eksamensprojekt2semester.Controller;
 
 import jakarta.servlet.http.HttpSession;
-import org.example.eksamensprojekt2semester.Model.ConditionReport;
-import org.example.eksamensprojekt2semester.Model.Damage;
-import org.example.eksamensprojekt2semester.Model.Employee;
+import org.example.eksamensprojekt2semester.Model.*;
 import org.example.eksamensprojekt2semester.Repository.ConditionReportRepository;
 import org.example.eksamensprojekt2semester.Repository.DamageRepository;
+import org.example.eksamensprojekt2semester.Repository.LeaseAgreementRepository;
 import org.example.eksamensprojekt2semester.Service.ConditionReportService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -31,8 +30,11 @@ public class ConditionReportController {
     @Autowired
     EmployeeController employeeController;
 
+    @Autowired
+    LeaseAgreementRepository leaseAgreementRepository;
+
     // Page for creating a condition report (consisting of damages) based on the condition report's ID
-    @GetMapping ("/create-condition-report")
+    @GetMapping ("/condition-report")
     public String createConditionReport(@RequestParam("condition_report_id") int conditionReportId, Model model,
                                         HttpSession session){
         if (!employeeController.isUserLoggedIn(session)) {
@@ -40,10 +42,24 @@ public class ConditionReportController {
         }
 
         List<Damage> damages = damageRepo.getDamageByConditionReportId(conditionReportId);
+        LeaseAgreement leaseAgreement = leaseAgreementRepository.getLeaseAgreementByVehicleId(conditionReportRepo.getVehicleIdByConditionReportId(conditionReportId));
+        Customer customer = leaseAgreement.getCustomer();
+
+        double priceOfLeaseAgreement = leaseAgreement.leasePrice;
+        double totalPriceOfDamages = 0;
+        for (Damage d : damages){
+            totalPriceOfDamages += d.getDamagePrice();
+        }
+        double totalPriceToPay = priceOfLeaseAgreement+totalPriceOfDamages;
+
         model.addAttribute("condition_report_id", conditionReportId);
         model.addAttribute("damages", damages);
+        model.addAttribute("priceOfLeaseAgreement", priceOfLeaseAgreement);
+        model.addAttribute("totalPriceOfDamages", totalPriceOfDamages);
+        model.addAttribute("totalPriceToPay", totalPriceToPay);
+        model.addAttribute("customer", customer);
 
-        return "create-condition-report";
+        return "condition-report";
     }
 
     // Postmapping for creating the condition report itself
@@ -68,7 +84,7 @@ public class ConditionReportController {
         conditionReportRepo.createConditionReport(conditionReport);
         int reportId = conditionReportRepo.getConditionReportByVehicleId(vehicleID).getConditionReportId();
 
-        return "redirect:/create-condition-report?condition_report_id="+reportId;
+        return "redirect:/condition-report?condition_report_id="+reportId;
     }
 
     // Postmapping for editing the condition report

@@ -14,12 +14,16 @@
         <th>Biler i alt</th>
         <th>Biler lejet ud</th>
         <th>Ledige biler</th>
+        <th>Samlet værdi på udlejningskontrakter</th>
+        <th>Gennemsnitlig værdi på udlejningskontrakter</th>
     </tr>
 
     <tr>
         <td th:text="${numberOfCars}"></td>
         <td th:text="${numberOfCarsRentedOut}"></td>
         <td th:text="${numberOfCarsAvailable}"></td>
+        <td th:text="${totalValueOfActiveLeaseAgreements}"></td>
+        <td th:text="${averageLeaseAgreementValue}"></td>
     </tr>
 
 </table>

@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
+import java.rmi.dgc.Lease;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -77,6 +78,65 @@ public class LeaseAgreementRepository {
             e.printStackTrace();
         }
         return leaseAgreement;
+    }
+
+    public LeaseAgreement getLeaseAgreementByVehicleId(int vehicleId)  {
+        LeaseAgreement leaseAgreement = new LeaseAgreement();
+        String sql = "SELECT * FROM lease_agreement WHERE fk_vehicle_id = ?";
+
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, vehicleId);
+
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    leaseAgreement.setLeaseAgreementId(resultSet.getInt("lease_agreement_id"));
+                    leaseAgreement.setFkVehicleId(resultSet.getInt("fk_vehicle_id"));
+                    leaseAgreement.setCustomer(customerRepository.getCustomerByCustomerId(resultSet.getInt("fk_customer_id")));
+                    leaseAgreement.setLeaseType(LeaseAgreement.LeaseType.valueOf(resultSet.getString("lease_type")));
+                    leaseAgreement.setLeasePrice(resultSet.getInt("lease_price"));
+                    leaseAgreement.setLeaseStartDate(resultSet.getDate("lease_start_date"));
+                    leaseAgreement.setLeaseEndDate(resultSet.getDate("lease_end_date"));
+                    leaseAgreement.setReturnLocation(resultSet.getString("return_location"));
+                    leaseAgreement.setActive(resultSet.getBoolean("lease_active"));
+
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return leaseAgreement;
+    }
+
+    public ArrayList<LeaseAgreement> getLeaseAgreementsByActiveStatus(boolean status){
+        ArrayList<LeaseAgreement> leaseAgreementsByActiveStatus = new ArrayList<>();
+        String sql = "SELECT * FROM lease_agreement WHERE lease_active = ?";
+
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setBoolean(1, status);
+
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    LeaseAgreement leaseAgreement = new LeaseAgreement();
+
+                    leaseAgreement.setLeaseAgreementId(resultSet.getInt("lease_agreement_id"));
+                    leaseAgreement.setFkVehicleId(resultSet.getInt("fk_vehicle_id"));
+                    leaseAgreement.setCustomer(customerRepository.getCustomerByCustomerId(resultSet.getInt("fk_customer_id")));
+                    leaseAgreement.setLeaseType(LeaseAgreement.LeaseType.valueOf(resultSet.getString("lease_type")));
+                    leaseAgreement.setLeasePrice(resultSet.getInt("lease_price"));
+                    leaseAgreement.setLeaseStartDate(resultSet.getDate("lease_start_date"));
+                    leaseAgreement.setLeaseEndDate(resultSet.getDate("lease_end_date"));
+                    leaseAgreement.setReturnLocation(resultSet.getString("return_location"));
+                    leaseAgreement.setActive(resultSet.getBoolean("lease_active"));
+
+                    leaseAgreementsByActiveStatus.add(leaseAgreement);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return leaseAgreementsByActiveStatus;
     }
 
     public void deleteLeaseAgreementById(int id) throws SQLException {

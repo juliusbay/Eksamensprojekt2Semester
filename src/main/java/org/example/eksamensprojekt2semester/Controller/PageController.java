@@ -92,6 +92,7 @@ public class PageController {
     }
 
     // Method that counts all cars and shows the numbers for how many are rented out and how many are available
+    // Also counts the value of lease agreements and calculates average value of lease agreements
     @GetMapping("/statistics")
     public String getStatistics(Model model, HttpSession session){
         if (!employeeController.isUserLoggedIn(session)) {
@@ -101,11 +102,20 @@ public class PageController {
         int numberOfCars = carRepository.getAllCars().size();
         int numberOfCarsRentedOut = carRepository.getCarsByRentedOutStatus(true);
         int numberOfCarsAvailable = numberOfCars - numberOfCarsRentedOut;
+        
+        ArrayList<LeaseAgreement> leaseAgreements = leaseAgreementRepository.getLeaseAgreementsByActiveStatus(true);
+        double totalValueOfActiveLeaseAgreements = 0;
+        for (LeaseAgreement leases : leaseAgreements){
+            totalValueOfActiveLeaseAgreements += leases.leasePrice;
+        }
+        double averageLeaseAgreementValue = totalValueOfActiveLeaseAgreements/leaseAgreements.size();
+
 
         model.addAttribute("numberOfCars", numberOfCars);
         model.addAttribute("numberOfCarsRentedOut", numberOfCarsRentedOut);
         model.addAttribute("numberOfCarsAvailable", numberOfCarsAvailable);
-
+        model.addAttribute("totalValueOfLeaseAgreements", totalValueOfActiveLeaseAgreements);
+        model.addAttribute("averageLeaseAgreementValue", averageLeaseAgreementValue);
 
         return "statistics";
     }

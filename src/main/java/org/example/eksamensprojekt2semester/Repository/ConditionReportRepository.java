@@ -62,6 +62,25 @@ public class ConditionReportRepository {
         return conditionReport;
     }
 
+    public int getVehicleIdByConditionReportId (int conditionReportId) {
+        int vehicleId = 0;
+        String sql = "SELECT fk_vehicle_id FROM condition_report WHERE condition_report_id = ?";
+
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, conditionReportId);
+
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    vehicleId = resultSet.getInt("fk_vehicle_id");
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return vehicleId;
+    }
+
     public ArrayList<ConditionReport> getConditionReportByEmployeeId (int employeeId) {
         ArrayList<ConditionReport> listOfConditionReports = new ArrayList<>();
         String sql = "SELECT conRepo.condition_report_id, conRepo.fk_vehicle_id, employee.short_name, conRepo.report_date " +

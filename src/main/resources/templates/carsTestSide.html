@@ -168,7 +168,7 @@
                 <td>   <!-- Below statement checks whether there is a condition report for said vehicle ID, and prints
                         a different button, depending on whether or not there is-->
                     <div th:if="${conditionReportsMap[car.vehicleId] != null}">
-                        <form th:action="@{/create-condition-report}" method="get">
+                        <form th:action="@{/condition-report}" method="get">
                             <input type="hidden" name="condition_report_id"
                                    th:value="${conditionReportsMap[car.vehicleId].conditionReportId}" />
                             <button type="submit">Rediger tilstandsrapport</button>

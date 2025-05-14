@@ -8,6 +8,26 @@
 <body>
 <header th:replace="~{fragments.html :: navbar}"></header>
 
+<h1> Kundeinfo </h1>
+<table>
+    <tr>
+        <th>Navn</th>
+        <th>Email</th>
+        <th>Telefonnummer</th>
+        <th>Adresse</th>
+        <th>CPR-nummer</th>
+    </tr>
+
+    <tr>
+        <td th:text="${customer.firstName}+' '+${customer.lastName}"></td>
+        <td th:text="${customer.email}"></td>
+        <td th:text="${customer.phoneNumber}"></td>
+        <td th:text="${customer.address}+', '+${customer.city}+', '+${customer.postalCode}"></td>
+        <td th:text="${customer.cprNumber}"></td>
+    </tr>
+
+</table>
+
 <h1> Opret skade her </h1>
 <form th:action="@{/createDamage}" method="post">
     <input type="hidden" name="condition_report_id" th:value="${condition_report_id}">
@@ -32,13 +52,7 @@
         <td th:text="${damage.damageId}"></td>
         <td th:text="${damage.damageType}"></td>
         <td th:text="${damage.damagePrice}"></td>
-        <td>
-            <form th:action="@{/saveUpdateDamage}" method="post">
-                <input type="hidden" name="damage_id" th:value="${damage.damageId}">
-                <input type="hidden" name="condition_report_id" th:value="${condition_report_id}">
-                <button type="submit" class="btn">Rediger</button>
-            </form>
-        </td>
+
         <td>
             <form th:action="@{/deleteDamage}" method="post">
                 <input type="hidden" name="damage_id" th:value="${damage.damageId}">
@@ -46,6 +60,20 @@
                 <button type="submit" class="btn">Slet</button>
             </form>
         </td>
+    </tr>
+    <tr>
+        <th> Pris på leasing aftale </th>
+        <th> Samlet pris på skader </th>
+        <th> Total </th>
+    </tr>
+    <tr>
+        <td th:text="${priceOfLeaseAgreement}" ></td>
+        <td th:text="${totalPriceOfDamages}" ></td>
+        <td th:text="${totalPriceToPay}" ></td>
+        <td>
+            <button type="submit" class="btn">Send opgørelse til bogholderi</button>
+        </td>
+
     </tr>
 
 </table>
