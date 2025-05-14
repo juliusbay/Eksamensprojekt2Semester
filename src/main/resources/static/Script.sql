@@ -87,7 +87,7 @@ CREATE TABLE customer (
 );
 
 INSERT INTO customer (customer_id, first_name, last_name, email, phone_number, address, city, postal_code, cpr_number, fk_vehicle_id)
-    VALUES (1, 'DemoKunde', 'DemoKunde', 'demo@kunde.dk', 87654321, 'Gadevej 17','Herning', 0000, 123456-1234, 1),
+    VALUES (1, 'DemoKunde', 'DemoKunde', 'demo@kunde.dk', 87654321, 'Gadevej 17','Herning', 7000, 123456-1234, 1),
            (2, 'Oliver', 'Larsen', 'oliver.larsen@example.com', 87654321, 'Elm St 3', 'Aarhus', 8000, 202901-2345, 2),
            (3, 'Sofie', 'Nielsen', 'sofie.nielsen@example.com', 11112222, 'Birch Ave 5', 'Odense', 5000, 303901-3456, 3),
            (4, 'William', 'Pedersen', 'william.pedersen@example.com', 22223333, 'Oak St 7', 'Aalborg', 9000, 404901-4567, 4),

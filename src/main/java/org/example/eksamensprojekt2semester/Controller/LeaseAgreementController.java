@@ -58,28 +58,26 @@ public class LeaseAgreementController {
     }
 
     //Mock create lease without Http
-    @PostMapping("/bongo")
-    public String createLeaseAgreementMock(@RequestParam("fk_vehicle_id") int fkVehicleId,
-                                       @RequestParam("fk_customer_id") int fkCustomerId,
-                                       @RequestParam("lease_type")LeaseAgreement.LeaseType leaseType,
-                                       @RequestParam("lease_price") int leasePrice,
-                                       @RequestParam("lease_start_date")Date leaseStartDate,
-                                       @RequestParam("lease_end_date") Date leaseEndDate,
-                                       @RequestParam("return_location") String returnLocation) throws SQLException {
+    public LeaseAgreement createLeaseAgreementMock( int fkVehicleId,
+                                        int fkCustomerId,
+                                       LeaseAgreement.LeaseType leaseType,
+                                        int leasePrice,
+                                       Date leaseStartDate,
+                                        Date leaseEndDate, String returnLocation) throws SQLException {
 
-
+        LeaseAgreementService leaseService = new LeaseAgreementService();
 
         LeaseAgreement leaseAgreement = new LeaseAgreement(fkVehicleId,
                 fkCustomerId, leaseType,
                 leasePrice, leaseStartDate, leaseEndDate, returnLocation);
 
-        leaseAgreementService.noNegativePriceLease(leaseAgreement);
-        leaseAgreementService.isEndDateBeforeStartDate(leaseAgreement);
-        
 
+        leaseService.noNegativePriceLease(leaseAgreement);
+
+        leaseService.isEndDateBeforeStartDate(leaseAgreement);
 
         leaseAgreementRepository.createLeaseAgreement(leaseAgreement);
-        return "redirect:/dashboard";
+        return leaseAgreement;
     }
 
 

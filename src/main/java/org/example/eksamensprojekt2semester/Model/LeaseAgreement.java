@@ -133,4 +133,20 @@ public class LeaseAgreement {
     public void setActive(boolean active) {
         this.active = active;
     }
+
+    @Override
+    public String toString() {
+        return "LeaseAgreement{" +
+                "leaseAgreementId=" + leaseAgreementId +
+                ", fkVehicleId=" + fkVehicleId +
+                ", fkCustomerId=" + fkCustomerId +
+                ", leaseType=" + leaseType +
+                ", leasePrice=" + leasePrice +
+                ", leaseStartDate=" + leaseStartDate +
+                ", leaseEndDate=" + leaseEndDate +
+                ", returnLocation='" + returnLocation + '\'' +
+                ", customer=" + customer +
+                ", active=" + active +
+                '}';
+    }
 }

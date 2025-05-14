@@ -11,6 +11,8 @@ public class LeaseAgreementService {
     public void noNegativePriceLease(LeaseAgreement leaseAgreement) {
        if(leaseAgreement.getLeasePrice() <=0){
            throw new IllegalArgumentException("LeasePrice must be greater than 0");
+
+
        }
 
     }

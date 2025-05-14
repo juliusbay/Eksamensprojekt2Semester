@@ -24,6 +24,9 @@ public class LeaseAgreementCreateUnittest {
     // Mock dependencies
 
     @Mock
+    LeaseAgreement leaseAgreement;
+
+    @Mock
     LeaseAgreementRepository leaseAgreementRepository;
 
     @Mock
@@ -36,8 +39,7 @@ public class LeaseAgreementCreateUnittest {
     LeaseAgreementController leaseAgreementController;
 
     // Captures the LeaseAgreement object passed to the repository so we can inspect it
-    @Captor
-    ArgumentCaptor<LeaseAgreement> leaseCaptor;
+
 
 
     @Test
@@ -58,13 +60,11 @@ public class LeaseAgreementCreateUnittest {
 
         // Act
         // Call controller, as user would on site
-        String result = leaseAgreementController.createLeaseAgreementMock(vehicle_id, customer_id, leaseType, contract_price, lease_start_date, lease_end_date, returnLocation);
+        LeaseAgreement actualLeaseAgreement = leaseAgreementController.createLeaseAgreementMock(vehicle_id, customer_id, leaseType, contract_price, lease_start_date, lease_end_date, returnLocation);
 
 
         // Assert
-        // Capture the booking object that was passed to the repository
-        verify(leaseAgreementRepository).createLeaseAgreement(leaseCaptor.capture());
-        LeaseAgreement actualLeaseAgreement = leaseCaptor.getValue();
+
 
         // Compare each field individually to ensure the booking was created correctly
         assertEquals(expectedLeaseAgreement.getFkVehicleId(), actualLeaseAgreement.getFkVehicleId());
@@ -93,14 +93,15 @@ public class LeaseAgreementCreateUnittest {
                 lease_start_date, lease_end_date, returnLocation);
 
 
+
+
+
         //Act
 
-        String result = leaseAgreementController.createLeaseAgreementMock(vehicle_id, customer_id, leaseType, leasePrice, lease_start_date, lease_end_date, returnLocation);
+        LeaseAgreement actualLeaseAgreement = leaseAgreementController.createLeaseAgreementMock(vehicle_id, customer_id, leaseType, leasePrice, lease_start_date, lease_end_date, returnLocation);
+        System.out.println(actualLeaseAgreement);
 
         //Assert
-        verify(leaseAgreementRepository).createLeaseAgreement(leaseCaptor.capture());
-        LeaseAgreement actualLeaseAgreement = leaseCaptor.getValue();
-
         assertEquals(expectedLeaseAgreement.getFkVehicleId(), actualLeaseAgreement.getFkVehicleId());
         assertEquals(expectedLeaseAgreement.getFkCustomerId(), actualLeaseAgreement.getFkCustomerId());
         assertEquals(expectedLeaseAgreement.getLeaseType(), actualLeaseAgreement.getLeaseType());

@@ -1,4 +1,4 @@
-package org.example.eksamensprojekt2semester.Controller;
+package org.example.eksamensprojekt2semester.Service;
 
 import org.springframework.stereotype.Service;
 
