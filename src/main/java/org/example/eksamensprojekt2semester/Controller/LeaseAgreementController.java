@@ -46,8 +46,7 @@ public class LeaseAgreementController {
                                        HttpSession session) throws SQLException {
 
     Object employee = session.getAttribute("loggedInUser");
-
-    LeaseAgreement.LeaseType leaseType = LeaseAgreement.LeaseType.valueOf(leaseTypeString.toUpperCase());
+    LeaseAgreement.LeaseType leaseType = LeaseAgreement.LeaseType.fromString(leaseTypeString);
 
     LeaseAgreement leaseAgreement = new LeaseAgreement(fkVehicleId,
             fkCustomerId, leaseType,

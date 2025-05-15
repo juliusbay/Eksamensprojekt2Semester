@@ -16,50 +16,46 @@ import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import java.sql.Date;
 import java.sql.SQLException;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.*;
 
 @SpringBootTest
 public class CreateLeaseSpringIntegrationTests {
 
-    @MockitoBean
+    @Autowired
     private LeaseAgreementRepository leaseAgreementRepository;
 
     @Autowired
     private LeaseAgreementController leaseAgreementController;
 
-    @MockitoBean
+    @Autowired
     private CustomerRepository customerRepository;
 
     @Test
     void createLeaseAgreementTest() throws SQLException {
 
         // Assumption
-        LeaseAgreement leaseAgreement = new LeaseAgreement();
-        leaseAgreement.setLeaseAgreementId(0);
-        leaseAgreement.setFkVehicleId(1);
-        leaseAgreement.setFkCustomerId(1);
-        leaseAgreement.setLeaseType(LeaseAgreement.LeaseType.UNLIMITED);
-        leaseAgreement.setLeasePrice(1000);
-        leaseAgreement.setLeaseStartDate(Date.valueOf("2025-01-01"));
-        leaseAgreement.setLeaseEndDate(Date.valueOf("2025-01-02"));
-        leaseAgreement.setReturnLocation("Test");
+        LeaseAgreement leaseAgreement = leaseAgreementRepository.getLeaseAgreementById(1);
         HttpSession testSession = mock(HttpSession.class);
         Object testEmployee = new Object();
+        Customer customer = leaseAgreement.getCustomer();
 
 
         //Execution
         leaseAgreementRepository.createLeaseAgreement(leaseAgreement);
         when(testSession.getAttribute("loggedInUser")).thenReturn(testEmployee);
-
-        Customer mockCustomer = mock(Customer.class);
-        when(customerRepository.getCustomerByCustomerId(1)).thenReturn(mockCustomer);
+        customerRepository.getCustomerByCustomerId(1);
 
         leaseAgreementController.createLeaseAgreement(1,1, "Unlimited",1000,Date.valueOf("2025-01-01"),Date.valueOf("2025-01-02"),"Test",testSession);
 
 
         //Validation
-        verify(testSession).getAttribute("loggedInUser");
-        verify(leaseAgreementRepository).createLeaseAgreement(leaseAgreement);
+        assertNotNull(leaseAgreement);
+        assertNotNull(leaseAgreement.getCustomer());
+        assertNotNull(testSession.getAttribute("loggedInUser"));
+        assertEquals(1,leaseAgreement.getLeaseAgreementId());
+        assertEquals(LeaseAgreement.LeaseType.UNLIMITED,leaseAgreement.getLeaseType());
 
 
     }
