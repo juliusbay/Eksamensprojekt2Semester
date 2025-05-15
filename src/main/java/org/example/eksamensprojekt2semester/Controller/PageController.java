@@ -71,7 +71,6 @@ public class PageController {
         ArrayList<Employee> employees = employeeRepository.getAllEmployees();
         ArrayList<PurchaseAgreement> purchaseAgreements = purchaseAgreementRepository.getAllPurchaseAgreements();
         ArrayList<Customer> customers = customerRepository.getAllCustomers();
-        System.out.println("i work");
         System.out.println(customers);
         Map<Integer, ConditionReport> conditionReportsMap = conditionReportRepository.getAllConditionReports();
 
