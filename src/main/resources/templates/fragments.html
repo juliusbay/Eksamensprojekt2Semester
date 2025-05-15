@@ -18,16 +18,35 @@
                     <img src="/images/fleetmanager-logo.png" alt="fleetmanager logo">
                 </a>
             </div>
+
+            <div class="banner warning-banner"
+                 th:if="${numberOfCarsAvailable < carThreshold &&
+             (session.loggedInUser.getRoleValue().equalsIgnoreCase('ADMIN') ||
+              session.loggedInUser.getRoleValue().equalsIgnoreCase('BUSINESS_DEVELOPER') ||
+              session.loggedInUser.getRoleValue().equalsIgnoreCase('DATA_RECORDING'))}"
+                 th:text="'Advarsel: ' + ${numberOfCarsAvailable} + ' biler ledige!'">
+            </div>
+
             <div class="clickable">
-                <div class="link-container">
+                <div class="link-container" th:if="${session.loggedInUser.getRoleValue().equalsIgnoreCase('ADMIN')}">
                     <a id="index" th:href="@{/}">FORSIDE</a>
                     <a id="admin" th:href="@{/admin}">ADMIN</a>
                     <a id="statistics" th:href="@{/statistics}">STATISTIK</a>
                 </div>
+
+                <div class="link-container" th:if="${session.loggedInUser.getRoleValue().equalsIgnoreCase('BUSINESS_DEVELOPER')}">
+                    <a id="index" th:href="@{/}">FORSIDE</a>
+                    <a id="statistics" th:href="@{/statistics}">STATISTIK</a>
+                </div>
+
+                <div class="link-container" th:if="${session.loggedInUser.getRoleValue().equalsIgnoreCase('DATA_RECORDING') ||
+                                            session.loggedInUser.getRoleValue().equalsIgnoreCase('MECHANIC')}">
+                        <a id="index" th:href="@{/}">FORSIDE</a>
+                </div>
+                </div>
                 <div class="button-container">
                     <a class="navbar-link-btn" th:href="@{/logout}">LOG UD</a>
                 </div>
-            </div>
         </div>
     </div>
     <div class="navbar-blank-box"></div>

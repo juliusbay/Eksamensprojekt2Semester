@@ -78,14 +78,35 @@
 
 <label for="tableSelector">Choose a table:</label>
 <select id="tableSelector">
-    <option value="lease">Leasingaftaler</option>
-    <option value="lease_inactive">Færdige leasingaftaler</option>
-    <option value="car">Biler</option>
-    <option value="condition_report">Tilstandsrapporter</option>
-    <option value="damage">Skader</option>
-    <option value="employee">Ansatte</option>
-    <option value="purchase_agreements">Købsaftaler</option>
-    <option value="customer">Kunder</option>
+    <option value="lease" th:if="${session.loggedInUser.getRoleValue().equalsIgnoreCase('ADMIN') ||
+                                   session.loggedInUser.getRoleValue().equalsIgnoreCase('DATA_RECORDING')}">
+        Leasingaftaler
+    </option>
+    <option value="lease_inactive" th:if="${session.loggedInUser.getRoleValue().equalsIgnoreCase('ADMIN') ||
+                                   session.loggedInUser.getRoleValue().equalsIgnoreCase('DATA_RECORDING')}">
+        Færdige leasingaftaler
+    </option>
+    <option value="car" th:if="${!session.loggedInUser.getRoleValue().equalsIgnoreCase('BUSINESS_DEVELOPER')}">
+        Biler
+    </option>
+    <option value="condition_report" th:if="${session.loggedInUser.getRoleValue().equalsIgnoreCase('ADMIN') ||
+                                   session.loggedInUser.getRoleValue().equalsIgnoreCase('MECHANIC')}">
+        Tilstandsrapporter
+    </option>
+    <option value="damage" th:if="${session.loggedInUser.getRoleValue().equalsIgnoreCase('ADMIN') ||
+                                   session.loggedInUser.getRoleValue().equalsIgnoreCase('MECHANIC')}">
+        Skader
+    </option>
+    <option value="employee" th:if="${session.loggedInUser.getRoleValue().equalsIgnoreCase('ADMIN')}">
+        Ansatte
+    </option>
+    <option value="purchase_agreements" th:if="${session.loggedInUser.getRoleValue().equalsIgnoreCase('ADMIN') ||
+                                   session.loggedInUser.getRoleValue().equalsIgnoreCase('DATA_RECORDING')}">
+        Købsaftaler
+    </option>
+    <option value="customer">
+        Kunder
+    </option>
 </select>
 
 
