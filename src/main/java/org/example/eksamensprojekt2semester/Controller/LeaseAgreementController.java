@@ -76,13 +76,6 @@ public class LeaseAgreementController {
         return "createLeasePage";
     }
 
-
-
-
-
-
-
-
     //Mock create lease without Http
     public LeaseAgreement createLeaseAgreementMock( int fkVehicleId,
                                         int fkCustomerId,
