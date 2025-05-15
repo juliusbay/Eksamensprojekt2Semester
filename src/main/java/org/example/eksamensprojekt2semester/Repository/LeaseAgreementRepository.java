@@ -158,7 +158,7 @@ public class LeaseAgreementRepository {
 
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
-                statement.setInt(1, leaseAgreement.getFkVehicleId());
+                statement.setInt(1, leaseAgreement.getCar().getVehicleId());
                 statement.setInt(2, leaseAgreement.getCustomer().getCustomerId());
                 statement.setString(3, leaseAgreement.getLeaseType().toString());
                 statement.setDouble(4, leaseAgreement.getLeasePrice());
@@ -178,7 +178,7 @@ public class LeaseAgreementRepository {
 
         try (Connection connection = dataSource.getConnection();
             PreparedStatement statement = connection.prepareStatement(sql)){
-                statement.setInt(1, leaseAgreement.getFkVehicleId());
+                statement.setInt(1, leaseAgreement.getCar().getVehicleId());
                 statement.setInt(2, leaseAgreement.getCustomer().getCustomerId());
                 statement.setString(3, leaseAgreement.getLeaseType().toString());
                 statement.setDouble(4, leaseAgreement.getLeasePrice());

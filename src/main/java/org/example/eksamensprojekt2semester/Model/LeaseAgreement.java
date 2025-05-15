@@ -41,6 +41,7 @@ public class LeaseAgreement {
     public String returnLocation;
     private Customer customer;
     private boolean active;
+    private Car car;
 
     public LeaseAgreement(int fkVehicleId, int fkCustomerId, LeaseType leaseType, int leasePrice, java.sql.Date leaseStartDate, java.sql.Date leaseEndDate, String returnLocation) {
     this.fkVehicleId = fkVehicleId;
@@ -138,6 +139,14 @@ public class LeaseAgreement {
 
     public void setActive(boolean active) {
         this.active = active;
+    }
+
+    public Car getCar() {
+        return car;
+    }
+
+    public void setCar(Car car) {
+        this.car = car;
     }
 
     @Override
