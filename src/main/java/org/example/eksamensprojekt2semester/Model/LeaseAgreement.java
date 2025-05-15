@@ -1,5 +1,6 @@
 package org.example.eksamensprojekt2semester.Model;
 
+import java.rmi.dgc.Lease;
 import java.sql.Date;
 
 public class LeaseAgreement {
@@ -53,6 +54,11 @@ public class LeaseAgreement {
 
     public LeaseAgreement() {
 
+    }
+    public LeaseAgreement(int leaseAgreement, int fkVehicleId, int fkCustomerId) {
+        this.leaseAgreementId = leaseAgreement;
+        this.fkVehicleId = fkVehicleId;
+        this.fkCustomerId = fkCustomerId;
     }
 
     public int getLeaseAgreementId() {
