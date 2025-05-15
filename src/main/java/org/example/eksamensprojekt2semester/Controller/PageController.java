@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -42,9 +43,6 @@ public class PageController {
 
     @Autowired
     EmployeeController employeeController;
-
-    @Autowired
-    ChoiceRepository choiceRepository;
 
 
     @GetMapping("/login")
@@ -99,10 +97,6 @@ public class PageController {
             return "redirect:/login";
         }
 
-        int numberOfCars = carRepository.getAllCars().size();
-        int numberOfCarsRentedOut = carRepository.getCarsByRentedOutStatus(true);
-        int numberOfCarsAvailable = numberOfCars - numberOfCarsRentedOut;
-        
         ArrayList<LeaseAgreement> leaseAgreements = leaseAgreementRepository.getLeaseAgreementsByActiveStatus(true);
         double totalValueOfActiveLeaseAgreements = 0;
         for (LeaseAgreement leases : leaseAgreements){
@@ -110,13 +104,23 @@ public class PageController {
         }
         double averageLeaseAgreementValue = totalValueOfActiveLeaseAgreements/leaseAgreements.size();
 
-
-        model.addAttribute("numberOfCars", numberOfCars);
-        model.addAttribute("numberOfCarsRentedOut", numberOfCarsRentedOut);
-        model.addAttribute("numberOfCarsAvailable", numberOfCarsAvailable);
         model.addAttribute("totalValueOfLeaseAgreements", totalValueOfActiveLeaseAgreements);
         model.addAttribute("averageLeaseAgreementValue", averageLeaseAgreementValue);
 
         return "statistics";
+    }
+
+    // Tilføjer den til alle getMappings så den kan bruges i navbaren
+    @ModelAttribute
+    public void showCarAvailability(Model model){
+        int numberOfCars = carRepository.getAllCars().size();
+        int numberOfCarsRentedOut = carRepository.getCarsByRentedOutStatus(true);
+        int numberOfCarsAvailable = numberOfCars - numberOfCarsRentedOut;
+        int carThreshold = 10;
+
+        model.addAttribute("numberOfCars", numberOfCars);
+        model.addAttribute("numberOfCarsRentedOut", numberOfCarsRentedOut);
+        model.addAttribute("numberOfCarsAvailable", numberOfCarsAvailable);
+        model.addAttribute("carThreshold", carThreshold);
     }
 }

@@ -78,14 +78,35 @@
 
 <label for="tableSelector">Choose a table:</label>
 <select id="tableSelector">
-    <option value="lease">Leasingaftaler</option>
-    <option value="lease_table_inactive">Færdige leasingaftaler</option>
-    <option value="car_table">Biler</option>
-    <option value="condition_report_table">Tilstandsrapporter</option>
-    <option value="damage_table">Skader</option>
-    <option value="employee_table">Ansatte</option>
-    <option value="purchase_agreements_table">Købsaftaler</option>
-    <option value="customer_table">Kunder</option>
+    <option value="lease" th:if="${session.loggedInUser.getRoleValue().equalsIgnoreCase('ADMIN') ||
+                                   session.loggedInUser.getRoleValue().equalsIgnoreCase('DATA_RECORDING')}">
+        Leasingaftaler
+    </option>
+    <option value="lease_table_inactive" th:if="${session.loggedInUser.getRoleValue().equalsIgnoreCase('ADMIN') ||
+                                   session.loggedInUser.getRoleValue().equalsIgnoreCase('DATA_RECORDING')}">
+        Færdige leasingaftaler
+    </option>
+    <option value="car_table" th:if="${!session.loggedInUser.getRoleValue().equalsIgnoreCase('BUSINESS_DEVELOPER')}">
+        Biler
+    </option>
+    <option value="condition_report_table" th:if="${session.loggedInUser.getRoleValue().equalsIgnoreCase('ADMIN') ||
+                                   session.loggedInUser.getRoleValue().equalsIgnoreCase('MECHANIC')}">
+        Tilstandsrapporter
+    </option>
+    <option value="damage_table" th:if="${session.loggedInUser.getRoleValue().equalsIgnoreCase('ADMIN') ||
+                                   session.loggedInUser.getRoleValue().equalsIgnoreCase('MECHANIC')}">
+        Skader
+    </option>
+    <option value="employee_table" th:if="${session.loggedInUser.getRoleValue().equalsIgnoreCase('ADMIN')}">
+        Ansatte
+    </option>
+    <option value="purchase_agreements_table" th:if="${session.loggedInUser.getRoleValue().equalsIgnoreCase('ADMIN') ||
+                                   session.loggedInUser.getRoleValue().equalsIgnoreCase('DATA_RECORDING')}">
+        Købsaftaler
+    </option>
+    <option value="customer_table">
+        Kunder
+    </option>
 </select>
 
 
@@ -247,7 +268,7 @@
 
 <div class="dataTable" id="condition_report_table">
 <h2>Tilstandsrapporter</h2>
-    <table class="display compact" >
+    <table class="display compact">
         <thead>
         <tr>
             <th>ID</th>

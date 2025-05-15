@@ -16,7 +16,9 @@ CREATE TABLE employee (
 
 INSERT INTO employee (employee_id, first_name, last_name, short_name, email, password, role) VALUES
                                                 (1, 'Demo', 'Demo', 'demo', 'demo@demo.demo', 'demo', 'ADMIN'),
-                                                (2, 'Jürgen', 'Hinterseer', 'JÜHIN', 'Jürgen@email.dk', 'Lagkage', 'DATA_RECORDING');
+                                                (2, 'Jürgen', 'Hinterseer', 'JÜHIN', 'Jürgen@email.dk', 'Lagkage', 'DATA_RECORDING'),
+                                                (3, 'demo', 'forretningsudvikler', 'demof', 'forretning@email.dk', '1234', 'BUSINESS_DEVELOPER'),
+                                                (4, 'demo', 'mekaniker', 'demom', 'mekaniker@email.dk', '1234', 'MECHANIC');
 
 CREATE TABLE car_model (
                            car_model_id INT PRIMARY KEY AUTO_INCREMENT UNIQUE,
