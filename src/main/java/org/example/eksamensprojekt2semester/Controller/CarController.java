@@ -1,6 +1,7 @@
 package org.example.eksamensprojekt2semester.Controller;
 
 
+import org.example.eksamensprojekt2semester.Enum.Status;
 import org.example.eksamensprojekt2semester.Model.Car;
 import org.example.eksamensprojekt2semester.Model.CarModel;
 import org.example.eksamensprojekt2semester.Repository.CarRepository;
@@ -74,6 +75,17 @@ public class CarController {
         model.addAttribute("car", car);
         carRepository.updateCar(car);
         return "updateCar";
+
+    }
+
+    @PostMapping("/updateCarStatus")
+    public String updateCar(Model model,
+                            @RequestParam ("vehicle_id") int vehicleId,
+                            @RequestParam ("status") String status){
+
+        carRepository.updateCarStatus(status, vehicleId);
+
+        return "redirect:/cars";
 
     }
 
