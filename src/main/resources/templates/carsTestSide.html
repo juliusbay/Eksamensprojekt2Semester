@@ -78,7 +78,7 @@
 
 <label for="tableSelector">Choose a table:</label>
 <select id="tableSelector">
-    <option value="lease_table">Leasingaftaler</option>
+    <option value="lease">Leasingaftaler</option>
     <option value="lease_table_inactive">Færdige leasingaftaler</option>
     <option value="car_table">Biler</option>
     <option value="condition_report_table">Tilstandsrapporter</option>
@@ -89,22 +89,22 @@
 </select>
 
 
-<div class="dataTable" id="lease_table">
+<div class="dataTable" id="lease">
 <h2>Aktive leasing aftaler</h2>
-    <!--<input type="text" id="myInput" onkeyup="searchFunction()" placeholder="Search..">-->
+    <input type="text" id="tableSearch" placeholder="Search..">
 
-    <table>
+    <table id="lease_table">
         <thead>
         <tr>
-            <th onclick="sortTable(0)">Lease detaljer</th>
-            <th onclick="sortTable(1)">Vehicle Id</th>
-            <th onclick="sortTable(2)">Customer Id</th>
-            <th onclick="sortTable(3)">Lease Type</th>
-            <th onclick="sortTable(4)">Lease Price</th>
-            <th onclick="sortTable(5)">Lease Start Date</th>
-            <th onclick="sortTable(6)">Lease End Date</th>
-            <th onclick="sortTable(7)">Return Location</th>
-            <th onclick="sortTable(8)">Delete</th>
+            <th>Lease detaljer</th>
+            <th>Vehicle Id</th>
+            <th>Customer Id</th>
+            <th>Lease Type</th>
+            <th>Lease Price</th>
+            <th>Lease Start Date</th>
+            <th>Lease End Date</th>
+            <th>Return Location</th>
+            <th>Delete</th>
         </tr>
         </thead>
 
