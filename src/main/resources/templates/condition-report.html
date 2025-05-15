@@ -78,7 +78,7 @@
         <td th:text="${priceOfLeaseAgreement}" ></td>
         <td th:text="${totalPriceOfDamages}" ></td>
         <td th:text="${excessKilometers +' * 0,75 DKK = '+ #numbers.formatDecimal(totalPriceOfExcessKilometers, 1, 'POINT', 2, 'COMMA')}" ></td>
-        <td th:text="${#numbers.formatDecimal(totalPriceToPay, 1, 'POINT', 2, 'COMMA')+' DKK'}"></td>
+        <td th:text="${#numbers.formatDecimal(totalPriceToPay, 1, 'POINT', 2, 'COMMA')+' DKK'}"></td> <!-- Formats the numbers to two decimals with a point after first number -->
         <td>
             <button type="submit" class="btn">Send opgørelse til bogholderi</button>
         </td>
