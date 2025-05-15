@@ -28,6 +28,13 @@
 
 </table>
 
+<h1> Antal kørte kilometer udover grænsen </h1>
+<form th:action="@{/editConditionReport}" method="post">
+    <input type="hidden" name="condition_report_id" th:value="${condition_report_id}">
+    <input type="number" step="0.01" name="excess_kilometers" th:value="${conditionReport.excessKilometers}">
+    <button type="submit"> Registrer kilometer </button>
+</form>
+
 <h1> Opret skade her </h1>
 <form th:action="@{/createDamage}" method="post">
     <input type="hidden" name="condition_report_id" th:value="${condition_report_id}">
@@ -64,12 +71,14 @@
     <tr>
         <th> Pris på leasing aftale </th>
         <th> Samlet pris på skader </th>
+        <th> Antal ekstra kilometer </th>
         <th> Total </th>
     </tr>
     <tr>
         <td th:text="${priceOfLeaseAgreement}" ></td>
         <td th:text="${totalPriceOfDamages}" ></td>
-        <td th:text="${totalPriceToPay}" ></td>
+        <td th:text="${excessKilometers +' * 0,75 DKK = '+ #numbers.formatDecimal(totalPriceOfExcessKilometers, 1, 'POINT', 2, 'COMMA')}" ></td>
+        <td th:text="${#numbers.formatDecimal(totalPriceToPay, 1, 'POINT', 2, 'COMMA')+' DKK'}"></td> <!-- Formats the numbers to two decimals with a point after first number -->
         <td>
             <button type="submit" class="btn">Send opgørelse til bogholderi</button>
         </td>
