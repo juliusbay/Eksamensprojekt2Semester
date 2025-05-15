@@ -21,7 +21,7 @@
         }
     </style>
     <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
-    <script type="text/javascript" th:src="@{/javascript/tableProperties.js}"></script>
+   <!-- <script type="text/javascript" th:src="@{/javascript/tableProperties.js}"></script> -->
     <!--
     <script>
         function searchFunction() {
@@ -79,13 +79,13 @@
 <label for="tableSelector">Choose a table:</label>
 <select id="tableSelector">
     <option value="lease">Leasingaftaler</option>
-    <option value="lease_table_inactive">Færdige leasingaftaler</option>
-    <option value="car_table">Biler</option>
-    <option value="condition_report_table">Tilstandsrapporter</option>
-    <option value="damage_table">Skader</option>
-    <option value="employee_table">Ansatte</option>
-    <option value="purchase_agreements_table">Købsaftaler</option>
-    <option value="customer_table">Kunder</option>
+    <option value="lease_inactive">Færdige leasingaftaler</option>
+    <option value="car">Biler</option>
+    <option value="condition_report">Tilstandsrapporter</option>
+    <option value="damage">Skader</option>
+    <option value="employee">Ansatte</option>
+    <option value="purchase_agreements">Købsaftaler</option>
+    <option value="customer">Kunder</option>
 </select>
 
 
@@ -96,15 +96,15 @@
     <table id="lease_table">
         <thead>
         <tr>
-            <th>Lease detaljer</th>
-            <th>Vehicle Id</th>
-            <th>Customer Id</th>
-            <th>Lease Type</th>
-            <th>Lease Price</th>
-            <th>Lease Start Date</th>
-            <th>Lease End Date</th>
-            <th>Return Location</th>
-            <th>Delete</th>
+            <th onclick="sortTable(0)">Lease detaljer</th>
+            <th onclick="sortTable(1)">Vehicle Id</th>
+            <th onclick="sortTable(2)">Customer Id</th>
+            <th onclick="sortTable(3)">Lease Type</th>
+            <th onclick="sortTable(4)">Lease Price</th>
+            <th onclick="sortTable(5)">Lease Start Date</th>
+            <th onclick="sortTable(6)">Lease End Date</th>
+            <th onclick="sortTable(7)">Return Location</th>
+            <th onclick="sortTable(8)">Delete</th>
         </tr>
         </thead>
 
@@ -137,20 +137,20 @@
 
 </div>
 
-<div class="dataTable" id="lease_table_inactive">
+<div class="dataTable" id="lease_inactive">
 <h2>Inaktive leasing aftaler</h2>
-    <table class="display compact">
+    <table id="lease_inactive_table">
         <thead>
         <tr>
-            <th>Lease detaljer</th>
-            <th>Vehicle Id</th>
-            <th>Customer Id</th>
-            <th>Lease Type</th>
-            <th>Lease Price</th>
-            <th>Lease Start Date</th>
-            <th>Lease End Date</th>
-            <th>Return Location</th>
-            <th>Delete</th>
+            <th onclick="sortTable(0)">Lease detaljer</th>
+            <th onclick="sortTable(1)">Vehicle Id</th>
+            <th onclick="sortTable(2)">Customer Id</th>
+            <th onclick="sortTable(3)">Lease Type</th>
+            <th onclick="sortTable(4)">Lease Price</th>
+            <th onclick="sortTable(5)">Lease Start Date</th>
+            <th onclick="sortTable(6)">Lease End Date</th>
+            <th onclick="sortTable(7)">Return Location</th>
+            <th onclick="sortTable(8)">Delete</th>
         </tr>
         </thead>
 
@@ -180,21 +180,21 @@
     </table>
 </div>
 
-<div class="dataTable" id="car_table">
+<div class="dataTable" id="car">
 <h2>Biler</h2>
-    <table class="display compact">
+    <table id="car_table">
         <thead>
             <tr>
-                <th>ID</th>
-                <th>VIN Number</th>
-                <th>Mærke</th>
-                <th>Model</th>
-                <th>Udstyr</th>
-                <th>Farve</th>
-                <th>Forkøbt</th>
-                <th>Status</th>
-                <th>Tilstandsrapport</th>
-                <th>Slet bil</th>
+                <th onclick="sortTable(0)">ID</th>
+                <th onclick="sortTable(1)">VIN Number</th>
+                <th onclick="sortTable(2)">Mærke</th>
+                <th onclick="sortTable(3)">Model</th>
+                <th onclick="sortTable(4)">Udstyr</th>
+                <th onclick="sortTable(5)">Farve</th>
+                <th onclick="sortTable(6)">Forkøbt</th>
+                <th onclick="sortTable(7)">Status</th>
+                <th onclick="sortTable(8)">Tilstandsrapport</th>
+                <th onclick="sortTable(9)">Slet bil</th>
             </tr>
         </thead>
         <tbody>
@@ -245,15 +245,15 @@
     </table>
 </div>
 
-<div class="dataTable" id="condition_report_table">
+<div class="dataTable" id="condition_report">
 <h2>Tilstandsrapporter</h2>
-    <table class="display compact" >
+    <table id="condition_report_table">
         <thead>
         <tr>
-            <th>ID</th>
-            <th>Handler</th>
-            <th>Dato</th>
-            <th>Delete</th>
+            <th onclick="sortTable(0)">ID</th>
+            <th onclick="sortTable(1)">Handler</th>
+            <th onclick="sortTable(2)">Dato</th>
+            <th onclick="sortTable(3)">Delete</th>
         </tr>
         </thead>
         <tbody>
@@ -272,16 +272,16 @@
     </table>
 </div>
 
-<div class="dataTable" id="damage_table">
+<div class="dataTable" id="damage">
 <h2>Skader</h2>
-    <table class="display compact" >
+    <table id="damage_table">
         <thead>
         <tr>
-            <th>ID</th>
-            <th>Tilstandsrapport-ID</th>
-            <th>Pris</th>
-            <th>Type skade</th>
-            <th>Delete</th>
+            <th onclick="sortTable(0)">ID</th>
+            <th onclick="sortTable(1)">Tilstandsrapport-ID</th>
+            <th onclick="sortTable(2)">Pris</th>
+            <th onclick="sortTable(3)">Type skade</th>
+            <th onclick="sortTable(4)">Delete</th>
         </tr>
         </thead>
         <tbody>
@@ -301,18 +301,18 @@
     </table>
 </div>
 
-<div class="dataTable" id="employee_table">
+<div class="dataTable" id="employee">
 <h2>Ansatte</h2>
-    <table class="display compact" >
+    <table id="employee_table">
         <thead>
         <tr>
-            <th>ID</th>
-            <th>Fornavn</th>
-            <th>Efternavn</th>
-            <th>Shortname</th>
-            <th>Email</th>
-            <th>Rolle</th>
-            <th>Delete</th>
+            <th onclick="sortTable(0)">ID</th>
+            <th onclick="sortTable(1)">Fornavn</th>
+            <th onclick="sortTable(2)">Efternavn</th>
+            <th onclick="sortTable(3)">Shortname</th>
+            <th onclick="sortTable(4)">Email</th>
+            <th onclick="sortTable(5)">Rolle</th>
+            <th onclick="sortTable(6)">Delete</th>
         </tr>
         </thead>
         <tbody>
@@ -334,17 +334,17 @@
     </table>
 </div>
 
-<div class="dataTable" id="purchase_agreements_table">
+<div class="dataTable" id="purchase_agreements">
 <h2>Købsaftaler</h2>
-    <table class="display compact">
+    <table id="purchase_agreements_table">
         <thead>
         <tr>
-            <th>ID</th>
-            <th>Kunde id</th>
-            <th>Bil id</th>
-            <th>Pris</th>
-            <th>Betalt?</th>
-            <th>Delete</th>
+            <th onclick="sortTable(0)">ID</th>
+            <th onclick="sortTable(1)">Kunde id</th>
+            <th onclick="sortTable(2)">Bil id</th>
+            <th onclick="sortTable(3)">Pris</th>
+            <th onclick="sortTable(4)">Betalt?</th>
+            <th onclick="sortTable(5)">Delete</th>
         </tr>
         </thead>
         <tbody>
@@ -365,22 +365,22 @@
     </table>
 </div>
 
-<div class="dataTable" id="customer_table">
-    <table class="display compact">
+<div class="dataTable" id="customer">
+    <table id="customer_table">
         <h2>Kunder</h2>
         <thead>
         <tr>
-            <th>ID</th>
-            <th>Fornavn</th>
-            <th>Efternavn</th>
-            <th>Email</th>
-            <th>Cpr-nummer</th>
-            <th>TelefonNummer</th>
-            <th>Adresse</th>
-            <th>By</th>
-            <th>Postnummer</th>
-            <th>Bil id</th>
-            <th>Delete</th>
+            <th onclick="sortTable(0)">ID</th>
+            <th onclick="sortTable(1)">Fornavn</th>
+            <th onclick="sortTable(2)">Efternavn</th>
+            <th onclick="sortTable(3)">Email</th>
+            <th onclick="sortTable(4)">Cpr-nummer</th>
+            <th onclick="sortTable(5)">TelefonNummer</th>
+            <th onclick="sortTable(6)">Adresse</th>
+            <th onclick="sortTable(7)">By</th>
+            <th onclick="sortTable(8)">Postnummer</th>
+            <th onclick="sortTable(9)">Bil id</th>
+            <th onclick="sortTable(10)">Delete</th>
         </tr>
         </thead>
         <tbody>
@@ -405,6 +405,107 @@
         </tbody>
     </table>
 </div>
-
 </body>
+
+<script>
+    let tableId;
+    $(document).ready(function () {
+        // Cache the table selector
+        const tableSelector = $('#tableSelector');
+
+        // Initially hide all tables
+        $('.dataTable').hide();
+
+        // Show and initialize the default table
+        tableId = tableSelector.val();
+        $('#' + tableId).show();
+
+        // On table selection change
+        tableSelector.on('change', function ()  {
+            tableId = $(this).val();
+
+            // Hide all tables
+            $('.dataTable').hide();
+
+            // Show the selected table
+            $('#' + tableId).show();
+            console.log(tableId);
+        });
+    });
+
+    function sortTable(n) {
+        console.log('clicked')
+        let table, rows, switching, i, x, y, shouldSwitch, dir, switchCount = 0;
+        table = document.getElementById(`${tableId}_table`);
+        console.log(table);
+        switching = true;
+        // Set the sorting direction to ascending:
+        dir = "asc";
+
+        // Make a loop that will continue until no switching has been done:
+        while (switching) {
+            // Start by saying: no switching is done:
+            switching = false;
+            rows = table.rows;
+            /* Loop through all table rows (except the
+            first, which contains table headers): */
+            for (i = 1; i < (rows.length - 1); i++) {
+                // Start by saying there should be no switching:
+                shouldSwitch = false;
+                // Get the two elements you want to compare, one from current row and one from the next:
+                x = rows[i].getElementsByTagName("td")[n];
+                y = rows[i + 1].getElementsByTagName("td")[n];
+
+                //console.log(Number(x.innerHTML));
+                if (Number(x.innerHTML)) {
+                    console.log('number')
+                }
+                // Check if the two rows should switch place, based on the direction, asc or desc:
+                if (dir === "asc") {
+                    if (Number(x.innerHTML)){
+                        if (Number(x.innerHTML) > Number(y.innerHTML)) {
+                            // If so, mark as a switch and break the loop:
+                            shouldSwitch = true;
+                            break;
+                        }
+                    } else {
+                        if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                            // If so, mark as a switch and break the loop:
+                            shouldSwitch = true;
+                            break;
+                        }
+                    }
+                } else if (dir === "desc") {
+                    if (Number(x.innerHTML)){
+                        if (Number(x.innerHTML) < Number(y.innerHTML)) {
+                            // If so, mark as a switch and break the loop:
+                            shouldSwitch = true;
+                            break;
+                        }
+                    } else {
+                        if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+                            // If so, mark as a switch and break the loop:
+                            shouldSwitch = true;
+                            break;
+                        }
+                    }
+                }
+            }
+            if (shouldSwitch) {
+                // If a switch has been marked, make the switch and mark that a switch has been done:
+                rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                switching = true;
+                // Each time a switch is done, increase this count by 1:
+                switchCount ++;
+            } else {
+                /* If no switching has been done AND the direction is "asc",
+                set the direction to "desc" and run the while loop again. */
+                if (switchCount === 0 && dir === "asc") {
+                    dir = "desc";
+                    switching = true;
+                }
+            }
+        }
+    }
+</script>
 </html>

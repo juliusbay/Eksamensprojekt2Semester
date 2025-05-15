@@ -1,3 +1,4 @@
+let tableId;
 $(document).ready(function () {
     // Cache the table selector
     const tableSelector = $('#tableSelector');
@@ -6,7 +7,7 @@ $(document).ready(function () {
     $('.dataTable').hide();
 
     // Show and initialize the default table
-    let tableId = tableSelector.val();
+    tableId = tableSelector.val();
     $('#' + tableId).show();
 
     // On table selection change
@@ -20,48 +21,58 @@ $(document).ready(function () {
         $('#' + tableId).show();
         console.log(tableId);
     });
-
-    let leaseType = '[[${leaseType}}]]';
-
-    $('#tableSearch').on('keyup', function (){
-        let value = $(this).val();
-        console.log(value)
-
-        let data = filterFunction(value, leaseType);
-
-        rebuildTable(data);
-
-        function filterFunction(value, data) {
-            let filteredData= [];
-            for(let i = 0; i < data.length; i++) {
-                value = value.toLowerCase();
-                let test = data[i].toLowerCase();
-                console.log(test);
-
-                if(test.includes(value)) {
-                    filteredData.push(data[i])
-                }
-            }
-            return filteredData;
-        }
-
-        function rebuildTable(data) {
-            let table = document.getElementById('lease_table');
-            table.innerHTML='';
-            for (let i = 0; i < data.length; i++) {
-                let row = `
-                <tr>
-                    <td>${data[i].vehicle_id}</td>
-                    <td>${data[i].customerId}</td>
-                    <td>${data[i].lease_type}</td>
-                    <td>${data[i].lease_price}</td>
-                    <td>${data[i].lease_start_date}</td>
-                    <td>${data[i].lease_end_date}</td>
-                    <td>${data[i].return_location}</td>
-                </tr>`;
-                table.innerHTML += row;
-            }
-        }
-    })
 });
 
+document.querySelector('.dataTable').onclick(function sortTable(n) {
+    console.log('clicked')
+    let table, rows, switching, i, x, y, shouldSwitch, dir, switchCount = 0;
+    table = document.getElementById(tableId);
+    console.log(table);
+    switching = true;
+    // Set the sorting direction to ascending:
+    dir = "asc";
+
+    // Make a loop that will continue until no switching has been done:
+    while (switching) {
+        // Start by saying: no switching is done:
+        switching = false;
+        rows = table.rows;
+        /* Loop through all table rows (except the
+        first, which contains table headers): */
+        for (i = 1; i < (rows.length - 1); i++) {
+            // Start by saying there should be no switching:
+            shouldSwitch = false;
+            // Get the two elements you want to compare, one from current row and one from the next:
+            x = rows[i].getElementsByTagName("td")[n];
+            y = rows[i + 1].getElementsByTagName("td")[n];
+            // Check if the two rows should switch place, based on the direction, asc or desc:
+            if (dir === "asc") {
+                if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                    // If so, mark as a switch and break the loop:
+                    shouldSwitch = true;
+                    break;
+                }
+            } else if (dir === "desc") {
+                if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+                    // If so, mark as a switch and break the loop:
+                    shouldSwitch = true;
+                    break;
+                }
+            }
+        }
+        if (shouldSwitch) {
+            // If a switch has been marked, make the switch and mark that a switch has been done:
+            rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+            switching = true;
+            // Each time a switch is done, increase this count by 1:
+            switchCount ++;
+        } else {
+            /* If no switching has been done AND the direction is "asc",
+            set the direction to "desc" and run the while loop again. */
+            if (switchCount === 0 && dir === "asc") {
+                dir = "desc";
+                switching = true;
+            }
+        }
+    }
+});
