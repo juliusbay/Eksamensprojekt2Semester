@@ -179,6 +179,7 @@ CREATE TABLE condition_report (
                                   fk_vehicle_id INT,
                                   handled_by VARCHAR(50),
                                   report_date DATE,
+                                  excess_kilometers DOUBLE DEFAULT NULL,
                                   FOREIGN KEY (fk_vehicle_id) REFERENCES car(vehicle_id)
 );
 

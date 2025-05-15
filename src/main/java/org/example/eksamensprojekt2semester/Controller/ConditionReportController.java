@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.sql.Date;
 import java.util.List;
 
 @Controller
@@ -33,7 +34,7 @@ public class ConditionReportController {
     @Autowired
     LeaseAgreementRepository leaseAgreementRepository;
 
-    // Page for creating a condition report (consisting of damages) based on the condition report's ID
+    // Page for editing a condition report (consisting of damages) based on the condition report's ID
     @GetMapping ("/condition-report")
     public String createConditionReport(@RequestParam("condition_report_id") int conditionReportId, Model model,
                                         HttpSession session){
@@ -44,13 +45,19 @@ public class ConditionReportController {
         List<Damage> damages = damageRepo.getDamageByConditionReportId(conditionReportId);
         LeaseAgreement leaseAgreement = leaseAgreementRepository.getLeaseAgreementByVehicleId(conditionReportRepo.getVehicleIdByConditionReportId(conditionReportId));
         Customer customer = leaseAgreement.getCustomer();
+        ConditionReport conditionReport = conditionReportRepo.getConditionReportByReportId(conditionReportId);
+
 
         double priceOfLeaseAgreement = leaseAgreement.leasePrice;
         double totalPriceOfDamages = 0;
         for (Damage d : damages){
             totalPriceOfDamages += d.getDamagePrice();
         }
-        double totalPriceToPay = priceOfLeaseAgreement+totalPriceOfDamages;
+
+        double excessKilometers = conditionReport.getExcessKilometers();
+        double totalPriceOfExcessKilometers = conditionReport.getExcessKilometers() * 0.75;
+
+        double totalPriceToPay = priceOfLeaseAgreement+totalPriceOfDamages+totalPriceOfExcessKilometers;
 
         model.addAttribute("condition_report_id", conditionReportId);
         model.addAttribute("damages", damages);
@@ -58,6 +65,9 @@ public class ConditionReportController {
         model.addAttribute("totalPriceOfDamages", totalPriceOfDamages);
         model.addAttribute("totalPriceToPay", totalPriceToPay);
         model.addAttribute("customer", customer);
+        model.addAttribute("conditionReport", conditionReport);
+        model.addAttribute("excessKilometers", excessKilometers);
+        model.addAttribute("totalPriceOfExcessKilometers", totalPriceOfExcessKilometers);
 
         return "condition-report";
     }
@@ -82,6 +92,8 @@ public class ConditionReportController {
 
         ConditionReport conditionReport = new ConditionReport(vehicleID, handledBy, sqlDate);
         conditionReportRepo.createConditionReport(conditionReport);
+
+        // Fetches the reportId after creation, so the redirection goes to the condition report
         int reportId = conditionReportRepo.getConditionReportByVehicleId(vehicleID).getConditionReportId();
 
         return "redirect:/condition-report?condition_report_id="+reportId;
@@ -89,24 +101,16 @@ public class ConditionReportController {
 
     // Postmapping for editing the condition report
     @PostMapping ("editConditionReport")
-    public String saveEditConditionReport(@RequestParam("fk_vehicle_id") int vehicleID,
-                                          @RequestParam("condition_report_id") int reportId,
-                                            @RequestParam("handled_by") String handledBy,
+    public String saveEditConditionReport(@RequestParam("condition_report_id") int reportId,
+                                          @RequestParam("excess_kilometers") double excessKilometers,
                                           HttpSession session){
         if (!employeeController.isUserLoggedIn(session)) {
             return "redirect:/";
         }
 
-        java.sql.Date today = new java.sql.Date(System.currentTimeMillis());
+        conditionReportRepo.updateExcessKilometersFromConditionReportId(reportId, excessKilometers);
 
-        java.util.Date convert = conditionReportService.dateFormatter(today);
-
-        // We need to convert from java.util.date to java.sql.date
-        java.sql.Date sqlDate=new java.sql.Date(convert.getTime());
-
-        ConditionReport conditionReport = new ConditionReport(reportId, vehicleID, handledBy, sqlDate);
-        conditionReportRepo.updateConditionReport(conditionReport);
-        return "redirect:/";
+        return "redirect:/condition-report?condition_report_id="+reportId;
     }
 
     // Postmapping to delete condition reports

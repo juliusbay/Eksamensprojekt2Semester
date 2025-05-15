@@ -33,6 +33,7 @@ public class ConditionReportRepository {
                 conditionReport.setFkVehicleId(resultSet.getInt("fk_vehicle_id"));
                 conditionReport.setHandledBy(resultSet.getString("handled_by"));
                 conditionReport.setReportDate(resultSet.getDate("report_date"));
+                conditionReport.setExcessKilometers(resultSet.getDouble("excess_kilometers"));
                 conditionReports.put(conditionReport.getFkVehicleId(), conditionReport);
             }
         } catch (SQLException e) {
@@ -40,6 +41,7 @@ public class ConditionReportRepository {
         }
         return conditionReports;
     }
+
         public ConditionReport getConditionReportByVehicleId (int vehicleId) {
         ConditionReport conditionReport = new ConditionReport();
         String sql = "SELECT * FROM condition_report WHERE fk_vehicle_id = ?";
@@ -54,6 +56,30 @@ public class ConditionReportRepository {
                     conditionReport.setFkVehicleId(resultSet.getInt("fk_vehicle_id"));
                     conditionReport.setHandledBy(resultSet.getString("handled_by"));
                     conditionReport.setReportDate(resultSet.getDate("report_date"));
+                    conditionReport.setExcessKilometers(resultSet.getDouble("excess_kilometers"));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return conditionReport;
+    }
+
+    public ConditionReport getConditionReportByReportId (int reportId) {
+        ConditionReport conditionReport = new ConditionReport();
+        String sql = "SELECT * FROM condition_report WHERE condition_report_id = ?";
+
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, reportId);
+
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    conditionReport.setConditionReportId(resultSet.getInt("condition_report_id"));
+                    conditionReport.setFkVehicleId(resultSet.getInt("fk_vehicle_id"));
+                    conditionReport.setHandledBy(resultSet.getString("handled_by"));
+                    conditionReport.setReportDate(resultSet.getDate("report_date"));
+                    conditionReport.setExcessKilometers(resultSet.getDouble("excess_kilometers"));
                 }
             }
         } catch (SQLException e) {
@@ -111,14 +137,15 @@ public class ConditionReportRepository {
     }
 
     public void createConditionReport (ConditionReport conditionReport) {
-        String sql = "INSERT INTO condition_report (fk_vehicle_id, handled_by, report_date) " +
-                "VALUES (?, ?, ?)";
+        String sql = "INSERT INTO condition_report (fk_vehicle_id, handled_by, report_date, excess_kilometers) " +
+                "VALUES (?, ?, ?, ?)";
 
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, conditionReport.getFkVehicleId());
             statement.setString(2, conditionReport.getHandledBy());
             statement.setDate(3, conditionReport.getReportDate());
+            statement.setDouble(4, conditionReport.getExcessKilometers());
 
             statement.executeUpdate();
         } catch (SQLException e) {
@@ -126,15 +153,15 @@ public class ConditionReportRepository {
         }
     }
 
-    public void updateConditionReport (ConditionReport conditionReport) {
-        String sql = "UPDATE condition_report SET fk_vehicle_id = ?, handled_by = ?, report_date = ?" +
-                "WHERE condition_report_id = ?";
+    public void updateExcessKilometersFromConditionReportId (int reportId, double excessKilometers) {
+        String sql = "UPDATE condition_report SET excess_kilometers = ? WHERE condition_report_id = ?";
 
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setInt(1, conditionReport.getFkVehicleId());
-            statement.setString(2, conditionReport.getHandledBy());
-            statement.setDate(3, conditionReport.getReportDate());
+            statement.setDouble(1, excessKilometers);
+            statement.setInt(2, reportId);
+
+            statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
