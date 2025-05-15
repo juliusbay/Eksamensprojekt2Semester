@@ -193,8 +193,8 @@
                 <th>Farve</th>
                 <th>Forkøbt</th>
                 <th>Status</th>
-                <th>Delete</th>
-                <th>Create</th>
+                <th>Tilstandsrapport</th>
+                <th>Slet bil</th>
             </tr>
         </thead>
         <tbody>
@@ -206,11 +206,16 @@
                 <td th:text="${car.getCarModel().getCarEquipment()}" />
                 <td th:text="${car.color}" />
                 <td th:text="${car.bought}" />
-                <td th:text="${car.status}" />
                 <td>
-                    <form th:action="@{/deleteCar}" method="post">
-                    <input type="hidden" name="vehicleId" th:value="${car.vehicleId}">
-                    <button type="submit">Delete</button>
+                    <form th:action="@{/updateCarStatus}" method="post">
+                        <select name="status">
+                            <option value="READY" th:selected="${car.status.name() == 'READY'}">Klar</option>
+                            <option value="DAMAGED" th:selected="${car.status.name() == 'DAMAGED'}">Skadet</option>
+                            <option value="GETTING_REPAIRED" th:selected="${car.status.name() == 'GETTING_REPAIRED'}">På værksted</option>
+                            <option value="RENTED" th:selected="${car.status.name() == 'RENTED'}">Udlejet</option>
+                        </select>
+                        <input type="hidden" name="vehicle_id" th:value="${car.vehicleId}">
+                        <button type="submit">Opdater status </button>
                     </form>
                 </td>
                 <td>   <!-- Below statement checks whether there is a condition report for said vehicle ID, and prints
@@ -228,6 +233,12 @@
                             <button type="submit"> Opret tilstandsrapport </button>
                         </form>
                     </div>
+                </td>
+                <td>
+                    <form th:action="@{/deleteCar}" method="post">
+                        <input type="hidden" name="vehicleId" th:value="${car.vehicleId}">
+                        <button type="submit">Delete</button>
+                    </form>
                 </td>
             </tr>
         </tbody>

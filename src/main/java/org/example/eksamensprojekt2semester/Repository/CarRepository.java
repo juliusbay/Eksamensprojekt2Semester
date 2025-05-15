@@ -1,5 +1,6 @@
 package org.example.eksamensprojekt2semester.Repository;
 
+import org.example.eksamensprojekt2semester.Enum.Status;
 import org.example.eksamensprojekt2semester.Model.Car;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -181,6 +182,21 @@ public class CarRepository {
             statement.setBoolean(7, car.isBought());        // OBS!!! Hvis der er problemer med setStatus, så er det muligvis her det sker.
                                                                 //Dog "burde" den automatisk konvertere tilbage til enum i databasen.
             statement.setInt(8,car.getVehicleId());
+            statement.executeUpdate();
+
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+    }
+
+    public void updateCarStatus(String status, int vehicleId) {
+        String sql = "UPDATE car SET status = ? WHERE vehicle_id = ?";
+
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)){
+            statement.setString(1, status);
+            statement.setInt(2, vehicleId);
+
             statement.executeUpdate();
 
         }catch(SQLException e){
