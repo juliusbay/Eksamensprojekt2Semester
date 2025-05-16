@@ -19,6 +19,8 @@ public class LeaseAgreementRepository {
     DataSource dataSource;
     @Autowired
     private CustomerRepository customerRepository;
+    @Autowired
+    private CarRepository carRepository;
 
 
     public ArrayList<LeaseAgreement> getAllLeaseAgreements() {
@@ -32,7 +34,7 @@ public class LeaseAgreementRepository {
             while (resultSet.next()) {
                 LeaseAgreement leaseAgreement = new LeaseAgreement();
                 leaseAgreement.setLeaseAgreementId(resultSet.getInt("lease_agreement_id"));
-                leaseAgreement.setFkVehicleId(resultSet.getInt("fk_vehicle_id"));
+                leaseAgreement.setCar(carRepository.getCarById(resultSet.getInt("fk_vehicle_id")));
                 leaseAgreement.setCustomer(customerRepository.getCustomerByCustomerId(resultSet.getInt("fk_customer_id")));
                 leaseAgreement.setLeaseType(LeaseAgreement.LeaseType.valueOf(resultSet.getString("lease_type")));
                 leaseAgreement.setLeasePrice(resultSet.getInt("lease_price"));
@@ -63,7 +65,7 @@ public class LeaseAgreementRepository {
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
                     leaseAgreement.setLeaseAgreementId(resultSet.getInt("lease_agreement_id"));
-                    leaseAgreement.setFkVehicleId(resultSet.getInt("fk_vehicle_id"));
+                    leaseAgreement.setCar(carRepository.getCarById(resultSet.getInt("fk_vehicle_id")));
                     leaseAgreement.setCustomer(customerRepository.getCustomerByCustomerId(resultSet.getInt("fk_customer_id")));
                     leaseAgreement.setLeaseType(LeaseAgreement.LeaseType.valueOf(resultSet.getString("lease_type")));
                     leaseAgreement.setLeasePrice(resultSet.getInt("lease_price"));
@@ -91,7 +93,7 @@ public class LeaseAgreementRepository {
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
                     leaseAgreement.setLeaseAgreementId(resultSet.getInt("lease_agreement_id"));
-                    leaseAgreement.setFkVehicleId(resultSet.getInt("fk_vehicle_id"));
+                    leaseAgreement.setCar(carRepository.getCarById(resultSet.getInt("fk_vehicle_id")));
                     leaseAgreement.setCustomer(customerRepository.getCustomerByCustomerId(resultSet.getInt("fk_customer_id")));
                     leaseAgreement.setLeaseType(LeaseAgreement.LeaseType.valueOf(resultSet.getString("lease_type")));
                     leaseAgreement.setLeasePrice(resultSet.getInt("lease_price"));
@@ -121,7 +123,7 @@ public class LeaseAgreementRepository {
                     LeaseAgreement leaseAgreement = new LeaseAgreement();
 
                     leaseAgreement.setLeaseAgreementId(resultSet.getInt("lease_agreement_id"));
-                    leaseAgreement.setFkVehicleId(resultSet.getInt("fk_vehicle_id"));
+                    leaseAgreement.setCar(carRepository.getCarById(resultSet.getInt("fk_vehicle_id")));
                     leaseAgreement.setCustomer(customerRepository.getCustomerByCustomerId(resultSet.getInt("fk_customer_id")));
                     leaseAgreement.setLeaseType(LeaseAgreement.LeaseType.valueOf(resultSet.getString("lease_type")));
                     leaseAgreement.setLeasePrice(resultSet.getInt("lease_price"));

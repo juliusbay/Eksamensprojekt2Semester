@@ -55,7 +55,7 @@ public class LeaseAgreementController {
 
         leaseAgreementService.noNegativePriceLease(leaseAgreement);
         leaseAgreementService.isEndDateBeforeStartDate(leaseAgreement);
-
+        leaseAgreement.setCar(carRepository.getCarById(fkVehicleId));
         leaseAgreement.setCustomer(customerRepository.getCustomerByCustomerId(fkCustomerId));
 
     leaseAgreementRepository.createLeaseAgreement(leaseAgreement);

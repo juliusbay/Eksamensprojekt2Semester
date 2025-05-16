@@ -118,7 +118,7 @@
         <thead>
         <tr>
             <th onclick="sortTable(0)">Lease detaljer</th>
-            <th onclick="sortTable(1)">Vehicle Id</th>
+            <th onclick="sortTable(1)">Vin number</th>
             <th onclick="sortTable(2)">Customer Id</th>
             <th onclick="sortTable(3)">Lease Type</th>
             <th onclick="sortTable(4)">Lease Price</th>
@@ -137,7 +137,7 @@
                     <button type="submit"> Vis lease </button>
                 </form>
 
-                <td th:text="${leaseAgreement.fkVehicleId}" />
+                <td th:text="${leaseAgreement.getCar().getVinNumber()}" />
                 <td th:text="${leaseAgreement.getCustomer().getCustomerId()}" />
                 <td th:text="${leaseAgreement.leaseType}" />
                 <td th:text="${leaseAgreement.leasePrice}" />
