@@ -5,10 +5,8 @@ import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
 import java.rmi.dgc.Lease;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 @Repository
@@ -42,6 +40,9 @@ public class LeaseAgreementRepository {
                 leaseAgreement.setLeaseEndDate(resultSet.getDate("lease_end_date"));
                 leaseAgreement.setReturnLocation(resultSet.getString("return_location"));
                 leaseAgreement.setActive(resultSet.getBoolean("lease_active"));
+                if (resultSet.getDate("lease_end_date").before(Date.valueOf(LocalDate.now()))) {
+                    leaseAgreement.setActive(false);
+                }
 
                 leaseAgreements.add(leaseAgreement);
             }
@@ -74,6 +75,10 @@ public class LeaseAgreementRepository {
                     leaseAgreement.setReturnLocation(resultSet.getString("return_location"));
                     leaseAgreement.setActive(resultSet.getBoolean("lease_active"));
 
+                    if (resultSet.getDate("lease_end_date").before(Date.valueOf(LocalDate.now()))) {
+                        leaseAgreement.setActive(false);
+                    }
+
                 }
             }
         } catch (SQLException e) {
@@ -101,6 +106,9 @@ public class LeaseAgreementRepository {
                     leaseAgreement.setLeaseEndDate(resultSet.getDate("lease_end_date"));
                     leaseAgreement.setReturnLocation(resultSet.getString("return_location"));
                     leaseAgreement.setActive(resultSet.getBoolean("lease_active"));
+                    if (resultSet.getDate("lease_end_date").before(Date.valueOf(LocalDate.now()))) {
+                        leaseAgreement.setActive(false);
+                    }
 
                 }
             }
@@ -210,6 +218,58 @@ public class LeaseAgreementRepository {
             statement.executeUpdate();
 
 
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
+    public void setLeaseAgreementInactive(LeaseAgreement leaseAgreement) throws SQLException {
+        String sql = "UPDATE lease_agreement SET lease_active = ? WHERE lease_agreement_id = ?";
+
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)){
+            statement.setBoolean(1, false);
+            statement.setInt(2, leaseAgreement.getLeaseAgreementId());
+
+            statement.executeUpdate();
+
+
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
+
+
+    public void checkLeaseEndDate(LeaseAgreement leaseAgreement) throws SQLException {
+        String sql = "UPDATE lease_agreement SET lease_active = ? WHERE lease_agreement_id = ?";
+
+        try (Connection connection = dataSource.getConnection();
+        PreparedStatement statement = connection.prepareStatement(sql)){
+            if (leaseAgreement.getLeaseEndDate().before(Date.valueOf(LocalDate.now())) || leaseAgreement.getLeaseEndDate().equals(Date.valueOf(LocalDate.now()))) {
+                statement.setBoolean(1, false);
+            }else {
+                statement.setBoolean(1, true);
+            }
+
+            statement.setInt(2, leaseAgreement.getLeaseAgreementId());
+            statement.executeUpdate();
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
+
+    public void setEndDateNow(LeaseAgreement leaseAgreement) throws SQLException {
+        String sql = "UPDATE lease_agreement SET lease_end_date = ? WHERE lease_agreement_id = ?";
+        try (Connection connection = dataSource.getConnection();
+        PreparedStatement statement = connection.prepareStatement(sql)){
+
+            Date today = Date.valueOf(LocalDate.now());
+
+            statement.setDate(1, today);
+            statement.setInt(2, leaseAgreement.getLeaseAgreementId());
+
+            statement.executeUpdate();
+        }catch (SQLException e){
+            e.printStackTrace();
         }
     }
 

@@ -86,7 +86,11 @@ public class PurchaseAgreementController {
 
         // Placeholder for the dashboard view
         @GetMapping("/purchase_dashboard")
-        public String getPurchaseDashboard() {
+        public String getPurchaseDashboard(HttpSession session)
+        {
+            if (!isUserLoggedIn(session)) {
+                return "redirect:/";
+            }
             return "purchase_dashboard";
         }
 

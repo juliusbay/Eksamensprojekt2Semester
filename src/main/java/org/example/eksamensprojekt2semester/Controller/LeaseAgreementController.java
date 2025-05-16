@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.sql.Date;
 
@@ -142,6 +143,7 @@ public class LeaseAgreementController {
         }*/
 
         LeaseAgreement leaseAgreement = leaseAgreementRepository.getLeaseAgreementById(leaseAgreementId);
+        leaseAgreementRepository.checkLeaseEndDate(leaseAgreement);
         model.addAttribute("leaseAgreement", leaseAgreement);
 
         return "show-leases-page";
@@ -149,7 +151,7 @@ public class LeaseAgreementController {
 
     //Get all leaseAgreements
     @GetMapping("/bingo")
-    public String getAllLeaseAgreements(Model model) {
+    public String getAllLeaseAgreements(Model model) throws SQLException {
         ArrayList<LeaseAgreement> leaseAgreements= leaseAgreementRepository.getAllLeaseAgreements();
         model.addAttribute("leaseAgreements", leaseAgreements);
 
@@ -161,10 +163,9 @@ public class LeaseAgreementController {
         if (!isUserLoggedIn(session)) {
             return "redirect:/";
         }
-
         LeaseAgreement leaseAgreement = leaseAgreementRepository.getLeaseAgreementById(leaseAgreementId);
-        leaseAgreement.setActive(!leaseAgreement.isActive());
-        leaseAgreementRepository.setLeaseAgreementActive(leaseAgreement);
+        leaseAgreementRepository.setLeaseAgreementInactive(leaseAgreement);
+        leaseAgreementRepository.setEndDateNow(leaseAgreement);
 
         return "redirect:/leaseDetails?lease_agreement_id=" + leaseAgreementId;
 

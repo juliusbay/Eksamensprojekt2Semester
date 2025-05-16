@@ -10,6 +10,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.ui.Model;
 
 import java.sql.Date;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -32,7 +33,7 @@ public class LeaseAgreementGetAllUnittest {
 
     @Test
     @DisplayName("getAllLeaseAgreements happyFlow")
-    void getAllLeaseAgreements() {
+    void getAllLeaseAgreements() throws SQLException {
         //Arrange
 
         LeaseAgreement leaseAgreement = new LeaseAgreement(
@@ -62,7 +63,7 @@ public class LeaseAgreementGetAllUnittest {
 
     @Test
     @DisplayName("getAllLeaseAgreements exceptionFlow")
-    public void getAllLeaseAgreementsException() {
+    public void getAllLeaseAgreementsException() throws SQLException {
         //Arrange
 
         LeaseAgreement leaseAgreement = new LeaseAgreement(

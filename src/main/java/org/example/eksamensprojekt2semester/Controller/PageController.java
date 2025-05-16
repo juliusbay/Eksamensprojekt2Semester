@@ -73,6 +73,11 @@ public class PageController {
         System.out.println(customers);
         Map<Integer, ConditionReport> conditionReportsMap = conditionReportRepository.getAllConditionReports();
 
+        for (LeaseAgreement leaseAgreement : leaseAgreements) {
+            leaseAgreementRepository.checkLeaseEndDate(leaseAgreement);
+        }
+
+
         model.addAttribute("cars", cars);
         model.addAttribute("leaseAgreements", leaseAgreements);
         model.addAttribute("carModels", carModels);
