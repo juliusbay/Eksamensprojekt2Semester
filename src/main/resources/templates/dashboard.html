@@ -21,32 +21,6 @@
         }
     </style>
     <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
-   <!-- <script type="text/javascript" th:src="@{/javascript/tableProperties.js}"></script> -->
-    <!--
-    <script>
-        function searchFunction() {
-        // declare variables
-        let input, filter, table, tr, td, i, textValue;
-        input = document.getElementById('myInput');
-        filter = input.value.toUpperCase();
-        table = document.getElementById('lease_table');
-        tr = table.getElementsByTagName('tr');
-
-        // loop through all the table rows, and hide those who don't match the search query
-        for (i = 0; i < tr.length; i++) {
-            td = tr[i].getElementsByTagName('td')[0];
-            if (td) {
-                textValue = td.textContent || td.innerText;
-                if (textValue.toUpperCase().indexOf(filter) > -1) {
-                    tr[i].style.display = "";
-                } else {
-                    tr[i].style.display = 'none';
-                }
-            }
-        }
-    }
-    </script>
-    -->
     <!--
     <link href = "../static/css/datatables.css" th:href="@{/css/datatables.css}" rel="stylesheet">
     <script src="https://cdn.datatables.net/2.3.0/js/dataTables.js"></script>
@@ -110,9 +84,11 @@
 </select>
 
 
+<div>
+    <input type="text" id="search" onkeyup="myFunction()" placeholder="Search..">
+</div>
 <div class="dataTable" id="lease">
 <h2>Aktive leasing aftaler</h2>
-    <input type="text" id="tableSearch" placeholder="Search..">
 
     <table id="lease_table">
         <thead>
@@ -525,6 +501,36 @@
                 if (switchCount === 0 && dir === "asc") {
                     dir = "desc";
                     switching = true;
+                }
+            }
+        }
+    }
+
+    function myFunction() {
+        // Declare variables
+        let input, filter, table, rows, column, i, txtValue;
+        input = document.getElementById("search");
+        filter = input.value.toUpperCase();
+        table = document.getElementById(`${tableId}_table`);
+        rows = table.getElementsByTagName("tr");
+
+        console.log(filter);
+
+        // Loop through all table rows, and hide those who don't match the search query
+        for (i = 0; i < rows.length; i++) {
+            console.log(rows[i].cells.length);
+            for (let l = 0; l < rows[i].cells.length; l++) {
+                column = rows[i].getElementsByTagName("td")[l];
+                if (column) {
+                    txtValue = column.textContent || column.innerText;
+                    console.log(txtValue);
+                    console.log(txtValue.indexOf(filter));
+                    if (txtValue.toUpperCase().indexOf(filter) === 0) {
+                        rows[i].style.display = "";
+                        break;
+                    } else {
+                        rows[i].style.display = "none";
+                    }
                 }
             }
         }

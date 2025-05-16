@@ -28,6 +28,18 @@ public class Customer {
     public Customer() {
     }
 
+    public Customer(String firstName, String lastName, String email, int phoneNumber, String address, String city, int postalCode, int cprNumber, int fkVehicleId) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.address = address;
+        this.city = city;
+        this.postalCode = postalCode;
+        this.cprNumber = cprNumber;
+        this.fkVehicleId = fkVehicleId;
+    }
+
     public int getCustomerId() {
         return customerId;
     }
