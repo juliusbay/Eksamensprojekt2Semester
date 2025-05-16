@@ -23,10 +23,7 @@
         }
     </style>
     <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
-    <!--
-    <link href = "../static/css/datatables.css" th:href="@{/css/datatables.css}" rel="stylesheet">
-    <script src="https://cdn.datatables.net/2.3.0/js/dataTables.js"></script>
-    -->
+
 </head>
 <body>
 <header th:replace="~{fragments.html :: navbar}"></header>
@@ -474,7 +471,7 @@
                 </div>
                 <div class="form-field">
                     <label class="label-create" for="email">Email:</label>
-                    <input type="text" id="email" name="email" placeholder="Indtast email:" required>
+                    <input type="email" id="email" name="email" placeholder="Indtast email:" required>
                 </div>
 
                 <div class="form-field">
@@ -499,7 +496,7 @@
 
                 <div class="form-field">
                     <label class="label-create" for="cpr_number">CPR-Nummer:</label>
-                    <input type="number" id="cpr_number" name="cpr_number" placeholder="Indtast cpr:" required>
+                    <input type="text" id="cpr_number" name="cpr_number" placeholder="Indtast cpr:" required>
                 </div>
 
                 <div class="form-field">

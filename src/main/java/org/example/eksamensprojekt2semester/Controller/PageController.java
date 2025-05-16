@@ -102,7 +102,7 @@ public class PageController {
         }
         double averageLeaseAgreementValue = totalValueOfActiveLeaseAgreements/leaseAgreements.size();
 
-        model.addAttribute("totalValueOfLeaseAgreements", totalValueOfActiveLeaseAgreements);
+        model.addAttribute("totalValueOfActiveLeaseAgreements", totalValueOfActiveLeaseAgreements);
         model.addAttribute("averageLeaseAgreementValue", averageLeaseAgreementValue);
 
         return "statistics";

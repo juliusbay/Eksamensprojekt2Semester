@@ -9,10 +9,10 @@ public class Customer {
     private String address;
     private String city;
     private int postalCode;
-    private int cprNumber;
+    private String cprNumber;
     private int fkVehicleId;
 
-    public Customer(int customerId, String firstName, String lastName, String email, int phoneNumber, String address, String city, int postalCode, int cprNumber, int fkVehicleId) {
+    public Customer(int customerId, String firstName, String lastName, String email, int phoneNumber, String address, String city, int postalCode, String cprNumber, int fkVehicleId) {
         this.customerId = customerId;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -28,7 +28,7 @@ public class Customer {
     public Customer() {
     }
 
-    public Customer(String firstName, String lastName, String email, int phoneNumber, String address, String city, int postalCode, int cprNumber, int fkVehicleId) {
+    public Customer(String firstName, String lastName, String email, int phoneNumber, String address, String city, int postalCode, String cprNumber, int fkVehicleId) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -104,11 +104,11 @@ public class Customer {
         this.postalCode = postalCode;
     }
 
-    public int getCprNumber() {
+    public String getCprNumber() {
         return cprNumber;
     }
 
-    public void setCprNumber(int cprNumber) {
+    public void setCprNumber(String cprNumber) {
         this.cprNumber = cprNumber;
     }
 
