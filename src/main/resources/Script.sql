@@ -83,22 +83,22 @@ CREATE TABLE customer (
                           address VARCHAR(100),
                           city VARCHAR(100),
                           postal_code INT,
-                          cpr_number INT,
+                          cpr_number VARCHAR(100),
                           fk_vehicle_id INT,
                           FOREIGN KEY (fk_vehicle_id) REFERENCES car(vehicle_id)
 );
 
 INSERT INTO customer (customer_id, first_name, last_name, email, phone_number, address, city, postal_code, cpr_number, fk_vehicle_id)
-    VALUES (1, 'DemoKunde', 'DemoKunde', 'demo@kunde.dk', 87654321, 'Gadevej 17','Herning', 7000, 123456-1234, 1),
-           (2, 'Oliver', 'Larsen', 'oliver.larsen@example.com', 87654321, 'Elm St 3', 'Aarhus', 8000, 202901-2345, 2),
-           (3, 'Sofie', 'Nielsen', 'sofie.nielsen@example.com', 11112222, 'Birch Ave 5', 'Odense', 5000, 303901-3456, 3),
-           (4, 'William', 'Pedersen', 'william.pedersen@example.com', 22223333, 'Oak St 7', 'Aalborg', 9000, 404901-4567, 4),
-           (5, 'Freja', 'Andersen', 'freja.andersen@example.com', 33334444, 'Pine Rd 9', 'Esbjerg', 6700, 505903-5678, 5),
-           (6, 'Lucas', 'Christensen', 'lucas.christensen@example.com', 44445555, 'Maple St 11', 'Randers', 8900, 606910-6789, 6),
-           (7, 'Ida', 'Jensen', 'ida.jensen@example.com', 55556666, 'Fir Ln 13', 'Horsens', 8700, 707903-7890, 7),
-           (8, 'Noah', 'Madsen', 'noah.madsen@example.com', 66667777, 'Cedar Blvd 15', 'Kolding', 6000, 808901-8901, 8),
-           (9, 'Clara', 'Thomsen', 'clara.thomsen@example.com', 77778888, 'Spruce Dr 17', 'Vejle', 7100, 909904-9012, 9),
-           (10, 'Oscar', 'Poulsen', 'oscar.poulsen@example.com', 88889999, 'Ash Ct 19', 'Herning', 7400, 101091-0123, 10);
+    VALUES (1, 'DemoKunde', 'DemoKunde', 'demo@kunde.dk', 87654321, 'Gadevej 17','Herning', 7000, '123456-1234', 1),
+           (2, 'Oliver', 'Larsen', 'oliver.larsen@example.com', 87654321, 'Elm St 3', 'Aarhus', 8000, '202901-2345', 2),
+           (3, 'Sofie', 'Nielsen', 'sofie.nielsen@example.com', 11112222, 'Birch Ave 5', 'Odense', 5000, '303901-456', 3),
+           (4, 'William', 'Pedersen', 'william.pedersen@example.com', 22223333, 'Oak St 7', 'Aalborg', 9000, '404901-4567', 4),
+           (5, 'Freja', 'Andersen', 'freja.andersen@example.com', 33334444, 'Pine Rd 9', 'Esbjerg', 6700, '505903-5678', 5),
+           (6, 'Lucas', 'Christensen', 'lucas.christensen@example.com', 44445555, 'Maple St 11', 'Randers', 8900, '606910-6789', 6),
+           (7, 'Ida', 'Jensen', 'ida.jensen@example.com', 55556666, 'Fir Ln 13', 'Horsens', 8700, '707903-7890', 7),
+           (8, 'Noah', 'Madsen', 'noah.madsen@example.com', 66667777, 'Cedar Blvd 15', 'Kolding', 6000, '808901-8901', 8),
+           (9, 'Clara', 'Thomsen', 'clara.thomsen@example.com', 77778888, 'Spruce Dr 17', 'Vejle', 7100, '909904-9012', 9),
+           (10, 'Oscar', 'Poulsen', 'oscar.poulsen@example.com', 88889999, 'Ash Ct 19', 'Herning', 7400, '101091-0123', 10);
 
 
 CREATE TABLE lease_agreement (

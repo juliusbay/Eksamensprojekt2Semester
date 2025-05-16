@@ -3,30 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <title>KPIer</title>
-    <link href = "../static/css/datatables.css" th:href="@{/css/datatables.css}" rel="stylesheet">
     <link th:href="@{/css/navbar.css}" rel="stylesheet">
-    <link th:href="@{https://cdn.datatables.net/2.3.0/css/dataTables.dataTables.css}" rel="stylesheet" />
+    <link th:href="@{/css/statistics.css}" rel="stylesheet">
+
 
 </head>
 <body>
-<table>
-    <tr>
-        <th>Biler i alt</th>
-        <th>Biler lejet ud</th>
-        <th>Ledige biler</th>
-        <th>Samlet værdi på udlejningskontrakter</th>
-        <th>Gennemsnitlig værdi på udlejningskontrakter</th>
-    </tr>
+<header th:replace="~{fragments.html :: navbar}"></header>
 
-    <tr>
-        <td th:text="${numberOfCars}"></td>
-        <td th:text="${numberOfCarsRentedOut}"></td>
-        <td th:text="${numberOfCarsAvailable}"></td>
-        <td th:text="${totalValueOfActiveLeaseAgreements}"></td>
-        <td th:text="${averageLeaseAgreementValue}"></td>
-    </tr>
+<div class="widget-section">
+    <div class="widget-row">
+        <div class="widget">
+            <p>Biler i alt</p>
+            <p th:text="${numberOfCars}"></p>
+        </div>
+        <div class="widget">
+            <p>Biler lejet ud</p>
+            <p th:text="${numberOfCarsRentedOut}"></p>
+        </div>
+        <div class="widget">
+            <p>Ledige biler</p>
+            <p th:text="${numberOfCarsAvailable}"></p>
+        </div>
+        <div class="widget">
+            <p>Samlet værdi på udlejningskontrakter</p>
+            <p th:text="${totalValueOfActiveLeaseAgreements}"></p>
+        </div>
+        <div class="widget">
+            <p>Gennemsnitlig værdi på udlejningskontrakter</p>
+            <p th:text="${averageLeaseAgreementValue}"></p>
+        </div>
+        <div class="widget">
+            <p>test</p>
+            <p>testing testing </p>
+        </div>
+    </div>
+</div>
 
-</table>
 
 </body>
 </html>

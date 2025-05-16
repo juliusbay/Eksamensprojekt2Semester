@@ -35,7 +35,7 @@ public class CustomerRepository {
                         customer.setAddress(resultSet.getString("address"));
                         customer.setCity(resultSet.getString("city"));
                         customer.setPostalCode(resultSet.getInt("postal_code"));
-                        customer.setCprNumber(resultSet.getInt("cpr_number"));
+                        customer.setCprNumber(resultSet.getString("cpr_number"));
                         customer.setFkVehicleId(resultSet.getInt("fk_vehicle_id"));
                     }
                 }
@@ -65,7 +65,7 @@ public class CustomerRepository {
                 customer.setAddress(resultSet.getString("address"));
                 customer.setCity(resultSet.getString("city"));
                 customer.setPostalCode(resultSet.getInt("postal_code"));
-                customer.setCprNumber(resultSet.getInt("cpr_number"));
+                customer.setCprNumber(resultSet.getString("cpr_number"));
                 customer.setFkVehicleId(resultSet.getInt("fk_vehicle_id"));
                 customers.add(customer);
             }
@@ -89,7 +89,7 @@ public class CustomerRepository {
             statement.setString(5, customer.getAddress());
             statement.setString(6, customer.getCity());
             statement.setInt(7, customer.getPostalCode());
-            statement.setInt(8, customer.getCprNumber());
+            statement.setString(8, customer.getCprNumber());
             statement.setInt(9, customer.getFkVehicleId());
 
             statement.executeUpdate();
@@ -114,7 +114,7 @@ public class CustomerRepository {
             statement.setString(5, customer.getAddress());
             statement.setString(6, customer.getCity());
             statement.setInt(7, customer.getPostalCode());
-            statement.setInt(8, customer.getCprNumber());
+            statement.setString(8, customer.getCprNumber());
             statement.setInt(9, customer.getFkVehicleId());
 
             statement.setInt(10, customer.getCustomerId());
