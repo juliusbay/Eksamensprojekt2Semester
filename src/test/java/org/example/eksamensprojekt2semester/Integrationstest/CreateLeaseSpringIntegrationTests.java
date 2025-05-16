@@ -47,7 +47,7 @@ public class CreateLeaseSpringIntegrationTests {
         when(testSession.getAttribute("loggedInUser")).thenReturn(testEmployee);
         customerRepository.getCustomerByCustomerId(1); 
 
-        leaseAgreementController.createLeaseAgreement(1,1, "Unlimited",1000,Date.valueOf("2025-01-01"),Date.valueOf("2025-01-02"),"Test",testSession);
+        leaseAgreementController.createLeaseAgreement(2,1, "Unlimited",1000,Date.valueOf("2025-01-01"),Date.valueOf("2025-01-02"),"Test",testSession);
 
 
         //Validation
