@@ -3,24 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <title>Login page</title>
-    <link th:href="@{/css/login.css}" rel="stylesheet">
+    <link th:href="@{/CSS/login.css}" rel="stylesheet">
 </head>
 <body>
 
 <div class="main-div">
-    <h1>
-        Velkommen til Fleet Manager, login for at komme igang
-    </h1>
+
+    <img src="/images/Bilabonnement logo.png" alt="Bilabonnement Logo" class="logo" />
+
+    <div class="login-header">
+
+        <h1>
+            Velkommen til Fleet Manager
+        </h1>
+        <p>
+            Login for at komme i gang
+        </p>
+    </div>
 
     <div class="login-form">
+        <div class="toolbar">
+        </div>
         <form th:action="@{/processLogin}" method="post">
             <div>
-                <label for="shortname">Brugernavn:</label>
-                <input type="text" id="shortname" name="shortname" />
+                <input type="text" id="shortname" name="shortname" placeholder="Brugernavn"/>
             </div>
             <div>
-                <label for="password">Password:</label>
-                <input type="password" id="password" name="password" />
+                <input type="password" id="password" name="password" placeholder="Password"/>
             </div>
             <div>
                 <button type="submit">Login</button>
