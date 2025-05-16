@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -85,7 +84,7 @@ public class PageController {
         model.addAttribute("customers", customers);
 
 
-        return "carsTestSide";
+        return "dashboard";
     }
 
     // Method that counts all cars and shows the numbers for how many are rented out and how many are available
