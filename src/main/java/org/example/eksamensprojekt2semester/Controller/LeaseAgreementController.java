@@ -92,7 +92,6 @@ public class LeaseAgreementController {
 
 
         leaseService.noNegativePriceLease(leaseAgreement);
-
         leaseService.isEndDateBeforeStartDate(leaseAgreement);
 
         leaseAgreementRepository.createLeaseAgreement(leaseAgreement);
