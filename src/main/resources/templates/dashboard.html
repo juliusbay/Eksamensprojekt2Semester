@@ -139,7 +139,7 @@
             <form class="form2" th:action="@{/createLease}" method="post">
                 <div class="form-field">
                     <label for="fk_vehicle_id">Vælge bil:</label>
-                    <select id="fk_vehicle_id" name="fk_vehicle_id">
+                    <select id="vehicle-lease" name="vehicle-lease">
                         <option value=""> Vælg bil </option>
                         <option th:each="car : ${cars}" th:value="${car.vehicleId}" th:text="${ car.vehicleId+ ' '+ car.carModel.getBrand() + ' '+car.carModel.getCarEquipment()}"> </option>
                     </select>
@@ -162,7 +162,7 @@
 
                 <div class="form-field">
                     <label for="lease_price">Indtast lease pris:</label>
-                    <input type="text" id="lease_price" name="lease_price" placeholder="Indtast lease pris" required>
+                    <input type="number" min="0" id="lease_price" name="lease_price" placeholder="Indtast lease pris" required>
                 </div>
 
                 <div class="form-field">
@@ -183,21 +183,6 @@
                 <div class="form-field">
                     <button type="submit" class="action-button"> Opret lease </button>
                 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
             </form>
         </div>
     </div>
@@ -473,6 +458,66 @@
         </tr>
         </tbody>
     </table>
+
+    <div class="container">
+        <div class="form-container">
+            <h2> Opret en ny Kunde </h2>
+            <form class="form2" th:action="@{/createLease}" method="post">
+                <div class="form-field">
+                    <label class="label-create"  for="first_name">Fornavn:</label>
+                    <input type="text" id="first_name" name="first_name" placeholder="Indtast fornavn" required>
+                </div>
+
+                <div class="form-field">
+                    <label class="label-create"  for="last_name">Efternavn:</label>
+                    <input type="text" id="last_name" name="last_name" placeholder="Indtast efternavn" required>
+                </div>
+                <div class="form-field">
+                    <label class="label-create" for="email">Email:</label>
+                    <input type="text" id="email" name="email" placeholder="Indtast email:" required>
+                </div>
+
+                <div class="form-field">
+                    <label class="label-create" for="phone_number">Telefon nummer:</label>
+                    <input type="number" id="phone_number" name="phone_number" placeholder="Indtast mængde:" required>
+                </div>
+
+                <div class="form-field">
+                    <label class="label-create" for="address">Adresse:</label>
+                    <input type="text" id="address" name="address" placeholder="Indtast adresse" required>
+                </div>
+
+                <div class="form-field">
+                    <label class="label-create"  for="city">By:</label>
+                    <input type="text" id="city" name="city" placeholder="Indtast city" required>
+                </div>
+
+                <div class="form-field">
+                    <label class="label-create" for="postal_code">Postnummer:</label>
+                    <input type="number" id="postal_code" name="postal_code" placeholder="Indtast postnummer:" required>
+                </div>
+
+                <div class="form-field">
+                    <label class="label-create" for="cpr_number">CPR-Nummer:</label>
+                    <input type="number" id="cpr_number" name="cpr_number" placeholder="Indtast cpr:" required>
+                </div>
+
+                <div class="form-field">
+                    <label for="fk_vehicle_id">Vælge bil:</label>
+                    <select id="fk_vehicle_id" name="fk_vehicle_id">
+                        <option value=""> Vælg bil </option>
+                        <option th:each="car : ${cars}" th:value="${car.vehicleId}" th:text="${ car.vehicleId+ ' '+ car.carModel.getBrand() + ' '+car.carModel.getCarEquipment()}"> </option>
+                    </select>
+                </div>
+
+                <div class="form-field">
+                    <button type="submit" class="action-button"> Opret kunde </button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+
 </div>
 </body>
 
