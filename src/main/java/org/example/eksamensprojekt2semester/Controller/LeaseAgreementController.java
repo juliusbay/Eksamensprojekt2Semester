@@ -73,7 +73,7 @@ public class LeaseAgreementController {
         model.addAttribute("cars",carRepository.getAllCars());
         model.addAttribute("customers",customerRepository.getAllCustomers());
         model.addAttribute("leaseTypes", LeaseAgreement.LeaseType.values());
-        return "createLeasePage";
+        return "dashboard";
     }
 
     //Mock create lease without Http

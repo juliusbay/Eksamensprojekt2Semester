@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <link th:href="@{/css/navbar.css}" rel="stylesheet">
+    <link th:href="@{/css/dashboard.css}" rel="stylesheet">
+
     <style>
         table {
             border-spacing: 0;
@@ -128,10 +130,77 @@
             </td>
         </tr>
         </tbody>
+
+
     </table>
-    <form th:action="@{/createLeasePage}" method="get">
-        <button type="submit">Create Lease</button>
-    </form>
+    <div class="container">
+        <div class="form-container">
+            <h2> Opret en ny lease </h2>
+            <form class="form2" th:action="@{/createLease}" method="post">
+                <div class="form-field">
+                    <label for="fk_vehicle_id">vehicle id:</label>
+                    <select id="fk_vehicle_id" name="fk_vehicle_id">
+                        <option value=""> Vælg bil </option>
+                        <option th:each="car : ${cars}" th:value="${car.vehicleId}" th:text="${ car.vehicleId+ ' '+ car.carModel.getBrand() + ' '+car.carModel.getCarEquipment()}"> </option>
+                    </select>
+                </div>
+
+                <div class="form-field">
+                    <label for="fk_customer_id">kundeId:</label>
+                    <select id="fk_customer_id" name="fk_customer_id">
+                        <option value="">vælg kunde</option>
+                        <option th:each="customer : ${customers}" th:value="${customer.getCustomerId()}" th:text="${ customer.customerId+' '+customer.firstName + ' ' + customer.lastName}"></option>
+                    </select>
+                </div>
+                <label for="lease_type">Indtast lease type:</label>
+                <select id="lease_type" name="lease_type">
+                    <option value=""> Indtast lease type </option>
+                    <option th:each="type : ${leaseTypes}" th:value="${type}" th:text="${type}"> </option>
+                </select>
+
+                <div class="form-field">
+                    <label for="lease_price">Indtast lease pris:</label>
+                    <input type="text" id="lease_price" name="lease_price" placeholder="Indtast lease pris" required>
+                </div>
+
+                <div class="form-field">
+                    <label for="lease_start_date">Indtast startdato:</label>
+                    <input type="date" id="lease_start_date" name="lease_start_date" placeholder="Indtast lease startdato" required>
+                </div>
+
+                <div class="form-field">
+                    <label for="lease_end_date">Indtast slutdato:</label>
+                    <input type="date" id="lease_end_date" name="lease_end_date" placeholder="Indtast lease slutdato" required>
+                </div>
+
+                <div class="form-field">
+                    <label for="return_location">Indtast bilens returlocation:</label>
+                    <input type="text" id="return_location" name="return_location" placeholder="Indtast bilens returlocation" required>
+                </div>
+
+                <div class="form-field">
+                    <button type="submit" class="action-button"> Opret lease </button>
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            </form>
+        </div>
+    </div>
+
+
 
 </div>
 

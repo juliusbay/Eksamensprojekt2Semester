@@ -12,7 +12,6 @@ public class LeaseAgreementService {
        if(leaseAgreement.getLeasePrice() <=0){
            throw new IllegalArgumentException("LeasePrice must be greater than 0");
 
-
        }
 
     }
@@ -21,6 +20,7 @@ public class LeaseAgreementService {
         if(leaseAgreement.getLeaseEndDate().before(leaseAgreement.getLeaseStartDate())){
             throw new IllegalArgumentException("LeaseEndDate must be before startDate");
         }
+
     }
 
 }
