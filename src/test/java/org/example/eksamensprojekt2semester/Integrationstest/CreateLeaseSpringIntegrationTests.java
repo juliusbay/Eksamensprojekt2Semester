@@ -33,7 +33,7 @@ public class CreateLeaseSpringIntegrationTests {
     private CustomerRepository customerRepository;
 
     @Test
-    void createLeaseAgreementTest() throws SQLException {
+    void createLeaseAgreementTest() throws SQLException { //Tester processen af at oprette en leaseagreement
 
         // Assumption
         LeaseAgreement leaseAgreement = leaseAgreementRepository.getLeaseAgreementById(1);
@@ -48,6 +48,35 @@ public class CreateLeaseSpringIntegrationTests {
         customerRepository.getCustomerByCustomerId(1); 
 
         leaseAgreementController.createLeaseAgreement(2,1, "Unlimited",1000,Date.valueOf("2025-01-01"),Date.valueOf("2025-01-02"),"Test",testSession);
+
+
+        //Validation
+        assertNotNull(leaseAgreement);
+        assertNotNull(leaseAgreement.getCustomer());
+        assertNotNull(testSession.getAttribute("loggedInUser"));
+        assertEquals(1,leaseAgreement.getLeaseAgreementId());
+        assertEquals(LeaseAgreement.LeaseType.UNLIMITED,leaseAgreement.getLeaseType());
+
+
+    }
+
+
+    @Test
+    void createLeaseAgreementTestExceptionFlow() throws SQLException { //Tester processen af at oprette en lease, hvor end date er før start date
+
+        // Assumption
+        LeaseAgreement leaseAgreement = leaseAgreementRepository.getLeaseAgreementById(1);
+        HttpSession testSession = mock(HttpSession.class);
+        Object testEmployee = new Object();
+        Customer customer = leaseAgreement.getCustomer();
+
+
+        //Execution
+        leaseAgreementRepository.createLeaseAgreement(leaseAgreement);
+        when(testSession.getAttribute("loggedInUser")).thenReturn(testEmployee);
+        customerRepository.getCustomerByCustomerId(0);
+
+        leaseAgreementController.createLeaseAgreement(2,1, "Unlimited",1000,Date.valueOf("2025-01-01"),Date.valueOf("2024-01-02"),"Test",testSession);
 
 
         //Validation
