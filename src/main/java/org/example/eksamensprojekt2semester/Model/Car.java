@@ -2,6 +2,10 @@ package org.example.eksamensprojekt2semester.Model;
 
 import org.example.eksamensprojekt2semester.Enum.Status;
 
+import java.sql.Date;
+import java.sql.Time;
+import java.sql.Timestamp;
+
 public class Car {
 
     private int vehicleId;
@@ -12,6 +16,7 @@ public class Car {
     private boolean bought;
     private Status status;
     private boolean rentedOut;
+    private Timestamp receivedDate;
 
     public Car(int vehicleId, CarModel carModel, String vinNumber, String color, boolean bought, Status status) {
         this.vehicleId = vehicleId;
@@ -23,6 +28,13 @@ public class Car {
 
     }
 
+    public Car(CarModel carModel, String vinNumber, String color, Timestamp receivedDate) {
+        this.carModel = carModel;
+        this.vinNumber = vinNumber;
+        this.color = color;
+        this.receivedDate = receivedDate;
+    }
+
     public Car(CarModel carModel, String vinNumber, String color) {
         this.carModel = carModel;
         this.vinNumber = vinNumber;
@@ -30,6 +42,9 @@ public class Car {
         status = Status.READY;
 
     }
+
+
+
     public Car(CarModel carModel, String vinNumber, String color,  boolean bought) {
         this.carModel = carModel;
         this.vinNumber = vinNumber;
@@ -111,5 +126,13 @@ public class Car {
 
     public void setRentedOut(boolean rentedOut) {
         this.rentedOut = rentedOut;
+    }
+
+    public Timestamp getReceivedDate() {
+        return receivedDate;
+    }
+
+    public void setReceivedDate(Timestamp receivedDate) {
+        this.receivedDate = receivedDate;
     }
 }

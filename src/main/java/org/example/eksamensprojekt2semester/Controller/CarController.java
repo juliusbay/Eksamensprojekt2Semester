@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.sql.DataSource;
+import java.sql.Date;
+import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 @Controller
@@ -48,7 +51,9 @@ public class CarController {
                                @RequestParam("color") String color, Model model) {
 
             if (!carRepository.existsByVinNumber(vinNumber)){ //Hvis denne ikke kører, er der ikke nogen bil med samme vinNumber i databasen.
-                Car car = new Car(carModel, vinNumber, color);
+                Timestamp currentTimestamp = new Timestamp(System.currentTimeMillis());
+
+                Car car = new Car(carModel, vinNumber, color, currentTimestamp);
                 carRepository.createCar(car);
                 model.addAttribute("cars", car);
 

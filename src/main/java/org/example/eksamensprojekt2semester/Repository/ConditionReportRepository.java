@@ -33,8 +33,8 @@ public class ConditionReportRepository {
                 conditionReport.setConditionReportId(resultSet.getInt("condition_report_id"));
                 conditionReport.setFkVehicleId(resultSet.getInt("fk_vehicle_id"));
                 conditionReport.setHandledBy(resultSet.getString("handled_by"));
-                conditionReport.setReportStartDate(resultSet.getDate("report_start_date"));
-                conditionReport.setReportCompletedDate(resultSet.getDate("report_completed_date"));
+                conditionReport.setReportStartDate(resultSet.getTimestamp("report_start_date"));
+                conditionReport.setReportCompletedDate(resultSet.getTimestamp("report_completed_date"));
                 conditionReport.setExcessKilometers(resultSet.getDouble("excess_kilometers"));
                 conditionReport.setCompleted(resultSet.getBoolean("completed"));
                 conditionReport.setReportDescription(resultSet.getString("report_description"));
@@ -60,8 +60,8 @@ public class ConditionReportRepository {
                     conditionReport.setConditionReportId(resultSet.getInt("condition_report_id"));
                     conditionReport.setFkVehicleId(resultSet.getInt("fk_vehicle_id"));
                     conditionReport.setHandledBy(resultSet.getString("handled_by"));
-                    conditionReport.setReportStartDate(resultSet.getDate("report_start_date"));
-                    conditionReport.setReportCompletedDate(resultSet.getDate("report_completed_date"));
+                    conditionReport.setReportStartDate(resultSet.getTimestamp("report_start_date"));
+                    conditionReport.setReportCompletedDate(resultSet.getTimestamp("report_completed_date"));
                     conditionReport.setExcessKilometers(resultSet.getDouble("excess_kilometers"));
                     conditionReport.setCompleted(resultSet.getBoolean("completed"));
                     conditionReport.setReportDescription(resultSet.getString("report_description"));
@@ -86,8 +86,8 @@ public class ConditionReportRepository {
                     conditionReport.setConditionReportId(resultSet.getInt("condition_report_id"));
                     conditionReport.setFkVehicleId(resultSet.getInt("fk_vehicle_id"));
                     conditionReport.setHandledBy(resultSet.getString("handled_by"));
-                    conditionReport.setReportStartDate(resultSet.getDate("report_start_date"));
-                    conditionReport.setReportCompletedDate(resultSet.getDate("report_completed_date"));
+                    conditionReport.setReportStartDate(resultSet.getTimestamp("report_start_date"));
+                    conditionReport.setReportCompletedDate(resultSet.getTimestamp("report_completed_date"));
                     conditionReport.setExcessKilometers(resultSet.getDouble("excess_kilometers"));
                     conditionReport.setCompleted(resultSet.getBoolean("completed"));
                     conditionReport.setReportDescription(resultSet.getString("report_description"));
@@ -112,8 +112,8 @@ public class ConditionReportRepository {
                     conditionReport.setConditionReportId(resultSet.getInt("condition_report_id"));
                     conditionReport.setFkVehicleId(resultSet.getInt("fk_vehicle_id"));
                     conditionReport.setHandledBy(resultSet.getString("handled_by"));
-                    conditionReport.setReportStartDate(resultSet.getDate("report_start_date"));
-                    conditionReport.setReportCompletedDate(resultSet.getDate("report_completed_date"));
+                    conditionReport.setReportStartDate(resultSet.getTimestamp("report_start_date"));
+                    conditionReport.setReportCompletedDate(resultSet.getTimestamp("report_completed_date"));
                     conditionReport.setExcessKilometers(resultSet.getDouble("excess_kilometers"));
                     conditionReport.setCompleted(resultSet.getBoolean("completed"));
                     conditionReport.setReportDescription(resultSet.getString("report_description"));
@@ -152,7 +152,7 @@ public class ConditionReportRepository {
              PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, conditionReport.getFkVehicleId());
             statement.setString(2, conditionReport.getHandledBy());
-            statement.setDate(3, conditionReport.getReportStartDate());
+            statement.setTimestamp(3, conditionReport.getReportStartDate());
 
             statement.executeUpdate();
         } catch (SQLException e) {
@@ -184,7 +184,7 @@ public class ConditionReportRepository {
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, conditionReport.getHandledBy());
-            statement.setDate(2, conditionReport.getReportCompletedDate());
+            statement.setTimestamp(2, conditionReport.getReportCompletedDate());
             statement.setBoolean(3, conditionReport.isCompleted());
             statement.setInt(4, conditionReport.getConditionReportId());
 

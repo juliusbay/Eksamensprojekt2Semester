@@ -1,18 +1,19 @@
 package org.example.eksamensprojekt2semester.Model;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 
 public class ConditionReport {
     private int conditionReportId;
     private int fkVehicleId;
     private String handledBy;
-    private Date reportStartDate;
-    private Date reportCompletedDate;
+    private Timestamp reportStartDate;
+    private Timestamp reportCompletedDate;
     private double excessKilometers;
     private boolean completed;
     private String reportDescription;
 
-    public ConditionReport(int conditionReportId, int fkVehicleId, String handledBy, Date reportStartDate, Date reportCompletedDate, double excessKilometers) {
+    public ConditionReport(int conditionReportId, int fkVehicleId, String handledBy, Timestamp reportStartDate, Timestamp reportCompletedDate, double excessKilometers) {
         this.conditionReportId = conditionReportId;
         this.fkVehicleId = fkVehicleId;
         this.handledBy = handledBy;
@@ -21,7 +22,7 @@ public class ConditionReport {
         this.excessKilometers = excessKilometers;
     }
 
-    public ConditionReport(int fkVehicleId, String handledBy, Date reportStartDate) {
+    public ConditionReport(int fkVehicleId, String handledBy, Timestamp reportStartDate) {
         this.fkVehicleId = fkVehicleId;
         this.handledBy = handledBy;
         this.reportStartDate = reportStartDate;
@@ -30,14 +31,14 @@ public class ConditionReport {
     public ConditionReport() {
     }
 
-    public ConditionReport(int conditionReportId, String handledBy, Date reportCompletedDate, boolean completed) {
+    public ConditionReport(int conditionReportId, String handledBy, Timestamp reportCompletedDate, boolean completed) {
         this.conditionReportId = conditionReportId;
         this.handledBy = handledBy;
         this.reportCompletedDate = reportCompletedDate;
         this.completed = completed;
     }
 
-    public ConditionReport(int conditionReportId, String handledBy, Date reportCompletedDate, boolean completed, String reportDescription) {
+    public ConditionReport(int conditionReportId, String handledBy, Timestamp reportCompletedDate, boolean completed, String reportDescription) {
         this.conditionReportId = conditionReportId;
         this.handledBy = handledBy;
         this.reportCompletedDate = reportCompletedDate;
@@ -77,19 +78,19 @@ public class ConditionReport {
         this.excessKilometers = excessKilometers;
     }
 
-    public Date getReportStartDate() {
+    public Timestamp getReportStartDate() {
         return reportStartDate;
     }
 
-    public void setReportStartDate(Date reportStartDate) {
+    public void setReportStartDate(Timestamp reportStartDate) {
         this.reportStartDate = reportStartDate;
     }
 
-    public Date getReportCompletedDate() {
+    public Timestamp getReportCompletedDate() {
         return reportCompletedDate;
     }
 
-    public void setReportCompletedDate(Date reportCompletedDate) {
+    public void setReportCompletedDate(Timestamp reportCompletedDate) {
         this.reportCompletedDate = reportCompletedDate;
     }
 

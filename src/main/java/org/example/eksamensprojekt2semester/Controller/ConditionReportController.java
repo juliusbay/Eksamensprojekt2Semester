@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.List;
 
 @Controller
@@ -84,18 +85,14 @@ public class ConditionReportController {
             return "redirect:/";
         }
 
-        java.sql.Date today = new java.sql.Date(System.currentTimeMillis());
-
-        java.util.Date convert = conditionReportService.dateFormatter(today);
-
-        // We need to convert from java.util.date to java.sql.date
-        java.sql.Date sqlDate=new java.sql.Date(convert.getTime());
+        // Gets timestamp from current moment
+        Timestamp currentTimestamp = new Timestamp(System.currentTimeMillis());
 
         // Fetches employee object from logged in session
         Employee employee = (Employee) session.getAttribute("loggedInUser");
         String handledBy = employee.getShortName();
 
-        ConditionReport conditionReport = new ConditionReport(vehicleID, handledBy, sqlDate);
+        ConditionReport conditionReport = new ConditionReport(vehicleID, handledBy, currentTimestamp);
         conditionReportRepo.createConditionReport(conditionReport);
 
         // Fetches the car and updates the car status
@@ -130,19 +127,14 @@ public class ConditionReportController {
     public String completeConditionReport(@RequestParam("condition_report_id") int reportId,
                                           HttpSession session){
 
-        java.sql.Date today = new java.sql.Date(System.currentTimeMillis());
-
-        java.util.Date convert = conditionReportService.dateFormatter(today);
-
-        // We need to convert from java.util.date to java.sql.date
-        java.sql.Date sqlDate=new java.sql.Date(convert.getTime());
+        Timestamp currentTimestamp = new Timestamp(System.currentTimeMillis());
 
         Employee employee = (Employee) session.getAttribute("loggedInUser");
         String handledBy = employee.getShortName();
 
         boolean completed = true;
 
-        ConditionReport conditionReport = new ConditionReport(reportId, handledBy, sqlDate, completed);
+        ConditionReport conditionReport = new ConditionReport(reportId, handledBy, currentTimestamp, completed);
         conditionReportRepo.updateConditionReport(conditionReport);
 
         // Fetches the car and updates the car status

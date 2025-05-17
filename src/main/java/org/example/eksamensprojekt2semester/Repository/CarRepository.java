@@ -40,6 +40,7 @@ public class CarRepository {
                     car.setBought(resultSet.getBoolean("bought"));
                     car.setStatusFromString(resultSet.getString("status"));
                     car.setRentedOut(resultSet.getBoolean("rented_out"));
+                    car.setReceivedDate(resultSet.getTimestamp("received_date"));
                 }
             }
         } catch (SQLException e){
@@ -65,6 +66,7 @@ public class CarRepository {
                     car.setBought(resultSet.getBoolean("bought"));
                     car.setStatusFromString(resultSet.getString("status"));
                     car.setRentedOut(resultSet.getBoolean("rented_out"));
+                    car.setReceivedDate(resultSet.getTimestamp("received_date"));
                 }
             }
         } catch (SQLException e){
@@ -75,7 +77,7 @@ public class CarRepository {
 
     public ArrayList<Car> getAllCars() {
         ArrayList<Car> cars = new ArrayList<>();
-        String sql = "SELECT car.vehicle_id, car.vin_number, cm.car_model_id, cm.brand, cm.model_name, cm.car_equipment, car.color, car.bought, car.status, car.rented_out " +
+        String sql = "SELECT car.vehicle_id, car.vin_number, cm.car_model_id, cm.brand, cm.model_name, cm.car_equipment, car.color, car.bought, car.status, car.rented_out, car.received_date " +
                 "FROM car " +
                 "INNER JOIN car_model cm ON car.fk_car_model_id = cm.car_model_id";
         try(Connection connection = dataSource.getConnection();
@@ -91,6 +93,7 @@ public class CarRepository {
                 car.setBought(resultSet.getBoolean("bought"));
                 car.setStatusFromString(resultSet.getString("status"));
                 car.setRentedOut(resultSet.getBoolean("rented_out"));
+                car.setReceivedDate(resultSet.getTimestamp("received_date"));
 
                 cars.add(car);
             }
@@ -137,8 +140,8 @@ public class CarRepository {
 
 
     public void createCar(Car car){
-        String sql = "INSERT INTO car(fk_car_model_id, vin_number, color, bought, status) " +
-                "VALUES(?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO car(fk_car_model_id, vin_number, color, bought, status, received_date ) " +
+                "VALUES(?, ?, ?, ?, ?, ?)";
 
         try(Connection connection = dataSource.getConnection();
             PreparedStatement statement = connection.prepareStatement(sql)){
@@ -147,6 +150,7 @@ public class CarRepository {
             statement.setString(3, car.getColor());
             statement.setBoolean(4, car.isBought());
             statement.setString(5, car.getStatus().name());
+            statement.setTimestamp(6, car.getReceivedDate());
 
             statement.executeUpdate();
 
