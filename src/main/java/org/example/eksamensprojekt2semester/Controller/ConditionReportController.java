@@ -2,6 +2,7 @@ package org.example.eksamensprojekt2semester.Controller;
 
 import jakarta.servlet.http.HttpSession;
 import org.example.eksamensprojekt2semester.Model.*;
+import org.example.eksamensprojekt2semester.Repository.CarRepository;
 import org.example.eksamensprojekt2semester.Repository.ConditionReportRepository;
 import org.example.eksamensprojekt2semester.Repository.DamageRepository;
 import org.example.eksamensprojekt2semester.Repository.LeaseAgreementRepository;
@@ -34,6 +35,9 @@ public class ConditionReportController {
     @Autowired
     LeaseAgreementRepository leaseAgreementRepository;
 
+    @Autowired
+    CarRepository carRepository;
+
     // Page for editing a condition report (consisting of damages) based on the condition report's ID
     @GetMapping ("/condition-report")
     public String createConditionReport(@RequestParam("condition_report_id") int conditionReportId, Model model,
@@ -47,7 +51,7 @@ public class ConditionReportController {
         Customer customer = leaseAgreement.getCustomer();
         ConditionReport conditionReport = conditionReportRepo.getConditionReportByReportId(conditionReportId);
 
-
+        // Below is the calculations for the price matrix included in the condition report
         double priceOfLeaseAgreement = leaseAgreement.leasePrice;
         double totalPriceOfDamages = 0;
         for (Damage d : damages){
@@ -87,11 +91,17 @@ public class ConditionReportController {
         // We need to convert from java.util.date to java.sql.date
         java.sql.Date sqlDate=new java.sql.Date(convert.getTime());
 
+        // Fetches employee object from logged in session
         Employee employee = (Employee) session.getAttribute("loggedInUser");
         String handledBy = employee.getShortName();
 
         ConditionReport conditionReport = new ConditionReport(vehicleID, handledBy, sqlDate);
         conditionReportRepo.createConditionReport(conditionReport);
+
+        // Fetches the car and updates the car status
+        Car car = carRepository.getCarById(vehicleID);
+        car.setStatusFromString("GETTING_REPAIRED");
+        carRepository.updateCar(car);
 
         // Fetches the reportId after creation, so the redirection goes to the condition report
         int reportId = conditionReportRepo.getConditionReportByVehicleId(vehicleID).getConditionReportId();
@@ -99,7 +109,7 @@ public class ConditionReportController {
         return "redirect:/condition-report?condition_report_id="+reportId;
     }
 
-    // Postmapping for editing the condition reports excess kilometers
+    // Postmapping for editing the condition reports excess kilometers and description
     @PostMapping ("editConditionReport")
     public String saveEditConditionReport(@RequestParam("condition_report_id") int reportId,
                                           @RequestParam("excess_kilometers") double excessKilometers,
@@ -115,7 +125,7 @@ public class ConditionReportController {
     }
 
 
-
+    // Method for completing the condition report and making it un-editable
     @PostMapping("completeConditionReport")
     public String completeConditionReport(@RequestParam("condition_report_id") int reportId,
                                           HttpSession session){
@@ -134,6 +144,11 @@ public class ConditionReportController {
 
         ConditionReport conditionReport = new ConditionReport(reportId, handledBy, sqlDate, completed);
         conditionReportRepo.updateConditionReport(conditionReport);
+
+        // Fetches the car and updates the car status
+        Car car = carRepository.getCarById(conditionReportRepo.getVehicleIdByConditionReportId(reportId));
+        car.setStatusFromString("READY");
+        carRepository.updateCar(car);
 
 
         return "redirect:/";
