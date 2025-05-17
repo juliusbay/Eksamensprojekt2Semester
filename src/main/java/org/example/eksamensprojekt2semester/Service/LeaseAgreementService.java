@@ -27,13 +27,13 @@ public class LeaseAgreementService {
 
     }
 
-    public void minimum120daysAgreement(LeaseAgreement leaseAgreement) {
+    /*public void minimum120daysAgreement(LeaseAgreement leaseAgreement) {
 
         LocalDate date1 = LocalDate.of(2020, 1, 1);
         LocalDate date2 = LocalDate.of(2020, 12, 31);
 
-        long daysbetween = ChronoUnit.DAYS.between(leaseAgreement.leaseStartDate,leaseAgreement.leaseEndDate)
+        long daysbetween = ChronoUnit.DAYS.between(leaseAgreement.leaseStartDate,leaseAgreement.leaseEndDate);
 
-    }
+    }*/
 
 }

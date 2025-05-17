@@ -33,17 +33,20 @@
 </div>
 
 <div class="condition-report-container">
+    <form th:action="@{/editConditionReport}" method="post">
     <label> Udført af: </label>
     <span th:text="${conditionReport.handledBy}"> </span>
     <br> <br>
     <label> Udførelsesdato: </label>
-    <span th:text="${conditionReport.reportDate}"> </span>
+    <span th:text="${conditionReport.reportStartDate}"> </span>
 
-    <h1> Antal kørte kilometer udover grænsen </h1>
-    <form th:action="@{/editConditionReport}" method="post">
         <input type="hidden" name="condition_report_id" th:value="${condition_report_id}">
-        <input type="number" step="0.01" name="excess_kilometers" th:value="${conditionReport.excessKilometers}">
-        <button type="submit"> Registrer kilometer </button>
+        <input type="number" step="0.01" name="excess_kilometers" placeholder="Antal kørte km over grænsen" th:value="${conditionReport.excessKilometers}">
+
+        <textarea name="report_description" rows="6" cols="50" placeholder="Beskriv bilens tilstand"
+                  th:text="${conditionReport.reportDescription}"></textarea>
+
+        <button type="submit" th:if="${!conditionReport.completed}"> Gem oplysninger </button>
     </form>
 </div>
 </div>
@@ -59,7 +62,7 @@
   <label>Pris:</label>
   <input type="number" name="damage_price" />
 
-  <button type="submit"> Tilføj skade </button>
+  <button type="submit" th:if="${!conditionReport.completed}"> Tilføj skade </button>
 </form>
     <div class="report-and-damages">
 <h1> Overblik over skader på rapporten </h1>
@@ -78,7 +81,7 @@
             <form th:action="@{/deleteDamage}" method="post">
                 <input type="hidden" name="damage_id" th:value="${damage.damageId}">
                 <input type="hidden" name="condition_report_id" th:value="${condition_report_id}">
-                <button type="submit" class="btn">Slet</button>
+                <button type="submit" class="btn" th:if="${!conditionReport.completed}">Slet</button>
             </form>
         </td>
     </tr>
@@ -98,13 +101,22 @@
             <td th:text="${excessKilometers +' * 0,75 DKK = '+ #numbers.formatDecimal(totalPriceOfExcessKilometers, 1, 'POINT', 2, 'COMMA')}" ></td>
             <td th:text="${#numbers.formatDecimal(totalPriceToPay, 1, 'POINT', 2, 'COMMA')+' DKK'}"></td> <!-- Formats the numbers to two decimals with a point after first number -->
             <td>
-                <button type="submit" class="btn">Send opgørelse til bogholderi</button>
+                <form th:action="@{/completeConditionReport}" method="post">
+                    <input type="hidden" name="condition_report_id" th:value="${condition_report_id}">
+                    <button type="submit" class="btn" th:if="${!conditionReport.completed}">Fuldfør rapport</button>
+                </form>
             </td>
         </tr>
     </table>
 </div>
 </div>
 
+<!-- Automatically triggers a print button when loading the page, if the report has completed status-->
+<script th:if="${conditionReport.completed}">
+    window.onload = () => {
+        window.print();
+    };
+</script>
 
 </body>
 </html>

@@ -269,19 +269,33 @@
                         <button type="submit">Opdater status </button>
                     </form>
                 </td>
-                <td>   <!-- Below statement checks whether there is a condition report for said vehicle ID, and prints
-                        a different button, depending on whether or not there is-->
+                <td>
                     <div th:if="${conditionReportsMap[car.vehicleId] != null}">
-                        <form th:action="@{/condition-report}" method="get">
-                            <input type="hidden" name="condition_report_id"
-                                   th:value="${conditionReportsMap[car.vehicleId].conditionReportId}" />
-                            <button type="submit">Rediger tilstandsrapport</button>
-                        </form>
+
+                        <!-- If the condition report has been set as completed, you get a print button -->
+                        <div th:if="${conditionReportsMap[car.vehicleId].completed}">
+                            <form th:action="@{/condition-report}" method="get" target="_blank">
+                                <input type="hidden" name="condition_report_id"
+                                       th:value="${conditionReportsMap[car.vehicleId].conditionReportId}" />
+                                <button type="submit" class="btn">Print tilstandsrapport</button>
+                            </form>
+                        </div>
+
+                        <!-- If it is not completed, you get an edit button -->
+                        <div th:unless="${conditionReportsMap[car.vehicleId].completed}">
+                            <form th:action="@{/condition-report}" method="get">
+                                <input type="hidden" name="condition_report_id"
+                                       th:value="${conditionReportsMap[car.vehicleId].conditionReportId}" />
+                                <button type="submit" class="btn">Rediger tilstandsrapport</button>
+                            </form>
+                        </div>
+
                     </div>
+                            <!-- If non-existant, you get a create button -->
                     <div th:unless="${conditionReportsMap[car.vehicleId] != null}">
                         <form th:action="@{/createConditionReport}" method="post">
                             <input type="hidden" name="vehicle_id" th:value="${car.vehicleId}" />
-                            <button type="submit"> Opret tilstandsrapport </button>
+                            <button type="submit">Opret tilstandsrapport</button>
                         </form>
                     </div>
                 </td>
@@ -303,15 +317,17 @@
         <tr>
             <th onclick="sortTable(0)">ID</th>
             <th onclick="sortTable(1)">Handler</th>
-            <th onclick="sortTable(2)">Dato</th>
-            <th onclick="sortTable(3)">Delete</th>
+            <th onclick="sortTable(2)">Startdato</th>
+            <th onclick="sortTable(3)">Slutdato</th>
+            <th onclick="sortTable(4)">Delete</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="conditionReport: ${conditionReports}">
             <td th:text="${conditionReport.conditionReportId}" />
             <td th:text="${conditionReport.handledBy}" />
-            <td th:text="${conditionReport.reportDate}" />
+            <td th:text="${conditionReport.reportStartDate}" />
+            <td th:text="${conditionReport.reportCompletedDate}" />
             <td>
                 <form th:action="@{/deleteConditionReport}" method="post">
                     <input type="hidden" name="condition_report_id" th:value="${conditionReport.conditionReportId}">

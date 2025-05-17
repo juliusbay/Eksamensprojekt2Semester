@@ -178,12 +178,15 @@ CREATE TABLE condition_report (
                                   condition_report_id INT PRIMARY KEY AUTO_INCREMENT UNIQUE ,
                                   fk_vehicle_id INT,
                                   handled_by VARCHAR(50),
-                                  report_date DATE,
+                                  report_start_date DATE,
+                                  report_completed_date DATE DEFAULT NULL,
                                   excess_kilometers DOUBLE DEFAULT NULL,
+                                  completed BOOLEAN DEFAULT FALSE,
+                                  report_description VARCHAR(300),
                                   FOREIGN KEY (fk_vehicle_id) REFERENCES car(vehicle_id)
 );
 
-INSERT INTO condition_report(fk_vehicle_id, handled_by, report_date)
+INSERT INTO condition_report(fk_vehicle_id, handled_by, report_start_date)
 VALUES
     (1, 'JÜHIN', '2024-01-15'),
     (2, 'JÜHIN', '2024-02-10'),

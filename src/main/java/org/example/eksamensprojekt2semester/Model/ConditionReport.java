@@ -3,53 +3,54 @@ package org.example.eksamensprojekt2semester.Model;
 import java.sql.Date;
 
 public class ConditionReport {
-    private int ConditionReportId;
+    private int conditionReportId;
     private int fkVehicleId;
     private String handledBy;
-    private Date reportDate;
+    private Date reportStartDate;
+    private Date reportCompletedDate;
     private double excessKilometers;
+    private boolean completed;
+    private String reportDescription;
 
-    public ConditionReport(int conditionReportId, int fkVehicleId, String handledBy, Date reportDate) {
-        ConditionReportId = conditionReportId;
+    public ConditionReport(int conditionReportId, int fkVehicleId, String handledBy, Date reportStartDate, Date reportCompletedDate, double excessKilometers) {
+        this.conditionReportId = conditionReportId;
         this.fkVehicleId = fkVehicleId;
         this.handledBy = handledBy;
-        this.reportDate = reportDate;
+        this.reportStartDate = reportStartDate;
+        this.reportCompletedDate = reportCompletedDate;
+        this.excessKilometers = excessKilometers;
+    }
+
+    public ConditionReport(int fkVehicleId, String handledBy, Date reportStartDate) {
+        this.fkVehicleId = fkVehicleId;
+        this.handledBy = handledBy;
+        this.reportStartDate = reportStartDate;
     }
 
     public ConditionReport() {
     }
 
-    public ConditionReport(int fkVehicleId) {
-        this.fkVehicleId = fkVehicleId;
+    public ConditionReport(int conditionReportId, String handledBy, Date reportCompletedDate, boolean completed) {
+        this.conditionReportId = conditionReportId;
+        this.handledBy = handledBy;
+        this.reportCompletedDate = reportCompletedDate;
+        this.completed = completed;
     }
 
-    public ConditionReport(int fkVehicleId, String handledBy, Date reportDate) {
-        this.fkVehicleId = fkVehicleId;
+    public ConditionReport(int conditionReportId, String handledBy, Date reportCompletedDate, boolean completed, String reportDescription) {
+        this.conditionReportId = conditionReportId;
         this.handledBy = handledBy;
-        this.reportDate = reportDate;
-    }
-
-    public ConditionReport(int fkVehicleId, String handledBy, Date reportDate, double excessKilometers) {
-        this.excessKilometers = excessKilometers;
-        this.reportDate = reportDate;
-        this.handledBy = handledBy;
-        this.fkVehicleId = fkVehicleId;
-    }
-
-    public ConditionReport(int conditionReportId, int fkVehicleId, String handledBy, Date reportDate, double excessKilometers) {
-        ConditionReportId = conditionReportId;
-        this.fkVehicleId = fkVehicleId;
-        this.handledBy = handledBy;
-        this.reportDate = reportDate;
-        this.excessKilometers = excessKilometers;
+        this.reportCompletedDate = reportCompletedDate;
+        this.completed = completed;
+        this.reportDescription = reportDescription;
     }
 
     public int getConditionReportId() {
-        return ConditionReportId;
+        return conditionReportId;
     }
 
     public void setConditionReportId(int conditionReportId) {
-        ConditionReportId = conditionReportId;
+        this.conditionReportId = conditionReportId;
     }
 
     public int getFkVehicleId() {
@@ -68,20 +69,44 @@ public class ConditionReport {
         this.handledBy = handledBy;
     }
 
-    public Date getReportDate() {
-        return reportDate;
-    }
-
-    public void setReportDate(Date reportDate) {
-        this.reportDate = reportDate;
-    }
-
     public double getExcessKilometers() {
         return excessKilometers;
     }
 
     public void setExcessKilometers(double excessKilometers) {
         this.excessKilometers = excessKilometers;
+    }
+
+    public Date getReportStartDate() {
+        return reportStartDate;
+    }
+
+    public void setReportStartDate(Date reportStartDate) {
+        this.reportStartDate = reportStartDate;
+    }
+
+    public Date getReportCompletedDate() {
+        return reportCompletedDate;
+    }
+
+    public void setReportCompletedDate(Date reportCompletedDate) {
+        this.reportCompletedDate = reportCompletedDate;
+    }
+
+    public boolean isCompleted() {
+        return completed;
+    }
+
+    public void setCompleted(boolean completed) {
+        this.completed = completed;
+    }
+
+    public String getReportDescription() {
+        return reportDescription;
+    }
+
+    public void setReportDescription(String reportDescription) {
+        this.reportDescription = reportDescription;
     }
 }
 

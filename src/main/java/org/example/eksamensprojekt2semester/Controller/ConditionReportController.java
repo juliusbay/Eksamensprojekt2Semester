@@ -99,18 +99,44 @@ public class ConditionReportController {
         return "redirect:/condition-report?condition_report_id="+reportId;
     }
 
-    // Postmapping for editing the condition report
+    // Postmapping for editing the condition reports excess kilometers
     @PostMapping ("editConditionReport")
     public String saveEditConditionReport(@RequestParam("condition_report_id") int reportId,
                                           @RequestParam("excess_kilometers") double excessKilometers,
+                                          @RequestParam("report_description") String reportDescription,
                                           HttpSession session){
         if (!employeeController.isUserLoggedIn(session)) {
             return "redirect:/";
         }
 
-        conditionReportRepo.updateExcessKilometersFromConditionReportId(reportId, excessKilometers);
+        conditionReportRepo.updateExcessKilometersAndDescriptionFromConditionReportId(reportId, excessKilometers, reportDescription);
 
         return "redirect:/condition-report?condition_report_id="+reportId;
+    }
+
+
+
+    @PostMapping("completeConditionReport")
+    public String completeConditionReport(@RequestParam("condition_report_id") int reportId,
+                                          HttpSession session){
+
+        java.sql.Date today = new java.sql.Date(System.currentTimeMillis());
+
+        java.util.Date convert = conditionReportService.dateFormatter(today);
+
+        // We need to convert from java.util.date to java.sql.date
+        java.sql.Date sqlDate=new java.sql.Date(convert.getTime());
+
+        Employee employee = (Employee) session.getAttribute("loggedInUser");
+        String handledBy = employee.getShortName();
+
+        boolean completed = true;
+
+        ConditionReport conditionReport = new ConditionReport(reportId, handledBy, sqlDate, completed);
+        conditionReportRepo.updateConditionReport(conditionReport);
+
+
+        return "redirect:/";
     }
 
     // Postmapping to delete condition reports
