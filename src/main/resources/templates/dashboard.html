@@ -257,18 +257,7 @@
                 <td th:text="${car.getCarModel().getCarEquipment()}" />
                 <td th:text="${car.color}" />
                 <td th:text="${car.bought}" />
-                <td>
-                    <form th:action="@{/updateCarStatus}" method="post">
-                        <select name="status">
-                            <option value="READY" th:selected="${car.status.name() == 'READY'}">Klar</option>
-                            <option value="DAMAGED" th:selected="${car.status.name() == 'DAMAGED'}">Skadet</option>
-                            <option value="GETTING_REPAIRED" th:selected="${car.status.name() == 'GETTING_REPAIRED'}">På værksted</option>
-                            <option value="RENTED" th:selected="${car.status.name() == 'RENTED'}">Udlejet</option>
-                        </select>
-                        <input type="hidden" name="vehicle_id" th:value="${car.vehicleId}">
-                        <button type="submit">Opdater status </button>
-                    </form>
-                </td>
+                <td th:text="${car.statusValue}" />
                 <td>
                     <div th:if="${conditionReportsMap[car.vehicleId] != null}">
 
