@@ -34,11 +34,15 @@
 
 <div class="condition-report-container">
     <form th:action="@{/editConditionReport}" method="post">
-    <label> Udført af: </label>
-    <span th:text="${conditionReport.handledBy}"> </span>
-    <br> <br>
-    <label> Udførelsesdato: </label>
-    <span th:text="${conditionReport.reportStartDate}"> </span>
+
+     <!-- Only displays below div if the report is finished-->
+    <div th:if="${conditionReport.completed}">
+        <label> Udført af: </label>
+        <span th:text="${conditionReport.handledBy}"> </span>
+        <br> <br>
+        <label> Udførelsesdato: </label>
+        <span th:text="${conditionReport.reportCompletedDate}"> </span>
+    </div>
 
         <input type="hidden" name="condition_report_id" th:value="${condition_report_id}">
         <input type="number" step="0.01" name="excess_kilometers" placeholder="Antal kørte km over grænsen" th:value="${conditionReport.excessKilometers}">
