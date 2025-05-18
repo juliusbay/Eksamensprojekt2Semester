@@ -30,6 +30,7 @@ public class StatisticsService {
     @Autowired
     ConditionReportRepository conditionReportRepository;
 
+    // Formats the Duration value for below calculations that return Duration
     public String formatDuration(Duration duration) {
         long days = duration.toDays();
         long hours = duration.toHoursPart();
@@ -106,7 +107,7 @@ public class StatisticsService {
 
         for (LeaseAgreement lease : leaseAgreements) {
             int vehicleId = lease.getCar().getVehicleId();
-            ConditionReport report = conditionReportsMap.get(vehicleId);
+            ConditionReport report = conditionReportsMap.get(vehicleId); // Fetches the condition report for corresponding vehicle id from lease agreement
 
             LocalDateTime leaseEnd = lease.getLeaseEndDate().toLocalDateTime();
             LocalDateTime reportStart = report.getReportStartDate().toLocalDateTime();
