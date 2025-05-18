@@ -56,7 +56,7 @@ public class ConditionReportRepository {
             statement.setBoolean(1, completed);
 
             try (ResultSet resultSet = statement.executeQuery()) {
-                if (resultSet.next()) {
+                while (resultSet.next()) {
                     conditionReport.setConditionReportId(resultSet.getInt("condition_report_id"));
                     conditionReport.setFkVehicleId(resultSet.getInt("fk_vehicle_id"));
                     conditionReport.setHandledBy(resultSet.getString("handled_by"));
@@ -65,6 +65,8 @@ public class ConditionReportRepository {
                     conditionReport.setExcessKilometers(resultSet.getDouble("excess_kilometers"));
                     conditionReport.setCompleted(resultSet.getBoolean("completed"));
                     conditionReport.setReportDescription(resultSet.getString("report_description"));
+
+                    completedConditionReports.add(conditionReport);
                 }
             }
         } catch (SQLException e) {

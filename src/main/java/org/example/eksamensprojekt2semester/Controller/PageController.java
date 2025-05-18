@@ -3,6 +3,7 @@ package org.example.eksamensprojekt2semester.Controller;
 import jakarta.servlet.http.HttpSession;
 import org.example.eksamensprojekt2semester.Model.*;
 import org.example.eksamensprojekt2semester.Repository.*;
+import org.example.eksamensprojekt2semester.Service.StatisticsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
 import java.sql.SQLException;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -42,6 +44,9 @@ public class PageController {
 
     @Autowired
     EmployeeController employeeController;
+
+    @Autowired
+    StatisticsService statisticsService;
 
 
     @GetMapping("/login")
@@ -99,16 +104,30 @@ public class PageController {
         if (!employeeController.isUserLoggedIn(session)) {
             return "redirect:/login";
         }
+        ArrayList<LeaseAgreement> leaseAgreements = leaseAgreementRepository.getAllLeaseAgreements();
+        ArrayList<Car> cars = carRepository.getAllCars();
+        Map<Integer, ConditionReport> conditionReportsMap = conditionReportRepository.getAllConditionReports();
 
-        ArrayList<LeaseAgreement> leaseAgreements = leaseAgreementRepository.getLeaseAgreementsByActiveStatus(true);
-        double totalValueOfActiveLeaseAgreements = 0;
-        for (LeaseAgreement leases : leaseAgreements){
-            totalValueOfActiveLeaseAgreements += leases.leasePrice;
-        }
-        double averageLeaseAgreementValue = totalValueOfActiveLeaseAgreements/leaseAgreements.size();
+        double totalValueOfActiveLeases = statisticsService.calculateTotalLeaseAgreementValue();
+        double averageLeaseValue = statisticsService.calculateAverageLeaseAgreementValue();
 
-        model.addAttribute("totalValueOfActiveLeaseAgreements", totalValueOfActiveLeaseAgreements);
-        model.addAttribute("averageLeaseAgreementValue", averageLeaseAgreementValue);
+        Duration averageLeasePeriod = statisticsService.calculateAverageLeasePeriod();
+        Duration averageGarageWaitingTime = statisticsService.calculateAverageGarageWaitingTime(leaseAgreements, conditionReportsMap);
+        Duration averageGarageInspectionTime = statisticsService.averageGarageInspectionTime();
+        Duration averageTimeToLease = statisticsService.calculateAverageTimeToLease(cars, leaseAgreements);
+
+        String formattedAverageLeasePeriod = statisticsService.formatDuration(averageLeasePeriod);
+        String formattedAverageGarageWaitingTime = statisticsService.formatDuration(averageGarageWaitingTime);
+        String formattedAverageGarageInspectionTime = statisticsService.formatDuration(averageGarageInspectionTime);
+        String formattedAverageTimeToLease = statisticsService.formatDuration(averageTimeToLease);
+
+        model.addAttribute("totalValueOfActiveLeaseAgreements", totalValueOfActiveLeases);
+        model.addAttribute("averageLeaseAgreementValue", averageLeaseValue);
+        model.addAttribute("averageLeasePeriod", formattedAverageLeasePeriod);
+        model.addAttribute("averageGarageWaitingTime", formattedAverageGarageWaitingTime);
+        model.addAttribute("averageGarageInspectionTime", formattedAverageGarageInspectionTime);
+        model.addAttribute("averageTimeToLease", formattedAverageTimeToLease);
+
 
         return "statistics";
     }

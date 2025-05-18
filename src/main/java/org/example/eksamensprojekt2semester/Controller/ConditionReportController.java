@@ -6,7 +6,6 @@ import org.example.eksamensprojekt2semester.Repository.CarRepository;
 import org.example.eksamensprojekt2semester.Repository.ConditionReportRepository;
 import org.example.eksamensprojekt2semester.Repository.DamageRepository;
 import org.example.eksamensprojekt2semester.Repository.LeaseAgreementRepository;
-import org.example.eksamensprojekt2semester.Service.ConditionReportService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,7 +13,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -26,9 +24,6 @@ public class ConditionReportController {
 
     @Autowired
     DamageRepository damageRepo;
-
-    @Autowired
-    ConditionReportService conditionReportService;
 
     @Autowired
     EmployeeController employeeController;
