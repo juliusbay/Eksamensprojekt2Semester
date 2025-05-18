@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 
 import java.sql.Date;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.verify;
@@ -51,8 +52,8 @@ public class LeaseAgreementCreateUnittest {
         int customer_id = 1;
         LeaseAgreement.LeaseType leaseType = LeaseAgreement.LeaseType.LIMITED;
         int contract_price = 50000;
-        Date lease_start_date = Date.valueOf("2025-06-01");
-        Date lease_end_date = Date.valueOf("2025-06-10");
+        Timestamp lease_start_date = Timestamp.valueOf("2025-06-01");
+        Timestamp lease_end_date = Timestamp.valueOf("2025-06-10");
         String returnLocation = "Guldbergsgad";
 
         LeaseAgreement expectedLeaseAgreement = new LeaseAgreement(vehicle_id, customer_id, leaseType, contract_price,
@@ -78,15 +79,15 @@ public class LeaseAgreementCreateUnittest {
 
     @Test
     @DisplayName("createLeaseAgreement exceptionFlow")
-    public void createLeaseAgreementException() throws SQLException {
+    public void createLeaseAgreementExceptionNoNegativePrice() throws SQLException {
         //Arrange
 
         int vehicle_id = 1;
         int customer_id = 1;
         LeaseAgreement.LeaseType leaseType = LeaseAgreement.LeaseType.LIMITED;
         int leasePrice = -50000;
-        Date lease_start_date = Date.valueOf("2025-06-01");
-        Date lease_end_date = Date.valueOf("2025-06-10");
+        Timestamp lease_start_date = Timestamp.valueOf("2025-06-01");
+        Timestamp lease_end_date = Timestamp.valueOf("2025-12-10");
         String returnLocation = "Guldbergsgad";
 
         LeaseAgreement expectedLeaseAgreement = new LeaseAgreement(vehicle_id, customer_id, leaseType, leasePrice,
@@ -110,5 +111,42 @@ public class LeaseAgreementCreateUnittest {
         assertEquals(expectedLeaseAgreement.getLeaseEndDate(), actualLeaseAgreement.getLeaseEndDate());
         assertEquals(expectedLeaseAgreement.getReturnLocation(), actualLeaseAgreement.getReturnLocation());
     }
+
+
+    @Test
+    @DisplayName("createLeaseAgreement exceptionFlow")
+    public void createLeaseAgreementException120DaysException() throws SQLException {
+        //Arrange
+
+        int vehicle_id = 1;
+        int customer_id = 1;
+        LeaseAgreement.LeaseType leaseType = LeaseAgreement.LeaseType.UNLIMITED;
+        int leasePrice = 50000;
+        Timestamp lease_start_date = Timestamp.valueOf("2025-06-01");
+        Timestamp lease_end_date = Timestamp.valueOf("2025-8-10");
+        String returnLocation = "Guldbergsgad";
+
+        LeaseAgreement expectedLeaseAgreement = new LeaseAgreement(vehicle_id, customer_id, leaseType, leasePrice,
+                lease_start_date, lease_end_date, returnLocation);
+
+
+
+
+
+        //Act
+
+        LeaseAgreement actualLeaseAgreement = leaseAgreementController.createLeaseAgreementMock(vehicle_id, customer_id, leaseType, leasePrice, lease_start_date, lease_end_date, returnLocation);
+        System.out.println(actualLeaseAgreement);
+
+        //Assert
+        assertEquals(expectedLeaseAgreement.getFkVehicleId(), actualLeaseAgreement.getFkVehicleId());
+        assertEquals(expectedLeaseAgreement.getFkCustomerId(), actualLeaseAgreement.getFkCustomerId());
+        assertEquals(expectedLeaseAgreement.getLeaseType(), actualLeaseAgreement.getLeaseType());
+        assertEquals(expectedLeaseAgreement.getLeasePrice(), actualLeaseAgreement.getLeasePrice());
+        assertEquals(expectedLeaseAgreement.getLeaseStartDate(), actualLeaseAgreement.getLeaseStartDate());
+        assertEquals(expectedLeaseAgreement.getLeaseEndDate(), actualLeaseAgreement.getLeaseEndDate());
+        assertEquals(expectedLeaseAgreement.getReturnLocation(), actualLeaseAgreement.getReturnLocation());
+    }
+
 
 }

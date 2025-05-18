@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.sql.Date;
@@ -41,8 +42,8 @@ public class LeaseAgreementController {
                                        @RequestParam("fk_customer_id") int fkCustomerId,
                                        @RequestParam("lease_type")String leaseTypeString,
                                        @RequestParam("lease_price") int leasePrice,
-                                       @RequestParam("lease_start_date")Date leaseStartDate,
-                                       @RequestParam("lease_end_date") Date leaseEndDate,
+                                       @RequestParam("lease_start_date")Timestamp leaseStartDate,
+                                       @RequestParam("lease_end_date") Timestamp leaseEndDate,
                                        @RequestParam("return_location") String returnLocation,
                                        HttpSession session) throws SQLException {
 
@@ -56,6 +57,7 @@ public class LeaseAgreementController {
 
         leaseAgreementService.noNegativePriceLease(leaseAgreement);
         leaseAgreementService.isEndDateBeforeStartDate(leaseAgreement);
+        leaseAgreementService.minimum120daysAgreement(leaseAgreement);
         leaseAgreement.setCar(carRepository.getCarById(fkVehicleId));
         leaseAgreement.setCustomer(customerRepository.getCustomerByCustomerId(fkCustomerId));
 
@@ -82,8 +84,8 @@ public class LeaseAgreementController {
                                         int fkCustomerId,
                                        LeaseAgreement.LeaseType leaseType,
                                         int leasePrice,
-                                       Date leaseStartDate,
-                                        Date leaseEndDate, String returnLocation) throws SQLException {
+                                                    Timestamp leaseStartDate,
+                                                    Timestamp leaseEndDate, String returnLocation) throws SQLException {
 
         LeaseAgreementService leaseService = new LeaseAgreementService();
 
@@ -91,7 +93,7 @@ public class LeaseAgreementController {
                 fkCustomerId, leaseType,
                 leasePrice, leaseStartDate, leaseEndDate, returnLocation);
 
-
+        leaseService.minimum120daysAgreement(leaseAgreement);
         leaseService.noNegativePriceLease(leaseAgreement);
         leaseService.isEndDateBeforeStartDate(leaseAgreement);
 
@@ -106,8 +108,8 @@ public class LeaseAgreementController {
                                        @RequestParam("fk_customer_id") int fkCustomerId,
                                        @RequestParam("lease_type")LeaseAgreement.LeaseType leaseType,
                                        @RequestParam("lease_price") int leasePrice,
-                                       @RequestParam("lease_start_date")Date leaseStartDate,
-                                       @RequestParam("lease_end_date") Date leaseEndDate,
+                                       @RequestParam("lease_start_date")Timestamp leaseStartDate,
+                                       @RequestParam("lease_end_date") Timestamp leaseEndDate,
                                        @RequestParam("return_location") String returnLocation,
                                        HttpSession session) throws SQLException {
 

@@ -36,8 +36,8 @@ public class LeaseAgreementRepository {
                 leaseAgreement.setCustomer(customerRepository.getCustomerByCustomerId(resultSet.getInt("fk_customer_id")));
                 leaseAgreement.setLeaseType(LeaseAgreement.LeaseType.valueOf(resultSet.getString("lease_type")));
                 leaseAgreement.setLeasePrice(resultSet.getInt("lease_price"));
-                leaseAgreement.setLeaseStartDate(resultSet.getDate("lease_start_date"));
-                leaseAgreement.setLeaseEndDate(resultSet.getDate("lease_end_date"));
+                leaseAgreement.setLeaseStartDate(resultSet.getTimestamp("lease_start_date"));
+                leaseAgreement.setLeaseEndDate(resultSet.getTimestamp("lease_end_date"));
                 leaseAgreement.setReturnLocation(resultSet.getString("return_location"));
                 leaseAgreement.setActive(resultSet.getBoolean("lease_active"));
                 if (resultSet.getDate("lease_end_date").before(Date.valueOf(LocalDate.now()))) {
@@ -70,8 +70,8 @@ public class LeaseAgreementRepository {
                     leaseAgreement.setCustomer(customerRepository.getCustomerByCustomerId(resultSet.getInt("fk_customer_id")));
                     leaseAgreement.setLeaseType(LeaseAgreement.LeaseType.valueOf(resultSet.getString("lease_type")));
                     leaseAgreement.setLeasePrice(resultSet.getInt("lease_price"));
-                    leaseAgreement.setLeaseStartDate(resultSet.getDate("lease_start_date"));
-                    leaseAgreement.setLeaseEndDate(resultSet.getDate("lease_end_date"));
+                    leaseAgreement.setLeaseStartDate(resultSet.getTimestamp("lease_start_date"));
+                    leaseAgreement.setLeaseEndDate(resultSet.getTimestamp("lease_end_date"));
                     leaseAgreement.setReturnLocation(resultSet.getString("return_location"));
                     leaseAgreement.setActive(resultSet.getBoolean("lease_active"));
 
@@ -102,8 +102,8 @@ public class LeaseAgreementRepository {
                     leaseAgreement.setCustomer(customerRepository.getCustomerByCustomerId(resultSet.getInt("fk_customer_id")));
                     leaseAgreement.setLeaseType(LeaseAgreement.LeaseType.valueOf(resultSet.getString("lease_type")));
                     leaseAgreement.setLeasePrice(resultSet.getInt("lease_price"));
-                    leaseAgreement.setLeaseStartDate(resultSet.getDate("lease_start_date"));
-                    leaseAgreement.setLeaseEndDate(resultSet.getDate("lease_end_date"));
+                    leaseAgreement.setLeaseStartDate(resultSet.getTimestamp("lease_start_date"));
+                    leaseAgreement.setLeaseEndDate(resultSet.getTimestamp("lease_end_date"));
                     leaseAgreement.setReturnLocation(resultSet.getString("return_location"));
                     leaseAgreement.setActive(resultSet.getBoolean("lease_active"));
                     if (resultSet.getDate("lease_end_date").before(Date.valueOf(LocalDate.now()))) {
@@ -135,8 +135,8 @@ public class LeaseAgreementRepository {
                     leaseAgreement.setCustomer(customerRepository.getCustomerByCustomerId(resultSet.getInt("fk_customer_id")));
                     leaseAgreement.setLeaseType(LeaseAgreement.LeaseType.valueOf(resultSet.getString("lease_type")));
                     leaseAgreement.setLeasePrice(resultSet.getInt("lease_price"));
-                    leaseAgreement.setLeaseStartDate(resultSet.getDate("lease_start_date"));
-                    leaseAgreement.setLeaseEndDate(resultSet.getDate("lease_end_date"));
+                    leaseAgreement.setLeaseStartDate(resultSet.getTimestamp("lease_start_date"));
+                    leaseAgreement.setLeaseEndDate(resultSet.getTimestamp("lease_end_date"));
                     leaseAgreement.setReturnLocation(resultSet.getString("return_location"));
                     leaseAgreement.setActive(resultSet.getBoolean("lease_active"));
 
@@ -172,8 +172,8 @@ public class LeaseAgreementRepository {
                 statement.setInt(2, leaseAgreement.getCustomer().getCustomerId());
                 statement.setString(3, leaseAgreement.getLeaseType().toString());
                 statement.setDouble(4, leaseAgreement.getLeasePrice());
-                statement.setDate(5, leaseAgreement.getLeaseStartDate());
-                statement.setDate(6, leaseAgreement.getLeaseEndDate());
+                statement.setTimestamp(5, leaseAgreement.getLeaseStartDate());
+                statement.setTimestamp(6, leaseAgreement.getLeaseEndDate());
                 statement.setString(7, leaseAgreement.getReturnLocation());
                 statement.setBoolean(8, leaseAgreement.isActive());
                 statement.executeUpdate();
@@ -192,8 +192,8 @@ public class LeaseAgreementRepository {
                 statement.setInt(2, leaseAgreement.getCustomer().getCustomerId());
                 statement.setString(3, leaseAgreement.getLeaseType().toString());
                 statement.setDouble(4, leaseAgreement.getLeasePrice());
-                statement.setDate(5, leaseAgreement.getLeaseStartDate());
-                statement.setDate(6, leaseAgreement.getLeaseEndDate());
+                statement.setTimestamp(5, leaseAgreement.getLeaseStartDate());
+                statement.setTimestamp(6, leaseAgreement.getLeaseEndDate());
                 statement.setString(7, leaseAgreement.getReturnLocation());
                 statement.setBoolean(8, leaseAgreement.isActive());
 
@@ -244,7 +244,7 @@ public class LeaseAgreementRepository {
 
         try (Connection connection = dataSource.getConnection();
         PreparedStatement statement = connection.prepareStatement(sql)){
-            if (leaseAgreement.getLeaseEndDate().before(Date.valueOf(LocalDate.now())) || leaseAgreement.getLeaseEndDate().equals(Date.valueOf(LocalDate.now()))) {
+            if (leaseAgreement.getLeaseEndDate().before(Timestamp.valueOf(LocalDate.now().atStartOfDay())) || leaseAgreement.getLeaseEndDate().equals(Timestamp.valueOf(LocalDate.now().atStartOfDay()))) {
                 statement.setBoolean(1, false);
             }else {
                 statement.setBoolean(1, true);
@@ -262,9 +262,10 @@ public class LeaseAgreementRepository {
         try (Connection connection = dataSource.getConnection();
         PreparedStatement statement = connection.prepareStatement(sql)){
 
-            Date today = Date.valueOf(LocalDate.now());
+            Timestamp today = Timestamp.valueOf(LocalDate.now().atStartOfDay());
 
-            statement.setDate(1, today);
+
+            statement.setTimestamp(1, today);
             statement.setInt(2, leaseAgreement.getLeaseAgreementId());
 
             statement.executeUpdate();

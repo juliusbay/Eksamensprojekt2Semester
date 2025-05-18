@@ -2,6 +2,7 @@ package org.example.eksamensprojekt2semester.Model;
 
 import java.rmi.dgc.Lease;
 import java.sql.Date;
+import java.sql.Timestamp;
 
 public class LeaseAgreement {
 
@@ -36,14 +37,14 @@ public class LeaseAgreement {
     public int fkCustomerId;
     public LeaseType leaseType;
     public int leasePrice;
-    public Date leaseStartDate;
-    public Date leaseEndDate;
+    public Timestamp leaseStartDate;
+    public Timestamp leaseEndDate;
     public String returnLocation;
     private Customer customer;
     private boolean active;
     private Car car;
 
-    public LeaseAgreement(int fkVehicleId, int fkCustomerId, LeaseType leaseType, int leasePrice, java.sql.Date leaseStartDate, java.sql.Date leaseEndDate, String returnLocation) {
+    public LeaseAgreement(int fkVehicleId, int fkCustomerId, LeaseType leaseType, int leasePrice, Timestamp leaseStartDate, Timestamp leaseEndDate, String returnLocation) {
     this.fkVehicleId = fkVehicleId;
     this.fkCustomerId = fkCustomerId;
     this.leaseType = leaseType;
@@ -109,19 +110,19 @@ public class LeaseAgreement {
     }
 
 
-    public Date getLeaseStartDate() {
+    public Timestamp getLeaseStartDate() {
         return leaseStartDate;
     }
 
-    public void setLeaseStartDate(Date leaseStartDate) {
+    public void setLeaseStartDate(Timestamp leaseStartDate) {
         this.leaseStartDate = leaseStartDate;
     }
 
-    public Date getLeaseEndDate() {
+    public Timestamp getLeaseEndDate() {
         return leaseEndDate;
     }
 
-    public void setLeaseEndDate(Date leaseEndDate) {
+    public void setLeaseEndDate(Timestamp leaseEndDate) {
         this.leaseEndDate = leaseEndDate;
     }
 
