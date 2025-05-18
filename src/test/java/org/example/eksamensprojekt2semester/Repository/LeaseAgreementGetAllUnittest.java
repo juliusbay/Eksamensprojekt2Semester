@@ -11,6 +11,8 @@ import org.springframework.ui.Model;
 
 import java.sql.Date;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -41,8 +43,8 @@ public class LeaseAgreementGetAllUnittest {
                 1,
                 LeaseAgreement.LeaseType.LIMITED,
                 10000,
-                Date.valueOf("2025-06-01"),
-                Date.valueOf("2025-06-10"),
+                Timestamp.valueOf(LocalDate.of(2025, 6, 1).atStartOfDay()),
+                Timestamp.valueOf(LocalDate.of(2025, 8, 1).atStartOfDay()),
                 "guldbergsgade"
         );
 
@@ -71,8 +73,8 @@ public class LeaseAgreementGetAllUnittest {
                 1,
                 LeaseAgreement.LeaseType.LIMITED,
                 10000,
-                Date.valueOf("2025-06-01"),
-                Date.valueOf("2025-06-10"),
+                Timestamp.valueOf(LocalDate.of(2025, 6, 1).atStartOfDay()),
+                Timestamp.valueOf(LocalDate.of(2025, 8, 1).atStartOfDay()),
                 "guldbergsgade"
         );
 

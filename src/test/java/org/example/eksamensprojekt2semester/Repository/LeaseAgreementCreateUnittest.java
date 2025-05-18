@@ -14,6 +14,7 @@ import org.springframework.ui.Model;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.verify;
@@ -52,8 +53,8 @@ public class LeaseAgreementCreateUnittest {
         int customer_id = 1;
         LeaseAgreement.LeaseType leaseType = LeaseAgreement.LeaseType.LIMITED;
         int contract_price = 50000;
-        Timestamp lease_start_date = Timestamp.valueOf("2025-06-01");
-        Timestamp lease_end_date = Timestamp.valueOf("2025-06-10");
+        Timestamp lease_start_date =  Timestamp.valueOf(LocalDate.of(2025, 6, 1).atStartOfDay());
+        Timestamp lease_end_date =  Timestamp.valueOf(LocalDate.of(2025, 8, 1).atStartOfDay());
         String returnLocation = "Guldbergsgad";
 
         LeaseAgreement expectedLeaseAgreement = new LeaseAgreement(vehicle_id, customer_id, leaseType, contract_price,
@@ -86,8 +87,8 @@ public class LeaseAgreementCreateUnittest {
         int customer_id = 1;
         LeaseAgreement.LeaseType leaseType = LeaseAgreement.LeaseType.LIMITED;
         int leasePrice = -50000;
-        Timestamp lease_start_date = Timestamp.valueOf("2025-06-01");
-        Timestamp lease_end_date = Timestamp.valueOf("2025-12-10");
+        Timestamp lease_start_date =  Timestamp.valueOf(LocalDate.of(2025, 6, 1).atStartOfDay());
+        Timestamp lease_end_date =  Timestamp.valueOf(LocalDate.of(2025, 8, 1).atStartOfDay());
         String returnLocation = "Guldbergsgad";
 
         LeaseAgreement expectedLeaseAgreement = new LeaseAgreement(vehicle_id, customer_id, leaseType, leasePrice,
@@ -122,8 +123,8 @@ public class LeaseAgreementCreateUnittest {
         int customer_id = 1;
         LeaseAgreement.LeaseType leaseType = LeaseAgreement.LeaseType.UNLIMITED;
         int leasePrice = 50000;
-        Timestamp lease_start_date = Timestamp.valueOf("2025-06-01");
-        Timestamp lease_end_date = Timestamp.valueOf("2025-8-10");
+        Timestamp lease_start_date =  Timestamp.valueOf(LocalDate.of(2025, 6, 1).atStartOfDay());
+        Timestamp lease_end_date =  Timestamp.valueOf(LocalDate.of(2025, 8, 1).atStartOfDay());
         String returnLocation = "Guldbergsgad";
 
         LeaseAgreement expectedLeaseAgreement = new LeaseAgreement(vehicle_id, customer_id, leaseType, leasePrice,
