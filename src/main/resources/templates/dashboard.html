@@ -299,6 +299,39 @@
     </table>
     <div class="container">
         <div class="form-container">
+            <h2> Opret en ny bil </h2>
+            <form class="form2" th:action="@{/createCar}" method="post">
+                <div class="form-field">
+                    <label for="car_model_id">Vælge bil:</label>
+                    <select id="car_model_id" name="car-model-id">
+                        <option value=""> Vælg bilmodel</option>
+                        <option th:each="carModel : ${carModels}" th:value="${carModel.getCarModelId()}"
+                                th:text="${carModel.getCarModelId()+ ' '+ carModel.getBrand() + ' '+carModel.getCarEquipment()}"></option>
+                    </select>
+                </div>
+
+
+                <div class="form-field">
+                    <label for="vin_number">Indtast stelnummer:</label>
+                    <input type="text" id="vin_number" name="vin-number"
+                           placeholder="Indtast stelnummer" required>
+                </div>
+
+                <div class="form-field">
+                    <label for="color">Indtast farve:</label>
+                    <input type="text" id="color" name="color"
+                           placeholder="Indtast farve" required>
+                </div>
+
+                <div class="form-field">
+                    <button type="submit" class="action-button"> Opret bil</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="form-container">
             <h2> Opret en ny Kunde </h2>
             <form class="form2" th:action="@{/createCarModel}" method="post">
 
