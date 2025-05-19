@@ -56,6 +56,10 @@ public class Car {
     public Car() {
     }
 
+    public Car(int carModelId, String vinNumber, String color, Timestamp currentTimestamp) {
+        setStatus(Status.READY);
+    }
+
     public int getVehicleId() {
         return vehicleId;
     }

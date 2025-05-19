@@ -11,7 +11,7 @@
 
 <h1>Detaljer for Leasingaftale</h1>
 <table>
-    <tr><th>Vehicle ID:</th><td th:text="${leaseAgreement.fkVehicleId}"></td></tr>
+    <tr><th>Bilens stelnummer:</th><td th:text="${leaseAgreement.getCar().getVinNumber()}"></td></tr>
     <tr><th>Customer ID:</th><td th:text="${leaseAgreement.getCustomer().getCustomerId()}"> </tr>
     <tr><th>Customer Name:</th><td th:text="${leaseAgreement.getCustomer().getFirstName()}"> <td th:text="${leaseAgreement.getCustomer().getLastName()}"> </td> </tr>
 

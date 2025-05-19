@@ -6,6 +6,7 @@ import org.example.eksamensprojekt2semester.Model.Customer;
 import org.example.eksamensprojekt2semester.Model.LeaseAgreement;
 import org.example.eksamensprojekt2semester.Repository.CarRepository;
 import org.example.eksamensprojekt2semester.Repository.CustomerRepository;
+import org.example.eksamensprojekt2semester.Repository.EmployeeRepository;
 import org.example.eksamensprojekt2semester.Repository.LeaseAgreementRepository;
 import org.example.eksamensprojekt2semester.Service.LeaseAgreementService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +36,9 @@ public class LeaseAgreementController {
     @Autowired
     private CustomerRepository customerRepository;
 
+    @Autowired
+    EmployeeController employeeController;
+
 
     //Create a leaseAgreement
     @PostMapping("/createLease")
@@ -47,7 +51,10 @@ public class LeaseAgreementController {
                                        @RequestParam("return_location") String returnLocation,
                                        HttpSession session) throws SQLException {
 
-    Object employee = session.getAttribute("loggedInUser");
+        if (!isUserLoggedIn(session)) {
+            return "redirect:/login";
+        }
+
     LeaseAgreement.LeaseType leaseType = LeaseAgreement.LeaseType.fromString(leaseTypeString);
 
     LeaseAgreement leaseAgreement = new LeaseAgreement(fkVehicleId,
@@ -72,7 +79,11 @@ public class LeaseAgreementController {
 
     @GetMapping("/createLeasePage")
     public String showCreateLeasePage(Model model, HttpSession session) throws SQLException {
-        Object employee = session.getAttribute("loggedInUser");
+
+        if (!isUserLoggedIn(session)) {
+            return "redirect:/login";
+        }
+
         model.addAttribute("cars",carRepository.getAllCars());
         model.addAttribute("customers",customerRepository.getAllCustomers());
         model.addAttribute("leaseTypes", LeaseAgreement.LeaseType.values());
@@ -113,7 +124,10 @@ public class LeaseAgreementController {
                                        @RequestParam("return_location") String returnLocation,
                                        HttpSession session) throws SQLException {
 
-        Object employee = session.getAttribute("loggedInUser");
+        if (!isUserLoggedIn(session)) {
+            return "redirect:/login";
+        }
+
         LeaseAgreement leaseAgreement = new LeaseAgreement(fkVehicleId,
                 fkCustomerId, leaseType, leasePrice,
                 leaseStartDate, leaseEndDate, returnLocation);
@@ -139,9 +153,9 @@ public class LeaseAgreementController {
     public String getLeaseAgreementById(@RequestParam("lease_agreement_id") int leaseAgreementId,
                                         HttpSession session, Model model) throws SQLException {
 
-        /*if (!isUserLoggedIn(session)){
-            return "redirect:/";
-        }*/
+        if (!isUserLoggedIn(session)) {
+            return "redirect:/login";
+        }
 
         LeaseAgreement leaseAgreement = leaseAgreementRepository.getLeaseAgreementById(leaseAgreementId);
         leaseAgreementRepository.checkLeaseEndDate(leaseAgreement);
