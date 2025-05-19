@@ -19,7 +19,7 @@ public class CarModelController {
     private CarModelRepository carModelRepository;
 
 
-    @PostMapping("/createCar")
+    @PostMapping("/createCarModel")
     public String createCarModel(@RequestParam("car_model_name") String name,
                                  @RequestParam("car_model_brand") String brand,
                                  @RequestParam("fuel_type") String fuelTypeString,
