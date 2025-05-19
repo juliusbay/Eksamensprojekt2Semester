@@ -116,8 +116,8 @@
                 <td th:text="${leaseAgreement.getCustomer().getCustomerId()}" />
                 <td th:text="${leaseAgreement.leaseType}" />
                 <td th:text="${leaseAgreement.leasePrice}" />
-                <td th:text="${#temporals.format(leaseAgreement.leaseStartDate.toLocalDateTime(), 'dd-MM-yyyy')}" />
-                <td th:text="${#temporals.format(leaseAgreement.leaseEndDate.toLocalDateTime(), 'dd-MM-yyyy')}" />
+                <td th:text="${#temporals.format(leaseAgreement.leaseStartDate.toLocalDateTime(), 'yyyy-MM-dd')}" />
+                <td th:text="${#temporals.format(leaseAgreement.leaseEndDate.toLocalDateTime(), 'yyyy-MM-dd')}" />
                 <td th:text="${leaseAgreement.returnLocation}" />
             <td>
                 <form th:action="@{/deleteLease}" method="post">
@@ -217,8 +217,8 @@
             <td th:text="${leaseAgreement.getCustomer().getCustomerId()}" />
             <td th:text="${leaseAgreement.leaseType}" />
             <td th:text="${leaseAgreement.leasePrice}" />
-            <td th:text="${#temporals.format(leaseAgreement.leaseStartDate.toLocalDateTime(), 'dd-MM-yyyy')}" />
-            <td th:text="${#temporals.format(leaseAgreement.leaseEndDate.toLocalDateTime(), 'dd-MM-yyyy')}" />
+            <td th:text="${#temporals.format(leaseAgreement.leaseStartDate.toLocalDateTime(), 'yyyy-MM-dd')}" />
+            <td th:text="${#temporals.format(leaseAgreement.leaseEndDate.toLocalDateTime(), 'yyyy-MM-dd')}" />
             <td th:text="${leaseAgreement.returnLocation}" />
             <td>
                 <form th:action="@{/deleteLease}" method="post">
