@@ -86,9 +86,10 @@ public class CarModelRepository {
             statement.setString(2, carModel.getBrand());
             statement.setString(3, carModel.getFuelType().name());
             statement.setInt(4, carModel.getModelYear());
-            statement.setInt(5, carModel.getCarEmission());
-            statement.setString(6, carModel.getCarEquipment());
-            statement.setDouble(7, carModel.getSteelPrice());
+            statement.setString(5, carModel.getGearBox().name());
+            statement.setInt(6, carModel.getCarEmission());
+            statement.setString(7, carModel.getCarEquipment());
+            statement.setDouble(8, carModel.getSteelPrice());
 
             statement.executeUpdate();
         } catch (SQLException e) {
