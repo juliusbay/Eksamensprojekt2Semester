@@ -17,8 +17,8 @@
 
     <tr><th>Leasetype:</th><td th:text="${leaseAgreement.leaseType}"></td></tr>
     <tr><th>Pris:</th><td th:text="${leaseAgreement.leasePrice}"></td></tr>
-    <tr><th>Startdato:</th><td th:text="${leaseAgreement.leaseStartDate}"></td></tr>
-    <tr><th>Slutdato:</th><td th:text="${leaseAgreement.leaseEndDate}"></td></tr>
+    <tr><th>Startdato:</th><td th:text="${#temporals.format(leaseAgreement.leaseStartDate.toLocalDateTime(), 'dd-MM-yyyy')}"></td> </tr>
+    <tr><th>Slutdato:</th><td th:text="${#temporals.format(leaseAgreement.leaseEndDate.toLocalDateTime(), 'dd-MM-yyyy')}"></td></tr>
     <tr><th>Returneringssted:</th><td th:text="${leaseAgreement.returnLocation}"></td></tr>
     <tr><th>Er lease aktiv?:</th><td th:text="${leaseAgreement.active}"></td></tr>
 
