@@ -1,3 +1,10 @@
+@import url(https://fonts.bunny.net/css?family=montserrat:300);
+
+body, html {
+    font-family: "Montserrat", sans-serif;
+    background-color: #f0f2f5;
+}
+
 .navbar-blank-box{
     padding-bottom: 30px;
 }
@@ -28,15 +35,20 @@
 .navbar {
     height: 30px;
     display: flex;
-    background-color: hotpink;
+    background-color: #1892c3;
 }
 
 .navbar a {
-    color: #233249;
     text-align: center;
     padding: 1% 1%;
     text-decoration: none;
-    transition: background-color 0.3s ease; /* Add transition for hover effects */
+    font-weight: 600;
+    color: #fff;
+    transition: color 0.3s ease; /* Add transition for hover effects */
+}
+
+.navbar a:hover {
+    color: #233249;
 }
 
 .clickable {
@@ -51,8 +63,6 @@
 .link-container {
     display: flex;
     margin: auto;
-    margin-right: 10px;
-    padding-right: 10px;
 }
 
 .button-container {
@@ -62,8 +72,6 @@
 
 .clickable button{
     height: 40px;
-    padding: 0 15px;
-    margin: 5px;
     outline: none;
     border: none;
     font-size: 1rem;
@@ -79,7 +87,9 @@
 }
 
 .navbar a.navbar-link-btn {
-    height: 26px;
+    height: 25px;
+    padding-left: 15px;
+    padding-right: 15px;
     font-size: 1rem;
     font-weight: lighter;
     color: #fff;

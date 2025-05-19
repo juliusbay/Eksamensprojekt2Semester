@@ -3,7 +3,7 @@ html {
     margin: 0;
     padding: 0;
     height: 100%;
-    font-family: Arial, sans-serif;
+    font-family: "Montserrat", sans-serif;
     background-color: #f0f2f5;
 }
 
@@ -36,7 +36,7 @@ html {
 }
 
 .toolbar {
-    background-color: #007bff;
+    background-color: #1892c3;
     color: white;
     padding: 12px 20px;
     font-weight: bold;
@@ -74,7 +74,7 @@ html {
     padding: 8px 12px;
     width: 120px;
     align-self: center;
-    background-color: #007bff;
+    background-color: #1892c3;
     color: white;
     font-weight: bold;
     border: none;
