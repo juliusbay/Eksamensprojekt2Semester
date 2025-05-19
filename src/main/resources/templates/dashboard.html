@@ -2,9 +2,26 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Dashboard</title>
+    <title>Title</title>
     <link th:href="@{/css/navbar.css}" rel="stylesheet">
     <link th:href="@{/css/dashboard.css}" rel="stylesheet">
+
+    <style>
+        table {
+            border-spacing: 0;
+            width: 100%;
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            text-align: left;
+
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2
+        }
+    </style>
     <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 
 </head>
@@ -31,529 +48,528 @@
 </div>
 </div>
 -->
-<div class="all-tables">
-    <div class="functional">
-        <div class="dropdown">
-            <select id="tableSelector">
-                <option value="lease" th:if="${session.loggedInUser.getRoleValue().equalsIgnoreCase('ADMIN') ||
+
+<label for="tableSelector">Choose a table:</label>
+<select id="tableSelector">
+    <option value="lease" th:if="${session.loggedInUser.getRoleValue().equalsIgnoreCase('ADMIN') ||
                                    session.loggedInUser.getRoleValue().equalsIgnoreCase('DATA_RECORDING')}">
-                    Leasingaftaler
-                </option>
-                <option value="lease_inactive" th:if="${session.loggedInUser.getRoleValue().equalsIgnoreCase('ADMIN') ||
+        Leasingaftaler
+    </option>
+    <option value="lease_inactive" th:if="${session.loggedInUser.getRoleValue().equalsIgnoreCase('ADMIN') ||
                                    session.loggedInUser.getRoleValue().equalsIgnoreCase('DATA_RECORDING')}">
-                    Færdige leasingaftaler
-                </option>
-                <option value="car"
-                        th:if="${!session.loggedInUser.getRoleValue().equalsIgnoreCase('BUSINESS_DEVELOPER')}">
-                    Biler
-                </option>
-                <option value="condition_report" th:if="${session.loggedInUser.getRoleValue().equalsIgnoreCase('ADMIN') ||
+        Færdige leasingaftaler
+    </option>
+    <option value="car" th:if="${!session.loggedInUser.getRoleValue().equalsIgnoreCase('BUSINESS_DEVELOPER')}">
+        Biler
+    </option>
+    <option value="condition_report" th:if="${session.loggedInUser.getRoleValue().equalsIgnoreCase('ADMIN') ||
                                    session.loggedInUser.getRoleValue().equalsIgnoreCase('MECHANIC')}">
-                    Tilstandsrapporter
-                </option>
-                <option value="damage" th:if="${session.loggedInUser.getRoleValue().equalsIgnoreCase('ADMIN') ||
+        Tilstandsrapporter
+    </option>
+    <option value="damage" th:if="${session.loggedInUser.getRoleValue().equalsIgnoreCase('ADMIN') ||
                                    session.loggedInUser.getRoleValue().equalsIgnoreCase('MECHANIC')}">
-                    Skader
-                </option>
-                <option value="employee" th:if="${session.loggedInUser.getRoleValue().equalsIgnoreCase('ADMIN')}">
-                    Ansatte
-                </option>
-                <option value="purchase_agreements" th:if="${session.loggedInUser.getRoleValue().equalsIgnoreCase('ADMIN') ||
+        Skader
+    </option>
+    <option value="employee" th:if="${session.loggedInUser.getRoleValue().equalsIgnoreCase('ADMIN')}">
+        Ansatte
+    </option>
+    <option value="purchase_agreements" th:if="${session.loggedInUser.getRoleValue().equalsIgnoreCase('ADMIN') ||
                                    session.loggedInUser.getRoleValue().equalsIgnoreCase('DATA_RECORDING')}">
-                    Købsaftaler
-                </option>
-                <option value="customer">
-                    Kunder
-                </option>
-            </select>
-        </div>
-
-        <div class="search-bar">
-            <input type="text" id="search-input" onkeyup="myFunction()" placeholder="Search..">
-        </div>
-    </div>
+        Købsaftaler
+    </option>
+    <option value="customer">
+        Kunder
+    </option>
+</select>
 
 
-    <div class="selectable" id="lease">
-        <div class="data-table">
-            <h2>Aktive leasing aftaler</h2>
-            <table id="lease_table">
-                <thead>
-                <tr>
-                    <th onclick="sortTable(0)">Vin number</th>
-                    <th onclick="sortTable(1)">Customer Id</th>
-                    <th onclick="sortTable(2)">Lease Type</th>
-                    <th onclick="sortTable(3)">Lease Price</th>
-                    <th onclick="sortTable(4)">Lease Start Date</th>
-                    <th onclick="sortTable(5)">Lease End Date</th>
-                    <th onclick="sortTable(6)">Return Location</th>
-                    <th>Lease detaljer</th>
-                    <th>Delete</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="leaseAgreement: ${leaseAgreements}" th:if="${leaseAgreement.active}">
-                    <td th:text="${leaseAgreement.getCar().getVinNumber()}"/>
-                    <td th:text="${leaseAgreement.getCustomer().getCustomerId()}"/>
-                    <td th:text="${leaseAgreement.leaseType}"/>
-                    <td th:text="${leaseAgreement.leasePrice}"/>
-                    <td th:text="${leaseAgreement.leaseStartDate}"/>
-                    <td th:text="${leaseAgreement.leaseEndDate}"/>
-                    <td th:text="${leaseAgreement.returnLocation}"/>
-                    <td>
-                        <form th:action="@{/leaseDetails}" method="get">
-                            <input type="hidden" th:value="${leaseAgreement.leaseAgreementId}"
-                                   name="lease_agreement_id">
-                            <button type="submit"> Vis lease</button>
-                        </form>
-                    </td>
-                    <td>
-                        <form th:action="@{/deleteLease}" method="post">
-                            <input type="hidden" name="lease_agreement_id"
-                                   th:value="${leaseAgreement.leaseAgreementId}">
-                            <button type="submit">Delete</button>
-                        </form>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
+<div>
+    <input type="text" id="search" onkeyup="myFunction()" placeholder="Search..">
+</div>
+<div class="dataTable" id="lease">
+<h2>Aktive leasing aftaler</h2>
 
-        <div class="container">
-            <div class="form-container">
-                <h2> Opret en ny lease </h2>
-                <form class="form2" th:action="@{/createLease}" method="post">
-                    <div class="form-field">
-                        <label for="fk_vehicle_id">Vælg bil:</label>
-                        <select id="vehicle-lease" name="vehicle-lease">
-                            <option value=""> Vælg bil</option>
-                            <option th:each="car : ${cars}" th:value="${car.vehicleId}"
-                                    th:text="${ car.vehicleId+ ' '+ car.carModel.getBrand() + ' '+car.carModel.getCarEquipment()}"></option>
-                        </select>
-                    </div>
+    <table id="lease_table">
+        <thead>
+        <tr>
+            <th onclick="sortTable(0)">Lease detaljer</th>
+            <th onclick="sortTable(1)">Vin number</th>
+            <th onclick="sortTable(2)">Customer Id</th>
+            <th onclick="sortTable(3)">Lease Type</th>
+            <th onclick="sortTable(4)">Lease Price</th>
+            <th onclick="sortTable(5)">Lease Start Date</th>
+            <th onclick="sortTable(6)">Lease End Date</th>
+            <th onclick="sortTable(7)">Return Location</th>
+            <th onclick="sortTable(8)">Delete</th>
+        </tr>
+        </thead>
 
-                    <div class="form-field">
-                        <label for="fk_customer_id">Vælg kunde:</label>
-                        <select id="fk_customer_id" name="fk_customer_id">
-                            <option value="">Vælge kunde</option>
-                            <option th:each="customer : ${customers}" th:value="${customer.getCustomerId()}"
-                                    th:text="${ customer.customerId+' '+customer.firstName + ' ' + customer.lastName}"></option>
-                        </select>
-                    </div>
-                    <div class="form-field">
-                        <label for="lease_type">Indtast lease type:</label>
-                        <select id="lease_type" name="lease_type">
-                            <option value=""> Indtast lease type</option>
-                            <option th:each="type : ${leaseTypes}" th:value="${type}" th:text="${type}"></option>
-                        </select>
-                    </div>
-
-                    <div class="form-field">
-                        <label for="lease_price">Indtast lease pris:</label>
-                        <input type="number" min="0" id="lease_price" name="lease_price"
-                               placeholder="Indtast lease pris"
-                               required>
-                    </div>
-
-                    <div class="form-field">
-                        <label for="lease_start_date">Indtast startdato:</label>
-                        <input type="date" id="lease_start_date" name="lease_start_date"
-                               placeholder="Indtast lease startdato" required>
-                    </div>
-
-                    <div class="form-field">
-                        <label for="lease_end_date">Indtast slutdato:</label>
-                        <input type="date" id="lease_end_date" name="lease_end_date"
-                               placeholder="Indtast lease slutdato"
-                               required>
-                    </div>
-
-                    <div class="form-field">
-                        <label for="return_location">Indtast bilens returlocation:</label>
-                        <input type="text" id="return_location" name="return_location"
-                               placeholder="Indtast bilens returlocation" required>
-                    </div>
-
-                    <div class="form-field">
-                        <button type="submit" class="action-button"> Opret lease</button>
-                    </div>
+        <tbody>
+        <tr th:each= "leaseAgreement: ${leaseAgreements}" th:if="${leaseAgreement.active}">
+            <td>
+                <form th:action="@{/leaseDetails}" method="get">
+                    <input type="hidden" th:value="${leaseAgreement.leaseAgreementId}" name="lease_agreement_id">
+                    <button type="submit"> Vis lease </button>
                 </form>
-            </div>
+
+                <td th:text="${leaseAgreement.getCar().getVinNumber()}" />
+                <td th:text="${leaseAgreement.getCustomer().getCustomerId()}" />
+                <td th:text="${leaseAgreement.leaseType}" />
+                <td th:text="${leaseAgreement.leasePrice}" />
+                <td th:text="${leaseAgreement.leaseStartDate}" />
+                <td th:text="${leaseAgreement.leaseEndDate}" />
+                <td th:text="${leaseAgreement.returnLocation}" />
+            <td>
+                <form th:action="@{/deleteLease}" method="post">
+                    <input type="hidden" name="lease_agreement_id" th:value="${leaseAgreement.leaseAgreementId}">
+                    <button type="submit">Delete</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+
+
+    </table>
+    <div class="container">
+        <div class="form-container">
+            <h2> Opret en ny lease </h2>
+            <form class="form2" th:action="@{/createLease}" method="post">
+                <div class="form-field">
+                    <label for="fk_vehicle_id">Vælge bil:</label>
+                    <select id="vehicle-lease" name="vehicle-lease">
+                        <option value=""> Vælg bil </option>
+                        <option th:each="car : ${cars}" th:value="${car.vehicleId}" th:text="${ car.vehicleId+ ' '+ car.carModel.getBrand() + ' '+car.carModel.getCarEquipment()}"> </option>
+                    </select>
+                </div>
+
+                <div class="form-field">
+                    <label for="fk_customer_id">Vælg kunde:</label>
+                    <select id="fk_customer_id" name="fk_customer_id">
+                        <option value="">Vælge kunde</option>
+                        <option th:each="customer : ${customers}" th:value="${customer.getCustomerId()}" th:text="${ customer.customerId+' '+customer.firstName + ' ' + customer.lastName}"></option>
+                    </select>
+                </div>
+                <div class="form-field">
+                    <label for="lease_type">Indtast lease type:</label>
+                    <select id="lease_type" name="lease_type">
+                        <option value=""> Indtast lease type </option>
+                        <option th:each="type : ${leaseTypes}" th:value="${type}" th:text="${type}"> </option>
+                    </select>
+                </div>
+
+                <div class="form-field">
+                    <label for="lease_price">Indtast lease pris:</label>
+                    <input type="number" min="0" id="lease_price" name="lease_price" placeholder="Indtast lease pris" required>
+                </div>
+
+                <div class="form-field">
+                    <label for="lease_start_date">Indtast startdato:</label>
+                    <input type="date" id="lease_start_date" name="lease_start_date" placeholder="Indtast lease startdato" required>
+                </div>
+
+                <div class="form-field">
+                    <label for="lease_end_date">Indtast slutdato:</label>
+                    <input type="date" id="lease_end_date" name="lease_end_date" placeholder="Indtast lease slutdato" required>
+                </div>
+
+                <div class="form-field">
+                    <label for="return_location">Indtast bilens returlocation:</label>
+                    <input type="text" id="return_location" name="return_location" placeholder="Indtast bilens returlocation" required>
+                </div>
+
+                <div class="form-field">
+                    <button type="submit" class="action-button"> Opret lease </button>
+                </div>
+            </form>
         </div>
     </div>
 
-    <div class="selectable" id="lease_inactive">
-        <h2>Inaktive leasing aftaler</h2>
-        <table id="lease_inactive_table">
-            <thead>
+
+
+</div>
+
+<div class="dataTable" id="lease_inactive">
+<h2>Inaktive leasing aftaler</h2>
+    <table id="lease_inactive_table">
+        <thead>
+        <tr>
+            <th onclick="sortTable(0)">Lease detaljer</th>
+            <th onclick="sortTable(1)">Vehicle Id</th>
+            <th onclick="sortTable(2)">Customer Id</th>
+            <th onclick="sortTable(3)">Lease Type</th>
+            <th onclick="sortTable(4)">Lease Price</th>
+            <th onclick="sortTable(5)">Lease Start Date</th>
+            <th onclick="sortTable(6)">Lease End Date</th>
+            <th onclick="sortTable(7)">Return Location</th>
+            <th onclick="sortTable(8)">Delete</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each= "leaseAgreement: ${leaseAgreements}" th:if="${!leaseAgreement.active}">
+            <td>
+                <form th:action="@{/leaseDetails}" method="get">
+                    <input type="hidden" th:value="${leaseAgreement.leaseAgreementId}" name="lease_agreement_id">
+                    <button type="submit"> Vis lease </button>
+                </form>
+            </td>
+            <td th:text="${leaseAgreement.fkVehicleId}" />
+            <td th:text="${leaseAgreement.getCustomer().getCustomerId()}" />
+            <td th:text="${leaseAgreement.leaseType}" />
+            <td th:text="${leaseAgreement.leasePrice}" />
+            <td th:text="${leaseAgreement.leaseStartDate}" />
+            <td th:text="${leaseAgreement.leaseEndDate}" />
+            <td th:text="${leaseAgreement.returnLocation}" />
+            <td>
+                <form th:action="@{/deleteLease}" method="post">
+                    <input type="hidden" name="lease_agreement_id" th:value="${leaseAgreement.leaseAgreementId}">
+                    <button type="submit">Delete</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="dataTable" id="car">
+<h2>Biler</h2>
+    <table id="car_table">
+        <thead>
             <tr>
-                <th onclick="sortTable(0)">Vehicle Id</th>
-                <th onclick="sortTable(1)">Customer Id</th>
-                <th onclick="sortTable(2)">Lease Type</th>
-                <th onclick="sortTable(3)">Lease Price</th>
-                <th onclick="sortTable(4)">Lease Start Date</th>
-                <th onclick="sortTable(5)">Lease End Date</th>
-                <th onclick="sortTable(6)">Return Location</th>
-                <th>Lease detaljer</th>
-                <th>Delete</th>
+                <th onclick="sortTable(0)">ID</th>
+                <th onclick="sortTable(1)">VIN Number</th>
+                <th onclick="sortTable(2)">Mærke</th>
+                <th onclick="sortTable(3)">Model</th>
+                <th onclick="sortTable(4)">Udstyr</th>
+                <th onclick="sortTable(5)">Farve</th>
+                <th onclick="sortTable(6)">Forkøbt</th>
+                <th onclick="sortTable(7)">Status</th>
+                <th onclick="sortTable(8)">Tilstandsrapport</th>
+                <th onclick="sortTable(9)">Slet bil</th>
             </tr>
-            </thead>
-
-            <tbody>
-            <tr th:each="leaseAgreement: ${leaseAgreements}" th:if="${!leaseAgreement.active}">
-                <td th:text="${leaseAgreement.fkVehicleId}"/>
-                <td th:text="${leaseAgreement.getCustomer().getCustomerId()}"/>
-                <td th:text="${leaseAgreement.leaseType}"/>
-                <td th:text="${leaseAgreement.leasePrice}"/>
-                <td th:text="${leaseAgreement.leaseStartDate}"/>
-                <td th:text="${leaseAgreement.leaseEndDate}"/>
-                <td th:text="${leaseAgreement.returnLocation}"/>
+        </thead>
+        <tbody>
+            <tr th:each="car: ${cars}">
+                <td th:text="${car.getVehicleId()}" />
+                <td th:text="${car.vinNumber}" />
+                <td th:text="${car.getCarModel().getBrand()}" />
+                <td th:text="${car.getCarModel().getModelName()}" />
+                <td th:text="${car.getCarModel().getCarEquipment()}" />
+                <td th:text="${car.color}" />
+                <td th:text="${car.bought}" />
+                <td th:text="${car.statusValue}" />
                 <td>
-                    <form th:action="@{/leaseDetails}" method="get">
-                        <input type="hidden" th:value="${leaseAgreement.leaseAgreementId}" name="lease_agreement_id">
-                        <button type="submit"> Vis lease</button>
-                    </form>
-                </td>
-                <td>
-                    <form th:action="@{/deleteLease}" method="post">
-                        <input type="hidden" name="lease_agreement_id" th:value="${leaseAgreement.leaseAgreementId}">
-                        <button type="submit">Delete</button>
-                    </form>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
+                    <div th:if="${conditionReportsMap[car.vehicleId] != null}">
 
-    <div class="selectable" id="car">
-        <div class="data-table">
-            <h2>Biler</h2>
-            <table id="car_table">
-                <thead>
-                <tr>
-                    <th class="clickableHeader" onclick="sortTable(0)">ID</th>
-                    <th class="clickableHeader" onclick="sortTable(1)">VIN Number</th>
-                    <th class="clickableHeader" onclick="sortTable(2)">Mærke</th>
-                    <th class="clickableHeader" onclick="sortTable(3)">Model</th>
-                    <th class="clickableHeader" onclick="sortTable(4)">Udstyr</th>
-                    <th class="clickableHeader" onclick="sortTable(5)">Farve</th>
-                    <th class="clickableHeader" onclick="sortTable(6)">Forkøbt</th>
-                    <th class="clickableHeader" onclick="sortTable(7)">Status</th>
-                    <th>Tilstandsrapport</th>
-                    <th>Slet bil</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="car: ${cars}">
-                    <td th:text="${car.getVehicleId()}"/>
-                    <td th:text="${car.vinNumber}"/>
-                    <td th:text="${car.getCarModel().getBrand()}"/>
-                    <td th:text="${car.getCarModel().getModelName()}"/>
-                    <td th:text="${car.getCarModel().getCarEquipment()}"/>
-                    <td th:text="${car.color}"/>
-                    <td th:text="${car.bought}"/>
-                    <td th:text="${car.status}"/>
-                    <td>
-                        <div th:if="${conditionReportsMap[car.vehicleId] != null}">
-
-                            <!-- If the condition report has been set as completed, you get a print button -->
-                            <div th:if="${conditionReportsMap[car.vehicleId].completed}">
-                                <form th:action="@{/condition-report}" method="get" target="_blank">
-                                    <input type="hidden" name="condition_report_id"
-                                           th:value="${conditionReportsMap[car.vehicleId].conditionReportId}"/>
-                                    <button type="submit" class="btn">Print tilstandsrapport</button>
-                                </form>
-                            </div>
-
-                            <!-- If it is not completed, you get an edit button -->
-                            <div th:unless="${conditionReportsMap[car.vehicleId].completed}">
-                                <form th:action="@{/condition-report}" method="get">
-                                    <input type="hidden" name="condition_report_id"
-                                           th:value="${conditionReportsMap[car.vehicleId].conditionReportId}"/>
-                                    <button type="submit" class="btn">Rediger tilstandsrapport</button>
-                                </form>
-                            </div>
-
-                        </div>
-                        <!-- If non-existent, you get a create button -->
-                        <div th:unless="${conditionReportsMap[car.vehicleId] != null}">
-                            <form th:action="@{/createConditionReport}" method="post">
-                                <input type="hidden" name="vehicle_id" th:value="${car.vehicleId}"/>
-                                <button type="submit">Opret tilstandsrapport</button>
+                        <!-- If the condition report has been set as completed, you get a print button -->
+                        <div th:if="${conditionReportsMap[car.vehicleId].completed}">
+                            <form th:action="@{/condition-report}" method="get" target="_blank">
+                                <input type="hidden" name="condition_report_id"
+                                       th:value="${conditionReportsMap[car.vehicleId].conditionReportId}" />
+                                <button type="submit" class="btn">Print tilstandsrapport</button>
                             </form>
                         </div>
-                    </td>
-                    <td>
-                        <form th:action="@{/deleteCar}" method="post">
-                            <input type="hidden" name="vehicleId" th:value="${car.vehicleId}">
-                            <button type="submit">Delete</button>
+
+                        <!-- If it is not completed, you get an edit button -->
+                        <div th:unless="${conditionReportsMap[car.vehicleId].completed}">
+                            <form th:action="@{/condition-report}" method="get">
+                                <input type="hidden" name="condition_report_id"
+                                       th:value="${conditionReportsMap[car.vehicleId].conditionReportId}" />
+                                <button type="submit" class="btn">Rediger tilstandsrapport</button>
+                            </form>
+                        </div>
+
+                    </div>
+                            <!-- If non-existant, you get a create button -->
+                    <div th:unless="${conditionReportsMap[car.vehicleId] != null}">
+                        <form th:action="@{/createConditionReport}" method="post">
+                            <input type="hidden" name="vehicle_id" th:value="${car.vehicleId}" />
+                            <button type="submit">Opret tilstandsrapport</button>
                         </form>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
+                    </div>
+                </td>
+                <td>
+                    <form th:action="@{/deleteCar}" method="post">
+                        <input type="hidden" name="vehicleId" th:value="${car.vehicleId}">
+                        <button type="submit">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="container">
+        <div class="form-container">
+            <h2> Opret en ny Kunde </h2>
+            <form class="form2" th:action="@{/createCarModel}" method="post">
+
+                <div class="form-field">
+                    <label class="label-create" for="car_model_name">Adresse:</label>
+                    <input type="text" id="car_model_name" name="car_model_name" placeholder="Indtast car_model_name" required>
+                </div>
+
+                <div class="form-field">
+                    <label class="label-create" for="car_model_brand">Telefon nummer:</label>
+                    <input type="text" id="car_model_brand" name="car_model_brand" placeholder="Indtast car_model_brand:" required>
+                </div>
+
+                <div class="form-field">
+                    <label class="label-create"  for="fuel_type">Efternavn:</label>
+                    <input type="text" id="fuel_type" name="fuel_type" placeholder="Indtast brændstof" required>
+                </div>
+
+                <div class="form-field">
+                    <label class="label-create" for="car_model_year">Email:</label>
+                    <input type="number" id="car_model_year" name="car_model_year" placeholder="Indtast årstal:" required>
+                </div>
+
+                <div class="form-field">
+                    <label class="label-create" for="gear_box">Postnummer:</label>
+                    <input type="text" id="gear_box" name="gear_box" placeholder="Indtast gear:" required>
+                </div>
+
+                <div class="form-field">
+                    <label class="label-create" for="car_emission">CPR-Nummer:</label>
+                    <input type="text" id="car_emission" name="car_emission" placeholder="Indtast car_emission:" required>
+                </div>
+                <div class="form-field">
+                    <label class="label-create"  for="steel_price">By:</label>
+                    <input type="number" id="steel_price" name="steel_price" placeholder="Indtast stål pris" required>
+                </div>
+
+                <div class="form-field">
+                    <label class="label-create"  for="city">By:</label>
+                    <input type="text" id="car_model_equipment" name="car_model_equipment" placeholder="Indtast car_model_equipment" required>
+                </div>
+
+                <div class="form-field">
+                    <button type="submit" class="action-button"> Opret bil </button>
+                </div>
+            </form>
         </div>
+    </div>
+</div>
 
-        <div class="container">
-            <div class="form-container">
-                <h2> Opret en ny bil </h2>
-                <form class="form2" th:action="@{/createCar}" method="post">
-                    <div class="form-field">
-                        <label for="car_model_id">Vælge bil:</label>
-                        <select id="car_model_id" name="car-model-id">
-                            <option value=""> Vælg bilmodel</option>
-                            <option th:each="carModel : ${carModels}" th:value="${carModel.getCarModelId()}"
-                                    th:text="${carModel.getCarModelId()+ ' '+ carModel.getBrand() + ' '+carModel.getCarEquipment()}"></option>
-                        </select>
-                    </div>
-
-
-                    <div class="form-field">
-                        <label for="vin_number">Indtast stelnummer:</label>
-                        <input type="text" id="vin_number" name="vin-number"
-                               placeholder="Indtast stelnummer" required>
-                    </div>
-
-                    <div class="form-field">
-                        <label for="color">Indtast farve:</label>
-                        <input type="text" id="color" name="color"
-                               placeholder="Indtast farve" required>
-                    </div>
-
-                    <div class="form-field">
-                        <button type="submit" class="action-button"> Opret bil</button>
-                    </div>
+<div class="dataTable" id="condition_report">
+<h2>Tilstandsrapporter</h2>
+    <table id="condition_report_table">
+        <thead>
+        <tr>
+            <th onclick="sortTable(0)">ID</th>
+            <th onclick="sortTable(1)">Handler</th>
+            <th onclick="sortTable(2)">Startdato</th>
+            <th onclick="sortTable(3)">Slutdato</th>
+            <th onclick="sortTable(4)">Delete</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="conditionReport: ${conditionReports}">
+            <td th:text="${conditionReport.conditionReportId}" />
+            <td th:text="${conditionReport.handledBy}" />
+            <td th:text="${conditionReport.reportStartDate}" />
+            <td th:text="${conditionReport.reportCompletedDate}" />
+            <td>
+                <form th:action="@{/deleteConditionReport}" method="post">
+                    <input type="hidden" name="condition_report_id" th:value="${conditionReport.conditionReportId}">
+                    <button type="submit">Delete</button>
                 </form>
-            </div>
-        </div>
-    </div>
-    </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
 
-    <div class="selectable" id="condition_report">
-        <h2>Tilstandsrapporter</h2>
-        <table id="condition_report_table">
-            <thead>
-            <tr>
-                <th onclick="sortTable(0)">ID</th>
-                <th onclick="sortTable(1)">Handler</th>
-                <th onclick="sortTable(2)">Startdato</th>
-                <th onclick="sortTable(3)">Slutdato</th>
-                <th onclick="sortTable(4)">Delete</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="conditionReport: ${conditionReports}">
-                <td th:text="${conditionReport.conditionReportId}"/>
-                <td th:text="${conditionReport.handledBy}"/>
-                <td th:text="${conditionReport.reportStartDate}"/>
-                <td th:text="${conditionReport.reportCompletedDate}"/>
-                <td>
-                    <form th:action="@{/deleteConditionReport}" method="post">
-                        <input type="hidden" name="condition_report_id" th:value="${conditionReport.conditionReportId}">
-                        <button type="submit">Delete</button>
-                    </form>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-
-    <div class="selectable" id="damage">
-        <h2>Skader</h2>
-        <table id="damage_table">
-            <thead>
-            <tr>
-                <th onclick="sortTable(0)">ID</th>
-                <th onclick="sortTable(1)">Tilstandsrapport-ID</th>
-                <th onclick="sortTable(2)">Pris</th>
-                <th onclick="sortTable(3)">Type skade</th>
-                <th onclick="sortTable(4)">Delete</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="damage: ${damages}">
-                <td th:text="${damage.damageId}"/>
-                <td th:text="${damage.conditionReportId}"/>
-                <td th:text="${damage.damagePrice}"/>
-                <td th:text="${damage.damageType}"/>
-                <td>
-                    <form th:action="@{/deleteDamage}" method="post">
-                        <input type="hidden" name="damageId" th:value="${damage.damageId}">
-                        <button type="submit">Delete</button>
-                    </form>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-
-    <div class="selectable" id="employee">
-        <h2>Ansatte</h2>
-        <table id="employee_table">
-            <thead>
-            <tr>
-                <th onclick="sortTable(0)">ID</th>
-                <th onclick="sortTable(1)">Fornavn</th>
-                <th onclick="sortTable(2)">Efternavn</th>
-                <th onclick="sortTable(3)">Shortname</th>
-                <th onclick="sortTable(4)">Email</th>
-                <th onclick="sortTable(5)">Rolle</th>
-                <th onclick="sortTable(6)">Delete</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="employee: ${employees}">
-                <td th:text="${employee.employeeId}"/>
-                <td th:text="${employee.firstName}"/>
-                <td th:text="${employee.lastName}"/>
-                <td th:text="${employee.shortName}"/>
-                <td th:text="${employee.email}"/>
-                <td th:text="${employee.getRole()}"/>
-                <td>
-                    <form th:action="@{/deleteEmployee}" method="post">
-                        <input type="hidden" name="empployeeId" th:value="${employee.employeeId}">
-                        <button type="submit">Delete</button>
-                    </form>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-
-    <div class="selectable" id="purchase_agreements">
-        <h2>Købsaftaler</h2>
-        <table id="purchase_agreements_table">
-            <thead>
-            <tr>
-                <th onclick="sortTable(0)">ID</th>
-                <th onclick="sortTable(1)">Kunde id</th>
-                <th onclick="sortTable(2)">Bil id</th>
-                <th onclick="sortTable(3)">Pris</th>
-                <th onclick="sortTable(4)">Betalt?</th>
-                <th onclick="sortTable(5)">Delete</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="purchaseAgreement: ${purchaseAgreements}">
-                <td th:text="${purchaseAgreement.purchaseAgreementId}"/>
-                <td th:text="${purchaseAgreement.fkCustomerId}"/>
-                <td th:text="${purchaseAgreement.fkVehicleId}"/>
-                <td th:text="${purchaseAgreement.carPrice}"/>
-                <td th:text="${purchaseAgreement.paid}"/>
-                <td>
-                    <form th:action="@{/deletePurchaseAgreement}" method="post">
-                        <input type="hidden" name="purchaseAgreementId"
-                               th:value="${purchaseAgreement.purchaseAgreementId}">
-                        <button type="submit">Delete</button>
-                    </form>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-
-    <div class="selectable" id="customer">
-        <table id="customer_table">
-            <h2>Kunder</h2>
-            <thead>
-            <tr>
-                <th onclick="sortTable(0)">ID</th>
-                <th onclick="sortTable(1)">Fornavn</th>
-                <th onclick="sortTable(2)">Efternavn</th>
-                <th onclick="sortTable(3)">Email</th>
-                <th onclick="sortTable(4)">Cpr-nummer</th>
-                <th onclick="sortTable(5)">TelefonNummer</th>
-                <th onclick="sortTable(6)">Adresse</th>
-                <th onclick="sortTable(7)">By</th>
-                <th onclick="sortTable(8)">Postnummer</th>
-                <th onclick="sortTable(9)">Bil id</th>
-                <th onclick="sortTable(10)">Delete</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="customer: ${customers}">
-                <td th:text="${customer.customerId}"/>
-                <td th:text="${customer.firstName}"/>
-                <td th:text="${customer.lastName}"/>
-                <td th:text="${customer.email}"/>
-                <td th:text="${customer.cprNumber}"/>
-                <td th:text="${customer.phoneNumber}"/>
-                <td th:text="${customer.address}"/>
-                <td th:text="${customer.city}"/>
-                <td th:text="${customer.postalCode}"/>
-                <td th:text="${customer.fkVehicleId}"/>
-                <td>
-                    <form th:action="@{/deleteCustomer}" method="post">
-                        <input type="hidden" name="customerId" th:value="${customer.customerId}">
-                        <button type="submit">Delete</button>
-                    </form>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-
-        <div class="container">
-            <div class="form-container">
-                <h2> Opret en ny Kunde </h2>
-                <form class="form2" th:action="@{/createLease}" method="post">
-                    <div class="form-field">
-                        <label class="label-create" for="first_name">Fornavn:</label>
-                        <input type="text" id="first_name" name="first_name" placeholder="Indtast fornavn" required>
-                    </div>
-
-                    <div class="form-field">
-                        <label class="label-create" for="last_name">Efternavn:</label>
-                        <input type="text" id="last_name" name="last_name" placeholder="Indtast efternavn" required>
-                    </div>
-                    <div class="form-field">
-                        <label class="label-create" for="email">Email:</label>
-                        <input type="email" id="email" name="email" placeholder="Indtast email:" required>
-                    </div>
-
-                    <div class="form-field">
-                        <label class="label-create" for="phone_number">Telefon nummer:</label>
-                        <input type="number" id="phone_number" name="phone_number" placeholder="Indtast mængde:"
-                               required>
-                    </div>
-
-                    <div class="form-field">
-                        <label class="label-create" for="address">Adresse:</label>
-                        <input type="text" id="address" name="address" placeholder="Indtast adresse" required>
-                    </div>
-
-                    <div class="form-field">
-                        <label class="label-create" for="city">By:</label>
-                        <input type="text" id="city" name="city" placeholder="Indtast city" required>
-                    </div>
-
-                    <div class="form-field">
-                        <label class="label-create" for="postal_code">Postnummer:</label>
-                        <input type="number" id="postal_code" name="postal_code" placeholder="Indtast postnummer:"
-                               required>
-                    </div>
-
-                    <div class="form-field">
-                        <label class="label-create" for="cpr_number">CPR-Nummer:</label>
-                        <input type="text" id="cpr_number" name="cpr_number" placeholder="Indtast cpr:" required>
-                    </div>
-
-                    <div class="form-field">
-                        <label for="fk_vehicle_id">Vælge bil:</label>
-                        <select id="fk_vehicle_id" name="fk_vehicle_id">
-                            <option value=""> Vælg bil</option>
-                            <option th:each="car : ${cars}" th:value="${car.vehicleId}"
-                                    th:text="${ car.vehicleId+ ' '+ car.carModel.getBrand() + ' '+car.carModel.getCarEquipment()}"></option>
-                        </select>
-                    </div>
-
-                    <div class="form-field">
-                        <button type="submit" class="action-button"> Opret kunde</button>
-                    </div>
-
+<div class="dataTable" id="damage">
+<h2>Skader</h2>
+    <table id="damage_table">
+        <thead>
+        <tr>
+            <th onclick="sortTable(0)">ID</th>
+            <th onclick="sortTable(1)">Tilstandsrapport-ID</th>
+            <th onclick="sortTable(2)">Pris</th>
+            <th onclick="sortTable(3)">Type skade</th>
+            <th onclick="sortTable(4)">Delete</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="damage: ${damages}">
+            <td th:text="${damage.damageId}" />
+            <td th:text="${damage.conditionReportId}" />
+            <td th:text="${damage.damagePrice}" />
+            <td th:text="${damage.damageType}" />
+            <td>
+                <form th:action="@{/deleteDamage}" method="post">
+                    <input type="hidden" name="damageId" th:value="${damage.damageId}">
+                    <button type="submit">Delete</button>
                 </form>
-            </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="dataTable" id="employee">
+<h2>Ansatte</h2>
+    <table id="employee_table">
+        <thead>
+        <tr>
+            <th onclick="sortTable(0)">ID</th>
+            <th onclick="sortTable(1)">Fornavn</th>
+            <th onclick="sortTable(2)">Efternavn</th>
+            <th onclick="sortTable(3)">Shortname</th>
+            <th onclick="sortTable(4)">Email</th>
+            <th onclick="sortTable(5)">Rolle</th>
+            <th onclick="sortTable(6)">Delete</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="employee: ${employees}">
+            <td th:text="${employee.employeeId}" />
+            <td th:text="${employee.firstName}" />
+            <td th:text="${employee.lastName}" />
+            <td th:text="${employee.shortName}" />
+            <td th:text="${employee.email}" />
+            <td th:text="${employee.getRole()}" />
+            <td>
+                <form th:action="@{/deleteEmployee}" method="post">
+                    <input type="hidden" name="empployeeId" th:value="${employee.employeeId}">
+                    <button type="submit">Delete</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="dataTable" id="purchase_agreements">
+<h2>Købsaftaler</h2>
+    <table id="purchase_agreements_table">
+        <thead>
+        <tr>
+            <th onclick="sortTable(0)">ID</th>
+            <th onclick="sortTable(1)">Kunde id</th>
+            <th onclick="sortTable(2)">Bil id</th>
+            <th onclick="sortTable(3)">Pris</th>
+            <th onclick="sortTable(4)">Betalt?</th>
+            <th onclick="sortTable(5)">Delete</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="purchaseAgreement: ${purchaseAgreements}">
+            <td th:text="${purchaseAgreement.purchaseAgreementId}" />
+            <td th:text="${purchaseAgreement.fkCustomerId}" />
+            <td th:text="${purchaseAgreement.fkVehicleId}" />
+            <td th:text="${purchaseAgreement.carPrice}" />
+            <td th:text="${purchaseAgreement.paid}" />
+            <td>
+                <form th:action="@{/deletePurchaseAgreement}" method="post">
+                    <input type="hidden" name="purchaseAgreementId" th:value="${purchaseAgreement.purchaseAgreementId}">
+                    <button type="submit">Delete</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="dataTable" id="customer">
+    <table id="customer_table">
+        <h2>Kunder</h2>
+        <thead>
+        <tr>
+            <th onclick="sortTable(0)">ID</th>
+            <th onclick="sortTable(1)">Fornavn</th>
+            <th onclick="sortTable(2)">Efternavn</th>
+            <th onclick="sortTable(3)">Email</th>
+            <th onclick="sortTable(4)">Cpr-nummer</th>
+            <th onclick="sortTable(5)">TelefonNummer</th>
+            <th onclick="sortTable(6)">Adresse</th>
+            <th onclick="sortTable(7)">By</th>
+            <th onclick="sortTable(8)">Postnummer</th>
+            <th onclick="sortTable(9)">Bil id</th>
+            <th onclick="sortTable(10)">Delete</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="customer: ${customers}">
+            <td th:text="${customer.customerId}" />
+            <td th:text="${customer.firstName}" />
+            <td th:text="${customer.lastName}" />
+            <td th:text="${customer.email}" />
+            <td th:text="${customer.cprNumber}" />
+            <td th:text="${customer.phoneNumber}" />
+            <td th:text="${customer.address}" />
+            <td th:text="${customer.city}" />
+            <td th:text="${customer.postalCode}" />
+            <td th:text="${customer.fkVehicleId}" />
+            <td>
+                <form th:action="@{/deleteCustomer}" method="post">
+                    <input type="hidden" name="customerId" th:value="${customer.customerId}">
+                    <button type="submit">Delete</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <div class="container">
+        <div class="form-container">
+            <h2> Opret en ny Kunde </h2>
+            <form class="form2" th:action="@{/createLease}" method="post">
+                <div class="form-field">
+                    <label class="label-create"  for="first_name">Fornavn:</label>
+                    <input type="text" id="first_name" name="first_name" placeholder="Indtast fornavn" required>
+                </div>
+
+                <div class="form-field">
+                    <label class="label-create"  for="last_name">Efternavn:</label>
+                    <input type="text" id="last_name" name="last_name" placeholder="Indtast efternavn" required>
+                </div>
+                <div class="form-field">
+                    <label class="label-create" for="email">Email:</label>
+                    <input type="email" id="email" name="email" placeholder="Indtast email:" required>
+                </div>
+
+                <div class="form-field">
+                    <label class="label-create" for="phone_number">Telefon nummer:</label>
+                    <input type="number" id="phone_number" name="phone_number" placeholder="Indtast mængde:" required>
+                </div>
+
+                <div class="form-field">
+                    <label class="label-create" for="address">Adresse:</label>
+                    <input type="text" id="address" name="address" placeholder="Indtast adresse" required>
+                </div>
+
+                <div class="form-field">
+                    <label class="label-create"  for="city">By:</label>
+                    <input type="text" id="city" name="city" placeholder="Indtast city" required>
+                </div>
+
+                <div class="form-field">
+                    <label class="label-create" for="postal_code">Postnummer:</label>
+                    <input type="number" id="postal_code" name="postal_code" placeholder="Indtast postnummer:" required>
+                </div>
+
+                <div class="form-field">
+                    <label class="label-create" for="cpr_number">CPR-Nummer:</label>
+                    <input type="text" id="cpr_number" name="cpr_number" placeholder="Indtast cpr:" required>
+                </div>
+
+                <div class="form-field">
+                    <label for="fk_vehicle_id">Vælge bil:</label>
+                    <select id="fk_vehicle_id" name="fk_vehicle_id">
+                        <option value=""> Vælg bil </option>
+                        <option th:each="car : ${cars}" th:value="${car.vehicleId}" th:text="${ car.vehicleId+ ' '+ car.carModel.getBrand() + ' '+car.carModel.getCarEquipment()}"> </option>
+                    </select>
+                </div>
+
+                <div class="form-field">
+                    <button type="submit" class="action-button"> Opret kunde </button>
+                </div>
+
+            </form>
         </div>
     </div>
+
 </div>
 </body>
 
@@ -564,18 +580,18 @@
         const tableSelector = $('#tableSelector');
 
         // Initially hide all tables
-        $('.selectable').hide();
+        $('.dataTable').hide();
 
         // Show and initialize the default table
         tableId = tableSelector.val();
         $('#' + tableId).show();
 
         // On table selection change
-        tableSelector.on('change', function () {
+        tableSelector.on('change', function ()  {
             tableId = $(this).val();
 
             // Hide all tables
-            $('.selectable').hide();
+            $('.dataTable').hide();
 
             // Show the selected table
             $('#' + tableId).show();
@@ -612,7 +628,7 @@
                 }
                 // Check if the two rows should switch place, based on the direction, asc or desc:
                 if (dir === "asc") {
-                    if (Number(x.innerHTML)) {
+                    if (Number(x.innerHTML)){
                         if (Number(x.innerHTML) > Number(y.innerHTML)) {
                             // If so, mark as a switch and break the loop:
                             shouldSwitch = true;
@@ -626,7 +642,7 @@
                         }
                     }
                 } else if (dir === "desc") {
-                    if (Number(x.innerHTML)) {
+                    if (Number(x.innerHTML)){
                         if (Number(x.innerHTML) < Number(y.innerHTML)) {
                             // If so, mark as a switch and break the loop:
                             shouldSwitch = true;
@@ -646,7 +662,7 @@
                 rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
                 switching = true;
                 // Each time a switch is done, increase this count by 1:
-                switchCount++;
+                switchCount ++;
             } else {
                 /* If no switching has been done AND the direction is "asc",
                 set the direction to "desc" and run the while loop again. */
@@ -661,7 +677,7 @@
     function myFunction() {
         // Declare variables
         let input, filter, table, rows, column, i, txtValue;
-        input = document.getElementById("search-input");
+        input = document.getElementById("search");
         filter = input.value.toUpperCase();
         table = document.getElementById(`${tableId}_table`);
         rows = table.getElementsByTagName("tr");

@@ -1,5 +1,6 @@
 package org.example.eksamensprojekt2semester.Model;
 
+import org.example.eksamensprojekt2semester.Enum.CarEquipment;
 import org.example.eksamensprojekt2semester.Enum.FuelType;
 import org.example.eksamensprojekt2semester.Enum.GearBox;
 
@@ -28,6 +29,17 @@ public class CarModel {
     }
 
     public CarModel() {
+    }
+
+    public CarModel(String name, String brand, FuelType fuelType, int carModelYear, GearBox gearBox, int emission, CarEquipment carEquipment, double steelPrice) {
+    this.modelName = name;
+    this.brand = brand;
+    this.fuelType = fuelType;
+    this.modelYear = carModelYear;
+    this.gearBox = gearBox;
+    this.carEmission = emission;
+    this.carEquipment = carEquipment.toString();
+    this.steelPrice = steelPrice;
     }
 
     public int getCarModelId() {

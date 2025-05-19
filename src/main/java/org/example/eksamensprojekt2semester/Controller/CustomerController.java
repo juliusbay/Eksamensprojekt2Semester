@@ -35,7 +35,7 @@ public class CustomerController {
         //Regular expression ie. regex. says first part must contain 6 (d) digits followed by - and then 4 digits
         if (!cprNumber.matches("\\d{6}-\\d{4}")) {
             System.out.println("Invalid CPR number");
-            return "redirect:/errorPage";
+            throw new IllegalArgumentException("Invalid CPR number");
         }
         customerRepository.createCustomer(customer);
         return "redirect:/";

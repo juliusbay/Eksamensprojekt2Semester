@@ -5,7 +5,7 @@
 
 .functional {
     width: 95vw;
-    margin-top: 35px;
+    margin-top: 2%;
     margin-left: 1%;
     display: flex;
     justify-content: flex-end;
@@ -48,7 +48,7 @@ input:focus {
 
 .data-table {
     background-color: #fff;
-    padding: 3% 1%;
+    padding: 1% 1% 3%;
     border-radius: 8px;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
 }
@@ -56,6 +56,16 @@ input:focus {
 .data-table h2 {
     margin-top: 0;
     margin-bottom: 5px;
+}
+
+.table {
+    max-height: 75vh;
+    overflow: auto;
+}
+
+thead {
+    position: sticky;
+    top: 0;
 }
 
 table {
