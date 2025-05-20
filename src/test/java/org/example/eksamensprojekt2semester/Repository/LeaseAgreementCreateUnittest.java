@@ -25,23 +25,13 @@ import static org.mockito.Mockito.verify;
 public class LeaseAgreementCreateUnittest {
     // Mock dependencies
 
-    @Mock
-    LeaseAgreement leaseAgreement;
-
-    @Mock
-    LeaseAgreementRepository leaseAgreementRepository;
-
-    @Mock
-    Model model;
-
-    @Mock
-    LeaseAgreementService leaseService;
 
     @InjectMocks
     LeaseAgreementController leaseAgreementController;
 
-    // Captures the LeaseAgreement object passed to the repository so we can inspect it
-
+    @Mock
+    LeaseAgreementRepository
+    leaseAgreementRepository;
 
 
     @Test

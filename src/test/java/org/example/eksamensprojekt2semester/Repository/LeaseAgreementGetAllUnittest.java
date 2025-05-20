@@ -16,6 +16,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 
@@ -90,7 +91,7 @@ public class LeaseAgreementGetAllUnittest {
         //Act
         assertEquals("redirect:/dashboard", result);
         verify(leaseAgreementRepository).getAllLeaseAgreements();
-        verify(model).addAttribute("No models", leaseAgreements);
+        assertTrue(model.asMap().isEmpty());
 
 
     }

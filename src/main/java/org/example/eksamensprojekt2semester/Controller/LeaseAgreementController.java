@@ -33,6 +33,7 @@ public class LeaseAgreementController {
 
     @Autowired
     CarRepository carRepository;
+
     @Autowired
     private CustomerRepository customerRepository;
 
@@ -96,9 +97,13 @@ public class LeaseAgreementController {
                                        LeaseAgreement.LeaseType leaseType,
                                         int leasePrice,
                                                     Timestamp leaseStartDate,
-                                                    Timestamp leaseEndDate, String returnLocation) throws SQLException {
+                                                    Timestamp leaseEndDate,
+                                                    String returnLocation) throws SQLException {
 
         LeaseAgreementService leaseService = new LeaseAgreementService();
+        CarRepository carRepository1 = new CarRepository();
+
+        LeaseAgreementRepository leaseAgreementRepository1 = new LeaseAgreementRepository();
 
         LeaseAgreement leaseAgreement = new LeaseAgreement(fkVehicleId,
                 fkCustomerId, leaseType,
@@ -108,7 +113,9 @@ public class LeaseAgreementController {
         leaseService.noNegativePriceLease(leaseAgreement);
         leaseService.isEndDateBeforeStartDate(leaseAgreement);
 
-        leaseAgreementRepository.createLeaseAgreement(leaseAgreement);
+
+        carRepository1.getCarById(fkVehicleId).setRentedOut(true);
+        leaseAgreementRepository1.createLeaseAgreement(leaseAgreement);
         return leaseAgreement;
     }
 
