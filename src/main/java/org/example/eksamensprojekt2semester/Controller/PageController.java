@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import java.sql.SQLException;
 import java.time.Duration;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 @Controller
@@ -77,6 +78,11 @@ public class PageController {
         ArrayList<Customer> customers = customerRepository.getAllCustomers();
         System.out.println(customers);
         Map<Integer, ConditionReport> conditionReportsMap = conditionReportRepository.getAllConditionReports();
+        Map<Integer, LeaseAgreement> leaseAgreementMap = new HashMap<>();
+
+        for (LeaseAgreement leaseAgreement : leaseAgreements) {
+            leaseAgreementMap.put(leaseAgreement.getCar().getVehicleId(), leaseAgreement);
+        }
 
         for (LeaseAgreement leaseAgreement : leaseAgreements) {
             leaseAgreementRepository.checkLeaseEndDate(leaseAgreement);
@@ -92,6 +98,7 @@ public class PageController {
         model.addAttribute("employees", employees);
         model.addAttribute("purchaseAgreements", purchaseAgreements);
         model.addAttribute("customers", customers);
+        model.addAttribute("leaseAgreementMap", leaseAgreementMap);
 
 
         return "dashboard";
