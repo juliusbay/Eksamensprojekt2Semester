@@ -26,12 +26,12 @@
             <p th:text="${numberOfCarsAvailable}"></p>
         </div>
         <div class="widget">
-            <p>Samlet værdi på udlejningskontrakter</p>
-            <p th:text="${totalValueOfActiveLeaseAgreements}+' DKK'"></p>
+            <p>Samlet værdi på aktive udlejningskontrakter</p>
+            <p th:text="${#numbers.formatDecimal(totalValueOfActiveLeaseAgreements, 1, 'POINT', 2, 'COMMA')+' DKK'}"></p>
         </div>
         <div class="widget">
             <p>Gennemsnitlig værdi på udlejningskontrakter</p>
-            <p th:text="${averageLeaseAgreementValue}"></p>
+            <p th:text="${#numbers.formatDecimal(averageLeaseAgreementValue, 1, 'POINT', 2, 'COMMA')}+' DKK'"></p>
         </div>
         <div class="widget">
             <p>Gennemsnitlig udlejningsperiode</p>

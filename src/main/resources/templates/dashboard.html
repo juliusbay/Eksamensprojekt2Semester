@@ -327,7 +327,8 @@
                     <th class="clickableHeader" onclick="sortTable(1)">Handler</th>
                     <th class="clickableHeader" onclick="sortTable(2)">Startdato</th>
                     <th class="clickableHeader" onclick="sortTable(3)">Slutdato</th>
-                    <th>Delete</th>
+                    <th></th>
+                    <th></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -336,7 +337,7 @@
                     <td th:text="${conditionReport.conditionReportId}"/>
                     <td th:text="${conditionReport.handledBy}"/>
                     <td th:text="${conditionReport.reportStartDate}"/>
-                    <td th:text="${conditionReport.reportCompletedDate}"/>
+                    <td th:text="${conditionReport.reportCompletedDate} ?: 'I GANG'"/>
                     <td>
                         <!-- If the condition report has been set as completed, you get a print button -->
                         <div th:if="${conditionReport.completed}">

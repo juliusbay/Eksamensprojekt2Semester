@@ -103,25 +103,25 @@ public class CarRepository {
         return cars;
     }
 
-    public int getCarsByRentedOutStatus(boolean isRentedOut){
-        int amountOfCarsRentedOut = 0;
-        String sql = "SELECT COUNT(*) FROM car WHERE rented_out = ?";
+    public int getAmountOfCarsByStatus(String status){
+        int amountOfCars = 0;
+        String sql = "SELECT COUNT(*) FROM car WHERE STATUS = ?";
 
         try(Connection connection = dataSource.getConnection();
             PreparedStatement statement = connection.prepareStatement(sql)){
 
-            statement.setBoolean(1, isRentedOut);
+            statement.setString(1, status);
 
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
-                    amountOfCarsRentedOut = resultSet.getInt(1);
+                    amountOfCars = resultSet.getInt(1);
                 }
             }
         } catch (SQLException e){
             e.printStackTrace();
         }
 
-        return amountOfCarsRentedOut;
+        return amountOfCars;
     }
 
     public boolean existsByVinNumber(String vinNumber) {

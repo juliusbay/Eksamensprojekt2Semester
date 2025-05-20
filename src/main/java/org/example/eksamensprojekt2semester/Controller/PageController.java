@@ -143,8 +143,8 @@ public class PageController {
     @ModelAttribute
     public void showCarAvailability(Model model){
         int numberOfCars = carRepository.getAllCars().size();
-        int numberOfCarsRentedOut = carRepository.getCarsByRentedOutStatus(true);
-        int numberOfCarsAvailable = numberOfCars - numberOfCarsRentedOut;
+        int numberOfCarsRentedOut = carRepository.getAmountOfCarsByStatus("RENTED");
+        int numberOfCarsAvailable = carRepository.getAmountOfCarsByStatus("READY");
         int carThreshold = 10;
 
         model.addAttribute("numberOfCars", numberOfCars);
