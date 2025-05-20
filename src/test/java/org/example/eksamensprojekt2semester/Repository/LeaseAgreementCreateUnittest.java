@@ -18,6 +18,7 @@ import java.sql.Timestamp;
 import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
 
@@ -35,9 +36,6 @@ public class LeaseAgreementCreateUnittest {
 
     @Mock
     CarRepository carRepository;
-
-    @Mock
-    CustomerRepository customerRepository;
 
 
     @Test
@@ -95,30 +93,21 @@ public class LeaseAgreementCreateUnittest {
                 vehicle_id, customer_id, leaseType, leasePrice, lease_start_date, lease_end_date, returnLocation
         );
 
-        Car mockCar = new Car();
-        mockCar.setVehicleId(vehicle_id);
 
-        //mock method calls, so it wont call the acutal method
-        when(carRepository.getCarById(vehicle_id)).thenReturn(mockCar);
         //This method we acutally want to call, to recieve the proper exception
         doCallRealMethod().when(leaseAgreementService).noNegativePriceLease(any());
-        //This is to ensure, that we dont use the actual datasource
-        doNothing().when(leaseAgreementRepository).createLeaseAgreement(any());
-
 
         // Act
-        LeaseAgreement actual = leaseAgreementController.createLeaseAgreementMock(
-                vehicle_id, customer_id, leaseType, leasePrice, lease_start_date, lease_end_date, returnLocation
+        IllegalArgumentException thrown = assertThrows(
+                IllegalArgumentException.class,
+                () -> leaseAgreementController.createLeaseAgreementMock(
+                        vehicle_id, customer_id, leaseType, leasePrice, lease_start_date, lease_end_date, returnLocation
+                )
         );
 
         // Assert
-        assertEquals(expectedLeaseAgreement.getFkVehicleId(), actual.getFkVehicleId());
-        assertEquals(expectedLeaseAgreement.getFkCustomerId(), actual.getFkCustomerId());
-        assertEquals(expectedLeaseAgreement.getLeaseType(), actual.getLeaseType());
-        assertEquals(expectedLeaseAgreement.getLeasePrice(), actual.getLeasePrice());
-        assertEquals(expectedLeaseAgreement.getLeaseStartDate(), actual.getLeaseStartDate());
-        assertEquals(expectedLeaseAgreement.getLeaseEndDate(), actual.getLeaseEndDate());
-        assertEquals(expectedLeaseAgreement.getReturnLocation(), actual.getReturnLocation());
+        assertEquals("LeasePrice must be greater than 0",thrown.getMessage());
+
     }
 
     @Test
@@ -137,28 +126,19 @@ public class LeaseAgreementCreateUnittest {
                 vehicle_id, customer_id, leaseType, leasePrice, lease_start_date, lease_end_date, returnLocation
         );
 
-        Car mockCar = new Car();
-        mockCar.setVehicleId(vehicle_id);
 
-        //mock method calls, so it wont call the acutal method
-        when(carRepository.getCarById(vehicle_id)).thenReturn(mockCar);
         //This method we acutally want to call, to recieve the proper exception
         doCallRealMethod().when(leaseAgreementService).minimum120daysAgreement(any());
-        //This is to ensure, that we dont use the actual datasource
-        doNothing().when(leaseAgreementRepository).createLeaseAgreement(any());
 
         // Act
-        LeaseAgreement actual = leaseAgreementController.createLeaseAgreementMock(
-                vehicle_id, customer_id, leaseType, leasePrice, lease_start_date, lease_end_date, returnLocation
+        IllegalArgumentException thrown = assertThrows(
+                IllegalArgumentException.class,
+                () -> leaseAgreementController.createLeaseAgreementMock(
+                        vehicle_id, customer_id, leaseType, leasePrice, lease_start_date, lease_end_date, returnLocation
+                )
         );
 
         // Assert
-        assertEquals(expectedLeaseAgreement.getFkVehicleId(), actual.getFkVehicleId());
-        assertEquals(expectedLeaseAgreement.getFkCustomerId(), actual.getFkCustomerId());
-        assertEquals(expectedLeaseAgreement.getLeaseType(), actual.getLeaseType());
-        assertEquals(expectedLeaseAgreement.getLeasePrice(), actual.getLeasePrice());
-        assertEquals(expectedLeaseAgreement.getLeaseStartDate(), actual.getLeaseStartDate());
-        assertEquals(expectedLeaseAgreement.getLeaseEndDate(), actual.getLeaseEndDate());
-        assertEquals(expectedLeaseAgreement.getReturnLocation(), actual.getReturnLocation());
+        assertEquals("Unlimited lease agreements must be at least 120 days long.",thrown.getMessage());
     }
 }
