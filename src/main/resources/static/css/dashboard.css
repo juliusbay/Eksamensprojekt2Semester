@@ -7,9 +7,9 @@
     width: 95vw;
     margin-top: 2%;
     margin-left: 1%;
+    margin-right: 3%;
     display: flex;
     justify-content: flex-end;
-    border: hotpink;
     position: absolute;
     top: 0;
     right: 0;
@@ -26,7 +26,6 @@ select {
 }
 
 .search-bar {
-    margin-right: 3%;
 }
 
 input {
