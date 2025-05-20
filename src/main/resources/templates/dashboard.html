@@ -28,26 +28,6 @@
 <body>
 <header th:replace="~{fragments.html :: navbar}"></header>
 
-<!--
-<div class="container">
-<div class="form-container">
-    <h2> Opret en ny bil </h2>
-    <form class="form2" th:action="@{/createCar}" method="post">
-        <label for="car-model-id">Model id:</label>
-        <input type="text" id="car-model-id" name="car-model-id" placeholder="Indtast bilens model id" required>
-
-        <label for="vin-number">Stelnummer:</label>
-        <input type="text" id="vin-number" name="vin-number" placeholder="Indtast bilens stelnummer" required>
-
-        <label for="color">Indtast bilens farve:</label>
-        <input type="text" id="color" name="color" placeholder="Indtast bilens farve" required>
-
-        <button type="submit"> Opret bil </button>
-
-    </form>
-</div>
-</div>
--->
 
 <label for="tableSelector">Choose a table:</label>
 <select id="tableSelector">
@@ -66,9 +46,10 @@
                                    session.loggedInUser.getRoleValue().equalsIgnoreCase('MECHANIC')}">
         Tilstandsrapporter
     </option>
-    <option value="damage" th:if="${session.loggedInUser.getRoleValue().equalsIgnoreCase('ADMIN') ||
-                                   session.loggedInUser.getRoleValue().equalsIgnoreCase('MECHANIC')}">
-        Skader
+
+    <option value="car_model" th:if="${session.loggedInUser.getRoleValue().equalsIgnoreCase('ADMIN') ||
+                                        session.loggedInUser.getRoleValue().equalsIgnoreCase('MECHANIC')}">
+        Bil modeller
     </option>
     <option value="employee" th:if="${session.loggedInUser.getRoleValue().equalsIgnoreCase('ADMIN')}">
         Ansatte
@@ -329,7 +310,74 @@
             </form>
         </div>
     </div>
+</div>
 
+<div class="dataTable" id="condition_report">
+<h2>Tilstandsrapporter</h2>
+    <table id="condition_report_table">
+        <thead>
+        <tr>
+            <th onclick="sortTable(0)">ID</th>
+            <th onclick="sortTable(1)">Handler</th>
+            <th onclick="sortTable(2)">Startdato</th>
+            <th onclick="sortTable(3)">Slutdato</th>
+            <th onclick="sortTable(4)">Delete</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="conditionReport: ${conditionReports}">
+            <td th:text="${conditionReport.conditionReportId}" />
+            <td th:text="${conditionReport.handledBy}" />
+            <td th:text="${conditionReport.reportStartDate}" />
+            <td th:text="${conditionReport.reportCompletedDate}" />
+            <td>
+                <form th:action="@{/deleteConditionReport}" method="post">
+                    <input type="hidden" name="condition_report_id" th:value="${conditionReport.conditionReportId}">
+                    <button type="submit">Delete</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="dataTable" id="car_model">
+<h2>Skader</h2>
+    <table id="car_model_table">
+        <thead>
+        <tr>
+            <th onclick="sortTable(0)">Model</th>
+            <th onclick="sortTable(1)">Brand</th>
+            <th onclick="sortTable(2)">Brændstofstype</th>
+            <th onclick="sortTable(3)">Year</th>
+            <th onclick="sortTable(4)">Gear</th>
+            <th onclick="sortTable(5)">CO2 udledning</th>
+            <th onclick="sortTable(6)">Udstyrspakke</th>
+            <th onclick="sortTable(7)">Stål pris</th>
+            <th onclick="sortTable(8)">Delete</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="carModel: ${carModels}">
+
+            <td th:text="${carModel.getModelName()}" />
+            <td th:text="${carModel.getBrand()}" />
+            <td th:text="${carModel.getFuelType()}" />
+            <td th:text="${carModel.getModelYear()}" />
+            <td th:text="${carModel.getGearBox()}" />
+            <td th:text="${carModel.getCarEmission()}" />
+            <td th:text="${carModel.getCarEquipment()}" />
+            <td th:text="${carModel.getSteelPrice()}" />
+            <td>
+                <form th:action="@{/deleteCarModel}" method="post">
+                    <input type="hidden" name="damageId" th:value="${carModel.carModelId}">
+                    <button type="submit">Delete</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
     <div class="container">
         <div class="form-container">
             <h2> Opret en ny bil model </h2>
@@ -380,64 +428,6 @@
             </form>
         </div>
     </div>
-</div>
-
-<div class="dataTable" id="condition_report">
-<h2>Tilstandsrapporter</h2>
-    <table id="condition_report_table">
-        <thead>
-        <tr>
-            <th onclick="sortTable(0)">ID</th>
-            <th onclick="sortTable(1)">Handler</th>
-            <th onclick="sortTable(2)">Startdato</th>
-            <th onclick="sortTable(3)">Slutdato</th>
-            <th onclick="sortTable(4)">Delete</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="conditionReport: ${conditionReports}">
-            <td th:text="${conditionReport.conditionReportId}" />
-            <td th:text="${conditionReport.handledBy}" />
-            <td th:text="${conditionReport.reportStartDate}" />
-            <td th:text="${conditionReport.reportCompletedDate}" />
-            <td>
-                <form th:action="@{/deleteConditionReport}" method="post">
-                    <input type="hidden" name="condition_report_id" th:value="${conditionReport.conditionReportId}">
-                    <button type="submit">Delete</button>
-                </form>
-            </td>
-        </tr>
-        </tbody>
-    </table>
-</div>
-
-<div class="dataTable" id="damage">
-<h2>Skader</h2>
-    <table id="damage_table">
-        <thead>
-        <tr>
-            <th onclick="sortTable(0)">ID</th>
-            <th onclick="sortTable(1)">Tilstandsrapport-ID</th>
-            <th onclick="sortTable(2)">Pris</th>
-            <th onclick="sortTable(3)">Type skade</th>
-            <th onclick="sortTable(4)">Delete</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="damage: ${damages}">
-            <td th:text="${damage.damageId}" />
-            <td th:text="${damage.conditionReportId}" />
-            <td th:text="${damage.damagePrice}" />
-            <td th:text="${damage.damageType}" />
-            <td>
-                <form th:action="@{/deleteDamage}" method="post">
-                    <input type="hidden" name="damageId" th:value="${damage.damageId}">
-                    <button type="submit">Delete</button>
-                </form>
-            </td>
-        </tr>
-        </tbody>
-    </table>
 </div>
 
 <div class="dataTable" id="employee">
