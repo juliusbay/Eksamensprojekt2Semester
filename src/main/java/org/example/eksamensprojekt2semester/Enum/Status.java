@@ -2,7 +2,7 @@ package org.example.eksamensprojekt2semester.Enum;
 
 public enum Status {
     READY("klar"),
-    DAMAGED("skadet"),
+    READY_FOR_BUYER("klar til køber"),
     GETTING_REPAIRED("på værksted"),
     RENTED("udlejet");
 

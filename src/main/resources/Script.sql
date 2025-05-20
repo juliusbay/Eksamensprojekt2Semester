@@ -52,7 +52,7 @@ CREATE TABLE car (
                      vin_number VARCHAR(50) UNIQUE,
                      color VARCHAR(50),
                      bought BOOLEAN DEFAULT FALSE,
-                     status ENUM('READY', 'DAMAGED', 'GETTING_REPAIRED', 'RENTED') DEFAULT 'READY',
+                     status ENUM('READY', 'READY_FOR_BUYER', 'GETTING_REPAIRED', 'RENTED') DEFAULT 'READY',
                      FOREIGN KEY (fk_car_model_id) REFERENCES car_model(car_model_id),
                      rented_out BOOLEAN DEFAULT FALSE,
                      received_date TIMESTAMP

@@ -134,7 +134,7 @@ public class ConditionReportController {
 
         // Fetches the car and updates the car status
         Car car = carRepository.getCarById(conditionReportRepo.getVehicleIdByConditionReportId(reportId));
-        car.setStatusFromString("READY");
+        car.setStatusFromString("READY_FOR_BUYER");
         carRepository.updateCar(car);
 
 
