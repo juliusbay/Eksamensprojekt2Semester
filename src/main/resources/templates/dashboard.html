@@ -331,11 +331,31 @@
                 </tr>
                 </thead>
                 <tbody>
+
                 <tr th:each="conditionReport: ${conditionReports}">
                     <td th:text="${conditionReport.conditionReportId}"/>
                     <td th:text="${conditionReport.handledBy}"/>
                     <td th:text="${conditionReport.reportStartDate}"/>
                     <td th:text="${conditionReport.reportCompletedDate}"/>
+                    <td>
+                        <!-- If the condition report has been set as completed, you get a print button -->
+                        <div th:if="${conditionReport.completed}">
+                            <form th:action="@{/condition-report}" method="get" target="_blank">
+                                <input type="hidden" name="condition_report_id"
+                                       th:value="${conditionReport.conditionReportId}" />
+                                <button type="submit" class="btn">Print tilstandsrapport</button>
+                            </form>
+                        </div>
+
+                        <!-- If it is not completed, you get an edit button -->
+                        <div th:unless="${conditionReport.completed}">
+                            <form th:action="@{/condition-report}" method="get">
+                                <input type="hidden" name="condition_report_id"
+                                       th:value="${conditionReport.conditionReportId}" />
+                                <button type="submit" class="btn">Rediger tilstandsrapport</button>
+                            </form>
+                        </div>
+                    </td>
                     <td>
                         <form th:action="@{/deleteConditionReport}" method="post">
                             <input type="hidden" name="condition_report_id"

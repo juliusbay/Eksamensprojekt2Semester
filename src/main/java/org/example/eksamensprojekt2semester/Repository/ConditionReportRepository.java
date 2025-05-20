@@ -196,11 +196,24 @@ public class ConditionReportRepository {
         }
     }
 
+    // Deletes all damages from the condition report before deleting the condition report - Julius
     public void deleteConditionReportFromId (int id) {
-        String sql = "DELETE FROM condition_report WHERE condition_report_id = ?";
+        String sql = "DELETE FROM damage WHERE fk_condition_report_id = ?";
 
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)){
+
+            statement.setInt(1, id);
+
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        String sql2 = "DELETE FROM condition_report WHERE condition_report_id = ?";
+
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql2)){
 
             statement.setInt(1, id);
 
