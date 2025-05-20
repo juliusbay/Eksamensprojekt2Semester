@@ -4,92 +4,97 @@
     <meta charset="UTF-8">
     <title>Opret tilstandsrapport</title>
     <link th:href="@{/css/navbar.css}" rel="stylesheet">
-    <link th:href="@{/css/condition-report.css}" rel="stylesheet">
+    <link th:href="@{/CSS/condition-report.css}" rel="stylesheet">
 </head>
 <body>
 <header th:replace="~{fragments.html :: navbar}"></header>
-
+<div class="page-container">
 <div class="main-div">
-<div class="customer-info">
-<h1> Kundeinfo </h1>
-    <table>
-        <tr>
-            <th>Navn</th>
-            <th>Email</th>
-            <th>Telefonnummer</th>
-            <th>Adresse</th>
-            <th>CPR-nummer</th>
-        </tr>
+    <div class="left-div">
+        <div class="customer-info">
+            <h1> Kundeinfo </h1>
+            <table>
+                <tr>
+                    <th>Navn</th>
+                    <th>Email</th>
+                    <th>Telefonnummer</th>
+                    <th>Adresse</th>
+                    <th>CPR-nummer</th>
+                </tr>
 
-        <tr>
-            <td th:text="${customer.firstName}+' '+${customer.lastName}"></td>
-            <td th:text="${customer.email}"></td>
-            <td th:text="${customer.phoneNumber}"></td>
-            <td th:text="${customer.address}+', '+${customer.city}+', '+${customer.postalCode}"></td>
-            <td th:text="${customer.cprNumber}"></td>
-        </tr>
+                <tr>
+                    <td th:text="${customer.firstName}+' '+${customer.lastName}"></td>
+                    <td th:text="${customer.email}"></td>
+                    <td th:text="${customer.phoneNumber}"></td>
+                    <td th:text="${customer.address}+', '+${customer.city}+', '+${customer.postalCode}"></td>
+                    <td th:text="${customer.cprNumber}"></td>
+                </tr>
+            </table>
+        </div>
 
-    </table>
-</div>
+        <div class="condition-report-container">
+            <form th:action="@{/editConditionReport}" method="post">
+                <!-- Only displays below div if the report is finished-->
+                <div th:if="${conditionReport.completed}">
+                    <label> Udført af: </label>
+                    <span th:text="${conditionReport.handledBy}"> </span>
+                    <br> <br>
+                    <label> Udførelsesdato: </label>
+                    <span th:text="${conditionReport.reportCompletedDate}"> </span>
+                </div>
 
-<div class="condition-report-container">
-    <form th:action="@{/editConditionReport}" method="post">
+                <input type="hidden" name="condition_report_id" th:value="${condition_report_id}">
+                <h1>Vurdering af bil </h1>
+                <textarea name="report_description" rows="6" cols="50" placeholder="Beskriv bilens tilstand"
+                          th:text="${conditionReport.reportDescription}"></textarea>
 
-     <!-- Only displays below div if the report is finished-->
-    <div th:if="${conditionReport.completed}">
-        <label> Udført af: </label>
-        <span th:text="${conditionReport.handledBy}"> </span>
-        <br> <br>
-        <label> Udførelsesdato: </label>
-        <span th:text="${conditionReport.reportCompletedDate}"> </span>
+                <strong>Antal kørte km over grænsen</strong>
+                <input type="number" step="0.01" name="excess_kilometers" th:value="${conditionReport.excessKilometers}">
+
+
+                <button type="submit" th:if="${!conditionReport.completed}"> Gem oplysninger </button>
+            </form>
+        </div>
     </div>
 
-        <input type="hidden" name="condition_report_id" th:value="${condition_report_id}">
-        <input type="number" step="0.01" name="excess_kilometers" placeholder="Antal kørte km over grænsen" th:value="${conditionReport.excessKilometers}">
-
-        <textarea name="report_description" rows="6" cols="50" placeholder="Beskriv bilens tilstand"
-                  th:text="${conditionReport.reportDescription}"></textarea>
-
-        <button type="submit" th:if="${!conditionReport.completed}"> Gem oplysninger </button>
-    </form>
-</div>
-</div>
-
-<div class="damage-div">
-<h1> Opret skade her </h1>
-<form th:action="@{/createDamage}" method="post">
-    <input type="hidden" name="condition_report_id" th:value="${condition_report_id}">
-
-  <label>Skadestype:</label>
-  <input type="text" name="damage_type" />
-
-  <label>Pris:</label>
-  <input type="number" name="damage_price" />
-
-  <button type="submit" th:if="${!conditionReport.completed}"> Tilføj skade </button>
-</form>
-    <div class="report-and-damages">
-<h1> Overblik over skader på rapporten </h1>
-<table>
-    <tr>
-        <th>Skade-ID</th>
-        <th>Skadestype</th>
-        <th>Pris</th>
-    </tr>
-    <tr th:each="damage : ${damages}">
-        <td th:text="${damage.damageId}"></td>
-        <td th:text="${damage.damageType}"></td>
-        <td th:text="${damage.damagePrice}"></td>
-
-        <td>
-            <form th:action="@{/deleteDamage}" method="post">
-                <input type="hidden" name="damage_id" th:value="${damage.damageId}">
+    <div class="right-div">
+        <div class="damage-div">
+            <h1> Opret skade her </h1>
+            <form th:action="@{/createDamage}" method="post">
                 <input type="hidden" name="condition_report_id" th:value="${condition_report_id}">
-                <button type="submit" class="btn" th:if="${!conditionReport.completed}">Slet</button>
+
+                <label>Skadestype:</label>
+                <input type="text" name="damage_type" />
+
+                <label>Pris:</label>
+                <input type="number" name="damage_price" />
+
+                <button type="submit" th:if="${!conditionReport.completed}"> Tilføj skade </button>
             </form>
-        </td>
-    </tr>
-    </table>
+        </div>
+
+        <div class="report-and-damages">
+            <h1> Overblik over skader på rapporten </h1>
+            <table>
+                <tr>
+                    <th>Skadestype</th>
+                    <th>Pris</th>
+                </tr>
+                <tr th:each="damage : ${damages}">
+                    <td th:text="${damage.damageType}"></td>
+                    <td th:text="${damage.damagePrice}"></td>
+
+                    <td>
+                        <form th:action="@{/deleteDamage}" method="post">
+                            <input type="hidden" name="damage_id" th:value="${damage.damageId}">
+                            <input type="hidden" name="condition_report_id" th:value="${condition_report_id}">
+                            <button type="submit" class="btn" th:if="${!conditionReport.completed}">Slet</button>
+                        </form>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
 </div>
 <div class="price-div">
     <table>
@@ -100,10 +105,11 @@
             <th> Total </th>
         </tr>
         <tr>
-            <td th:text="${priceOfLeaseAgreement}" ></td>
-            <td th:text="${totalPriceOfDamages}" ></td>
-            <td th:text="${excessKilometers +' * 0,75 DKK = '+ #numbers.formatDecimal(totalPriceOfExcessKilometers, 1, 'POINT', 2, 'COMMA')}" ></td>
-            <td th:text="${#numbers.formatDecimal(totalPriceToPay, 1, 'POINT', 2, 'COMMA')+' DKK'}"></td> <!-- Formats the numbers to two decimals with a point after first number -->
+            <td th:text="${#numbers.formatDecimal(priceOfLeaseAgreement, 1, 'POINT', 2, 'COMMA')}" ></td>
+            <td th:text="${#numbers.formatDecimal(totalPriceOfDamages, 1, 'POINT', 2, 'COMMA')}" ></td>
+            <td th:text="${#numbers.formatDecimal(excessKilometers, 1, 'POINT', 2, 'COMMA')
+             +' * 0,75 DKK = '+ #numbers.formatDecimal(totalPriceOfExcessKilometers, 1, 'POINT', 2, 'COMMA')}" ></td>
+            <td th:text="${#numbers.formatDecimal(totalPriceToPay, 1, 'POINT', 2, 'COMMA')+' DKK'}"></td>
             <td>
                 <form th:action="@{/completeConditionReport}" method="post">
                     <input type="hidden" name="condition_report_id" th:value="${condition_report_id}">

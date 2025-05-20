@@ -33,7 +33,7 @@ public class DamageController {
 
         Damage damage = new Damage(conditionReportId, damageType, damagePrice);
         damageRepository.createDamage(damage);
-        return "redirect:/create-condition-report?condition_report_id="+conditionReportId;
+        return "redirect:/condition-report?condition_report_id="+conditionReportId;
     }
 
     // Update an existing damage report
@@ -49,7 +49,7 @@ public class DamageController {
         Damage damage = new Damage(damageId, conditionReportId, damageType, damagePrice);
         damageRepository.updateDamage(damage);
 
-        return "redirect:/create-condition-report?condition_report_id="+conditionReportId;
+        return "redirect:/condition-report?condition_report_id="+conditionReportId;
     }
 
     // Delete a damage report
@@ -63,7 +63,7 @@ public class DamageController {
         }
 
         damageRepository.deleteDamageByID(damageId);
-        return "redirect:/create-condition-report?condition_report_id="+conditionReportId;
+        return "redirect:/condition-report?condition_report_id="+conditionReportId;
     }
 
     // Get damage by ID
