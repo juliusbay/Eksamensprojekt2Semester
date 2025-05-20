@@ -12,8 +12,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 
 import java.sql.SQLException;
 import java.time.Duration;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -151,5 +153,22 @@ public class PageController {
         model.addAttribute("numberOfCarsRentedOut", numberOfCarsRentedOut);
         model.addAttribute("numberOfCarsAvailable", numberOfCarsAvailable);
         model.addAttribute("carThreshold", carThreshold);
+    }
+
+    @ModelAttribute
+    public void garageWarning(Model model){
+        Map<Integer, ConditionReport> conditionReportsMap = conditionReportRepository.getAllConditionReports();
+        List<ConditionReport> allConditionReports = new ArrayList<>(conditionReportsMap.values());
+        int numberOfLateReports = 0;
+
+        LocalDate threshold = LocalDate.now().minusDays(3);
+
+        for (ConditionReport report : allConditionReports){
+            if (report.getReportStartDate().toLocalDateTime().toLocalDate().isBefore(threshold)){
+                numberOfLateReports++;
+            }
+        }
+
+        model.addAttribute("numberOfLateReports", numberOfLateReports);
     }
 }

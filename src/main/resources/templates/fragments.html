@@ -28,6 +28,13 @@
                  th:text="'Advarsel: ' + ${numberOfCarsAvailable} + ' biler ledige!'">
             </div>
 
+            <div class="banner warning-banner"
+                 th:if="${numberOfLateReports > 0 &&
+             (session.loggedInUser.getRoleValue().equalsIgnoreCase('ADMIN') ||
+              session.loggedInUser.getRoleValue().equalsIgnoreCase('MECHANIC'))}"
+                 th:text="'Advarsel: ' + ${numberOfLateReports} + ' tilstandsrapporter er over 3 dage forsinkede!'">
+            </div>
+
             <div class="clickable">
                 <div class="link-container" th:if="${session.loggedInUser.getRoleValue().equalsIgnoreCase('ADMIN')}">
                     <a id="index" th:href="@{/}">FORSIDE</a>
