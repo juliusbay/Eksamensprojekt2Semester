@@ -696,23 +696,22 @@
 
                 let xDate;
                 let yDate;
+                const dateRegex = /\d\d-\d\d-\d\d\d\d/g;
 
+                console.log(x.innerHTML);
                 if (Number(x.innerHTML)) {
-                    console.log('number');
                     xDate = Number(x.innerHTML);
                     yDate = Number(y.innerHTML);
-                } else if (Date.parse(x.innerHTML)) {
-                    console.log('date');
-                    let from = x.innerHTML.split("-");
+                } else if (dateRegex.test(x.innerHTML)) {
+                    let from = x.innerHTML.split(/[-\s]+/);
                     xDate = new Date(from[2], from[1] - 1, from[0]).getTime();
                     from = y.innerHTML.split("-");
                     yDate = new Date(from[2], from[1] - 1, from[0]).getTime();
-                    console.log(typeof xDate);
-                    console.log('type of yDate'+yDate);
                 }
+
                 // Check if the two rows should switch place, based on the direction, asc or desc:
                 if (dir === "asc") {
-                    if (Number(x.innerHTML)) {
+                    if (xDate !== undefined) {
                         if (xDate > yDate) {
                             // If so, mark as a switch and break the loop:
                             shouldSwitch = true;
@@ -726,13 +725,15 @@
                         }
                     }
                 } else if (dir === "desc") {
-                    if (Number(x.innerHTML)) {
+                    if (xDate !== undefined) {
                         if (xDate < yDate) {
+                            console.log('numer sort')
                             // If so, mark as a switch and break the loop:
                             shouldSwitch = true;
                             break;
                         }
                     } else {
+                        console.log('not nuimer sort')
                         if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
                             // If so, mark as a switch and break the loop:
                             shouldSwitch = true;
@@ -740,7 +741,6 @@
                         }
                     }
                 }
-                console.log('row loop')
             }
             if (shouldSwitch) {
                 // If a switch has been marked, make the switch and mark that a switch has been done:
