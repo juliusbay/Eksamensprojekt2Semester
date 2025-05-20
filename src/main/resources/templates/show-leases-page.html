@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <title>Lease agreements</title>
     <link th:href="@{/css/navbar.css}" rel="stylesheet">
+    <link th:href="@{/css/lease-details.css}" rel="stylesheet">
+
 </head>
 <body>
 <header th:replace="~{fragments.html :: navbar}"></header>
@@ -13,8 +15,7 @@
 <table>
     <tr><th>Bilens stelnummer:</th><td th:text="${leaseAgreement.getCar().getVinNumber()}"></td></tr>
     <tr><th>Customer ID:</th><td th:text="${leaseAgreement.getCustomer().getCustomerId()}"> </tr>
-    <tr><th>Customer Name:</th><td th:text="${leaseAgreement.getCustomer().getFirstName()}"> <td th:text="${leaseAgreement.getCustomer().getLastName()}"> </td> </tr>
-
+    <tr><th>Customer Name:</th><td th:text="${leaseAgreement.getCustomer().getFirstName()} + ' ' + ${leaseAgreement.getCustomer().getLastName()}"></td>
     <tr><th>Leasetype:</th><td th:text="${leaseAgreement.leaseType}"></td></tr>
     <tr><th>Pris:</th><td th:text="${leaseAgreement.leasePrice}"></td></tr>
     <tr><th>Startdato:</th><td th:text="${#temporals.format(leaseAgreement.leaseStartDate.toLocalDateTime(), 'dd-MM-yyyy')}"></td> </tr>
@@ -25,16 +26,22 @@
 </table>
 
 <br>
+<div class="button-container no-print">
+    <button onclick="window.print()" style="margin-bottom: 20px;">🖨️ Print</button>
 
-<form th:action="@{/cars}" method="get">
-    <button type="submit">← Tilbage til oversigten </button>
-</form>
+</div>
 
-<form th:action="@{/toggleLeaseStatus}" method="get">
-    <input type="hidden" name="lease_agreement_id" th:value="${leaseAgreement.leaseAgreementId}">
-    <button type="submit">Sæt lease inaktiv</button>
-</form>
+<div class="button-container no-print">
+    <form th:action="@{/cars}" method="get">
+        <button type="submit">← Tilbage til oversigten </button>
+    </form>
 
+    <form th:action="@{/toggleLeaseStatus}" method="get">
+        <input type="hidden" name="lease_agreement_id" th:value="${leaseAgreement.leaseAgreementId}">
+        <button type="submit">Sæt lease inaktiv</button>
+    </form>
+
+</div>
 
 
 
