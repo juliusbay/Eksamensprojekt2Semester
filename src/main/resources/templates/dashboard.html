@@ -61,15 +61,15 @@
             <table id="lease_table">
                 <thead>
                 <tr>
-                    <th onclick="sortTable(0)">Lease detaljer</th>
-                    <th onclick="sortTable(1)">Vin number</th>
-                    <th onclick="sortTable(2)">Customer Id</th>
-                    <th onclick="sortTable(3)">Lease Type</th>
-                    <th onclick="sortTable(4)">Lease Price</th>
-                    <th onclick="sortTable(5)">Lease Start Date</th>
-                    <th onclick="sortTable(6)">Lease End Date</th>
-                    <th onclick="sortTable(7)">Return Location</th>
-                    <th onclick="sortTable(8)">Delete</th>
+                    <th class="clickableHeader" onclick="sortTable(0)">Lease detaljer</th>
+                    <th class="clickableHeader" onclick="sortTable(1)">Vin number</th>
+                    <th class="clickableHeader" onclick="sortTable(2)">Customer Id</th>
+                    <th class="clickableHeader" onclick="sortTable(3)">Lease Type</th>
+                    <th class="clickableHeader" onclick="sortTable(4)">Lease Price</th>
+                    <th class="clickableHeader" onclick="sortTable(5)">Lease Start Date</th>
+                    <th class="clickableHeader" onclick="sortTable(6)">Lease End Date</th>
+                    <th class="clickableHeader" onclick="sortTable(7)">Return Location</th>
+                    <th>Delete</th>
                 </tr>
                 </thead>
 
@@ -168,15 +168,15 @@
             <table id="lease_inactive_table">
                 <thead>
                 <tr>
-                    <th onclick="sortTable(0)">Lease detaljer</th>
-                    <th onclick="sortTable(1)">Vehicle Id</th>
-                    <th onclick="sortTable(2)">Customer Id</th>
-                    <th onclick="sortTable(3)">Lease Type</th>
-                    <th onclick="sortTable(4)">Lease Price</th>
-                    <th onclick="sortTable(5)">Lease Start Date</th>
-                    <th onclick="sortTable(6)">Lease End Date</th>
-                    <th onclick="sortTable(7)">Return Location</th>
-                    <th onclick="sortTable(8)">Delete</th>
+                    <th class="clickableHeader" onclick="sortTable(0)">Lease detaljer</th>
+                    <th class="clickableHeader" onclick="sortTable(1)">Vehicle Id</th>
+                    <th class="clickableHeader" onclick="sortTable(2)">Customer Id</th>
+                    <th class="clickableHeader" onclick="sortTable(3)">Lease Type</th>
+                    <th class="clickableHeader" onclick="sortTable(4)">Lease Price</th>
+                    <th class="clickableHeader" onclick="sortTable(5)">Lease Start Date</th>
+                    <th class="clickableHeader" onclick="sortTable(6)">Lease End Date</th>
+                    <th class="clickableHeader" onclick="sortTable(7)">Return Location</th>
+                    <th>Delete</th>
                 </tr>
                 </thead>
 
@@ -215,16 +215,16 @@
             <table id="car_table">
                 <thead>
                 <tr>
-                    <th onclick="sortTable(0)">ID</th>
-                    <th onclick="sortTable(1)">VIN Number</th>
-                    <th onclick="sortTable(2)">Mærke</th>
-                    <th onclick="sortTable(3)">Model</th>
-                    <th onclick="sortTable(4)">Udstyr</th>
-                    <th onclick="sortTable(5)">Farve</th>
-                    <th onclick="sortTable(6)">Forkøbt</th>
-                    <th onclick="sortTable(7)">Status</th>
-                    <th onclick="sortTable(8)">Tilstandsrapport</th>
-                    <th onclick="sortTable(9)">Slet bil</th>
+                    <th class="clickableHeader" onclick="sortTable(0)">ID</th>
+                    <th class="clickableHeader" onclick="sortTable(1)">VIN Number</th>
+                    <th class="clickableHeader" onclick="sortTable(2)">Mærke</th>
+                    <th class="clickableHeader" onclick="sortTable(3)">Model</th>
+                    <th class="clickableHeader" onclick="sortTable(4)">Udstyr</th>
+                    <th class="clickableHeader" onclick="sortTable(5)">Farve</th>
+                    <th class="clickableHeader" onclick="sortTable(6)">Forkøbt</th>
+                    <th class="clickableHeader" onclick="sortTable(7)">Status</th>
+                    <th>Tilstandsrapport</th>
+                    <th>Slet bil</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -263,7 +263,7 @@
                                 </div>
 
                             </div>
-                            <!-- If non-existant, you get a create button -->
+                            <!-- If non-existent, you get a create button -->
                             <div th:unless="${conditionReportsMap[car.vehicleId] != null}">
                                 <form th:action="@{/createConditionReport}" method="post">
                                     <input type="hidden" name="vehicle_id" th:value="${car.vehicleId}"/>
@@ -323,11 +323,11 @@
             <table id="condition_report_table">
                 <thead>
                 <tr>
-                    <th onclick="sortTable(0)">ID</th>
-                    <th onclick="sortTable(1)">Handler</th>
-                    <th onclick="sortTable(2)">Startdato</th>
-                    <th onclick="sortTable(3)">Slutdato</th>
-                    <th onclick="sortTable(4)">Delete</th>
+                    <th class="clickableHeader" onclick="sortTable(0)">ID</th>
+                    <th class="clickableHeader" onclick="sortTable(1)">Handler</th>
+                    <th class="clickableHeader" onclick="sortTable(2)">Startdato</th>
+                    <th class="clickableHeader" onclick="sortTable(3)">Slutdato</th>
+                    <th>Delete</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -355,15 +355,15 @@
             <table id="car_model_table">
                 <thead>
                 <tr>
-                    <th onclick="sortTable(0)">Model</th>
-                    <th onclick="sortTable(1)">Brand</th>
-                    <th onclick="sortTable(2)">Brændstofstype</th>
-                    <th onclick="sortTable(3)">Year</th>
-                    <th onclick="sortTable(4)">Gear</th>
-                    <th onclick="sortTable(5)">CO2 udledning</th>
-                    <th onclick="sortTable(6)">Udstyrspakke</th>
-                    <th onclick="sortTable(7)">Stål pris</th>
-                    <th onclick="sortTable(8)">Delete</th>
+                    <th class="clickableHeader" onclick="sortTable(0)">Model</th>
+                    <th class="clickableHeader" onclick="sortTable(1)">Brand</th>
+                    <th class="clickableHeader" onclick="sortTable(2)">Brændstofstype</th>
+                    <th class="clickableHeader" onclick="sortTable(3)">Year</th>
+                    <th class="clickableHeader" onclick="sortTable(4)">Gear</th>
+                    <th class="clickableHeader" onclick="sortTable(5)">CO2 udledning</th>
+                    <th class="clickableHeader" onclick="sortTable(6)">Udstyrspakke</th>
+                    <th class="clickableHeader" onclick="sortTable(7)">Stål pris</th>
+                    <th>Delete</th>
 
                 </tr>
                 </thead>
@@ -454,13 +454,13 @@
             <table id="employee_table">
                 <thead>
                 <tr>
-                    <th onclick="sortTable(0)">ID</th>
-                    <th onclick="sortTable(1)">Fornavn</th>
-                    <th onclick="sortTable(2)">Efternavn</th>
-                    <th onclick="sortTable(3)">Shortname</th>
-                    <th onclick="sortTable(4)">Email</th>
-                    <th onclick="sortTable(5)">Rolle</th>
-                    <th onclick="sortTable(6)">Delete</th>
+                    <th class="clickableHeader" onclick="sortTable(0)">ID</th>
+                    <th class="clickableHeader" onclick="sortTable(1)">Fornavn</th>
+                    <th class="clickableHeader" onclick="sortTable(2)">Efternavn</th>
+                    <th class="clickableHeader" onclick="sortTable(3)">Shortname</th>
+                    <th class="clickableHeader" onclick="sortTable(4)">Email</th>
+                    <th class="clickableHeader" onclick="sortTable(5)">Rolle</th>
+                    <th>Delete</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -489,12 +489,12 @@
             <table id="purchase_agreements_table">
                 <thead>
                 <tr>
-                    <th onclick="sortTable(0)">ID</th>
-                    <th onclick="sortTable(1)">Kunde id</th>
-                    <th onclick="sortTable(2)">Bil id</th>
-                    <th onclick="sortTable(3)">Pris</th>
-                    <th onclick="sortTable(4)">Betalt?</th>
-                    <th onclick="sortTable(5)">Delete</th>
+                    <th class="clickableHeader" onclick="sortTable(0)">ID</th>
+                    <th class="clickableHeader" onclick="sortTable(1)">Kunde id</th>
+                    <th class="clickableHeader" onclick="sortTable(2)">Bil id</th>
+                    <th class="clickableHeader" onclick="sortTable(3)">Pris</th>
+                    <th class="clickableHeader" onclick="sortTable(4)">Betalt?</th>
+                    <th>Delete</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -523,17 +523,17 @@
                 <h2>Kunder</h2>
                 <thead>
                 <tr>
-                    <th onclick="sortTable(0)">ID</th>
-                    <th onclick="sortTable(1)">Fornavn</th>
-                    <th onclick="sortTable(2)">Efternavn</th>
-                    <th onclick="sortTable(3)">Email</th>
-                    <th onclick="sortTable(4)">Cpr-nummer</th>
-                    <th onclick="sortTable(5)">TelefonNummer</th>
-                    <th onclick="sortTable(6)">Adresse</th>
-                    <th onclick="sortTable(7)">By</th>
-                    <th onclick="sortTable(8)">Postnummer</th>
-                    <th onclick="sortTable(9)">Bil id</th>
-                    <th onclick="sortTable(10)">Delete</th>
+                    <th class="clickableHeader" onclick="sortTable(0)">ID</th>
+                    <th class="clickableHeader" onclick="sortTable(1)">Fornavn</th>
+                    <th class="clickableHeader" onclick="sortTable(2)">Efternavn</th>
+                    <th class="clickableHeader" onclick="sortTable(3)">Email</th>
+                    <th class="clickableHeader" onclick="sortTable(4)">Cpr-nummer</th>
+                    <th class="clickableHeader" onclick="sortTable(5)">TelefonNummer</th>
+                    <th class="clickableHeader" onclick="sortTable(6)">Adresse</th>
+                    <th class="clickableHeader" onclick="sortTable(7)">By</th>
+                    <th class="clickableHeader" onclick="sortTable(8)">Postnummer</th>
+                    <th class="clickableHeader" onclick="sortTable(9)">Bil id</th>
+                    <th>Delete</th>
                 </tr>
                 </thead>
                 <tbody>
