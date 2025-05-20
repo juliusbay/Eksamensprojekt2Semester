@@ -100,22 +100,23 @@ public class LeaseAgreementController {
                                                     Timestamp leaseEndDate,
                                                     String returnLocation) throws SQLException {
 
-        LeaseAgreementService leaseService = new LeaseAgreementService();
-        CarRepository carRepository1 = new CarRepository();
 
-        LeaseAgreementRepository leaseAgreementRepository1 = new LeaseAgreementRepository();
+
+
 
         LeaseAgreement leaseAgreement = new LeaseAgreement(fkVehicleId,
                 fkCustomerId, leaseType,
                 leasePrice, leaseStartDate, leaseEndDate, returnLocation);
 
-        leaseService.minimum120daysAgreement(leaseAgreement);
-        leaseService.noNegativePriceLease(leaseAgreement);
-        leaseService.isEndDateBeforeStartDate(leaseAgreement);
+
+        leaseAgreementService.minimum120daysAgreement(leaseAgreement);
+        leaseAgreementService.noNegativePriceLease(leaseAgreement);
+        leaseAgreementService.isEndDateBeforeStartDate(leaseAgreement);
 
 
-        carRepository1.getCarById(fkVehicleId).setRentedOut(true);
-        leaseAgreementRepository1.createLeaseAgreement(leaseAgreement);
+
+        carRepository.getCarById(fkVehicleId).setRentedOut(true);
+        leaseAgreementRepository.createLeaseAgreement(leaseAgreement);
         return leaseAgreement;
     }
 

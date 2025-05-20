@@ -14,6 +14,7 @@ public class LeaseAgreementService {
 
 
     public void noNegativePriceLease(LeaseAgreement leaseAgreement) {
+
        if(leaseAgreement.getLeasePrice() <=0){
            throw new IllegalArgumentException("LeasePrice must be greater than 0");
 
@@ -29,6 +30,7 @@ public class LeaseAgreementService {
     }
 
     public void minimum120daysAgreement(LeaseAgreement leaseAgreement) {
+
         if (leaseAgreement.leaseType == LeaseAgreement.LeaseType.UNLIMITED) {
             LocalDate startDate = leaseAgreement.leaseStartDate.toLocalDateTime().toLocalDate();
             LocalDate endDate = leaseAgreement.leaseEndDate.toLocalDateTime().toLocalDate();
