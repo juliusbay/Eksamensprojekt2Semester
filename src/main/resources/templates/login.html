@@ -34,6 +34,10 @@
             <div>
                 <button type="submit">Login</button>
             </div>
+
+            <div class="error" th:if="${error}">
+                <p th:text="${error}"></p>
+            </div>
         </form>
     </div>
 
