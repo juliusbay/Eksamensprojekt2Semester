@@ -260,7 +260,7 @@
                                 </div>
 
                             </div>
-                            <!-- If non-existent, you get a create button -->
+                            <!-- If condition report is non-existent, you get a create button -->
                             <div th:unless="${conditionReportsMap[car.vehicleId] != null}">
                                 <form th:action="@{/createConditionReport}" method="post">
                                     <input type="hidden" name="vehicle_id" th:value="${car.vehicleId}"/>
@@ -268,6 +268,12 @@
                                 </form>
                             </div>
                         </div>
+
+                        <div th:if="${leaseAgreementMap[car.vehicleId] == null or
+                         leaseAgreementMap[car.vehicleId].leaseEndDate.toLocalDateTime().isAfter(T(java.time.LocalDateTime).now())}">
+                            <span>Lease ikke afsluttet</span>
+                        </div>
+
                     </td>
                     <td>
                         <form th:action="@{/deleteCar}" method="post">
