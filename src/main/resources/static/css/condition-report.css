@@ -1,4 +1,3 @@
-/* Base layout and reset */
 html, body {
     margin: 0;
     padding: 0;
@@ -18,33 +17,38 @@ html, body {
 
 .main-div {
     display: flex;
-    flex-grow: 1;
     background-color: #f5f5f5;
+    height: 100%;
     overflow: hidden;
 }
 
-/* Left Column Styling */
-.left-div {
-    width: 50%;
-    max-width: 50%;
-    background-color: white;
-    padding: 20px;
-    border-right: 1px solid #e0e0e0;
+.left-div, .right-div {
+    width: 50%; /* Each side takes half the width */
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
+    padding: 20px;
 }
 
-.customer-info {
-    overflow: hidden; /* Prevent overflow */
+.customer-info,
+.condition-report-container,
+.damage-div,
+.report-and-damages {
+    flex: 1;
+    background-color: white;
+    margin-bottom: 20px;
+    padding: 20px;
+    border: 1px solid #e0e0e0;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
 }
 
-.customer-info table,
-.price-div table,
-.report-and-damages table {
+.customer-info table {
     width: 100%;
     table-layout: auto;
     border-collapse: collapse;
-    max-width: 100%; /* Ensure table doesn't exceed div width */
+    max-width: 100%;
 }
 
 .customer-info h1 {
@@ -76,62 +80,20 @@ html, body {
     font-size: 11px;
 }
 
-.customer-info th {
-    width: auto;
-}
-
-.condition-report-container {
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
-    overflow: hidden;
-}
-
 .condition-report-container h1 {
     color: #333;
     border-bottom: 2px solid #1892c3;
     padding-bottom: 10px;
     margin-bottom: 15px;
-    margin-top: 18%;
 }
 
 .condition-report-container textarea {
-    height: 80px; /* Significantly reduced textarea height */
+    height: 80px;
     resize: vertical;
     margin-bottom: 15px;
 }
 
-/* Right Column Styling */
-.right-div {
-    width: 50%;
-    max-width: 50%;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-}
-
-.damage-div {
-    padding: 20px;
-    background-color: white;
-    border-bottom: 1px solid #e0e0e0;
-}
-
-.damage-div h1 {
-    color: #333;
-    margin-bottom: 15px;
-    border-bottom: 2px solid #1892c3;
-    padding-bottom: 10px;
-}
-
-.report-and-damages {
-    flex-grow: 1;
-    padding-left: 20px;
-    padding-right: 20px;
-    padding-bottom: 20px;
-    overflow-y: auto;
-    background-color: white;
-}
-
+.damage-div h1,
 .report-and-damages h1 {
     color: #333;
     margin-bottom: 15px;
@@ -157,9 +119,7 @@ html, body {
 }
 
 .price-div {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    width: 100%;
     padding: 10px 20px;
     background-color: white;
     border-top: 1px solid #e0e0e0;
@@ -167,9 +127,9 @@ html, body {
 }
 
 .price-div table {
-    width: auto; /* Allow table to size to its content */
-    max-width: 100%; /* Prevent table from overflowing */
-    margin: 0 auto; /* Center the table */
+    width: auto;
+    max-width: 100%;
+    margin: 0 auto;
     border-collapse: collapse;
 }
 
@@ -189,7 +149,6 @@ html, body {
     color: #333;
 }
 
-/* Form Elements */
 input[type="text"],
 input[type="number"],
 textarea {
@@ -217,7 +176,6 @@ button:hover {
     background-color: #146f94;
 }
 
-/* Responsive Design */
 @media (max-width: 768px) {
     .page-container {
         height: auto;
@@ -229,6 +187,5 @@ button:hover {
 
     .left-div, .right-div {
         width: 100%;
-        max-width: 100%;
     }
 }
