@@ -14,7 +14,6 @@ public class Car {
     private String color;
     private boolean bought;
     private Status status;
-    private boolean rentedOut;
     private Timestamp receivedDate;
 
     public Car(int vehicleId, CarModel carModel, String vinNumber, String color, boolean bought, Status status) {
@@ -90,10 +89,6 @@ public class Car {
 
     public void setStatusFromString(String status) {
         this.status = Status.valueOf(status);
-    }
-
-    public void setRentedOut(boolean rentedOut) {
-        this.rentedOut = rentedOut;
     }
 
     public Timestamp getReceivedDate() {

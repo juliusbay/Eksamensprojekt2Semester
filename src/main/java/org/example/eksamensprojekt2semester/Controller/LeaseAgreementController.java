@@ -77,7 +77,7 @@ public class LeaseAgreementController {
     leaseAgreementRepository.setLeaseAgreementActive(leaseAgreement);
 
 
-    carRepository.getCarById(fkVehicleId).setRentedOut(true);
+    carRepository.getCarById(fkVehicleId).setStatusFromString("RENTED");
         return "redirect:/";
     }
 
@@ -119,7 +119,7 @@ public class LeaseAgreementController {
 
 
 
-        carRepository.getCarById(fkVehicleId).setRentedOut(true);
+        carRepository.getCarById(fkVehicleId).setStatusFromString("RENTED");
         leaseAgreementRepository.createLeaseAgreement(leaseAgreement);
         return leaseAgreement;
     }
