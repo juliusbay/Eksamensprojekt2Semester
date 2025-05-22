@@ -381,8 +381,6 @@
                     <th class="clickableHeader" onclick="sortTable(5)">CO2 udledning</th>
                     <th class="clickableHeader" onclick="sortTable(6)">Udstyrspakke</th>
                     <th class="clickableHeader" onclick="sortTable(7)">Stål pris</th>
-                    <th>Delete</th>
-
                 </tr>
                 </thead>
                 <tbody>
@@ -395,13 +393,7 @@
                     <td th:text="${carModel.getGearBox()}"/>
                     <td th:text="${carModel.getCarEmission() + ' g/km'}"/>
                     <td th:text="${carModel.getCarEquipment()}"/>
-                    <td th:text="${carModel.getSteelPrice()}"/>
-                    <td>
-                        <form th:action="@{/deleteCarModel}" method="post">
-                            <input type="hidden" name="damageId" th:value="${carModel.carModelId}">
-                            <button type="submit">Delete</button>
-                        </form>
-                    </td>
+                    <td th:text="${#numbers.formatDecimal(carModel.steelPrice, 1, 2) + ' dkk'}"/>
                 </tr>
                 </tbody>
             </table>

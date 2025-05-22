@@ -117,18 +117,4 @@ public class CarModelRepository {
         }
     }
 
-    public void deleteCarModelFromId (int id) {
-        String sql = "DELETE FROM car_model WHERE car_model_id = ?";
-
-        try (Connection connection = dataSource.getConnection();
-             PreparedStatement statement = connection.prepareStatement(sql)){
-
-            statement.setInt(1, id);
-
-            statement.executeUpdate();
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
 }
