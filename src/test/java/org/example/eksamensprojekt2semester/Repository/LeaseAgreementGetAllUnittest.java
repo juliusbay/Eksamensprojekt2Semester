@@ -9,7 +9,6 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.ui.Model;
 
-import java.sql.Date;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.LocalDate;
@@ -38,7 +37,6 @@ public class LeaseAgreementGetAllUnittest {
     @DisplayName("getAllLeaseAgreements happyFlow")
     void getAllLeaseAgreements() throws SQLException {
         //Arrange
-
         LeaseAgreement leaseAgreement = new LeaseAgreement(
                 1,
                 1,
@@ -54,10 +52,10 @@ public class LeaseAgreementGetAllUnittest {
 
         given(leaseAgreementRepository.getAllLeaseAgreements()).willReturn(leaseAgreements);
 
-        //Assert
+        //Act
         String result = leaseAgreementController.getAllLeaseAgreements(model);
 
-        //Act
+        //Assert
         assertEquals("redirect:/dashboard", result);
         verify(leaseAgreementRepository).getAllLeaseAgreements();
         verify(model).addAttribute("leaseAgreements", leaseAgreements);
@@ -65,8 +63,8 @@ public class LeaseAgreementGetAllUnittest {
 
 
     @Test
-    @DisplayName("getAllLeaseAgreements exceptionFlow")
-    public void getAllLeaseAgreementsException() throws SQLException {
+    @DisplayName("getAllLeaseAgreements alternate flow")
+    public void getAllLeaseAgreementsAlternateFlow() throws SQLException {
         //Arrange
 
         LeaseAgreement leaseAgreement = new LeaseAgreement(
@@ -91,9 +89,7 @@ public class LeaseAgreementGetAllUnittest {
         //Act
         assertEquals("redirect:/dashboard", result);
         verify(leaseAgreementRepository).getAllLeaseAgreements();
-        assertTrue(model.asMap().isEmpty());
-
-
+        assertTrue(model.asMap().isEmpty(),"Model should be empty");
     }
 
 }

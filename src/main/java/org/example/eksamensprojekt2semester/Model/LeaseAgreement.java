@@ -1,34 +1,30 @@
 package org.example.eksamensprojekt2semester.Model;
 
-import java.rmi.dgc.Lease;
-import java.sql.Date;
 import java.sql.Timestamp;
 
 public class LeaseAgreement {
-
-
     public enum LeaseType {
         LIMITED("Limited"),
         UNLIMITED("Unlimited");
 
-        private final String dbValue;
+        private final String prettyprint;
 
-        LeaseType(String dbValue) {
-            this.dbValue = dbValue;
+        LeaseType(String prettyprint) {
+            this.prettyprint = prettyprint;
         }
 
         @Override
         public String toString() {
-            return dbValue;
+            return prettyprint;
         }
 
         public static LeaseType fromString(String value) {
             for (LeaseType type : LeaseType.values()) {
-                if (type.dbValue.equalsIgnoreCase(value)) {
+                if (type.prettyprint.equalsIgnoreCase(value)) {
                     return type;
                 }
             }
-            throw new IllegalArgumentException("Unknown lease type: " + value);
+            return null;
         }
     }
 
@@ -75,17 +71,10 @@ public class LeaseAgreement {
         return fkVehicleId;
     }
 
-    public void setFkVehicleId(int fkVehicleId) {
-        this.fkVehicleId = fkVehicleId;
-    }
-
     public int getFkCustomerId() {
         return fkCustomerId;
     }
 
-    public void setFkCustomerId(int fkCustomerId) {
-        this.fkCustomerId = fkCustomerId;
-    }
     public void setCustomer(Customer customer) {
         this.customer = customer;
     }
@@ -108,7 +97,6 @@ public class LeaseAgreement {
     public void setLeasePrice(int leasePrice) {
         this.leasePrice = leasePrice;
     }
-
 
     public Timestamp getLeaseStartDate() {
         return leaseStartDate;
@@ -150,19 +138,4 @@ public class LeaseAgreement {
         this.car = car;
     }
 
-    @Override
-    public String toString() {
-        return "LeaseAgreement{" +
-                "leaseAgreementId=" + leaseAgreementId +
-                ", fkVehicleId=" + fkVehicleId +
-                ", fkCustomerId=" + fkCustomerId +
-                ", leaseType=" + leaseType +
-                ", leasePrice=" + leasePrice +
-                ", leaseStartDate=" + leaseStartDate +
-                ", leaseEndDate=" + leaseEndDate +
-                ", returnLocation='" + returnLocation + '\'' +
-                ", customer=" + customer +
-                ", active=" + active +
-                '}';
-    }
 }

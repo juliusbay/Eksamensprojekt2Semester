@@ -16,18 +16,6 @@ public class CarModel {
     private String carEquipment;
     private double steelPrice;
 
-    public CarModel(int carModelId, String modelName, String brand, FuelType fuelType, int modelYear, GearBox gearBox, int carEmission, String carEquipment, double steelPrice) {
-        this.carModelId = carModelId;
-        this.modelName = modelName;
-        this.brand = brand;
-        this.fuelType = fuelType;
-        this.modelYear = modelYear;
-        this.gearBox = gearBox;
-        this.carEmission = carEmission;
-        this.carEquipment = carEquipment;
-        this.steelPrice = steelPrice;
-    }
-
     public CarModel() {
     }
 
@@ -68,10 +56,6 @@ public class CarModel {
 
     public FuelType getFuelType() {
         return fuelType;
-    }
-
-    public void setFuelType(FuelType fuelType) {
-        this.fuelType = fuelType;
     }
 
     public void setFuelTypeFromString(String fuelType) {

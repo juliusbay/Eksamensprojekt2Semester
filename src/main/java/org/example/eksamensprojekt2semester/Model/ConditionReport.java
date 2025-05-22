@@ -13,15 +13,6 @@ public class ConditionReport {
     private boolean completed;
     private String reportDescription;
 
-    public ConditionReport(int conditionReportId, int fkVehicleId, String handledBy, Timestamp reportStartDate, Timestamp reportCompletedDate, double excessKilometers) {
-        this.conditionReportId = conditionReportId;
-        this.fkVehicleId = fkVehicleId;
-        this.handledBy = handledBy;
-        this.reportStartDate = reportStartDate;
-        this.reportCompletedDate = reportCompletedDate;
-        this.excessKilometers = excessKilometers;
-    }
-
     public ConditionReport(int fkVehicleId, String handledBy, Timestamp reportStartDate) {
         this.fkVehicleId = fkVehicleId;
         this.handledBy = handledBy;
@@ -38,13 +29,6 @@ public class ConditionReport {
         this.completed = completed;
     }
 
-    public ConditionReport(int conditionReportId, String handledBy, Timestamp reportCompletedDate, boolean completed, String reportDescription) {
-        this.conditionReportId = conditionReportId;
-        this.handledBy = handledBy;
-        this.reportCompletedDate = reportCompletedDate;
-        this.completed = completed;
-        this.reportDescription = reportDescription;
-    }
 
     public int getConditionReportId() {
         return conditionReportId;
@@ -100,10 +84,6 @@ public class ConditionReport {
 
     public void setCompleted(boolean completed) {
         this.completed = completed;
-    }
-
-    public String getReportDescription() {
-        return reportDescription;
     }
 
     public void setReportDescription(String reportDescription) {

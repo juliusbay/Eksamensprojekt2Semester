@@ -12,11 +12,6 @@ public class Damage {
         this.damagePrice = damagePrice;
     }
 
-    public Damage(String damageType, double damagePrice) {
-        this.damageType = damageType;
-        this.damagePrice = damagePrice;
-    }
-
     public Damage(int damageId, int conditionReportId, String damageType, double damagePrice) {
         this.damageId = damageId;
         this.conditionReportId = conditionReportId;

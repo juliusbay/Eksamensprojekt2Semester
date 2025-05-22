@@ -21,7 +21,7 @@ public class DamageController {
     @Autowired
     DamageRepository damageRepository;
 
-    // Create a new damage report
+    // Create a new damage
     @PostMapping("/createDamage")
     public String createDamage(@RequestParam("condition_report_id") int conditionReportId,
                                @RequestParam("damage_type") String damageType,
@@ -36,7 +36,7 @@ public class DamageController {
         return "redirect:/condition-report?condition_report_id="+conditionReportId;
     }
 
-    // Update an existing damage report
+    // Update an existing damage
     @PostMapping("/saveUpdateDamage")
     public String updateDamage(@RequestParam("damage_id") int damageId,
                                @RequestParam("condition_report_id") int conditionReportId,
@@ -52,7 +52,7 @@ public class DamageController {
         return "redirect:/condition-report?condition_report_id="+conditionReportId;
     }
 
-    // Delete a damage report
+    // Delete a damage
     @PostMapping("/deleteDamage")
     public String deleteDamage(@RequestParam("damage_id") int damageId,
                                @RequestParam("condition_report_id") int conditionReportId,
@@ -66,32 +66,6 @@ public class DamageController {
         return "redirect:/condition-report?condition_report_id="+conditionReportId;
     }
 
-    // Get damage by ID
-    @PostMapping("/damage_details")
-    public String getDamageById(@RequestParam("damage_id") int damageId,
-                                Model model,
-                                HttpSession session) {
-
-        if (!isUserLoggedIn(session)) {
-            return "redirect:/";
-        }
-
-        Damage damage = damageRepository.getDamageByID(damageId);
-        model.addAttribute("damage", damage);
-
-        return "redirect:/damage_details" + damageId;
-    }
-
-    // Get all damage reports by vehicle ID
-    @GetMapping("/damage_dashboard")
-    public String getDamageByVehicleId(@RequestParam("condition_report_id") int conditionReportId,
-                                       Model model) {
-
-        List<Damage> damages = damageRepository.getDamageByConditionReportId(conditionReportId);
-        model.addAttribute("damages", damages);
-
-        return "damage_dashboard";
-    }
 
     public boolean isUserLoggedIn(HttpSession session) {
         return session.getAttribute("loggedInUser") != null;

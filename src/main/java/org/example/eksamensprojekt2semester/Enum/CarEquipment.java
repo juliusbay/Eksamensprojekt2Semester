@@ -11,24 +11,24 @@ public enum CarEquipment {
     LONG_RANGE("Long range"),
     VAREBIL("Varebil");
 
-    private final String dbValue;
+    private final String prettyprint;
 
-    CarEquipment(String dbValue) {
-        this.dbValue = dbValue;
+    CarEquipment(String prettyprint) {
+        this.prettyprint = prettyprint;
     }
 
     //Changes "LAPRIMA" to "La Prima"
     @Override
     public String toString() {
-        return dbValue;
+        return prettyprint;
     }
 
     public static CarEquipment fromString(String value) {
-        for (CarEquipment ce : CarEquipment.values()) {
-            if (ce.dbValue.equalsIgnoreCase(value)) {
-                return ce;
+        for (CarEquipment carEquipment : CarEquipment.values()) {
+            if (carEquipment.prettyprint.equalsIgnoreCase(value)) {
+                return carEquipment;
             }
         }
-        throw new IllegalArgumentException("Unknown equipment: " + value);
+        return null;
     }
 }

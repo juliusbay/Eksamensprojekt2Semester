@@ -89,9 +89,6 @@ public class LeaseAgreementCreateUnittest {
         Timestamp lease_start_date = Timestamp.valueOf(LocalDate.of(2025, 6, 1).atStartOfDay());
         Timestamp lease_end_date = Timestamp.valueOf(LocalDate.of(2025, 8, 1).atStartOfDay());
         String returnLocation = "Guldbergsgad";
-        LeaseAgreement expectedLeaseAgreement = new LeaseAgreement(
-                vehicle_id, customer_id, leaseType, leasePrice, lease_start_date, lease_end_date, returnLocation
-        );
 
 
         //This method we acutally want to call, to recieve the proper exception
@@ -122,9 +119,6 @@ public class LeaseAgreementCreateUnittest {
         Timestamp lease_start_date =  Timestamp.valueOf(LocalDate.of(2025, 6, 1).atStartOfDay());
         Timestamp lease_end_date =  Timestamp.valueOf(LocalDate.of(2025, 8, 1).atStartOfDay());
         String returnLocation = "Guldbergsgad";
-        LeaseAgreement expectedLeaseAgreement = new LeaseAgreement(
-                vehicle_id, customer_id, leaseType, leasePrice, lease_start_date, lease_end_date, returnLocation
-        );
 
 
         //This method we acutally want to call, to recieve the proper exception
