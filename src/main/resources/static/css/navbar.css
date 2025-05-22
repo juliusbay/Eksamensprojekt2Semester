@@ -104,3 +104,25 @@ body, html {
 .navbar a.navbar-link-btn:hover {
     background-color: #0097a7;
 }
+
+@keyframes warning {
+    0% {
+        color: red;
+    }
+
+    50% {
+        color: white;
+    }
+}
+
+.warning-banner {
+    text-align: center;
+    color: red;
+    animation: warning 500ms step-start infinite;
+}
+
+.warning-banners {
+    align-items:center;
+    justify-content:center;
+    font-size: 12px;
+}

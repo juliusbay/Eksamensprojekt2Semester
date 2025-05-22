@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Fragments</title>
-    <link href="https://fonts.bunny.net/css?family=montserrat:400,600" rel="stylesheet" />
+    <link href="https://fonts.bunny.net/css?family=montserrat:400,600" rel="stylesheet"/>
 </head>
 <body>
 <!-- fragments that's meant to be used on multiple pages -->
@@ -20,19 +20,20 @@
                 </a>
             </div>
 
-            <div class="banner warning-banner"
-                 th:if="${numberOfCarsAvailable < carThreshold &&
+            <div class="warning-banners">
+                <div class="banner warning-banner" id="number-of-cars"
+                     th:if="${numberOfCarsAvailable < carThreshold &&
              (session.loggedInUser.getRoleValue().equalsIgnoreCase('ADMIN') ||
               session.loggedInUser.getRoleValue().equalsIgnoreCase('BUSINESS_DEVELOPER') ||
               session.loggedInUser.getRoleValue().equalsIgnoreCase('DATA_RECORDING'))}"
-                 th:text="'Advarsel: ' + ${numberOfCarsAvailable} + ' biler ledige!'">
-            </div>
-
-            <div class="banner warning-banner"
-                 th:if="${numberOfLateReports > 0 &&
+                     th:text="'Advarsel: ' + ${numberOfCarsAvailable} + ' biler ledige!' ">
+                </div>
+                <div class="banner warning-banner" id="number-of-late-reports"
+                     th:if="${numberOfLateReports > 0 &&
              (session.loggedInUser.getRoleValue().equalsIgnoreCase('ADMIN') ||
               session.loggedInUser.getRoleValue().equalsIgnoreCase('MECHANIC'))}"
-                 th:text="'Advarsel: ' + ${numberOfLateReports} + ' tilstandsrapporter er over 3 dage forsinkede!'">
+                     th:text="'Advarsel: ' + ${numberOfLateReports} + ' tilstandsrapporter er over 3 dage forsinkede!'">
+                </div>
             </div>
 
             <div class="clickable">
@@ -41,19 +42,20 @@
                     <a id="statistics" th:href="@{/statistics}">STATISTIK</a>
                 </div>
 
-                <div class="link-container" th:if="${session.loggedInUser.getRoleValue().equalsIgnoreCase('BUSINESS_DEVELOPER')}">
+                <div class="link-container"
+                     th:if="${session.loggedInUser.getRoleValue().equalsIgnoreCase('BUSINESS_DEVELOPER')}">
                     <a id="index" th:href="@{/}">FORSIDE</a>
                     <a id="statistics" th:href="@{/statistics}">STATISTIK</a>
                 </div>
 
                 <div class="link-container" th:if="${session.loggedInUser.getRoleValue().equalsIgnoreCase('DATA_RECORDING') ||
                                             session.loggedInUser.getRoleValue().equalsIgnoreCase('MECHANIC')}">
-                        <a id="index" th:href="@{/}">FORSIDE</a>
+                    <a id="index" th:href="@{/}">FORSIDE</a>
                 </div>
-                </div>
-                <div class="button-container">
-                    <a class="navbar-link-btn" th:href="@{/logout}">LOG UD</a>
-                </div>
+            </div>
+            <div class="button-container">
+                <a class="navbar-link-btn" th:href="@{/logout}">LOG UD</a>
+            </div>
         </div>
     </div>
     <div class="navbar-blank-box"></div>
