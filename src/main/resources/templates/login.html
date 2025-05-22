@@ -3,9 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Login page</title>
-    <<link rel="icon" type="image/x-icon" href="/images/bilabonnement-favicon-black.ico">
-    <link rel="icon" type="image/x-icon" href="/images/bilabonnement-favicon-black.ico" media="prefers-color-scheme: light">
-    <link rel="icon" type="image/x-icon" href="/images/bilabonnement-favicon-white.ico" media="(prefers-color-scheme: dark)">
+    <link rel="icon" type="image/x-icon" href="/images/bilabonnement-favicon-black.ico">
+    <link rel="icon" type="image/x-icon" href="/images/bilabonnement-favicon-black.ico"
+          media="prefers-color-scheme: light">
+    <link rel="icon" type="image/x-icon" href="/images/bilabonnement-favicon-white.ico"
+          media="(prefers-color-scheme: dark)">
     <link th:href="@{/css/login.css}" rel="stylesheet">
 </head>
 <body>
@@ -24,24 +26,24 @@
         </p>
     </div>
 
-    <div class="login-form">
-        <div class="toolbar">
-        </div>
-        <form th:action="@{/processLogin}" method="post">
-            <div>
-                <input type="text" id="shortname" name="shortname" placeholder="Brugernavn"/>
-            </div>
-            <div>
-                <input type="password" id="password" name="password" placeholder="Password"/>
-            </div>
-            <div>
-                <button type="submit">Login</button>
-            </div>
-
+    <div class="login-container">
+        <div class="toolbar"></div>
+        <div class="login-form">
             <div class="error" th:if="${error}">
                 <p th:text="${error}"></p>
             </div>
-        </form>
+            <form th:action="@{/processLogin}" method="post">
+                <div>
+                    <input type="text" id="shortname" name="shortname" placeholder="Brugernavn"/>
+                </div>
+                <div>
+                    <input type="password" id="password" name="password" placeholder="Password"/>
+                </div>
+                <div>
+                    <button type="submit">Login</button>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
 </body>

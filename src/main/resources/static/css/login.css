@@ -27,7 +27,7 @@ html {
     margin: 0;
 }
 
-.login-form {
+.login-container {
     background-color: #fff;
     border-radius: 8px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
@@ -42,35 +42,42 @@ html {
     font-weight: bold;
     text-align: center;
     font-size: 1rem;
+    margin-bottom: 20px;
 }
 
-.login-form form {
+.login-container form {
     display: flex;
     flex-direction: column;
-    padding: 25px 25px;
+    padding: 10px 25px 15px;
     gap: 16px;
 }
 
-.login-form div {
+.login-container div {
     display: flex;
     flex-direction: column;
 }
 
-.login-form label {
+.login-container label {
     font-weight: bold;
     margin-bottom: 5px;
 }
 
-.login-form input[type="text"],
-.login-form input[type="password"] {
+.login-container input[type="text"],
+.login-container input[type="password"] {
     padding: 8px;
     border: 1px solid #ccc;
     border-radius: 4px;
-    width: 220px;
+    width: 292px;
 }
 
-.login-form button {
-    margin-top: 10px;
+.error p {
+    margin: 0;
+    padding: 0;
+    color: red;
+    text-align: center;
+}
+
+.login-container button {
     padding: 8px 12px;
     width: 120px;
     align-self: center;
@@ -80,9 +87,10 @@ html {
     border: none;
     border-radius: 4px;
     cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
-.login-form button:hover {
+.login-container button:hover {
     background-color: #0056b3;
 }
 
