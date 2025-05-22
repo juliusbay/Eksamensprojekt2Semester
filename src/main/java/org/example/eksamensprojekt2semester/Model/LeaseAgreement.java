@@ -32,7 +32,7 @@ public class LeaseAgreement {
     public int fkVehicleId;
     public int fkCustomerId;
     public LeaseType leaseType;
-    public int leasePrice;
+    public double leasePrice;
     public Timestamp leaseStartDate;
     public Timestamp leaseEndDate;
     public String returnLocation;
@@ -40,7 +40,7 @@ public class LeaseAgreement {
     private boolean active;
     private Car car;
 
-    public LeaseAgreement(int fkVehicleId, int fkCustomerId, LeaseType leaseType, int leasePrice, Timestamp leaseStartDate, Timestamp leaseEndDate, String returnLocation) {
+    public LeaseAgreement(int fkVehicleId, int fkCustomerId, LeaseType leaseType, double leasePrice, Timestamp leaseStartDate, Timestamp leaseEndDate, String returnLocation) {
     this.fkVehicleId = fkVehicleId;
     this.fkCustomerId = fkCustomerId;
     this.leaseType = leaseType;
@@ -90,11 +90,11 @@ public class LeaseAgreement {
         this.leaseType = leaseType;
     }
 
-    public int getLeasePrice() {
+    public double getLeasePrice() {
         return leasePrice;
     }
 
-    public void setLeasePrice(int leasePrice) {
+    public void setLeasePrice(double leasePrice) {
         this.leasePrice = leasePrice;
     }
 

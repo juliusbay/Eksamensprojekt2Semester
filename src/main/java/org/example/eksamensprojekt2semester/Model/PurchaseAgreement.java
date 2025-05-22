@@ -7,6 +7,7 @@ public class PurchaseAgreement {
         private int fkCustomerId;
         private boolean paid;
         private double carPrice;
+        private Customer customer;
 
         public PurchaseAgreement(int purchaseAgreementId, int fkVehicleId, int fkCustomerId, boolean paid, double carPrice) {
             this.purchaseAgreementId = purchaseAgreementId;
@@ -64,5 +65,12 @@ public class PurchaseAgreement {
         public void setCarPrice(double carPrice) {
             this.carPrice = carPrice;
         }
+
+        public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
+        public Customer getCustomer() {
+            return customer;
+    }
+}
 

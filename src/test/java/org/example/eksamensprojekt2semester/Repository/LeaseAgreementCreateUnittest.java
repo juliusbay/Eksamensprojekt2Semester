@@ -45,7 +45,7 @@ public class LeaseAgreementCreateUnittest {
         int vehicle_id = 1;
         int customer_id = 1;
         LeaseAgreement.LeaseType leaseType = LeaseAgreement.LeaseType.LIMITED;
-        int lease_price = 50000;
+        double lease_price = 50000;
         Timestamp lease_start_date = Timestamp.valueOf(LocalDate.of(2025, 6, 1).atStartOfDay());
         Timestamp lease_end_date = Timestamp.valueOf(LocalDate.of(2025, 8, 1).atStartOfDay());
         String returnLocation = "Guldbergsgad";
@@ -85,7 +85,7 @@ public class LeaseAgreementCreateUnittest {
         int vehicle_id = 1;
         int customer_id = 1;
         LeaseAgreement.LeaseType leaseType = LeaseAgreement.LeaseType.LIMITED;
-        int leasePrice = -50000;
+        double leasePrice = -50000;
         Timestamp lease_start_date = Timestamp.valueOf(LocalDate.of(2025, 6, 1).atStartOfDay());
         Timestamp lease_end_date = Timestamp.valueOf(LocalDate.of(2025, 8, 1).atStartOfDay());
         String returnLocation = "Guldbergsgad";
@@ -115,7 +115,7 @@ public class LeaseAgreementCreateUnittest {
         int vehicle_id = 1;
         int customer_id = 1;
         LeaseAgreement.LeaseType leaseType = LeaseAgreement.LeaseType.UNLIMITED;
-        int leasePrice = 50000;
+        double leasePrice = 50000;
         Timestamp lease_start_date =  Timestamp.valueOf(LocalDate.of(2025, 6, 1).atStartOfDay());
         Timestamp lease_end_date =  Timestamp.valueOf(LocalDate.of(2025, 8, 1).atStartOfDay());
         String returnLocation = "Guldbergsgad";

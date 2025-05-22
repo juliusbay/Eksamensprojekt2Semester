@@ -37,7 +37,7 @@ public class LeaseAgreementRepository {
                 leaseAgreement.setCar(carRepository.getCarById(resultSet.getInt("fk_vehicle_id")));
                 leaseAgreement.setCustomer(customerRepository.getCustomerByCustomerId(resultSet.getInt("fk_customer_id")));
                 leaseAgreement.setLeaseType(LeaseAgreement.LeaseType.valueOf(resultSet.getString("lease_type")));
-                leaseAgreement.setLeasePrice(resultSet.getInt("lease_price"));
+                leaseAgreement.setLeasePrice(resultSet.getDouble("lease_price"));
                 leaseAgreement.setLeaseStartDate(resultSet.getTimestamp("lease_start_date"));
                 leaseAgreement.setLeaseEndDate(resultSet.getTimestamp("lease_end_date"));
                 leaseAgreement.setReturnLocation(resultSet.getString("return_location"));
@@ -71,7 +71,7 @@ public class LeaseAgreementRepository {
                     leaseAgreement.setCar(carRepository.getCarById(resultSet.getInt("fk_vehicle_id")));
                     leaseAgreement.setCustomer(customerRepository.getCustomerByCustomerId(resultSet.getInt("fk_customer_id")));
                     leaseAgreement.setLeaseType(LeaseAgreement.LeaseType.valueOf(resultSet.getString("lease_type")));
-                    leaseAgreement.setLeasePrice(resultSet.getInt("lease_price"));
+                    leaseAgreement.setLeasePrice(resultSet.getDouble("lease_price"));
                     leaseAgreement.setLeaseStartDate(resultSet.getTimestamp("lease_start_date"));
                     leaseAgreement.setLeaseEndDate(resultSet.getTimestamp("lease_end_date"));
                     leaseAgreement.setReturnLocation(resultSet.getString("return_location"));
@@ -103,7 +103,7 @@ public class LeaseAgreementRepository {
                     leaseAgreement.setCar(carRepository.getCarById(resultSet.getInt("fk_vehicle_id")));
                     leaseAgreement.setCustomer(customerRepository.getCustomerByCustomerId(resultSet.getInt("fk_customer_id")));
                     leaseAgreement.setLeaseType(LeaseAgreement.LeaseType.valueOf(resultSet.getString("lease_type")));
-                    leaseAgreement.setLeasePrice(resultSet.getInt("lease_price"));
+                    leaseAgreement.setLeasePrice(resultSet.getDouble("lease_price"));
                     leaseAgreement.setLeaseStartDate(resultSet.getTimestamp("lease_start_date"));
                     leaseAgreement.setLeaseEndDate(resultSet.getTimestamp("lease_end_date"));
                     leaseAgreement.setReturnLocation(resultSet.getString("return_location"));
@@ -136,7 +136,7 @@ public class LeaseAgreementRepository {
                     leaseAgreement.setCar(carRepository.getCarById(resultSet.getInt("fk_vehicle_id")));
                     leaseAgreement.setCustomer(customerRepository.getCustomerByCustomerId(resultSet.getInt("fk_customer_id")));
                     leaseAgreement.setLeaseType(LeaseAgreement.LeaseType.valueOf(resultSet.getString("lease_type")));
-                    leaseAgreement.setLeasePrice(resultSet.getInt("lease_price"));
+                    leaseAgreement.setLeasePrice(resultSet.getDouble("lease_price"));
                     leaseAgreement.setLeaseStartDate(resultSet.getTimestamp("lease_start_date"));
                     leaseAgreement.setLeaseEndDate(resultSet.getTimestamp("lease_end_date"));
                     leaseAgreement.setReturnLocation(resultSet.getString("return_location"));

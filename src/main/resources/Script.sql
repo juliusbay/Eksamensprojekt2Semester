@@ -109,7 +109,7 @@ CREATE TABLE lease_agreement (
                             lease_type ENUM('LIMITED', 'UNLIMITED'),
                             lease_start_date TIMESTAMP,
                             lease_end_date TIMESTAMP,
-                            lease_price DOUBLE,
+                            lease_price DOUBLE (10, 2),
                             return_location VARCHAR(255),
                             FOREIGN KEY (fk_vehicle_id) REFERENCES car(vehicle_id),
                             FOREIGN KEY (fk_customer_id) REFERENCES customer(customer_id),
@@ -120,16 +120,16 @@ CREATE TABLE lease_agreement (
 
 INSERT INTO lease_agreement(lease_agreement_id, fk_vehicle_id, fk_customer_id, lease_type, lease_start_date, lease_end_date, lease_price, return_location, lease_active)
 VALUES
-    (1, 1, 1, 'UNLIMITED','2025-05-01', '2025-11-01', 10000, 'Guldgade',true),
-    (2, 2, 2, 'UNLIMITED', '2023-11-01', '2024-11-01', 12000, 'Aarhus',true),
-    (3, 3, 3, 'LIMITED', '2024-03-15', '2024-09-15', 8000, 'Odense',true),
-    (4, 4, 4, 'UNLIMITED', '2025-01-10', '2025-07-10', 11000, 'Aalborg',true),
-    (5, 5, 5, 'LIMITED', '2024-06-01', '2024-12-01', 9000, 'Esbjerg',true),
-    (6, 6, 6, 'LIMITED', '2024-04-20', '2024-10-20', 8500, 'Randers',true),
-    (7, 7, 7, 'UNLIMITED', '2023-09-05', '2024-09-05', 13000, 'Horsens',true),
-    (8, 8, 8, 'LIMITED', '2024-02-01', '2024-08-01', 7800, 'Kolding',true),
-    (9, 9, 9, 'UNLIMITED', '2024-07-01', '2025-01-01', 10000, 'Vejle',true),
-    (10, 10, 10, 'LIMITED', '2024-05-01', '2024-11-01', 9500, 'Herning',true);
+    (1, 1, 1, 'UNLIMITED','2025-05-01', '2025-11-01', 10000.00, 'Guldgade',true),
+    (2, 2, 2, 'UNLIMITED', '2023-11-01', '2024-11-01', 12000.00, 'Aarhus',true),
+    (3, 3, 3, 'LIMITED', '2024-03-15', '2024-09-15', 8000.00, 'Odense',true),
+    (4, 4, 4, 'UNLIMITED', '2025-01-10', '2025-07-10', 11000.00, 'Aalborg',true),
+    (5, 5, 5, 'LIMITED', '2024-06-01', '2024-12-01', 9000.00, 'Esbjerg',true),
+    (6, 6, 6, 'LIMITED', '2024-04-20', '2024-10-20', 8500.00, 'Randers',true),
+    (7, 7, 7, 'UNLIMITED', '2023-09-05', '2024-09-05', 13000.00, 'Horsens',true),
+    (8, 8, 8, 'LIMITED', '2024-02-01', '2024-08-01', 7800.00, 'Kolding',true),
+    (9, 9, 9, 'UNLIMITED', '2024-07-01', '2025-01-01', 10000.00, 'Vejle',true),
+    (10, 10, 10, 'LIMITED', '2024-05-01', '2024-11-01', 9500.00, 'Herning',true);
 
 CREATE TABLE purchase_agreement(
                                    purchase_agreement_id INT PRIMARY KEY AUTO_INCREMENT UNIQUE,

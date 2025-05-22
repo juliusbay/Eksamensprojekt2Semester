@@ -46,7 +46,7 @@ public class LeaseAgreementController {
     public String createLeaseAgreement(@RequestParam("fk_vehicle_id") int fkVehicleId,
                                        @RequestParam("fk_customer_id") int fkCustomerId,
                                        @RequestParam("lease_type")String leaseTypeString,
-                                       @RequestParam("lease_price") int leasePrice,
+                                       @RequestParam("lease_price") double leasePrice,
                                        @RequestParam("lease_start_date")Date leaseStartDate,
                                        @RequestParam("lease_end_date") Date leaseEndDate,
                                        @RequestParam("return_location") String returnLocation,
@@ -58,9 +58,6 @@ public class LeaseAgreementController {
 
         Timestamp leaseStartDateTS = Timestamp.valueOf(leaseStartDate.toString()+ " 00:00:00");
         Timestamp leaseEndDateTS = Timestamp.valueOf(leaseEndDate.toString()+ " 00:00:00");
-
-
-
 
 
     LeaseAgreement.LeaseType leaseType = LeaseAgreement.LeaseType.fromString(leaseTypeString);
@@ -102,7 +99,7 @@ public class LeaseAgreementController {
     public LeaseAgreement createLeaseAgreementMock( int fkVehicleId,
                                         int fkCustomerId,
                                        LeaseAgreement.LeaseType leaseType,
-                                        int leasePrice,
+                                        double leasePrice,
                                                     Timestamp leaseStartDate,
                                                     Timestamp leaseEndDate,
                                                     String returnLocation) throws SQLException {
@@ -133,7 +130,7 @@ public class LeaseAgreementController {
     public String updateLeaseAgreement(@RequestParam("fk_vehicle_id") int fkVehicleId,
                                        @RequestParam("fk_customer_id") int fkCustomerId,
                                        @RequestParam("lease_type")LeaseAgreement.LeaseType leaseType,
-                                       @RequestParam("lease_price") int leasePrice,
+                                       @RequestParam("lease_price") double leasePrice,
                                        @RequestParam("lease_start_date")Timestamp leaseStartDate,
                                        @RequestParam("lease_end_date") Timestamp leaseEndDate,
                                        @RequestParam("return_location") String returnLocation,

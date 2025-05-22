@@ -79,7 +79,7 @@
                     <td th:text="${leaseAgreement.getCar().getVinNumber()}"/>
                     <td th:text="${leaseAgreement.getCustomer().getFirstName()} + ' ' + ${leaseAgreement.getCustomer().getLastName()}"/>
                     <td th:text="${leaseAgreement.leaseType}"/>
-                    <td th:text="${leaseAgreement.leasePrice}"/>
+                    <td th:text="${#numbers.formatDecimal(leaseAgreement.leasePrice, 1, 2) + ' dkk'}"/>
                     <td th:text="${#temporals.format(leaseAgreement.leaseStartDate.toLocalDateTime(), 'dd-MM-yyyy')}"/>
                     <td th:text="${#temporals.format(leaseAgreement.leaseEndDate.toLocalDateTime(), 'dd-MM-yyyy')}"/>
                     <td th:text="${leaseAgreement.returnLocation}"/>
@@ -184,7 +184,7 @@
                 <tr th:each="leaseAgreement: ${leaseAgreements}" th:if="${!leaseAgreement.active}">
                     <td th:text="${leaseAgreement.getCustomer().getFirstName()} + ' ' + ${leaseAgreement.getCustomer().getLastName()}"/>
                     <td th:text="${leaseAgreement.leaseType}"/>
-                    <td th:text="${leaseAgreement.leasePrice}"/>
+                    <td th:text="${#numbers.formatDecimal(leaseAgreement.leasePrice, 1, 2) + ' dkk'}"/>
                     <td th:text="${#temporals.format(leaseAgreement.leaseStartDate.toLocalDateTime(), 'dd-MM-yyyy')}"/>
                     <td th:text="${#temporals.format(leaseAgreement.leaseEndDate.toLocalDateTime(), 'dd-MM-yyyy')}"/>
                     <td th:text="${leaseAgreement.returnLocation}"/>
@@ -512,8 +512,8 @@
                     <td th:text="${purchaseAgreement.purchaseAgreementId}"/>
                     <td th:text="${purchaseAgreement.fkCustomerId}"/>
                     <td th:text="${purchaseAgreement.fkVehicleId}"/>
-                    <td th:text="${purchaseAgreement.carPrice}"/>
-                    <td th:text="${purchaseAgreement.paid}"/>
+                    <td th:text="${#numbers.formatDecimal(purchaseAgreement.getCarPrice(), 1, 2) + ' dkk'}"/>
+                    <td th:text="${purchaseAgreement.paid ? 'Ja' : 'Nej'}"/>
                     <td>
                         <form th:action="@{/deletePurchaseAgreement}" method="post">
                             <input type="hidden" name="purchaseAgreementId"
