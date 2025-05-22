@@ -2,12 +2,10 @@ package org.example.eksamensprojekt2semester.Controller;
 
 import jakarta.servlet.http.HttpSession;
 import org.example.eksamensprojekt2semester.Model.Car;
+import org.example.eksamensprojekt2semester.Model.ConditionReport;
 import org.example.eksamensprojekt2semester.Model.Customer;
 import org.example.eksamensprojekt2semester.Model.LeaseAgreement;
-import org.example.eksamensprojekt2semester.Repository.CarRepository;
-import org.example.eksamensprojekt2semester.Repository.CustomerRepository;
-import org.example.eksamensprojekt2semester.Repository.EmployeeRepository;
-import org.example.eksamensprojekt2semester.Repository.LeaseAgreementRepository;
+import org.example.eksamensprojekt2semester.Repository.*;
 import org.example.eksamensprojekt2semester.Service.LeaseAgreementService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,6 +19,9 @@ import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.sql.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Controller
 public class LeaseAgreementController {
@@ -38,7 +39,16 @@ public class LeaseAgreementController {
     private CustomerRepository customerRepository;
 
     @Autowired
-    EmployeeController employeeController;
+    ConditionReportRepository conditionReportRepository;
+
+    @Autowired
+    CarModelRepository carModelRepository;
+
+    @Autowired
+    EmployeeRepository employeeRepository;
+
+    @Autowired
+    PurchaseAgreementRepository purchaseAgreementRepository;
 
 
     //Create a leaseAgreement
@@ -50,37 +60,63 @@ public class LeaseAgreementController {
                                        @RequestParam("lease_start_date")Date leaseStartDate,
                                        @RequestParam("lease_end_date") Date leaseEndDate,
                                        @RequestParam("return_location") String returnLocation,
-                                       HttpSession session) throws SQLException {
+                                       HttpSession session, Model model) throws SQLException {
 
         if (!isUserLoggedIn(session)) {
             return "redirect:/login";
         }
 
+
         Timestamp leaseStartDateTS = Timestamp.valueOf(leaseStartDate.toString()+ " 00:00:00");
         Timestamp leaseEndDateTS = Timestamp.valueOf(leaseEndDate.toString()+ " 00:00:00");
+    //Following try catch block, is to show an error message instead of white label
+    try{
+        LeaseAgreement.LeaseType leaseType = LeaseAgreement.LeaseType.fromString(leaseTypeString);
+
+        LeaseAgreement leaseAgreement = new LeaseAgreement(fkVehicleId,
+                fkCustomerId, leaseType,
+                leasePrice, leaseStartDateTS, leaseEndDateTS, returnLocation);
 
 
-    LeaseAgreement.LeaseType leaseType = LeaseAgreement.LeaseType.fromString(leaseTypeString);
-
-    LeaseAgreement leaseAgreement = new LeaseAgreement(fkVehicleId,
-            fkCustomerId, leaseType,
-            leasePrice, leaseStartDateTS, leaseEndDateTS, returnLocation);
-
-
-        leaseAgreementService.noNegativePriceLease(leaseAgreement);
         leaseAgreementService.isEndDateBeforeStartDate(leaseAgreement);
         leaseAgreementService.minimum120daysAgreement(leaseAgreement);
         leaseAgreement.setCar(carRepository.getCarById(fkVehicleId));
         leaseAgreement.setCustomer(customerRepository.getCustomerByCustomerId(fkCustomerId));
 
-    leaseAgreementRepository.createLeaseAgreement(leaseAgreement);
-    leaseAgreementRepository.setLeaseAgreementActive(leaseAgreement);
+        leaseAgreementRepository.createLeaseAgreement(leaseAgreement);
+        leaseAgreementRepository.setLeaseAgreementActive(leaseAgreement);
 
 
     carRepository.getCarById(fkVehicleId).setStatusFromString("RENTED");
+        carRepository.getCarById(fkVehicleId).setRentedOut(true);
         return "redirect:/";
-    }
+    } catch (Exception e){
+        //We "trap" the corrosponding error message within a model, and send it to Thymeleaf it wil show the activated exception message
+        model.addAttribute("errorMessage", e.getMessage());
+        //we activate this method, as we would on page controller
+        reloadLeaseFormData(model);
 
+        return "dashboard";
+        }
+    }
+    //This method is the same as the pageController. We retrieve all of the tables again, after an excpetion has been met.
+    //If we dont do this, all of the tables will be modelless
+    private void reloadLeaseFormData(Model model) throws SQLException {
+        model.addAttribute("cars", carRepository.getAllCars());
+        model.addAttribute("customers", customerRepository.getAllCustomers());
+        model.addAttribute("leaseTypes", LeaseAgreement.LeaseType.values());
+        model.addAttribute("leaseAgreements", leaseAgreementRepository.getAllLeaseAgreements());
+        model.addAttribute("carModels", carModelRepository.getAllCarModels());
+        model.addAttribute("conditionReport", conditionReportRepository.getAllConditionReports());
+        model.addAttribute("employees", employeeRepository.getAllEmployees());
+        model.addAttribute("purchaseAgreements", purchaseAgreementRepository.getAllPurchaseAgreements());
+
+        Map<Integer, LeaseAgreement> leaseAgreementMap = new HashMap<>();
+        for (LeaseAgreement la : leaseAgreementRepository.getAllLeaseAgreements()) {
+            leaseAgreementMap.put(la.getFkVehicleId(), la);
+        }
+        model.addAttribute("leaseAgreementMap", leaseAgreementMap);
+    }
 
     @GetMapping("/createLeasePage")
     public String showCreateLeasePage(Model model, HttpSession session) throws SQLException {
@@ -103,9 +139,6 @@ public class LeaseAgreementController {
                                                     Timestamp leaseStartDate,
                                                     Timestamp leaseEndDate,
                                                     String returnLocation) throws SQLException {
-
-
-
 
 
         LeaseAgreement leaseAgreement = new LeaseAgreement(fkVehicleId,

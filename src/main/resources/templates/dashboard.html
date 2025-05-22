@@ -107,6 +107,9 @@
         <div class="container">
             <div class="form-container">
                 <h2> Opret en ny lease </h2>
+                <div th:if="${errorMessage}" class="alert alert-danger">
+                    <p th:text="${errorMessage}"></p>
+                </div>
                 <form class="form2" th:action="@{/createLease}" method="post">
                     <div class="form-field">
                         <label for="fk_vehicle_id">Vælge bil:</label>
@@ -154,7 +157,7 @@
                     <div class="form-field">
                         <label for="return_location">Returlokation:</label>
                         <input type="text" id="return_location" name="return_location"
-                               placeholder="Indtast bilens returlocation" required>
+                               placeholder="Indtast bilens returlokation" required>
                     </div>
 
                     <div class="form-field">
