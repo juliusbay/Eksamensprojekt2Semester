@@ -124,7 +124,7 @@
                         </select>
                     </div>
                     <div class="form-field">
-                        <label for="lease_type">Indtast lease type:</label>
+                        <label for="lease_type">Lease type:</label>
                         <select id="lease_type" name="lease_type">
                             <option value=""> Indtast lease type</option>
                             <option th:each="leaseType : ${leaseTypes}" th:value="${leaseType}" th:text="${leaseType}"></option>
@@ -132,25 +132,25 @@
                     </div>
 
                     <div class="form-field">
-                        <label for="lease_price">Indtast lease pris:</label>
+                        <label for="lease_price">Lease pris:</label>
                         <input type="number" min="0" id="lease_price" name="lease_price"
                                placeholder="Indtast lease pris" required>
                     </div>
 
                     <div class="form-field">
-                        <label for="lease_start_date">Indtast startdato:</label>
+                        <label for="lease_start_date">Startdato:</label>
                         <input type="date" id="lease_start_date" name="lease_start_date"
                                placeholder="Indtast lease startdato" required>
                     </div>
 
                     <div class="form-field">
-                        <label for="lease_end_date">Indtast slutdato:</label>
+                        <label for="lease_end_date">Slutdato:</label>
                         <input type="date" id="lease_end_date" name="lease_end_date"
                                placeholder="Indtast lease slutdato" required>
                     </div>
 
                     <div class="form-field">
-                        <label for="return_location">Indtast bilens returlocation:</label>
+                        <label for="return_location">Returlokation:</label>
                         <input type="text" id="return_location" name="return_location"
                                placeholder="Indtast bilens returlocation" required>
                     </div>
@@ -295,7 +295,7 @@
                 <h2> Opret en ny bil </h2>
                 <form class="form2" th:action="@{/createCar}" method="post">
                     <div class="form-field">
-                        <label for="car_model_id">Vælge bil:</label>
+                        <label for="car_model_id">Vælg bil:</label>
                         <select id="car_model_id" name="car-model-id">
                             <option value=""> Vælg bilmodel</option>
                             <option th:each="carModel : ${carModels}" th:value="${carModel.getCarModelId()}"
@@ -305,13 +305,13 @@
 
 
                     <div class="form-field">
-                        <label for="vin_number">Indtast stelnummer:</label>
+                        <label for="vin_number">Stelnummer:</label>
                         <input type="text" id="vin_number" name="vin-number"
                                placeholder="Indtast stelnummer" required>
                     </div>
 
                     <div class="form-field">
-                        <label for="color">Indtast farve:</label>
+                        <label for="color">Farve:</label>
                         <input type="text" id="color" name="color"
                                placeholder="Indtast farve" required>
                     </div>
@@ -444,7 +444,7 @@
                     </div>
 
                     <div class="form-field">
-                        <label class="label-create" for="car_emission">Indtast CO2 udledning:</label>
+                        <label class="label-create" for="car_emission">CO2 udledning:</label>
                         <input type="text" id="car_emission" name="car_emission" placeholder="Indtast CO2 udledning:"
                                required>
                     </div>
