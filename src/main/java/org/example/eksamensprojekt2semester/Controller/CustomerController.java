@@ -16,9 +16,6 @@ public class CustomerController {
     @Autowired
     CustomerRepository customerRepository;
 
-    @Autowired
-    CarRepository carRepository;
-
 
     @PostMapping("/createCustomer")
     public String createCustomer(@RequestParam("first_name")String firstName,

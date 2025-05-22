@@ -1,9 +1,9 @@
 package org.example.eksamensprojekt2semester.Enum;
 
 public enum FuelType {
-    ELECTRIC("elektrisk"),
-    GASOLINE("benzin"),
-    HYBRID("hybrid");
+    ELECTRIC("Elektrisk"),
+    GASOLINE("Benzin"),
+    HYBRID("Hybrid");
 
     private final String prettyPrint;
 

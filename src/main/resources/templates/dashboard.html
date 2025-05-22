@@ -62,22 +62,22 @@
             <table id="lease_table">
                 <thead>
                 <tr>
-                    <th class="clickableHeader" onclick="sortTable(0)">Vin number</th>
-                    <th class="clickableHeader" onclick="sortTable(1)">Customer Id</th>
-                    <th class="clickableHeader" onclick="sortTable(2)">Lease Type</th>
-                    <th class="clickableHeader" onclick="sortTable(3)">Lease Price</th>
-                    <th class="clickableHeader" onclick="sortTable(4)">Lease Start Date</th>
-                    <th class="clickableHeader" onclick="sortTable(5)">Lease End Date</th>
-                    <th class="clickableHeader" onclick="sortTable(6)">Return Location</th>
+                    <th class="clickableHeader" onclick="sortTable(0)">Stelnummer</th>
+                    <th class="clickableHeader" onclick="sortTable(1)">Kunde navn</th>
+                    <th class="clickableHeader" onclick="sortTable(2)">Leje type</th>
+                    <th class="clickableHeader" onclick="sortTable(3)">Leje pris</th>
+                    <th class="clickableHeader" onclick="sortTable(4)">Leje start dato</th>
+                    <th class="clickableHeader" onclick="sortTable(5)">Leje slut dato</th>
+                    <th class="clickableHeader" onclick="sortTable(6)">Returnerings lokation</th>
                     <th>Lease detaljer</th>
-                    <th>Delete</th>
+                    <th>Slet</th>
                 </tr>
                 </thead>
 
                 <tbody>
                 <tr th:each="leaseAgreement: ${leaseAgreements}" th:if="${leaseAgreement.active}">
                     <td th:text="${leaseAgreement.getCar().getVinNumber()}"/>
-                    <td th:text="${leaseAgreement.getCustomer().getCustomerId()}"/>
+                    <td th:text="${leaseAgreement.getCustomer().getFirstName()} + ' ' + ${leaseAgreement.getCustomer().getLastName()}"/>
                     <td th:text="${leaseAgreement.leaseType}"/>
                     <td th:text="${leaseAgreement.leasePrice}"/>
                     <td th:text="${#temporals.format(leaseAgreement.leaseStartDate.toLocalDateTime(), 'dd-MM-yyyy')}"/>
@@ -94,7 +94,7 @@
                         <form th:action="@{/deleteLease}" method="post">
                             <input type="hidden" name="lease_agreement_id"
                                    th:value="${leaseAgreement.leaseAgreementId}">
-                            <button type="submit">Delete</button>
+                            <button type="submit">Slet</button>
                         </form>
                     </td>
                 </tr>
@@ -108,7 +108,7 @@
                 <form class="form2" th:action="@{/createLease}" method="post">
                     <div class="form-field">
                         <label for="fk_vehicle_id">Vælge bil:</label>
-                        <select id="vehicle-lease" name="vehicle-lease">
+                        <select id="vehicle-lease" name="fk_vehicle_id">
                             <option value=""> Vælg bil</option>
                             <option th:each="car : ${cars}" th:value="${car.vehicleId}"
                                     th:text="${ car.vehicleId+ ' '+ car.carModel.getBrand() + ' '+car.carModel.getCarEquipment()}"></option>
@@ -127,7 +127,7 @@
                         <label for="lease_type">Indtast lease type:</label>
                         <select id="lease_type" name="lease_type">
                             <option value=""> Indtast lease type</option>
-                            <option th:each="type : ${leaseTypes}" th:value="${type}" th:text="${type}"></option>
+                            <option th:each="leaseType : ${leaseTypes}" th:value="${leaseType}" th:text="${leaseType}"></option>
                         </select>
                     </div>
 
@@ -169,22 +169,20 @@
             <table id="lease_inactive_table">
                 <thead>
                 <tr>
-                    <th class="clickableHeader" onclick="sortTable(0)">Vehicle Id</th>
-                    <th class="clickableHeader" onclick="sortTable(1)">Customer Id</th>
-                    <th class="clickableHeader" onclick="sortTable(2)">Lease Type</th>
-                    <th class="clickableHeader" onclick="sortTable(3)">Lease Price</th>
-                    <th class="clickableHeader" onclick="sortTable(4)">Lease Start Date</th>
-                    <th class="clickableHeader" onclick="sortTable(5)">Lease End Date</th>
-                    <th class="clickableHeader" onclick="sortTable(6)">Return Location</th>
-                    <th>Lease detaljer</th>
-                    <th>Delete</th>
+                    <th class="clickableHeader" onclick="sortTable(1)">Kunde navn</th>
+                    <th class="clickableHeader" onclick="sortTable(2)">Udlejningstype</th>
+                    <th class="clickableHeader" onclick="sortTable(3)">Lejepris</th>
+                    <th class="clickableHeader" onclick="sortTable(4)">Leje start dato</th>
+                    <th class="clickableHeader" onclick="sortTable(5)">Leje slut dato</th>
+                    <th class="clickableHeader" onclick="sortTable(6)">Returnerings lokation</th>
+                    <th>Lejedetaljer detaljer</th>
+                    <th>Slet</th>
                 </tr>
                 </thead>
 
                 <tbody>
                 <tr th:each="leaseAgreement: ${leaseAgreements}" th:if="${!leaseAgreement.active}">
-                    <td th:text="${leaseAgreement.fkVehicleId}"/>
-                    <td th:text="${leaseAgreement.getCustomer().getCustomerId()}"/>
+                    <td th:text="${leaseAgreement.getCustomer().getFirstName()} + ' ' + ${leaseAgreement.getCustomer().getLastName()}"/>
                     <td th:text="${leaseAgreement.leaseType}"/>
                     <td th:text="${leaseAgreement.leasePrice}"/>
                     <td th:text="${#temporals.format(leaseAgreement.leaseStartDate.toLocalDateTime(), 'dd-MM-yyyy')}"/>
@@ -201,7 +199,7 @@
                         <form th:action="@{/deleteLease}" method="post">
                             <input type="hidden" name="lease_agreement_id"
                                    th:value="${leaseAgreement.leaseAgreementId}">
-                            <button type="submit">Delete</button>
+                            <button type="submit">Slet</button>
                         </form>
                     </td>
                 </tr>
@@ -216,7 +214,6 @@
             <table id="car_table">
                 <thead>
                 <tr>
-                    <th class="clickableHeader" onclick="sortTable(0)">ID</th>
                     <th class="clickableHeader" onclick="sortTable(1)">VIN Number</th>
                     <th class="clickableHeader" onclick="sortTable(2)">Mærke</th>
                     <th class="clickableHeader" onclick="sortTable(3)">Model</th>
@@ -230,14 +227,13 @@
                 </thead>
                 <tbody>
                 <tr th:each="car: ${cars}">
-                    <td th:text="${car.getVehicleId()}"/>
                     <td th:text="${car.vinNumber}"/>
                     <td th:text="${car.getCarModel().getBrand()}"/>
                     <td th:text="${car.getCarModel().getModelName()}"/>
                     <td th:text="${car.getCarModel().getCarEquipment()}"/>
                     <td th:text="${car.color}"/>
-                    <td th:text="${car.bought}"/>
-                    <td th:text="${car.statusValue}"/>
+                    <td th:text="${car.bought ? 'Ja' : 'Nej'}"/>
+                    <td th:text="${car.getStatusValue()}"/>
                     <td>
                         <!-- Checks if the car has a lease agreement and if the lease end date is not after todays date-->
                         <div th:if="${leaseAgreementMap[car.vehicleId] != null and
@@ -397,7 +393,7 @@
                     <td th:text="${carModel.getFuelType()}"/>
                     <td th:text="${carModel.getModelYear()}"/>
                     <td th:text="${carModel.getGearBox()}"/>
-                    <td th:text="${carModel.getCarEmission()}"/>
+                    <td th:text="${carModel.getCarEmission() + ' g/km'}"/>
                     <td th:text="${carModel.getCarEquipment()}"/>
                     <td th:text="${carModel.getSteelPrice()}"/>
                     <td>
@@ -697,23 +693,22 @@
 
                 let xDate;
                 let yDate;
+                const dateRegex = /\d\d-\d\d-\d\d\d\d/g;
 
+                console.log(x.innerHTML);
                 if (Number(x.innerHTML)) {
-                    console.log('number');
                     xDate = Number(x.innerHTML);
                     yDate = Number(y.innerHTML);
-                } else if (Date.parse(x.innerHTML)) {
-                    console.log('date');
-                    let from = x.innerHTML.split("-");
+                } else if (dateRegex.test(x.innerHTML)) {
+                    let from = x.innerHTML.split(/[-\s]+/);
                     xDate = new Date(from[2], from[1] - 1, from[0]).getTime();
                     from = y.innerHTML.split("-");
                     yDate = new Date(from[2], from[1] - 1, from[0]).getTime();
-                    console.log(typeof xDate);
-                    console.log('type of yDate'+yDate);
                 }
+
                 // Check if the two rows should switch place, based on the direction, asc or desc:
                 if (dir === "asc") {
-                    if (Number(x.innerHTML)) {
+                    if (xDate !== undefined) {
                         if (xDate > yDate) {
                             // If so, mark as a switch and break the loop:
                             shouldSwitch = true;
@@ -727,13 +722,15 @@
                         }
                     }
                 } else if (dir === "desc") {
-                    if (Number(x.innerHTML)) {
+                    if (xDate !== undefined) {
                         if (xDate < yDate) {
+                            console.log('numer sort')
                             // If so, mark as a switch and break the loop:
                             shouldSwitch = true;
                             break;
                         }
                     } else {
+                        console.log('not nuimer sort')
                         if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
                             // If so, mark as a switch and break the loop:
                             shouldSwitch = true;
@@ -741,7 +738,6 @@
                         }
                     }
                 }
-                console.log('row loop')
             }
             if (shouldSwitch) {
                 // If a switch has been marked, make the switch and mark that a switch has been done:

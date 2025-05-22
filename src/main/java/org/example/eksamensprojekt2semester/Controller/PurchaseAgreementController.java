@@ -84,16 +84,6 @@ public class PurchaseAgreementController {
             return "redirect:/purchase_agreement_details" + purchaseAgreementId;
         }
 
-        // Placeholder for the dashboard view
-        @GetMapping("/purchase_dashboard")
-        public String getPurchaseDashboard(HttpSession session)
-        {
-            if (!isUserLoggedIn(session)) {
-                return "redirect:/";
-            }
-            return "purchase_dashboard";
-        }
-
         public boolean isUserLoggedIn(HttpSession session) {
             return session.getAttribute("loggedInUser") != null;
         }

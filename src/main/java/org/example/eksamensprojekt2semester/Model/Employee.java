@@ -88,10 +88,6 @@ public class Employee {
         return role.name();
     }
 
-    public void setRole(Role role) {
-        this.role = role;
-    }
-
     public void setRoleFromString(String role) {
         this.role = Role.valueOf(role);
     }

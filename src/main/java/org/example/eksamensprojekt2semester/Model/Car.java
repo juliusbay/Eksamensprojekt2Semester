@@ -12,7 +12,6 @@ public class Car {
     private CarModel carModel;
     private String vinNumber;
     private String color;
-    // private double monthlyPrice;
     private boolean bought;
     private Status status;
     private boolean rentedOut;
@@ -23,7 +22,6 @@ public class Car {
         this.carModel = carModel;
         this.vinNumber = vinNumber;
         this.color = color;
-        // this.monthlyPrice = monthlyPrice;
         this.bought = bought;
 
     }
@@ -35,29 +33,7 @@ public class Car {
         this.receivedDate = receivedDate;
     }
 
-    public Car(CarModel carModel, String vinNumber, String color) {
-        this.carModel = carModel;
-        this.vinNumber = vinNumber;
-        this.color = color;
-        status = Status.READY;
-
-    }
-
-
-
-    public Car(CarModel carModel, String vinNumber, String color,  boolean bought) {
-        this.carModel = carModel;
-        this.vinNumber = vinNumber;
-        this.color = color;
-        this.bought = bought;
-        status = Status.READY;
-    }
-
     public Car() {
-    }
-
-    public Car(int carModelId, String vinNumber, String color, Timestamp currentTimestamp) {
-        setStatus(Status.READY);
     }
 
     public int getVehicleId() {
@@ -92,14 +68,6 @@ public class Car {
         this.color = color;
     }
 
-//    public double getMonthlyPrice() {
-//        return monthlyPrice;
-//    }
-//
-//    public void setMonthlyPrice(double monthlyPrice) {
-//        this.monthlyPrice = monthlyPrice;
-//    }
-
     public boolean isBought() {
         return bought;
     }
@@ -122,10 +90,6 @@ public class Car {
 
     public void setStatusFromString(String status) {
         this.status = Status.valueOf(status);
-    }
-
-    public boolean isRentedOut() {
-        return rentedOut;
     }
 
     public void setRentedOut(boolean rentedOut) {

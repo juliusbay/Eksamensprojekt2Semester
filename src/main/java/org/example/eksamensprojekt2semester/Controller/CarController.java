@@ -41,16 +41,6 @@ public class CarController {
         return "redirect:/cars"; //Returnere til testsiden, skal ændres.
     }
 
-/*
-    @GetMapping("/cars")
-    public String getCars(Model model) {
-
-        ArrayList<Car> cars = carRepository.getAllCars();
-        model.addAttribute("cars", cars);
-        return "carsTestSide";
-
-    }
-    */
 
     @PostMapping("/createCar")
     public String getCreateCar(@RequestParam("car-model-id") int carModelId,
@@ -90,26 +80,6 @@ public class CarController {
         return "redirect:/cars";
     }
 
-    @PostMapping("/getUpdateCar")
-    public String updateCar(Model model, String vinNumber){
-
-        Car car = carRepository.getCarByVinNumber(vinNumber);
-        model.addAttribute("car", car);
-        carRepository.updateCar(car);
-        return "updateCar";
-
-    }
-
-    @PostMapping("/updateCarStatus")
-    public String updateCar(Model model,
-                            @RequestParam ("vehicle_id") int vehicleId,
-                            @RequestParam ("status") String status){
-
-        carRepository.updateCarStatus(status, vehicleId);
-
-        return "redirect:/cars";
-
-    }
 
 
 }

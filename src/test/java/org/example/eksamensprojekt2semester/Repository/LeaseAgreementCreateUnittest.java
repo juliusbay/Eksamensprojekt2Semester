@@ -1,6 +1,7 @@
 package org.example.eksamensprojekt2semester.Repository;
 
 import org.example.eksamensprojekt2semester.Controller.LeaseAgreementController;
+import org.example.eksamensprojekt2semester.Model.Car;
 import org.example.eksamensprojekt2semester.Model.LeaseAgreement;
 import org.example.eksamensprojekt2semester.Service.LeaseAgreementService;
 import org.junit.jupiter.api.BeforeEach;
@@ -17,65 +18,63 @@ import java.sql.Timestamp;
 import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.verify;
-
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.*;
 
 
 @ExtendWith(MockitoExtension.class)
 public class LeaseAgreementCreateUnittest {
     // Mock dependencies
-
-    @Mock
-    LeaseAgreement leaseAgreement;
+    @InjectMocks
+    LeaseAgreementController leaseAgreementController;
 
     @Mock
     LeaseAgreementRepository leaseAgreementRepository;
 
     @Mock
-    Model model;
+    LeaseAgreementService leaseAgreementService;
 
     @Mock
-    LeaseAgreementService leaseService;
-
-    @InjectMocks
-    LeaseAgreementController leaseAgreementController;
-
-    // Captures the LeaseAgreement object passed to the repository so we can inspect it
-
+    CarRepository carRepository;
 
 
     @Test
     @DisplayName("createLeaseAgreement happyFlow")
     void createLeaseAgreementHappy() throws SQLException {
         // Arrange
-        // mock input to simulate booking
         int vehicle_id = 1;
         int customer_id = 1;
         LeaseAgreement.LeaseType leaseType = LeaseAgreement.LeaseType.LIMITED;
-        int contract_price = 50000;
-        Timestamp lease_start_date =  Timestamp.valueOf(LocalDate.of(2025, 6, 1).atStartOfDay());
-        Timestamp lease_end_date =  Timestamp.valueOf(LocalDate.of(2025, 8, 1).atStartOfDay());
+        int lease_price = 50000;
+        Timestamp lease_start_date = Timestamp.valueOf(LocalDate.of(2025, 6, 1).atStartOfDay());
+        Timestamp lease_end_date = Timestamp.valueOf(LocalDate.of(2025, 8, 1).atStartOfDay());
         String returnLocation = "Guldbergsgad";
 
-        LeaseAgreement expectedLeaseAgreement = new LeaseAgreement(vehicle_id, customer_id, leaseType, contract_price,
-                lease_start_date, lease_end_date, returnLocation);
+        LeaseAgreement expectedLeaseAgreement = new LeaseAgreement(
+                vehicle_id, customer_id, leaseType, lease_price, lease_start_date, lease_end_date, returnLocation
+        );
+
+        Car mockCar = new Car();
+        mockCar.setVehicleId(vehicle_id);
+
+        // Mock method calls
+        when(carRepository.getCarById(vehicle_id)).thenReturn(mockCar);
+        //This is to ensure, that we dont use the actual datasource
+        doNothing().when(leaseAgreementRepository).createLeaseAgreement(any());
 
         // Act
-        // Call controller, as user would on site
-        LeaseAgreement actualLeaseAgreement = leaseAgreementController.createLeaseAgreementMock(vehicle_id, customer_id, leaseType, contract_price, lease_start_date, lease_end_date, returnLocation);
-
+        LeaseAgreement actual = leaseAgreementController.createLeaseAgreementMock(
+                vehicle_id, customer_id, leaseType, lease_price, lease_start_date, lease_end_date, returnLocation
+        );
 
         // Assert
-
-
-        // Compare each field individually to ensure the booking was created correctly
-        assertEquals(expectedLeaseAgreement.getFkVehicleId(), actualLeaseAgreement.getFkVehicleId());
-        assertEquals(expectedLeaseAgreement.getFkCustomerId(), actualLeaseAgreement.getFkCustomerId());
-        assertEquals(expectedLeaseAgreement.getLeaseType(), actualLeaseAgreement.getLeaseType());
-        assertEquals(expectedLeaseAgreement.getLeasePrice(), actualLeaseAgreement.getLeasePrice());
-        assertEquals(expectedLeaseAgreement.getLeaseStartDate(), actualLeaseAgreement.getLeaseStartDate());
-        assertEquals(expectedLeaseAgreement.getLeaseEndDate(), actualLeaseAgreement.getLeaseEndDate());
-        assertEquals(expectedLeaseAgreement.getReturnLocation(), actualLeaseAgreement.getReturnLocation());
+        assertEquals(expectedLeaseAgreement.getFkVehicleId(), actual.getFkVehicleId());
+        assertEquals(expectedLeaseAgreement.getFkCustomerId(), actual.getFkCustomerId());
+        assertEquals(expectedLeaseAgreement.getLeaseType(), actual.getLeaseType());
+        assertEquals(expectedLeaseAgreement.getLeasePrice(), actual.getLeasePrice());
+        assertEquals(expectedLeaseAgreement.getLeaseStartDate(), actual.getLeaseStartDate());
+        assertEquals(expectedLeaseAgreement.getLeaseEndDate(), actual.getLeaseEndDate());
+        assertEquals(expectedLeaseAgreement.getReturnLocation(), actual.getReturnLocation());
     }
 
     @Test
@@ -87,32 +86,26 @@ public class LeaseAgreementCreateUnittest {
         int customer_id = 1;
         LeaseAgreement.LeaseType leaseType = LeaseAgreement.LeaseType.LIMITED;
         int leasePrice = -50000;
-        Timestamp lease_start_date =  Timestamp.valueOf(LocalDate.of(2025, 6, 1).atStartOfDay());
-        Timestamp lease_end_date =  Timestamp.valueOf(LocalDate.of(2025, 8, 1).atStartOfDay());
+        Timestamp lease_start_date = Timestamp.valueOf(LocalDate.of(2025, 6, 1).atStartOfDay());
+        Timestamp lease_end_date = Timestamp.valueOf(LocalDate.of(2025, 8, 1).atStartOfDay());
         String returnLocation = "Guldbergsgad";
 
-        LeaseAgreement expectedLeaseAgreement = new LeaseAgreement(vehicle_id, customer_id, leaseType, leasePrice,
-                lease_start_date, lease_end_date, returnLocation);
 
+        //This method we acutally want to call, to recieve the proper exception
+        doCallRealMethod().when(leaseAgreementService).noNegativePriceLease(any());
 
+        // Act
+        IllegalArgumentException thrown = assertThrows(
+                IllegalArgumentException.class,
+                () -> leaseAgreementController.createLeaseAgreementMock(
+                        vehicle_id, customer_id, leaseType, leasePrice, lease_start_date, lease_end_date, returnLocation
+                )
+        );
 
+        // Assert
+        assertEquals("LeasePrice must be greater than 0",thrown.getMessage());
 
-
-        //Act
-
-        LeaseAgreement actualLeaseAgreement = leaseAgreementController.createLeaseAgreementMock(vehicle_id, customer_id, leaseType, leasePrice, lease_start_date, lease_end_date, returnLocation);
-        System.out.println(actualLeaseAgreement);
-
-        //Assert
-        assertEquals(expectedLeaseAgreement.getFkVehicleId(), actualLeaseAgreement.getFkVehicleId());
-        assertEquals(expectedLeaseAgreement.getFkCustomerId(), actualLeaseAgreement.getFkCustomerId());
-        assertEquals(expectedLeaseAgreement.getLeaseType(), actualLeaseAgreement.getLeaseType());
-        assertEquals(expectedLeaseAgreement.getLeasePrice(), actualLeaseAgreement.getLeasePrice());
-        assertEquals(expectedLeaseAgreement.getLeaseStartDate(), actualLeaseAgreement.getLeaseStartDate());
-        assertEquals(expectedLeaseAgreement.getLeaseEndDate(), actualLeaseAgreement.getLeaseEndDate());
-        assertEquals(expectedLeaseAgreement.getReturnLocation(), actualLeaseAgreement.getReturnLocation());
     }
-
 
     @Test
     @DisplayName("createLeaseAgreement exceptionFlow")
@@ -127,27 +120,19 @@ public class LeaseAgreementCreateUnittest {
         Timestamp lease_end_date =  Timestamp.valueOf(LocalDate.of(2025, 8, 1).atStartOfDay());
         String returnLocation = "Guldbergsgad";
 
-        LeaseAgreement expectedLeaseAgreement = new LeaseAgreement(vehicle_id, customer_id, leaseType, leasePrice,
-                lease_start_date, lease_end_date, returnLocation);
 
+        //This method we acutally want to call, to recieve the proper exception
+        doCallRealMethod().when(leaseAgreementService).minimum120daysAgreement(any());
 
+        // Act
+        IllegalArgumentException thrown = assertThrows(
+                IllegalArgumentException.class,
+                () -> leaseAgreementController.createLeaseAgreementMock(
+                        vehicle_id, customer_id, leaseType, leasePrice, lease_start_date, lease_end_date, returnLocation
+                )
+        );
 
-
-
-        //Act
-
-        LeaseAgreement actualLeaseAgreement = leaseAgreementController.createLeaseAgreementMock(vehicle_id, customer_id, leaseType, leasePrice, lease_start_date, lease_end_date, returnLocation);
-        System.out.println(actualLeaseAgreement);
-
-        //Assert
-        assertEquals(expectedLeaseAgreement.getFkVehicleId(), actualLeaseAgreement.getFkVehicleId());
-        assertEquals(expectedLeaseAgreement.getFkCustomerId(), actualLeaseAgreement.getFkCustomerId());
-        assertEquals(expectedLeaseAgreement.getLeaseType(), actualLeaseAgreement.getLeaseType());
-        assertEquals(expectedLeaseAgreement.getLeasePrice(), actualLeaseAgreement.getLeasePrice());
-        assertEquals(expectedLeaseAgreement.getLeaseStartDate(), actualLeaseAgreement.getLeaseStartDate());
-        assertEquals(expectedLeaseAgreement.getLeaseEndDate(), actualLeaseAgreement.getLeaseEndDate());
-        assertEquals(expectedLeaseAgreement.getReturnLocation(), actualLeaseAgreement.getReturnLocation());
+        // Assert
+        assertEquals("Unlimited lease agreements must be at least 120 days long.",thrown.getMessage());
     }
-
-
 }

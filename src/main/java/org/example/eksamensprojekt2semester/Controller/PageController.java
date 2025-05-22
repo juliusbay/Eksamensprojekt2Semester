@@ -3,6 +3,7 @@ package org.example.eksamensprojekt2semester.Controller;
 import jakarta.servlet.http.HttpSession;
 import org.example.eksamensprojekt2semester.Model.*;
 import org.example.eksamensprojekt2semester.Repository.*;
+import org.example.eksamensprojekt2semester.Service.LeaseAgreementService;
 import org.example.eksamensprojekt2semester.Service.StatisticsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,8 +13,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 
 import java.sql.SQLException;
 import java.time.Duration;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -48,6 +51,8 @@ public class PageController {
 
     @Autowired
     StatisticsService statisticsService;
+    @Autowired
+    private LeaseAgreementService leaseAgreementService;
 
 
     @GetMapping("/login")
@@ -80,6 +85,7 @@ public class PageController {
         Map<Integer, ConditionReport> conditionReportsMap = conditionReportRepository.getAllConditionReports();
         Map<Integer, LeaseAgreement> leaseAgreementMap = new HashMap<>();
 
+
         for (LeaseAgreement leaseAgreement : leaseAgreements) {
             leaseAgreementMap.put(leaseAgreement.getCar().getVehicleId(), leaseAgreement);
         }
@@ -99,7 +105,7 @@ public class PageController {
         model.addAttribute("purchaseAgreements", purchaseAgreements);
         model.addAttribute("customers", customers);
         model.addAttribute("leaseAgreementMap", leaseAgreementMap);
-
+        model.addAttribute("leaseTypes", LeaseAgreement.LeaseType.values());
 
         return "dashboard";
     }
@@ -151,5 +157,22 @@ public class PageController {
         model.addAttribute("numberOfCarsRentedOut", numberOfCarsRentedOut);
         model.addAttribute("numberOfCarsAvailable", numberOfCarsAvailable);
         model.addAttribute("carThreshold", carThreshold);
+    }
+
+    @ModelAttribute
+    public void garageWarning(Model model){
+        Map<Integer, ConditionReport> conditionReportsMap = conditionReportRepository.getAllConditionReports();
+        List<ConditionReport> allConditionReports = new ArrayList<>(conditionReportsMap.values());
+        int numberOfLateReports = 0;
+
+        LocalDate threshold = LocalDate.now().minusDays(3);
+
+        for (ConditionReport report : allConditionReports){
+            if (report.getReportStartDate().toLocalDateTime().toLocalDate().isBefore(threshold)){
+                numberOfLateReports++;
+            }
+        }
+
+        model.addAttribute("numberOfLateReports", numberOfLateReports);
     }
 }

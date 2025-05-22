@@ -1,10 +1,10 @@
 package org.example.eksamensprojekt2semester.Enum;
 
 public enum Status {
-    READY("klar"),
-    READY_FOR_TRANSPORT("klar til transport"),
-    GETTING_REPAIRED("på værksted"),
-    RENTED("udlejet");
+    READY("Klar"),
+    READY_FOR_TRANSPORT("Klar til transport"),
+    GETTING_REPAIRED("På værksted"),
+    RENTED("Udlejet");
 
     private final String prettyPrint;
 

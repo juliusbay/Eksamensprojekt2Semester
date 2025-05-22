@@ -1,8 +1,8 @@
 package org.example.eksamensprojekt2semester.Enum;
 
 public enum GearBox {
-    AUTOMATIC("automatisk"),
-    MANUAL("manuel");
+    AUTOMATIC("Automatisk"),
+    MANUAL("Manuel");
 
     private final String prettyPrint;
 

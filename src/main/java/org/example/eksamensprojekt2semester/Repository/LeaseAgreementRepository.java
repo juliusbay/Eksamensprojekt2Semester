@@ -15,8 +15,10 @@ public class LeaseAgreementRepository {
 
     @Autowired
     DataSource dataSource;
+
     @Autowired
     private CustomerRepository customerRepository;
+
     @Autowired
     private CarRepository carRepository;
 
