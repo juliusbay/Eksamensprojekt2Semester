@@ -269,9 +269,13 @@
                             </div>
                         </div>
 
-                        <div th:if="${leaseAgreementMap[car.vehicleId] == null or
-                         leaseAgreementMap[car.vehicleId].leaseEndDate.toLocalDateTime().isAfter(T(java.time.LocalDateTime).now())}">
+                        <div th:if="${leaseAgreementMap[car.vehicleId] != null and
+                        leaseAgreementMap[car.vehicleId].leaseEndDate.toLocalDateTime().isAfter(T(java.time.LocalDateTime).now())}">
                             <span>Lease ikke afsluttet</span>
+                        </div>
+
+                        <div th:if="${leaseAgreementMap[car.vehicleId] == null}">
+                            <span>Ikke udlejet</span>
                         </div>
 
                     </td>
