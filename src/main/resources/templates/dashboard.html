@@ -233,7 +233,7 @@
                     <td th:text="${car.getCarModel().getCarEquipment()}"/>
                     <td th:text="${car.color}"/>
                     <td th:text="${car.bought ? 'Ja' : 'Nej'}"/>
-                    <td th:text="${car.getStatusValue()}"/>
+                    <td th:text="${car.status}"/>
                     <td>
                         <!-- Checks if the car has a lease agreement and if the lease end date is not after todays date-->
                         <div th:if="${leaseAgreementMap[car.vehicleId] != null and
