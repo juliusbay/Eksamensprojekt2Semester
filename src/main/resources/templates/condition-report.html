@@ -102,14 +102,17 @@
         <tr>
             <th> Pris på leasing aftale </th>
             <th> Samlet pris på skader </th>
-            <th> Antal ekstra kilometer </th>
+            <th> Antal ekstra km. </th>
+            <th> Pris pr. km </th>
+            <th> Samlet pris for ekstra km.</th>
             <th> Total </th>
         </tr>
         <tr>
             <td th:text="${#numbers.formatDecimal(priceOfLeaseAgreement, 1, 'POINT', 2, 'COMMA')}" ></td>
             <td th:text="${#numbers.formatDecimal(totalPriceOfDamages, 1, 'POINT', 2, 'COMMA')}" ></td>
-            <td th:text="${#numbers.formatDecimal(excessKilometers, 1, 'POINT', 2, 'COMMA')
-             +' * 0,75 DKK = '+ #numbers.formatDecimal(totalPriceOfExcessKilometers, 1, 'POINT', 2, 'COMMA')}" ></td>
+            <td th:text="${#numbers.formatDecimal(excessKilometers, 1, 'POINT', 2, 'COMMA')}" ></td>
+            <td> 0,75 DKK </td>
+            <td th:text="${#numbers.formatDecimal(totalPriceOfExcessKilometers, 1, 'POINT', 2, 'COMMA')}"></td>
             <td th:text="${#numbers.formatDecimal(totalPriceToPay, 1, 'POINT', 2, 'COMMA')+' DKK'}"></td>
             <td>
                 <form th:action="@{/completeConditionReport}" method="post">
