@@ -5,7 +5,6 @@ import org.example.eksamensprojekt2semester.Enum.Role;
 import org.example.eksamensprojekt2semester.Model.Employee;
 import org.example.eksamensprojekt2semester.Repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.relational.core.sql.SQL;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -90,7 +89,7 @@ public class EmployeeController {
     public String deleteEmployee(@RequestParam("employee_id") int employeeId) {
         employeeRepo.deleteEmployeeByEmployeeId(employeeId);
 
-        return "redirect:/admin";
+        return "redirect:/";
     }
 
     @GetMapping("/edit-employee")
@@ -120,7 +119,7 @@ public class EmployeeController {
 
         employeeRepo.updateEmployee(employee);
 
-        return "redirect:/admin";
+        return "redirect:/";
     }
 
     @PostMapping("/createEmployee")
@@ -139,7 +138,7 @@ public class EmployeeController {
 
         employeeRepo.createEmployee(employee);
 
-        return "redirect:/admin";
+        return "redirect:/";
     }
 
     public boolean isUserLoggedIn(HttpSession session) {

@@ -333,7 +333,7 @@
                 <tr th:each="conditionReport: ${conditionReports}">
                     <td th:text="${conditionReport.conditionReportId}"/>
                     <td th:text="${conditionReport.handledBy}"/>
-                    <td th:text="${conditionReport.reportStartDate}"/>
+                    <td th:text="${#temporals.format(conditionReport.reportStartDate.toLocalDateTime(), 'dd-MM-yyyy')}"/>
                     <td th:text="${conditionReport.reportCompletedDate} ?: 'I GANG'"/>
                     <td>
                         <!-- If the condition report has been set as completed, you get a print button -->
@@ -483,13 +483,54 @@
                     <td th:text="${employee.getRole()}"/>
                     <td>
                         <form th:action="@{/deleteEmployee}" method="post">
-                            <input type="hidden" name="empployeeId" th:value="${employee.employeeId}">
+                            <input type="hidden" name="employee_id" th:value="${employee.employeeId}">
                             <button type="submit">Delete</button>
                         </form>
                     </td>
                 </tr>
                 </tbody>
             </table>
+    </div>
+        <div class="container">
+            <div class="form-container">
+                <form th:action="@{/createEmployee}" method="post">
+                    <h2>Opret ny ansat</h2>
+                    <div class="form-field">
+                        <label>Fornavn:</label>
+                        <input type="text" name="first_name" />
+                    </div>
+
+                    <div class="form-field">
+                        <label>Efternavn:</label>
+                        <input type="text" name="last_name" />
+                    </div>
+
+                    <div class="form-field">
+                        <label>Email:</label>
+                        <input type="email" name="email"/>
+                    </div>
+
+                    <div class="form-field">
+                        <label>Rolle:</label>
+                        <select name="role">
+                            <option> Admin </option>
+                            <option> Dataregistrering </option>
+                            <option> Forretningsudvikler </option>
+                            <option> Mekaniker </option>
+                        </select>
+                    </div>
+
+                    <div class="form-field">
+                        <label>Kodeord:</label>
+                        <input type="password" name="password" />
+                    </div>
+
+                    <div class="form-field">
+                        <button type="submit" class="action-button"> Opret medarbejder </button>
+                    </div>
+                </form>
+            </div>
+
         </div>
     </div>
 

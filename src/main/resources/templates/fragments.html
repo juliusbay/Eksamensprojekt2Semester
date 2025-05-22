@@ -38,7 +38,6 @@
             <div class="clickable">
                 <div class="link-container" th:if="${session.loggedInUser.getRoleValue().equalsIgnoreCase('ADMIN')}">
                     <a id="index" th:href="@{/}">FORSIDE</a>
-                    <a id="admin" th:href="@{/admin}">ADMIN</a>
                     <a id="statistics" th:href="@{/statistics}">STATISTIK</a>
                 </div>
 
