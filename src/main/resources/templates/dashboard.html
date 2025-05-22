@@ -107,7 +107,7 @@
                 <form class="form2" th:action="@{/createLease}" method="post">
                     <div class="form-field">
                         <label for="fk_vehicle_id">Vælge bil:</label>
-                        <select id="vehicle-lease" name="vehicle-lease">
+                        <select id="vehicle-lease" name="fk_vehicle_id">
                             <option value=""> Vælg bil</option>
                             <option th:each="car : ${cars}" th:value="${car.vehicleId}"
                                     th:text="${ car.vehicleId+ ' '+ car.carModel.getBrand() + ' '+car.carModel.getCarEquipment()}"></option>
@@ -126,7 +126,7 @@
                         <label for="lease_type">Indtast lease type:</label>
                         <select id="lease_type" name="lease_type">
                             <option value=""> Indtast lease type</option>
-                            <option th:each="type : ${leaseTypes}" th:value="${type}" th:text="${type}"></option>
+                            <option th:each="leaseType : ${leaseTypes}" th:value="${leaseType}" th:text="${leaseType}"></option>
                         </select>
                     </div>
 

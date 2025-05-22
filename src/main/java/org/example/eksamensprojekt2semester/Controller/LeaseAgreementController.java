@@ -47,8 +47,8 @@ public class LeaseAgreementController {
                                        @RequestParam("fk_customer_id") int fkCustomerId,
                                        @RequestParam("lease_type")String leaseTypeString,
                                        @RequestParam("lease_price") int leasePrice,
-                                       @RequestParam("lease_start_date")Timestamp leaseStartDate,
-                                       @RequestParam("lease_end_date") Timestamp leaseEndDate,
+                                       @RequestParam("lease_start_date")Date leaseStartDate,
+                                       @RequestParam("lease_end_date") Date leaseEndDate,
                                        @RequestParam("return_location") String returnLocation,
                                        HttpSession session) throws SQLException {
 
@@ -56,11 +56,18 @@ public class LeaseAgreementController {
             return "redirect:/login";
         }
 
+        Timestamp leaseStartDateTS = Timestamp.valueOf(leaseStartDate.toString()+ " 00:00:00");
+        Timestamp leaseEndDateTS = Timestamp.valueOf(leaseEndDate.toString()+ " 00:00:00");
+
+
+
+
+
     LeaseAgreement.LeaseType leaseType = LeaseAgreement.LeaseType.fromString(leaseTypeString);
 
     LeaseAgreement leaseAgreement = new LeaseAgreement(fkVehicleId,
             fkCustomerId, leaseType,
-            leasePrice, leaseStartDate, leaseEndDate, returnLocation);
+            leasePrice, leaseStartDateTS, leaseEndDateTS, returnLocation);
 
 
         leaseAgreementService.noNegativePriceLease(leaseAgreement);

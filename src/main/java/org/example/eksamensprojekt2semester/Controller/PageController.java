@@ -3,6 +3,7 @@ package org.example.eksamensprojekt2semester.Controller;
 import jakarta.servlet.http.HttpSession;
 import org.example.eksamensprojekt2semester.Model.*;
 import org.example.eksamensprojekt2semester.Repository.*;
+import org.example.eksamensprojekt2semester.Service.LeaseAgreementService;
 import org.example.eksamensprojekt2semester.Service.StatisticsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -50,6 +51,8 @@ public class PageController {
 
     @Autowired
     StatisticsService statisticsService;
+    @Autowired
+    private LeaseAgreementService leaseAgreementService;
 
 
     @GetMapping("/login")
@@ -82,6 +85,7 @@ public class PageController {
         Map<Integer, ConditionReport> conditionReportsMap = conditionReportRepository.getAllConditionReports();
         Map<Integer, LeaseAgreement> leaseAgreementMap = new HashMap<>();
 
+
         for (LeaseAgreement leaseAgreement : leaseAgreements) {
             leaseAgreementMap.put(leaseAgreement.getCar().getVehicleId(), leaseAgreement);
         }
@@ -101,7 +105,7 @@ public class PageController {
         model.addAttribute("purchaseAgreements", purchaseAgreements);
         model.addAttribute("customers", customers);
         model.addAttribute("leaseAgreementMap", leaseAgreementMap);
-
+        model.addAttribute("leaseTypes", LeaseAgreement.LeaseType.values());
 
         return "dashboard";
     }
