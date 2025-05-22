@@ -87,8 +87,7 @@ public class LeaseAgreementController {
         leaseAgreementRepository.setLeaseAgreementActive(leaseAgreement);
 
 
-    carRepository.getCarById(fkVehicleId).setStatusFromString("RENTED");
-        carRepository.getCarById(fkVehicleId).setRentedOut(true);
+        carRepository.getCarById(fkVehicleId).setStatusFromString("RENTED");
         return "redirect:/";
     } catch (Exception e){
         //We "trap" the corrosponding error message within a model, and send it to Thymeleaf it wil show the activated exception message

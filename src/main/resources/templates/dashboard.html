@@ -599,7 +599,6 @@
                     <th class="clickableHeader" onclick="sortTable(7)">By</th>
                     <th class="clickableHeader" onclick="sortTable(8)">Postnummer</th>
                     <th class="clickableHeader" onclick="sortTable(9)">Bil id</th>
-                    <th>Delete</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -614,12 +613,6 @@
                     <td th:text="${customer.city}"/>
                     <td th:text="${customer.postalCode}"/>
                     <td th:text="${customer.fkVehicleId}"/>
-                    <td>
-                        <form th:action="@{/deleteCustomer}" method="post">
-                            <input type="hidden" name="customerId" th:value="${customer.customerId}">
-                            <button type="submit">Delete</button>
-                        </form>
-                    </td>
                 </tr>
                 </tbody>
             </table>
