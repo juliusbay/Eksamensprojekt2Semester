@@ -89,5 +89,9 @@ public class ConditionReport {
     public void setReportDescription(String reportDescription) {
         this.reportDescription = reportDescription;
     }
+
+    public String getReportDescription() {
+        return reportDescription;
+    }
 }
 
