@@ -61,7 +61,7 @@
     </div>
 
     <div class="right-div">
-        <div class="damage-div">
+        <div class="damage-div" th:if="${!conditionReport.completed}">
             <h1> Opret skade her </h1>
             <form th:action="@{/createDamage}" method="post">
                 <input type="hidden" name="condition_report_id" th:value="${condition_report_id}">
