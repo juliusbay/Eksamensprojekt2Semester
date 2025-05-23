@@ -38,7 +38,7 @@ public class CarController {
     // SKAL HOMEREDIRECT SKAL ÆNDRES, BRUGES BARE TIL AT TESTE FOR NU!!
     @GetMapping("/")
     public String homeRedirect() {
-        return "redirect:/cars"; //Returnere til testsiden, skal ændres.
+        return "redirect:/dashboard"; //Returnere til testsiden, skal ændres.
     }
 
 
@@ -65,10 +65,10 @@ public class CarController {
                 model.addAttribute("cars", car);
 
 
-                return "redirect:/cars";
+                return "redirect:/dashboard";
             } else{
                 // OBS!!!!!! SKAL TILFØJES EN ERROR HVIS BILEN ALLEREDE EKSISTERER. Muligvis i fragments hvis vi bruger dette.
-                return "redirect:/cars";
+                return "redirect:/dashboard";
             }
     }
 
@@ -77,7 +77,7 @@ public class CarController {
         System.out.println("Received vehicleId to delete: " + vehicleId);
 
         carRepository.deleteCarById(vehicleId);
-        return "redirect:/cars";
+        return "redirect:/dashboard";
     }
 
 

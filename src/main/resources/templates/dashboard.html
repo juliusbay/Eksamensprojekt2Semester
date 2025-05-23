@@ -349,7 +349,7 @@
                 <tr th:each="conditionReport: ${conditionReports}">
                     <td th:text="${conditionReport.conditionReportId}"/>
                     <td th:text="${conditionReport.handledBy}"/>
-                    <td th:text="${#temporals.format(conditionReport.reportStartDate.toLocalDateTime(), 'dd-MM-yyyy')}"/>
+                    <td th:text="${conditionReport.reportStartDate}"/>
                     <td th:text="${conditionReport.reportCompletedDate} ?: 'I GANG'"/>
                     <td>
                         <!-- If the condition report has been set as completed, you get a print button -->

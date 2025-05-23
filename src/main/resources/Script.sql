@@ -189,7 +189,7 @@ VALUES
     (1, 'JÜHIN', '2025-05-08', '2025-05-09', 10, true, 'Bil i ok tilstand, ingen større skader' );
 
 INSERT INTO condition_report(fk_vehicle_id, handled_by, report_start_date) VALUES
-    (1, 'JÜHIN', '2025-05-08');
+    (4, 'JÜHIN', '2025-05-10');
 
 INSERT INTO purchase_agreement(fk_vehicle_id, fk_customer_id, paid, car_price)
 VALUES
