@@ -132,7 +132,8 @@
                         <label for="lease_type">Lease type:</label>
                         <select id="lease_type" name="lease_type">
                             <option value=""> Indtast lease type</option>
-                            <option th:each="leaseType : ${leaseTypes}" th:value="${leaseType}" th:text="${leaseType}"></option>
+                            <option th:each="leaseType : ${leaseTypes}" th:value="${leaseType}"
+                                    th:text="${leaseType}"></option>
                         </select>
                     </div>
 
@@ -355,7 +356,7 @@
                         <div th:if="${conditionReport.completed}">
                             <form th:action="@{/condition-report}" method="get" target="_blank">
                                 <input type="hidden" name="condition_report_id"
-                                       th:value="${conditionReport.conditionReportId}" />
+                                       th:value="${conditionReport.conditionReportId}"/>
                                 <button type="submit" class="btn">Print tilstandsrapport</button>
                             </form>
                         </div>
@@ -364,7 +365,7 @@
                         <div th:unless="${conditionReport.completed}">
                             <form th:action="@{/condition-report}" method="get">
                                 <input type="hidden" name="condition_report_id"
-                                       th:value="${conditionReport.conditionReportId}" />
+                                       th:value="${conditionReport.conditionReportId}"/>
                                 <button type="submit" class="btn">Rediger tilstandsrapport</button>
                             </form>
                         </div>

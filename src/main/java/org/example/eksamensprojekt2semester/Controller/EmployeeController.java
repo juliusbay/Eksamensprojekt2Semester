@@ -75,15 +75,6 @@ public class EmployeeController {
         return "redirect:/";
     }
 
-    // Method to display all employees in a th:each statement
-    @GetMapping ("/admin")
-    public String getEmployees(Model model){
-        List<Employee> employees = employeeRepo.getAllEmployees();
-        model.addAttribute("employees", employees);
-
-        return "admin";
-    }
-
     // Method for deleting employees
     @PostMapping("/deleteEmployee")
     public String deleteEmployee(@RequestParam("employee_id") int employeeId) {
