@@ -77,7 +77,7 @@ public class LeaseAgreementController {
                 fkCustomerId, leaseType,
                 leasePrice, leaseStartDateTS, leaseEndDateTS, returnLocation);
 
-
+        leaseAgreementService.maximum120daysAgreement(leaseAgreement);
         leaseAgreementService.isEndDateBeforeStartDate(leaseAgreement);
         leaseAgreementService.minimum120daysAgreement(leaseAgreement);
         leaseAgreement.setCar(carRepository.getCarById(fkVehicleId));

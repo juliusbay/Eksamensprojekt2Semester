@@ -25,9 +25,8 @@ public class CustomerController {
                                  @RequestParam("address") String address,
                                  @RequestParam("city") String city,
                                  @RequestParam("postal_code") int postalCode,
-                                 @RequestParam("cpr_number") String cprNumber,
-                                 @RequestParam("fk_vehicle_id") int fkVehicleId) {
-        Customer customer = new Customer(firstName, lastName, email, phoneNumber, address, city, postalCode, cprNumber, fkVehicleId);
+                                 @RequestParam("cpr_number") String cprNumber) {
+        Customer customer = new Customer(firstName, lastName, email, phoneNumber, address, city, postalCode, cprNumber);
 
         //Regular expression ie. regex. says first part must contain 6 (d) digits followed by - and then 4 digits
         if (!cprNumber.matches("\\d{6}-\\d{4}")) {

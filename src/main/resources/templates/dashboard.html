@@ -171,7 +171,7 @@
 
     <div class="selectable" id="lease_inactive">
         <div class="data-table">
-            <h2>Inaktive leasing aftaler</h2>
+            <h2>Aflsuttede leasing aftaler</h2>
             <table id="lease_inactive_table">
                 <thead>
                 <tr>
@@ -558,8 +558,8 @@
                 <thead>
                 <tr>
                     <th class="clickableHeader" onclick="sortTable(0)">ID</th>
-                    <th class="clickableHeader" onclick="sortTable(1)">Kunde id</th>
-                    <th class="clickableHeader" onclick="sortTable(2)">Bil id</th>
+                    <th class="clickableHeader" onclick="sortTable(1)">Kunde navn</th>
+                    <th class="clickableHeader" onclick="sortTable(2)">Bil stelnummer</th>
                     <th class="clickableHeader" onclick="sortTable(3)">Pris</th>
                     <th class="clickableHeader" onclick="sortTable(4)">Betalt?</th>
                     <th>Delete</th>
@@ -568,8 +568,8 @@
                 <tbody>
                 <tr th:each="purchaseAgreement: ${purchaseAgreements}">
                     <td th:text="${purchaseAgreement.purchaseAgreementId}"/>
-                    <td th:text="${purchaseAgreement.fkCustomerId}"/>
-                    <td th:text="${purchaseAgreement.fkVehicleId}"/>
+                    <td th:text="${purchaseAgreement.getCustomer().getFirstName()} + ' ' + ${purchaseAgreement.getCustomer().getLastName()}"/>
+                    <td th:text="${purchaseAgreement.getCar().getVinNumber()}"/>
                     <td th:text="${#numbers.formatDecimal(purchaseAgreement.getCarPrice(), 1, 0) + ' DKK'}"/>
                     <td th:text="${purchaseAgreement.paid ? 'Ja' : 'Nej'}"/>
                     <td>
@@ -601,7 +601,6 @@
                     <th class="clickableHeader" onclick="sortTable(6)">Adresse</th>
                     <th class="clickableHeader" onclick="sortTable(7)">By</th>
                     <th class="clickableHeader" onclick="sortTable(8)">Postnummer</th>
-                    <th class="clickableHeader" onclick="sortTable(9)">Bil id</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -615,7 +614,6 @@
                     <td th:text="${customer.address}"/>
                     <td th:text="${customer.city}"/>
                     <td th:text="${customer.postalCode}"/>
-                    <td th:text="${customer.fkVehicleId}"/>
                 </tr>
                 </tbody>
             </table>
@@ -624,7 +622,7 @@
         <div class="container">
             <div class="form-container">
                 <h2> Opret en ny Kunde </h2>
-                <form class="form2" th:action="@{/createLease}" method="post">
+                <form class="form2" th:action="@{/createCustomer}" method="post">
                     <div class="form-field">
                         <label class="label-create" for="first_name">Fornavn:</label>
                         <input type="text" id="first_name" name="first_name" placeholder="Indtast fornavn" required>
@@ -666,14 +664,7 @@
                         <input type="text" id="cpr_number" name="cpr_number" placeholder="Indtast cpr:" required>
                     </div>
 
-                    <div class="form-field">
-                        <label for="fk_vehicle_id">Vælge bil:</label>
-                        <select id="fk_vehicle_id" name="fk_vehicle_id">
-                            <option value=""> Vælg bil</option>
-                            <option th:each="car : ${cars}" th:value="${car.vehicleId}"
-                                    th:text="${ car.vehicleId+ ' '+ car.carModel.getBrand() + ' '+car.carModel.getCarEquipment()}"></option>
-                        </select>
-                    </div>
+
 
                     <div class="form-field">
                         <button type="submit" class="action-button"> Opret kunde</button>
