@@ -81,7 +81,7 @@
                     <td th:text="${leaseAgreement.getCar().getVinNumber()}"/>
                     <td th:text="${leaseAgreement.getCustomer().getFirstName()} + ' ' + ${leaseAgreement.getCustomer().getLastName()}"/>
                     <td th:text="${leaseAgreement.leaseType}"/>
-                    <td th:text="${#numbers.formatDecimal(leaseAgreement.leasePrice, 1, 2) + ' dkk'}"/>
+                    <td th:text="${#numbers.formatDecimal(leaseAgreement.leasePrice, 1, 0) + ' DKK'}"/>
                     <td th:text="${#temporals.format(leaseAgreement.leaseStartDate.toLocalDateTime(), 'dd-MM-yyyy')}"/>
                     <td th:text="${#temporals.format(leaseAgreement.leaseEndDate.toLocalDateTime(), 'dd-MM-yyyy')}"/>
                     <td th:text="${leaseAgreement.returnLocation}"/>
@@ -190,7 +190,7 @@
                 <tr th:each="leaseAgreement: ${leaseAgreements}" th:if="${!leaseAgreement.active}">
                     <td th:text="${leaseAgreement.getCustomer().getFirstName()} + ' ' + ${leaseAgreement.getCustomer().getLastName()}"/>
                     <td th:text="${leaseAgreement.leaseType}"/>
-                    <td th:text="${#numbers.formatDecimal(leaseAgreement.leasePrice, 1, 2) + ' dkk'}"/>
+                    <td th:text="${#numbers.formatDecimal(leaseAgreement.leasePrice, 1, 0) + ' DKK'}"/>
                     <td th:text="${#temporals.format(leaseAgreement.leaseStartDate.toLocalDateTime(), 'dd-MM-yyyy')}"/>
                     <td th:text="${#temporals.format(leaseAgreement.leaseEndDate.toLocalDateTime(), 'dd-MM-yyyy')}"/>
                     <td th:text="${leaseAgreement.returnLocation}"/>
@@ -409,7 +409,7 @@
                     <td th:text="${carModel.getGearBox()}"/>
                     <td th:text="${carModel.getCarEmission() + ' g/km'}"/>
                     <td th:text="${carModel.getCarEquipment()}"/>
-                    <td th:text="${#numbers.formatDecimal(carModel.steelPrice, 1, 2) + ' dkk'}"/>
+                    <td th:text="${#numbers.formatDecimal(carModel.steelPrice, 1, 0) + ' DKK'}"/>
                 </tr>
                 </tbody>
             </table>
@@ -569,7 +569,7 @@
                     <td th:text="${purchaseAgreement.purchaseAgreementId}"/>
                     <td th:text="${purchaseAgreement.fkCustomerId}"/>
                     <td th:text="${purchaseAgreement.fkVehicleId}"/>
-                    <td th:text="${#numbers.formatDecimal(purchaseAgreement.getCarPrice(), 1, 2) + ' dkk'}"/>
+                    <td th:text="${#numbers.formatDecimal(purchaseAgreement.getCarPrice(), 1, 0) + ' DKK'}"/>
                     <td th:text="${purchaseAgreement.paid ? 'Ja' : 'Nej'}"/>
                     <td>
                         <form th:action="@{/deletePurchaseAgreement}" method="post">

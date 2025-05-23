@@ -91,6 +91,7 @@ public class LeaseAgreementController {
         return "redirect:/";
     } catch (Exception e){
         //We "trap" the corrosponding error message within a model, and send it to Thymeleaf it wil show the activated exception message
+
         model.addAttribute("errorMessage", e.getMessage());
         //we activate this method, as we would on page controller
         reloadLeaseFormData(model);
