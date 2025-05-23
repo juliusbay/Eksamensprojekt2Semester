@@ -116,7 +116,7 @@
                         <select id="vehicle-lease" name="fk_vehicle_id">
                             <option value=""> Vælg bil</option>
                             <option th:each="car : ${cars}" th:value="${car.vehicleId}"
-                                    th:text="${ car.vehicleId+ ' '+ car.carModel.getBrand() + ' '+car.carModel.getCarEquipment()}"></option>
+                                    th:text="${car.carModel.getBrand() + ' '+car.carModel.getCarEquipment()}"></option>
                         </select>
                     </div>
 
@@ -125,7 +125,7 @@
                         <select id="fk_customer_id" name="fk_customer_id">
                             <option value="">Vælge kunde</option>
                             <option th:each="customer : ${customers}" th:value="${customer.getCustomerId()}"
-                                    th:text="${ customer.customerId+' '+customer.firstName + ' ' + customer.lastName}"></option>
+                                    th:text="${customer.firstName + ' ' + customer.lastName}"></option>
                         </select>
                     </div>
                     <div class="form-field">
@@ -553,6 +553,7 @@
     <div class="selectable" id="purchase_agreements">
         <div class="data-table">
             <h2>Købsaftaler</h2>
+            <div class="table">
             <table id="purchase_agreements_table">
                 <thead>
                 <tr>
@@ -581,6 +582,7 @@
                 </tr>
                 </tbody>
             </table>
+            </div>
         </div>
     </div>
 
