@@ -117,7 +117,7 @@
             <td th:text="${#numbers.formatDecimal(totalPriceOfExcessKilometers, 1, 'POINT', 2, 'COMMA')}"></td>
             <td th:text="${#numbers.formatDecimal(totalPriceToPay, 1, 'POINT', 2, 'COMMA')+' DKK'}"></td>
             <td>
-                <form th:action="@{/completeConditionReport}" method="post">
+                <form th:action="@{/completeConditionReport}" method="post" onsubmit="return confirm('Er du sikker på du vil færdiggøre denne tilstandsrapport?');">
                     <input type="hidden" name="condition_report_id" th:value="${condition_report_id}">
                     <button type="submit" class="btn" th:if="${!conditionReport.completed}">Fuldfør rapport</button>
                 </form>

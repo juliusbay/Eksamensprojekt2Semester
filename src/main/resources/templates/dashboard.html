@@ -14,7 +14,6 @@
 <body>
 <header th:replace="~{fragments.html :: navbar}"></header>
 
-
 <div class="all-tables">
     <div class="functional">
         <div class="dropdown">
@@ -53,7 +52,7 @@
             </select>
         </div>
         <div>
-            <input type="text" id="search" onkeyup="myFunction()" placeholder="Search..">
+            <input type="text" id="search" onkeyup="searchFunction()" placeholder="Search..">
         </div>
     </div>
 
@@ -72,7 +71,7 @@
                     <th class="clickableHeader" onclick="sortTable(5)">Leje slut dato</th>
                     <th class="clickableHeader" onclick="sortTable(6)">Returnerings lokation</th>
                     <th>Lease detaljer</th>
-                    <th>Slet</th>
+                    <th> </th>
                 </tr>
                 </thead>
 
@@ -93,7 +92,7 @@
                         </form>
                     </td>
                     <td>
-                        <form th:action="@{/deleteLease}" method="post">
+                        <form th:action="@{/deleteLease}" method="post" onsubmit="return confirm('Er du sikker på du vil slette denne leasing aftale?');">
                             <input type="hidden" name="lease_agreement_id"
                                    th:value="${leaseAgreement.leaseAgreementId}">
                             <button type="submit">Slet</button>
@@ -182,7 +181,7 @@
                     <th class="clickableHeader" onclick="sortTable(5)">Leje slut dato</th>
                     <th class="clickableHeader" onclick="sortTable(6)">Returnerings lokation</th>
                     <th>Lejedetaljer detaljer</th>
-                    <th>Slet</th>
+                    <th> </th>
                 </tr>
                 </thead>
 
@@ -202,7 +201,7 @@
                         </form>
                     </td>
                     <td>
-                        <form th:action="@{/deleteLease}" method="post">
+                        <form th:action="@{/deleteLease}" method="post" onsubmit="return confirm('Er du sikker på du vil slette denne leasing aftale?');">
                             <input type="hidden" name="lease_agreement_id"
                                    th:value="${leaseAgreement.leaseAgreementId}">
                             <button type="submit">Slet</button>
@@ -228,7 +227,7 @@
                     <th class="clickableHeader" onclick="sortTable(6)">Forkøbt</th>
                     <th class="clickableHeader" onclick="sortTable(7)">Status</th>
                     <th>Tilstandsrapport</th>
-                    <th>Slet bil</th>
+                    <th> </th>
                 </tr>
                 </thead>
                 <tbody>
@@ -286,9 +285,9 @@
 
                     </td>
                     <td>
-                        <form th:action="@{/deleteCar}" method="post">
+                        <form th:action="@{/deleteCar}" method="post" onsubmit="return confirm('Er du sikker på du vil sletten bilen?');">
                             <input type="hidden" name="vehicleId" th:value="${car.vehicleId}">
-                            <button type="submit">Delete</button>
+                            <button type="submit">Slet</button>
                         </form>
                     </td>
                 </tr>
@@ -340,8 +339,8 @@
                     <th class="clickableHeader" onclick="sortTable(1)">Handler</th>
                     <th class="clickableHeader" onclick="sortTable(2)">Startdato</th>
                     <th class="clickableHeader" onclick="sortTable(3)">Slutdato</th>
-                    <th></th>
-                    <th></th>
+                    <th> </th>
+                    <th> </th>
                 </tr>
                 </thead>
                 <tbody>
@@ -371,10 +370,10 @@
                         </div>
                     </td>
                     <td>
-                        <form th:action="@{/deleteConditionReport}" method="post">
+                        <form th:action="@{/deleteConditionReport}" method="post" onsubmit="return confirm('Er du sikker på du vil slette denne tilstandsrapport?');">
                             <input type="hidden" name="condition_report_id"
                                    th:value="${conditionReport.conditionReportId}">
-                            <button type="submit">Delete</button>
+                            <button type="submit">Slet</button>
                         </form>
                     </td>
                 </tr>
@@ -486,7 +485,7 @@
                     <th class="clickableHeader" onclick="sortTable(3)">Shortname</th>
                     <th class="clickableHeader" onclick="sortTable(4)">Email</th>
                     <th class="clickableHeader" onclick="sortTable(5)">Rolle</th>
-                    <th>Delete</th>
+                    <th> </th>
                 </tr>
                 </thead>
                 <tbody>
@@ -498,9 +497,9 @@
                     <td th:text="${employee.email}"/>
                     <td th:text="${employee.getRole()}"/>
                     <td>
-                        <form th:action="@{/deleteEmployee}" method="post">
+                        <form th:action="@{/deleteEmployee}" method="post" onsubmit="return confirm('Er du sikker på du vil fjerne denne ansatte?');">
                             <input type="hidden" name="employee_id" th:value="${employee.employeeId}">
-                            <button type="submit">Delete</button>
+                            <button type="submit">Slet</button>
                         </form>
                     </td>
                 </tr>
@@ -562,7 +561,7 @@
                     <th class="clickableHeader" onclick="sortTable(2)">Bil stelnummer</th>
                     <th class="clickableHeader" onclick="sortTable(3)">Pris</th>
                     <th class="clickableHeader" onclick="sortTable(4)">Betalt?</th>
-                    <th>Delete</th>
+                    <th> </th>
                 </tr>
                 </thead>
                 <tbody>
@@ -573,10 +572,10 @@
                     <td th:text="${#numbers.formatDecimal(purchaseAgreement.getCarPrice(), 1, 0) + ' DKK'}"/>
                     <td th:text="${purchaseAgreement.paid ? 'Ja' : 'Nej'}"/>
                     <td>
-                        <form th:action="@{/deletePurchaseAgreement}" method="post">
+                        <form th:action="@{/deletePurchaseAgreement}" method="post" onsubmit="return confirm('Er du sikker på du vil slette denne købsaftale?');">
                             <input type="hidden" name="purchaseAgreementId"
                                    th:value="${purchaseAgreement.purchaseAgreementId}">
-                            <button type="submit">Delete</button>
+                            <button type="submit">Slet</button>
                         </form>
                     </td>
                 </tr>
@@ -791,7 +790,7 @@
         }
     }
 
-    function myFunction() {
+    function searchFunction() {
         // Declare variables
         let input, filter, table, rows, column, i, txtValue;
         input = document.getElementById("search");
