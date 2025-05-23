@@ -53,7 +53,7 @@ public class LeaseAgreementService {
             LocalDate endDate = leaseAgreement.leaseEndDate.toLocalDateTime().toLocalDate();
 
             long daysBetween = ChronoUnit.DAYS.between(startDate, endDate);
-            if (daysBetween < 120) {
+            if (daysBetween > 120) {
                 throw new IllegalArgumentException("Limited leje aftaler må ikke være 120 dage lange");
 
             }
