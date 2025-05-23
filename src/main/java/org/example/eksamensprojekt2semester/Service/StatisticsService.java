@@ -25,9 +25,6 @@ public class StatisticsService {
     LeaseAgreementRepository leaseAgreementRepository;
 
     @Autowired
-    CarRepository carRepository;
-
-    @Autowired
     ConditionReportRepository conditionReportRepository;
 
     // Formats the Duration value for below calculations that return Duration
@@ -36,9 +33,13 @@ public class StatisticsService {
         long hours = duration.toHoursPart();
         long minutes = duration.toMinutesPart();
 
-        if (days > 0) {
+
+        if (hours == 0 && minutes == 0){
+            return String.format("%d dage", days);
+        } if (days > 0) {
             return String.format("%d dage, %d timer, %d minutter", days, hours, minutes);
-        } else {
+        }
+        else {
             return String.format("%d timer, %d minutter", hours, minutes);
         }
     }
@@ -108,6 +109,9 @@ public class StatisticsService {
         for (LeaseAgreement lease : leaseAgreements) {
             int vehicleId = lease.getCar().getVehicleId();
             ConditionReport report = conditionReportsMap.get(vehicleId); // Fetches the condition report for corresponding vehicle id from lease agreement
+            if (report == null || report.getReportStartDate() == null) {
+                continue;
+            }
 
             LocalDateTime leaseEnd = lease.getLeaseEndDate().toLocalDateTime();
             LocalDateTime reportStart = report.getReportStartDate().toLocalDateTime();

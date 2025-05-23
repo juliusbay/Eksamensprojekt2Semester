@@ -56,22 +56,20 @@ CREATE TABLE car (
                      FOREIGN KEY (fk_car_model_id) REFERENCES car_model(car_model_id),
                      received_date TIMESTAMP
 );
+
 INSERT INTO car (fk_car_model_id, vin_number, color, bought, status, received_date)
 VALUES
-    (1, '1HGBH41JXMN109186', 'Red', TRUE, 'READY', '2025-01-01');
-
-INSERT INTO car (fk_car_model_id, vin_number, color, received_date)
-VALUES
-    (2, 'JH4DA9470PS008042', 'Bronze', '2025-01-01'),
-    (5, 'WBABW33426PX70804', 'Black', '2025-01-01'),
-    (3, '3C3CFFBRXF1509101', 'Grey', '2025-01-01'),
-    (4, 'ZFAGA491XD3202032', 'Blue', '2025-01-01'),
-    (5, '3C3AFFAR9FT534410', 'Black', '2025-01-01'),
-    (6,'1G1ZD5ST9RS123456','Grey', '2025-01-01'),
-    (7, 'WVWZZZ3BZSE456789','White', '2025-01-01'),
-    (8, 'JHMFA165XPS987654', 'Orange', '2025-01-01'),
-    (9, '3VW2K7AJ1SM234321', 'Red', '2025-01-01'),
-    (10,'YS3FD59Y9R7001122','Black', '2025-01-01');
+    (1, '1HGBH41JXMN109186', 'Red', TRUE, 'RENTED', '2025-01-01'),
+    (2, 'JH4DA9470PS008042', 'Bronze', TRUE,'RENTED', '2025-01-01'),
+    (5, 'WBABW33426PX70804', 'Black', TRUE,'RENTED', '2025-01-01'),
+    (3, '3C3CFFBRXF1509101', 'Grey', TRUE,'RENTED', '2025-01-01'),
+    (4, 'ZFAGA491XD3202032', 'Blue', TRUE,'RENTED', '2025-01-01'),
+    (5, '3C3AFFAR9FT534410', 'Black', TRUE,'RENTED', '2025-01-01'),
+    (6,'1G1ZD5ST9RS123456','Grey', TRUE,'RENTED', '2025-01-01'),
+    (7, 'WVWZZZ3BZSE456789','White', TRUE,'RENTED', '2025-01-01'),
+    (8, 'JHMFA165XPS987654', 'Orange', TRUE,'RENTED', '2025-01-01'),
+    (9, '3VW2K7AJ1SM234321', 'Red', TRUE,'RENTED', '2025-01-01'),
+    (10,'YS3FD59Y9R7001122','Black', TRUE,'RENTED', '2025-01-01');
 
 
 CREATE TABLE customer (
@@ -119,16 +117,16 @@ CREATE TABLE lease_agreement (
 
 INSERT INTO lease_agreement(lease_agreement_id, fk_vehicle_id, fk_customer_id, lease_type, lease_start_date, lease_end_date, lease_price, return_location, lease_active)
 VALUES
-    (1, 1, 1, 'UNLIMITED','2025-05-01', '2025-11-01', 10000.00, 'Guldgade',true),
-    (2, 2, 2, 'UNLIMITED', '2023-11-01', '2024-11-01', 12000.00, 'Aarhus',true),
-    (3, 3, 3, 'LIMITED', '2024-03-15', '2024-09-15', 8000.00, 'Odense',true),
-    (4, 4, 4, 'UNLIMITED', '2025-01-10', '2025-07-10', 11000.00, 'Aalborg',true),
-    (5, 5, 5, 'LIMITED', '2024-06-01', '2024-12-01', 9000.00, 'Esbjerg',true),
-    (6, 6, 6, 'LIMITED', '2024-04-20', '2024-10-20', 8500.00, 'Randers',true),
-    (7, 7, 7, 'UNLIMITED', '2023-09-05', '2024-09-05', 13000.00, 'Horsens',true),
-    (8, 8, 8, 'LIMITED', '2024-02-01', '2024-08-01', 7800.00, 'Kolding',true),
-    (9, 9, 9, 'UNLIMITED', '2024-07-01', '2025-01-01', 10000.00, 'Vejle',true),
-    (10, 10, 10, 'LIMITED', '2024-05-01', '2024-11-01', 9500.00, 'Herning',true);
+    (1, 1, 1, 'UNLIMITED','2025-01-01', '2025-05-01', 10000.00, 'Guldgade',true),
+    (2, 2, 2, 'UNLIMITED', '2025-04-03', '2025-11-03', 12000.00, 'Aarhus',true),
+    (3, 3, 3, 'LIMITED', '2025-03-15', '2025-09-15', 8000.00, 'Odense',true),
+    (4, 4, 4, 'UNLIMITED', '2025-01-10', '2025-05-10', 11000.00, 'Aalborg',true),
+    (5, 5, 5, 'LIMITED', '2025-05-10', '2025-12-10', 9000.00, 'Esbjerg',true),
+    (6, 6, 6, 'LIMITED', '2025-04-20', '2025-10-20', 8500.00, 'Randers',true),
+    (7, 7, 7, 'UNLIMITED', '2025-03-05', '2025-09-05', 13000.00, 'Horsens',true),
+    (8, 8, 8, 'LIMITED', '2025-02-01', '2025-08-01', 7800.00, 'Kolding',true),
+    (9, 9, 9, 'UNLIMITED', '2025-01-23', '2025-05-23', 10000.00, 'Vejle',true),
+    (10, 10, 10, 'LIMITED', '2025-05-01', '2025-11-01', 9500.00, 'Herning',true);
 
 CREATE TABLE purchase_agreement(
                                    purchase_agreement_id INT PRIMARY KEY AUTO_INCREMENT UNIQUE,
@@ -186,18 +184,12 @@ CREATE TABLE condition_report (
                                   FOREIGN KEY (fk_vehicle_id) REFERENCES car(vehicle_id)
 );
 
-INSERT INTO condition_report(fk_vehicle_id, handled_by, report_start_date)
+INSERT INTO condition_report(fk_vehicle_id, handled_by, report_start_date, report_completed_date, excess_kilometers, completed, report_description)
 VALUES
-    (1, 'JÜHIN', '2024-01-15'),
-    (2, 'JÜHIN', '2024-02-10'),
-    (3, 'JÜHIN', '2024-03-05'),
-    (4, 'JÜHIN', '2024-03-20'),
-    (5, 'JÜHIN', '2024-04-01'),
-    (6, 'JÜHIN', '2024-04-15'),
-    (7, 'JÜHIN', '2024-05-01'),
-    (8, 'JÜHIN', '2024-05-20'),
-    (9, 'JÜHIN', '2024-06-01'),
-    (10, 'JÜHIN', '2024-06-15');
+    (1, 'JÜHIN', '2025-05-08', '2025-05-09', 10, true, 'Bil i ok tilstand, ingen større skader' );
+
+INSERT INTO condition_report(fk_vehicle_id, handled_by, report_start_date) VALUES
+    (1, 'JÜHIN', '2025-05-08');
 
 INSERT INTO purchase_agreement(fk_vehicle_id, fk_customer_id, paid, car_price)
 VALUES
@@ -222,16 +214,11 @@ CREATE TABLE damage(
 );
 INSERT INTO damage(damage_id, fk_condition_report_id, damage_type, damage_price)
 VALUES
-    (1,1, 'Scratch on left door', 500.00),
-    (2,2 ,'Broken tail light', 300.00),
-    (3, 3,'Dented front bumper', 750.00),
-    (4, 4,'Windshield crack', 600.00),
-    (5,5 ,'Flat tire', 250.00),
-    (6, 6,'Paint damage', 400.00),
-    (7,7 ,'Mirror replacement', 350.00),
-    (8,8 ,'Back bumper dent', 500.00),
-    (9, 9,'Interior cleaning', 200.00),
-    (10,10, 'Minor engine fix', 1000.00);
-
+    (1,1, 'Ridse på venstre dør', 500.00),
+    (2,1 ,'Stenslag på forrude', 300.00),
+    (3, 1,'Bule i kofanger', 750.00),
+    (4,2, 'Nyt dæk', 500.00),
+    (5,2 ,'Ridse på fælge', 300.00),
+    (6, 2,'Ødelagt baglygte', 750.00);
 
 
