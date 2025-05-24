@@ -33,7 +33,7 @@ public class PurchaseAgreementController {
             PurchaseAgreement purchaseAgreement = new PurchaseAgreement(fkVehicleId, fkCustomerId, paid, carPrice);
             purchaseAgreementRepository.createPurchaseAgreement(purchaseAgreement);
 
-            return "redirect:/purchase_dashboard";
+            return "redirect:/dashboard";
         }
 
         // Update an existing purchase agreement

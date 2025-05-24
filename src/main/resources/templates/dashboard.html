@@ -112,7 +112,7 @@
                 <form class="form2" th:action="@{/createLease}" method="post">
                     <div class="form-field">
                         <label for="fk_vehicle_id">Vælge bil:</label>
-                        <select id="vehicle-lease" name="fk_vehicle_id">
+                        <select id="fk_vehicle_id" name="fk_vehicle_id">
                             <option value=""> Vælg bil</option>
                             <option th:each="car : ${cars}" th:value="${car.vehicleId}"
                                     th:text="${car.carModel.getBrand() + ' '+car.carModel.getCarEquipment()}"></option>
@@ -583,6 +583,55 @@
             </table>
             </div>
         </div>
+
+
+        <div class="container">
+            <div class="form-container">
+                <h2> Opret en ny købsaftale </h2>
+                <div th:if="${errorMessage}" class="alert alert-danger">
+                    <p th:text="${errorMessage}"></p>
+                </div>
+                <form class="form2" th:action="@{/createPurchaseAgreement}" method="post">
+                    <div class="form-field">
+                        <label for="vehicle_purchase">Vælg bil:</label>
+                        <select id="vehicle_purchase" name="fk_vehicle_id">
+                            <option value=""> Vælg bil</option>
+                            <option th:each="car : ${cars}" th:value="${car.vehicleId}"
+                                    th:text="${car.carModel.getBrand() + ' '+car.carModel.getCarEquipment()}"></option>
+                        </select>
+                    </div>
+
+                    <div class="form-field">
+                        <label for="purchase_customer">Vælg kunde:</label>
+                        <select id="purchase_customer" name="fk_customer_id">
+                            <option value="">Vælg kunde</option>
+                            <option th:each="customer : ${customers}" th:value="${customer.getCustomerId()}"
+                                    th:text="${customer.firstName + ' ' + customer.lastName}"></option>
+                        </select>
+                    </div>
+                    <div class="form-field">
+                        <label for="purchase_price">Pris:</label>
+                        <input type="number" id="purchase_price" name="car_price" placeholder="Indtast prisen" required >
+                    </div>
+
+                    <div class="form-field">
+                        <label for="paid">Lease pris:</label>
+                        <select id="paid" name="paid">
+                            <option value="">Er købsaftalen betalt?</option>
+                            <option th:value="True">Ja</option>
+                            <option th:value="False">Nej</option>
+                        </select>
+                    </div>
+
+                    <div class="form-field">
+                        <button type="submit" class="action-button"> Opret købsaftale</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+
+
     </div>
 
     <div class="selectable" id="customer">
