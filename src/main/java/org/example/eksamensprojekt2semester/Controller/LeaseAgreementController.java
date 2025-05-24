@@ -13,11 +13,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.sql.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -208,7 +206,7 @@ public class LeaseAgreementController {
 
     //Get all leaseAgreements
     @GetMapping("/bingo")
-    public String getAllLeaseAgreements(Model model) throws SQLException {
+    public String getAllLeaseAgreements(Model model) {
         ArrayList<LeaseAgreement> leaseAgreements= leaseAgreementRepository.getAllLeaseAgreements();
         model.addAttribute("leaseAgreements", leaseAgreements);
 

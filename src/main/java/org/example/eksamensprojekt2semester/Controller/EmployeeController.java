@@ -27,6 +27,7 @@ public class EmployeeController {
     @Autowired
     DataSource dataSource;
 
+    // Feature for handling login/user validation
     @PostMapping("/processLogin")
     public String processLogin(
             @RequestParam("shortname") String shortName,
@@ -41,7 +42,7 @@ public class EmployeeController {
             statement.setString(1, shortName);
 
             try (ResultSet resultSet = statement.executeQuery()){
-                if (resultSet.next()){ // If resultSet.next runs, it has found a shortname and will start to validate password
+                if (resultSet.next()){      // If resultSet.next runs, it has found a matching shortname and will start to validate password
                     String storedPassword = resultSet.getString("password");
                     if (storedPassword.equals(password))
                     {
@@ -56,6 +57,7 @@ public class EmployeeController {
                         session.setAttribute("loggedInUser", employee);
 
                         return "redirect:/";
+
                     } else { // If the user cannot be validated, it will display "error" attribute.
                         redirectAttributes.addFlashAttribute("error", "Ugyldigt brugernavn eller kode");
                         return "redirect:/login";
@@ -82,6 +84,7 @@ public class EmployeeController {
         return "redirect:/";
     }
 
+    // GetMapping for editing employees.
     @GetMapping("/edit-employee")
     public String Employee(@RequestParam("employee_id") int employeeId, Model model, HttpSession session){
         Employee employee = employeeRepo.getEmployeeByEmployeeId(employeeId);
@@ -90,7 +93,7 @@ public class EmployeeController {
         return "edit-employee";
     }
 
-
+    // PostMapping for handling the update of an employee
     @PostMapping("/postEditEmployee")
     public String postEditEmployee(
             @RequestParam("employee_id") int employeeId,
@@ -112,6 +115,7 @@ public class EmployeeController {
         return "redirect:/";
     }
 
+    //PostMapping for creating new employees.
     @PostMapping("/createEmployee")
     public String createEmployee(
             @RequestParam("first_name") String firstName,
@@ -131,6 +135,7 @@ public class EmployeeController {
         return "redirect:/";
     }
 
+    // Validation of user-session to enure that user is actually logged in
     public boolean isUserLoggedIn(HttpSession session) {
         return session.getAttribute("loggedInUser") != null;
     }

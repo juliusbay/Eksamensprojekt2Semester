@@ -46,6 +46,7 @@ public class ConditionReportRepository {
         return conditionReports;
     }
 
+    // Returns list of completed condition reports, used for statistics.
     public List<ConditionReport> getConditionReportsByCompletionStatus (boolean completed) {
         List<ConditionReport> completedConditionReports = new ArrayList<>();
         ConditionReport conditionReport = new ConditionReport();
@@ -75,6 +76,7 @@ public class ConditionReportRepository {
         return completedConditionReports;
     }
 
+        //Returns a condition report object based on the vehicle ID connected to the report.
         public ConditionReport getConditionReportByVehicleId (int vehicleId) {
         ConditionReport conditionReport = new ConditionReport();
         String sql = "SELECT * FROM condition_report WHERE fk_vehicle_id = ?";
@@ -101,6 +103,7 @@ public class ConditionReportRepository {
         return conditionReport;
     }
 
+    // Fetches a condition report object based on the report ID
     public ConditionReport getConditionReportByReportId (int reportId) {
         ConditionReport conditionReport = new ConditionReport();
         String sql = "SELECT * FROM condition_report WHERE condition_report_id = ?";
@@ -127,6 +130,7 @@ public class ConditionReportRepository {
         return conditionReport;
     }
 
+    // Fetches the vehicle ID based on the report ID
     public int getVehicleIdByConditionReportId (int conditionReportId) {
         int vehicleId = 0;
         String sql = "SELECT fk_vehicle_id FROM condition_report WHERE condition_report_id = ?";
@@ -146,6 +150,7 @@ public class ConditionReportRepository {
         return vehicleId;
     }
 
+    // Creates a new condition report in the database.
     public void createConditionReport (ConditionReport conditionReport) {
         String sql = "INSERT INTO condition_report (fk_vehicle_id, handled_by, report_start_date ) " +
                 "VALUES (?, ?, ?)";
@@ -162,6 +167,7 @@ public class ConditionReportRepository {
         }
     }
 
+    // Updates only the description of the report and excess kilometers driven.
     public void updateExcessKilometersAndDescriptionFromConditionReportId (int reportId, double excessKilometers,
                                                                            String reportDescription) {
 
@@ -179,6 +185,7 @@ public class ConditionReportRepository {
         }
     }
 
+    // Updates the entire condition reports completion info.
     public void updateConditionReport(ConditionReport conditionReport){
         String sql = "UPDATE condition_report SET handled_by = ?, report_completed_date = ?, completed = ? " +
                 "WHERE condition_report_id = ?";

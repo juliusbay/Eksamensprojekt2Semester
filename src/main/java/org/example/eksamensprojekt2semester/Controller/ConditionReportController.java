@@ -122,10 +122,10 @@ public class ConditionReportController {
     public String completeConditionReport(@RequestParam("condition_report_id") int reportId,
                                           HttpSession session){
 
-        Timestamp currentTimestamp = new Timestamp(System.currentTimeMillis());
+        Timestamp currentTimestamp = new Timestamp(System.currentTimeMillis()); //Fetches current date and time
 
         Employee employee = (Employee) session.getAttribute("loggedInUser");
-        String handledBy = employee.getShortName();
+        String handledBy = employee.getShortName();                             //Gets username from currently logged in user
 
         boolean completed = true;
 

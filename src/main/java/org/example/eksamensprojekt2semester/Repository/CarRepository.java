@@ -98,6 +98,7 @@ public class CarRepository {
         return cars;
     }
 
+    // Returns the amount of cars with a specific status for statistics page.
     public int getAmountOfCarsByStatus(String status){
         int amountOfCars = 0;
         String sql = "SELECT COUNT(*) FROM car WHERE STATUS = ?";
@@ -181,21 +182,6 @@ public class CarRepository {
                                                             // OBS!!! Hvis der er problemer med setStatus, så er det muligvis her det sker.
                                                                 //Dog "burde" den automatisk konvertere tilbage til enum i databasen.
             statement.setInt(7,car.getVehicleId());
-            statement.executeUpdate();
-
-        }catch(SQLException e){
-            e.printStackTrace();
-        }
-    }
-
-    public void updateCarStatus(String status, int vehicleId) {
-        String sql = "UPDATE car SET status = ? WHERE vehicle_id = ?";
-
-        try (Connection connection = dataSource.getConnection();
-             PreparedStatement statement = connection.prepareStatement(sql)){
-            statement.setString(1, status);
-            statement.setInt(2, vehicleId);
-
             statement.executeUpdate();
 
         }catch(SQLException e){

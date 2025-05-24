@@ -42,6 +42,7 @@ public class StatisticsService {
         }
     }
 
+    // Loops through all lease agreements and accumulates the total for statistics page.
     public double calculateTotalLeaseAgreementValue() {
         ArrayList<LeaseAgreement> leaseAgreements = leaseAgreementRepository.getLeaseAgreementsByActiveStatus(true);
 
@@ -57,6 +58,7 @@ public class StatisticsService {
         return totalValueOfActiveLeaseAgreements;
     }
 
+    // Loops through all lease agreements, accumulates the total and divides it by the amount of agreements to calculate the average for statistics page.
     public double calculateAverageLeaseAgreementValue() {
         ArrayList<LeaseAgreement> leaseAgreements = leaseAgreementRepository.getLeaseAgreementsByActiveStatus(true);
 
@@ -72,6 +74,7 @@ public class StatisticsService {
         return totalValueOfActiveLeaseAgreements / leaseAgreements.size();
     }
 
+    // Loops through all lease agreements and calculates the average amount of days between lease start and lease end.
     public Duration calculateAverageLeasePeriod() {
         List<LeaseAgreement> leaseAgreements = leaseAgreementRepository.getAllLeaseAgreements();
 
@@ -94,6 +97,7 @@ public class StatisticsService {
         return Duration.ofDays(averageDays);
     }
 
+    // Loops through all lease agreements, where the car has a completed condition report, and calculates the average time from lease end date to report start date.
     public Duration calculateAverageGarageWaitingTime(List<LeaseAgreement> leaseAgreements,
                                                Map<Integer, ConditionReport> conditionReportsMap){
 
@@ -124,6 +128,7 @@ public class StatisticsService {
         return Duration.ofSeconds(avgSeconds);
     }
 
+    // Loops through all completed condition reports and calculates the average time from start to completion.
     public Duration averageGarageInspectionTime(){
         List<ConditionReport> conditionReports = conditionReportRepository.getConditionReportsByCompletionStatus(true);
 
@@ -153,6 +158,7 @@ public class StatisticsService {
         return Duration.ofSeconds(averageSeconds);
     }
 
+    // Calculates the average amount of time from car receival date to connected lease's start date.
     public Duration calculateAverageTimeToLease(
             List<Car> cars,
             List<LeaseAgreement> leaseAgreements) {

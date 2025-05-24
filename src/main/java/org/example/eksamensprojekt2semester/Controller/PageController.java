@@ -55,11 +55,13 @@ public class PageController {
     private LeaseAgreementService leaseAgreementService;
 
 
+    //GetMapping for login-page
     @GetMapping("/login")
     public String loginPage(){
         return "login";
     }
 
+    //GetMapping for logout-button. Ends the current session and redirects to login-page
     @GetMapping("/logout")
     public String logout(HttpSession session){
         session.invalidate();
@@ -81,11 +83,12 @@ public class PageController {
         ArrayList<Employee> employees = employeeRepository.getAllEmployees();
         ArrayList<PurchaseAgreement> purchaseAgreements = purchaseAgreementRepository.getAllPurchaseAgreements();
         ArrayList<Customer> customers = customerRepository.getAllCustomers();
-        System.out.println(customers);
+
+        // Map of cars' vin-numbers mapped to said car's condition report. Displays a different action button depending on the condition report's completion status.
         Map<Integer, ConditionReport> conditionReportsMap = conditionReportRepository.getAllConditionReports();
+
+        // Loops through the leaseAgreement list and adds the elements to the hash map. Used for validating lease end date in regards to condition reports.
         Map<Integer, LeaseAgreement> leaseAgreementMap = new HashMap<>();
-
-
         for (LeaseAgreement leaseAgreement : leaseAgreements) {
             leaseAgreementMap.put(leaseAgreement.getCar().getVehicleId(), leaseAgreement);
         }
@@ -145,7 +148,7 @@ public class PageController {
         return "statistics";
     }
 
-    // Tilføjer den til alle getMappings så den kan bruges i navbaren
+    // Tilføjer attributterne globalt til modeller i alle getMappings så tallene kan bruges i navbaren
     @ModelAttribute
     public void showCarAvailability(Model model){
         int numberOfCars = carRepository.getAllCars().size();

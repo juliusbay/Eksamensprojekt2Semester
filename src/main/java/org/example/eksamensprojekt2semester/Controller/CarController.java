@@ -26,8 +26,6 @@ public class CarController {
     EmployeeController employeeController;
 
     @Autowired
-    DataSource dataSource;
-    @Autowired
     private CarModelRepository carModelRepository;
 
 

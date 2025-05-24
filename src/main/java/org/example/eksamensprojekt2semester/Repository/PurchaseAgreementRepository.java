@@ -86,7 +86,7 @@ public class PurchaseAgreementRepository {
         }
     }
 
-    public void createPurchaseAgreement(PurchaseAgreement purchaseAgreement) throws SQLException {
+    public void createPurchaseAgreement(PurchaseAgreement purchaseAgreement) {
         String sql = "INSERT INTO purchase_agreement (fk_vehicle_id, fk_customer_id, car_price, paid) VALUES (?,?,?,?)";
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)){

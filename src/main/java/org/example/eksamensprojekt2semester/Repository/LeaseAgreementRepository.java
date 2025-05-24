@@ -88,6 +88,7 @@ public class LeaseAgreementRepository {
         return leaseAgreement;
     }
 
+    // Returns the lease agreement from the vehicle ID connected to it.
     public LeaseAgreement getLeaseAgreementByVehicleId(int vehicleId)  {
         LeaseAgreement leaseAgreement = new LeaseAgreement();
         String sql = "SELECT * FROM lease_agreement WHERE fk_vehicle_id = ?";
@@ -119,6 +120,7 @@ public class LeaseAgreementRepository {
         return leaseAgreement;
     }
 
+    // Returns a list of active (can also show inactive) lease agreements, used for display page and statistics
     public ArrayList<LeaseAgreement> getLeaseAgreementsByActiveStatus(boolean status){
         ArrayList<LeaseAgreement> leaseAgreementsByActiveStatus = new ArrayList<>();
         String sql = "SELECT * FROM lease_agreement WHERE lease_active = ?";
