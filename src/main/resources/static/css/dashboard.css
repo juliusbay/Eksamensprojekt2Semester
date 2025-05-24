@@ -24,6 +24,9 @@
     border: 1px solid #f5c6cb;
 }
 
+.alert p {
+    margin: 0;
+}
 
 .dropdown {
     margin-right: 10px;
@@ -33,6 +36,7 @@ select {
     padding: 6px;
     border: none;
     border-radius: 5px;
+    background-color: #e9e9ed;
 }
 
 .search-bar {
@@ -89,7 +93,7 @@ th, td {
 }
 
 th {
-    background-color: #eaeaea;
+    background-color: #e9e9ed;
 }
 
 .clickableHeader {

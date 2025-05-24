@@ -1,5 +1,6 @@
 package org.example.eksamensprojekt2semester.Repository;
 
+import org.example.eksamensprojekt2semester.Model.Car;
 import org.example.eksamensprojekt2semester.Model.PurchaseAgreement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -17,6 +18,11 @@ public class PurchaseAgreementRepository {
 
     @Autowired
     DataSource dataSource;
+    @Autowired
+    private CustomerRepository customerRepository;
+
+    @Autowired
+    private CarRepository carRepository;
 
     public ArrayList<PurchaseAgreement> getAllPurchaseAgreements() {
         ArrayList<PurchaseAgreement> purchaseAgreements = new ArrayList<>();
@@ -29,8 +35,8 @@ public class PurchaseAgreementRepository {
             while (resultSet.next()) {
                 PurchaseAgreement purchaseAgreement = new PurchaseAgreement();
                 purchaseAgreement.setPurchaseAgreementId(resultSet.getInt("purchase_agreement_id"));
-                purchaseAgreement.setFkVehicleId(resultSet.getInt("fk_vehicle_id"));
-                purchaseAgreement.setFkCustomerId(resultSet.getInt("fk_customer_id"));
+                purchaseAgreement.setCar(carRepository.getCarById(resultSet.getInt(("fk_vehicle_id"))));
+                purchaseAgreement.setCustomer(customerRepository.getCustomerByCustomerId(resultSet.getInt("fk_customer_id")));
                 purchaseAgreement.setPaid(resultSet.getBoolean("paid"));
                 purchaseAgreement.setCarPrice(resultSet.getDouble("car_price"));
                 purchaseAgreements.add(purchaseAgreement);

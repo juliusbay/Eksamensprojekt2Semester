@@ -40,6 +40,17 @@ public class Customer {
         this.fkVehicleId = fkVehicleId;
     }
 
+    public Customer(String firstName, String lastName, String email, int phoneNumber, String address, String city, int postalCode, String cprNumber) {
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.email = email;
+    this.phoneNumber = phoneNumber;
+    this.address = address;
+    this.city = city;
+    this.postalCode = postalCode;
+    this.cprNumber = cprNumber;
+    }
+
     public int getCustomerId() {
         return customerId;
     }

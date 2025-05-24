@@ -24,7 +24,7 @@
     <tr><th>Startdato:</th><td th:text="${#temporals.format(leaseAgreement.leaseStartDate.toLocalDateTime(), 'dd-MM-yyyy')}"></td> </tr>
     <tr><th>Slutdato:</th><td th:text="${#temporals.format(leaseAgreement.leaseEndDate.toLocalDateTime(), 'dd-MM-yyyy')}"></td></tr>
     <tr><th>Returneringssted:</th><td th:text="${leaseAgreement.returnLocation}"></td></tr>
-    <tr><th>Er lease aktiv?:</th><td th:text="${leaseAgreement.active}"></td></tr>
+    <tr><th>Er lease aktiv?:</th><td th:text="${leaseAgreement.active ? 'Ja' : 'Nej'}"></td></tr>
 
 </table>
 
@@ -35,13 +35,13 @@
 </div>
 
 <div class="button-container no-print">
-    <form th:action="@{/cars}" method="get">
+    <form th:action="@{/dashboard}" method="get">
         <button type="submit">← Tilbage til oversigten </button>
     </form>
 
     <form th:action="@{/toggleLeaseStatus}" method="get">
         <input type="hidden" name="lease_agreement_id" th:value="${leaseAgreement.leaseAgreementId}">
-        <button type="submit">Sæt lease inaktiv</button>
+        <button type="submit">Aflslut lease</button>
     </form>
 
 </div>

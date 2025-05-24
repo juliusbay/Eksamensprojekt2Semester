@@ -11,11 +11,11 @@ public class Employee {
     private String password;
     private Role role;
 
-    public Employee(int employeeId, String firstName, String lastName, String shortName, String email, String password, Role role) {
+    public Employee(int employeeId, String firstName, String lastName, String email, String password, Role role) {
         this.employeeId = employeeId;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.shortName = shortName;
+        shortName = firstName.toUpperCase().substring(0,2)+lastName.toUpperCase().substring(0,3)+employeeId;
         this.email = email;
         this.password = password;
         this.role = role;
@@ -24,6 +24,17 @@ public class Employee {
     public Employee(String firstName, String lastName, String email, String password, Role role) {
         this.firstName = firstName;
         this.lastName = lastName;
+        shortName = firstName.toUpperCase().substring(0,2)+lastName.toUpperCase().substring(0,3);
+        this.email = email;
+        this.password = password;
+        this.role = role;
+    }
+
+    public Employee(int employeeId, String firstName, String lastName, String shortName, String email, String password, Role role) {
+        this.employeeId = employeeId;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.shortName = shortName;
         this.email = email;
         this.password = password;
         this.role = role;

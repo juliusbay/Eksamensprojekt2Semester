@@ -36,7 +36,6 @@ public class CustomerRepository {
                         customer.setCity(resultSet.getString("city"));
                         customer.setPostalCode(resultSet.getInt("postal_code"));
                         customer.setCprNumber(resultSet.getString("cpr_number"));
-                        customer.setFkVehicleId(resultSet.getInt("fk_vehicle_id"));
                     }
                 }
 
@@ -66,7 +65,6 @@ public class CustomerRepository {
                 customer.setCity(resultSet.getString("city"));
                 customer.setPostalCode(resultSet.getInt("postal_code"));
                 customer.setCprNumber(resultSet.getString("cpr_number"));
-                customer.setFkVehicleId(resultSet.getInt("fk_vehicle_id"));
                 customers.add(customer);
             }
         }catch (SQLException e) {
@@ -77,7 +75,7 @@ public class CustomerRepository {
 
     //Method for creating customer.
     public void createCustomer(Customer customer){
-        String sql = "INSERT INTO customer (first_name, last_name, email, phone_number, address, city, postal_code, cpr_number, fk_vehicle_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO customer (first_name, last_name, email, phone_number, address, city, postal_code, cpr_number) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
         try (Connection connection = dataSource.getConnection();
             PreparedStatement statement = connection.prepareStatement(sql)){
@@ -90,7 +88,6 @@ public class CustomerRepository {
             statement.setString(6, customer.getCity());
             statement.setInt(7, customer.getPostalCode());
             statement.setString(8, customer.getCprNumber());
-            statement.setInt(9, customer.getFkVehicleId());
 
             statement.executeUpdate();
 
@@ -101,7 +98,7 @@ public class CustomerRepository {
 
     //Method for updating customer details
     public void updateCustomer(Customer customer){
-        String sql = "UPDATE customer SET first_name = ?, last_name = ?, email = ?, phone_number = ?, address = ?, city = ?, postal_code = ?, cpr_number = ?, fk_vehicle_id = ? " +
+        String sql = "UPDATE customer SET first_name = ?, last_name = ?, email = ?, phone_number = ?, address = ?, city = ?, postal_code = ?, cpr_number = ?" +
                 "WHERE customer_id = ?";
 
         try (Connection connection = dataSource.getConnection();

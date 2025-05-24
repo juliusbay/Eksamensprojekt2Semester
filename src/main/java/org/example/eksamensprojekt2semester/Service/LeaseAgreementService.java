@@ -47,4 +47,17 @@ public class LeaseAgreementService {
 
     }
 
+    public void maximum120daysAgreement(LeaseAgreement leaseAgreement) {
+        if (leaseAgreement.leaseType == LeaseAgreement.LeaseType.LIMITED) {
+            LocalDate startDate = leaseAgreement.leaseStartDate.toLocalDateTime().toLocalDate();
+            LocalDate endDate = leaseAgreement.leaseEndDate.toLocalDateTime().toLocalDate();
+
+            long daysBetween = ChronoUnit.DAYS.between(startDate, endDate);
+            if (daysBetween > 120) {
+                throw new IllegalArgumentException("Limited leje aftaler må ikke være 120 dage lange");
+
+            }
+        }
+    }
+
 }

@@ -14,7 +14,6 @@
 <body>
 <header th:replace="~{fragments.html :: navbar}"></header>
 
-
 <div class="all-tables">
     <div class="functional">
         <div class="dropdown">
@@ -53,7 +52,7 @@
             </select>
         </div>
         <div>
-            <input type="text" id="search" onkeyup="myFunction()" placeholder="Search..">
+            <input type="text" id="search" onkeyup="searchFunction()" placeholder="Search..">
         </div>
     </div>
 
@@ -72,7 +71,7 @@
                     <th class="clickableHeader" onclick="sortTable(5)">Leje slut dato</th>
                     <th class="clickableHeader" onclick="sortTable(6)">Returnerings lokation</th>
                     <th>Lease detaljer</th>
-                    <th>Slet</th>
+                    <th> </th>
                 </tr>
                 </thead>
 
@@ -81,7 +80,7 @@
                     <td th:text="${leaseAgreement.getCar().getVinNumber()}"/>
                     <td th:text="${leaseAgreement.getCustomer().getFirstName()} + ' ' + ${leaseAgreement.getCustomer().getLastName()}"/>
                     <td th:text="${leaseAgreement.leaseType}"/>
-                    <td th:text="${#numbers.formatDecimal(leaseAgreement.leasePrice, 1, 2) + ' dkk'}"/>
+                    <td th:text="${#numbers.formatDecimal(leaseAgreement.leasePrice, 1, 0) + ' DKK'}"/>
                     <td th:text="${#temporals.format(leaseAgreement.leaseStartDate.toLocalDateTime(), 'dd-MM-yyyy')}"/>
                     <td th:text="${#temporals.format(leaseAgreement.leaseEndDate.toLocalDateTime(), 'dd-MM-yyyy')}"/>
                     <td th:text="${leaseAgreement.returnLocation}"/>
@@ -93,7 +92,7 @@
                         </form>
                     </td>
                     <td>
-                        <form th:action="@{/deleteLease}" method="post">
+                        <form th:action="@{/deleteLease}" method="post" onsubmit="return confirm('Er du sikker på du vil slette denne leasing aftale?');">
                             <input type="hidden" name="lease_agreement_id"
                                    th:value="${leaseAgreement.leaseAgreementId}">
                             <button type="submit">Slet</button>
@@ -116,7 +115,7 @@
                         <select id="vehicle-lease" name="fk_vehicle_id">
                             <option value=""> Vælg bil</option>
                             <option th:each="car : ${cars}" th:value="${car.vehicleId}"
-                                    th:text="${ car.vehicleId+ ' '+ car.carModel.getBrand() + ' '+car.carModel.getCarEquipment()}"></option>
+                                    th:text="${car.carModel.getBrand() + ' '+car.carModel.getCarEquipment()}"></option>
                         </select>
                     </div>
 
@@ -125,14 +124,15 @@
                         <select id="fk_customer_id" name="fk_customer_id">
                             <option value="">Vælge kunde</option>
                             <option th:each="customer : ${customers}" th:value="${customer.getCustomerId()}"
-                                    th:text="${ customer.customerId+' '+customer.firstName + ' ' + customer.lastName}"></option>
+                                    th:text="${customer.firstName + ' ' + customer.lastName}"></option>
                         </select>
                     </div>
                     <div class="form-field">
                         <label for="lease_type">Lease type:</label>
                         <select id="lease_type" name="lease_type">
                             <option value=""> Indtast lease type</option>
-                            <option th:each="leaseType : ${leaseTypes}" th:value="${leaseType}" th:text="${leaseType}"></option>
+                            <option th:each="leaseType : ${leaseTypes}" th:value="${leaseType}"
+                                    th:text="${leaseType}"></option>
                         </select>
                     </div>
 
@@ -170,7 +170,7 @@
 
     <div class="selectable" id="lease_inactive">
         <div class="data-table">
-            <h2>Inaktive leasing aftaler</h2>
+            <h2>Aflsuttede leasing aftaler</h2>
             <table id="lease_inactive_table">
                 <thead>
                 <tr>
@@ -181,7 +181,7 @@
                     <th class="clickableHeader" onclick="sortTable(5)">Leje slut dato</th>
                     <th class="clickableHeader" onclick="sortTable(6)">Returnerings lokation</th>
                     <th>Lejedetaljer detaljer</th>
-                    <th>Slet</th>
+                    <th> </th>
                 </tr>
                 </thead>
 
@@ -189,7 +189,7 @@
                 <tr th:each="leaseAgreement: ${leaseAgreements}" th:if="${!leaseAgreement.active}">
                     <td th:text="${leaseAgreement.getCustomer().getFirstName()} + ' ' + ${leaseAgreement.getCustomer().getLastName()}"/>
                     <td th:text="${leaseAgreement.leaseType}"/>
-                    <td th:text="${#numbers.formatDecimal(leaseAgreement.leasePrice, 1, 2) + ' dkk'}"/>
+                    <td th:text="${#numbers.formatDecimal(leaseAgreement.leasePrice, 1, 0) + ' DKK'}"/>
                     <td th:text="${#temporals.format(leaseAgreement.leaseStartDate.toLocalDateTime(), 'dd-MM-yyyy')}"/>
                     <td th:text="${#temporals.format(leaseAgreement.leaseEndDate.toLocalDateTime(), 'dd-MM-yyyy')}"/>
                     <td th:text="${leaseAgreement.returnLocation}"/>
@@ -201,7 +201,7 @@
                         </form>
                     </td>
                     <td>
-                        <form th:action="@{/deleteLease}" method="post">
+                        <form th:action="@{/deleteLease}" method="post" onsubmit="return confirm('Er du sikker på du vil slette denne leasing aftale?');">
                             <input type="hidden" name="lease_agreement_id"
                                    th:value="${leaseAgreement.leaseAgreementId}">
                             <button type="submit">Slet</button>
@@ -227,7 +227,7 @@
                     <th class="clickableHeader" onclick="sortTable(6)">Forkøbt</th>
                     <th class="clickableHeader" onclick="sortTable(7)">Status</th>
                     <th>Tilstandsrapport</th>
-                    <th>Slet bil</th>
+                    <th> </th>
                 </tr>
                 </thead>
                 <tbody>
@@ -285,9 +285,9 @@
 
                     </td>
                     <td>
-                        <form th:action="@{/deleteCar}" method="post">
+                        <form th:action="@{/deleteCar}" method="post" onsubmit="return confirm('Er du sikker på du vil sletten bilen?');">
                             <input type="hidden" name="vehicleId" th:value="${car.vehicleId}">
-                            <button type="submit">Delete</button>
+                            <button type="submit">Slet</button>
                         </form>
                     </td>
                 </tr>
@@ -339,8 +339,8 @@
                     <th class="clickableHeader" onclick="sortTable(1)">Handler</th>
                     <th class="clickableHeader" onclick="sortTable(2)">Startdato</th>
                     <th class="clickableHeader" onclick="sortTable(3)">Slutdato</th>
-                    <th></th>
-                    <th></th>
+                    <th> </th>
+                    <th> </th>
                 </tr>
                 </thead>
                 <tbody>
@@ -348,14 +348,14 @@
                 <tr th:each="conditionReport: ${conditionReports}">
                     <td th:text="${conditionReport.conditionReportId}"/>
                     <td th:text="${conditionReport.handledBy}"/>
-                    <td th:text="${#temporals.format(conditionReport.reportStartDate.toLocalDateTime(), 'dd-MM-yyyy')}"/>
+                    <td th:text="${conditionReport.reportStartDate}"/>
                     <td th:text="${conditionReport.reportCompletedDate} ?: 'I GANG'"/>
                     <td>
                         <!-- If the condition report has been set as completed, you get a print button -->
                         <div th:if="${conditionReport.completed}">
                             <form th:action="@{/condition-report}" method="get" target="_blank">
                                 <input type="hidden" name="condition_report_id"
-                                       th:value="${conditionReport.conditionReportId}" />
+                                       th:value="${conditionReport.conditionReportId}"/>
                                 <button type="submit" class="btn">Print tilstandsrapport</button>
                             </form>
                         </div>
@@ -364,16 +364,16 @@
                         <div th:unless="${conditionReport.completed}">
                             <form th:action="@{/condition-report}" method="get">
                                 <input type="hidden" name="condition_report_id"
-                                       th:value="${conditionReport.conditionReportId}" />
+                                       th:value="${conditionReport.conditionReportId}"/>
                                 <button type="submit" class="btn">Rediger tilstandsrapport</button>
                             </form>
                         </div>
                     </td>
                     <td>
-                        <form th:action="@{/deleteConditionReport}" method="post">
+                        <form th:action="@{/deleteConditionReport}" method="post" onsubmit="return confirm('Er du sikker på du vil slette denne tilstandsrapport?');">
                             <input type="hidden" name="condition_report_id"
                                    th:value="${conditionReport.conditionReportId}">
-                            <button type="submit">Delete</button>
+                            <button type="submit">Slet</button>
                         </form>
                     </td>
                 </tr>
@@ -408,7 +408,7 @@
                     <td th:text="${carModel.getGearBox()}"/>
                     <td th:text="${carModel.getCarEmission() + ' g/km'}"/>
                     <td th:text="${carModel.getCarEquipment()}"/>
-                    <td th:text="${#numbers.formatDecimal(carModel.steelPrice, 1, 2) + ' dkk'}"/>
+                    <td th:text="${#numbers.formatDecimal(carModel.steelPrice, 1, 0) + ' DKK'}"/>
                 </tr>
                 </tbody>
             </table>
@@ -485,7 +485,7 @@
                     <th class="clickableHeader" onclick="sortTable(3)">Shortname</th>
                     <th class="clickableHeader" onclick="sortTable(4)">Email</th>
                     <th class="clickableHeader" onclick="sortTable(5)">Rolle</th>
-                    <th>Delete</th>
+                    <th> </th>
                 </tr>
                 </thead>
                 <tbody>
@@ -497,9 +497,9 @@
                     <td th:text="${employee.email}"/>
                     <td th:text="${employee.getRole()}"/>
                     <td>
-                        <form th:action="@{/deleteEmployee}" method="post">
+                        <form th:action="@{/deleteEmployee}" method="post" onsubmit="return confirm('Er du sikker på du vil fjerne denne ansatte?');">
                             <input type="hidden" name="employee_id" th:value="${employee.employeeId}">
-                            <button type="submit">Delete</button>
+                            <button type="submit">Slet</button>
                         </form>
                     </td>
                 </tr>
@@ -552,34 +552,36 @@
     <div class="selectable" id="purchase_agreements">
         <div class="data-table">
             <h2>Købsaftaler</h2>
+            <div class="table">
             <table id="purchase_agreements_table">
                 <thead>
                 <tr>
                     <th class="clickableHeader" onclick="sortTable(0)">ID</th>
-                    <th class="clickableHeader" onclick="sortTable(1)">Kunde id</th>
-                    <th class="clickableHeader" onclick="sortTable(2)">Bil id</th>
+                    <th class="clickableHeader" onclick="sortTable(1)">Kunde navn</th>
+                    <th class="clickableHeader" onclick="sortTable(2)">Bil stelnummer</th>
                     <th class="clickableHeader" onclick="sortTable(3)">Pris</th>
                     <th class="clickableHeader" onclick="sortTable(4)">Betalt?</th>
-                    <th>Delete</th>
+                    <th> </th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr th:each="purchaseAgreement: ${purchaseAgreements}">
                     <td th:text="${purchaseAgreement.purchaseAgreementId}"/>
-                    <td th:text="${purchaseAgreement.fkCustomerId}"/>
-                    <td th:text="${purchaseAgreement.fkVehicleId}"/>
-                    <td th:text="${#numbers.formatDecimal(purchaseAgreement.getCarPrice(), 1, 2) + ' dkk'}"/>
+                    <td th:text="${purchaseAgreement.getCustomer().getFirstName()} + ' ' + ${purchaseAgreement.getCustomer().getLastName()}"/>
+                    <td th:text="${purchaseAgreement.getCar().getVinNumber()}"/>
+                    <td th:text="${#numbers.formatDecimal(purchaseAgreement.getCarPrice(), 1, 0) + ' DKK'}"/>
                     <td th:text="${purchaseAgreement.paid ? 'Ja' : 'Nej'}"/>
                     <td>
-                        <form th:action="@{/deletePurchaseAgreement}" method="post">
+                        <form th:action="@{/deletePurchaseAgreement}" method="post" onsubmit="return confirm('Er du sikker på du vil slette denne købsaftale?');">
                             <input type="hidden" name="purchaseAgreementId"
                                    th:value="${purchaseAgreement.purchaseAgreementId}">
-                            <button type="submit">Delete</button>
+                            <button type="submit">Slet</button>
                         </form>
                     </td>
                 </tr>
                 </tbody>
             </table>
+            </div>
         </div>
     </div>
 
@@ -598,7 +600,6 @@
                     <th class="clickableHeader" onclick="sortTable(6)">Adresse</th>
                     <th class="clickableHeader" onclick="sortTable(7)">By</th>
                     <th class="clickableHeader" onclick="sortTable(8)">Postnummer</th>
-                    <th class="clickableHeader" onclick="sortTable(9)">Bil id</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -612,7 +613,6 @@
                     <td th:text="${customer.address}"/>
                     <td th:text="${customer.city}"/>
                     <td th:text="${customer.postalCode}"/>
-                    <td th:text="${customer.fkVehicleId}"/>
                 </tr>
                 </tbody>
             </table>
@@ -621,7 +621,7 @@
         <div class="container">
             <div class="form-container">
                 <h2> Opret en ny Kunde </h2>
-                <form class="form2" th:action="@{/createLease}" method="post">
+                <form class="form2" th:action="@{/createCustomer}" method="post">
                     <div class="form-field">
                         <label class="label-create" for="first_name">Fornavn:</label>
                         <input type="text" id="first_name" name="first_name" placeholder="Indtast fornavn" required>
@@ -663,14 +663,7 @@
                         <input type="text" id="cpr_number" name="cpr_number" placeholder="Indtast cpr:" required>
                     </div>
 
-                    <div class="form-field">
-                        <label for="fk_vehicle_id">Vælge bil:</label>
-                        <select id="fk_vehicle_id" name="fk_vehicle_id">
-                            <option value=""> Vælg bil</option>
-                            <option th:each="car : ${cars}" th:value="${car.vehicleId}"
-                                    th:text="${ car.vehicleId+ ' '+ car.carModel.getBrand() + ' '+car.carModel.getCarEquipment()}"></option>
-                        </select>
-                    </div>
+
 
                     <div class="form-field">
                         <button type="submit" class="action-button"> Opret kunde</button>
@@ -797,7 +790,7 @@
         }
     }
 
-    function myFunction() {
+    function searchFunction() {
         // Declare variables
         let input, filter, table, rows, column, i, txtValue;
         input = document.getElementById("search");
