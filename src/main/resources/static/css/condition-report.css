@@ -118,7 +118,7 @@ html, body {
 }
 
 .price-div {
-    width: 100%;
+    max-width: 100%;
     padding: 10px 20px;
     background-color: white;
     border-top: 1px solid #e0e0e0;
