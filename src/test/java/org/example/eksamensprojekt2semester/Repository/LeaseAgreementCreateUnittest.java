@@ -40,7 +40,7 @@ public class LeaseAgreementCreateUnittest {
 
     @Test
     @DisplayName("createLeaseAgreement happyFlow")
-    void createLeaseAgreementHappy() throws SQLException {
+    void createLeaseAgreementHappy() {
         // Arrange
         int vehicle_id = 1;
         int customer_id = 1;
@@ -79,7 +79,7 @@ public class LeaseAgreementCreateUnittest {
 
     @Test
     @DisplayName("createLeaseAgreement exceptionFlow")
-    public void createLeaseAgreementExceptionNoNegativePrice() throws SQLException {
+    public void createLeaseAgreementExceptionNoNegativePrice() {
         //Arrange
 
         int vehicle_id = 1;
@@ -109,7 +109,7 @@ public class LeaseAgreementCreateUnittest {
 
     @Test
     @DisplayName("createLeaseAgreement exceptionFlow")
-    public void createLeaseAgreementException120DaysException() throws SQLException {
+    public void createLeaseAgreementException120DaysException() {
         //Arrange
 
         int vehicle_id = 1;

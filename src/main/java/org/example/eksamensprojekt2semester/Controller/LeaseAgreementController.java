@@ -55,7 +55,7 @@ public class LeaseAgreementController {
                                        @RequestParam("lease_start_date")Date leaseStartDate,
                                        @RequestParam("lease_end_date") Date leaseEndDate,
                                        @RequestParam("return_location") String returnLocation,
-                                       HttpSession session, Model model) throws SQLException {
+                                       HttpSession session, Model model) {
 
         if (!isUserLoggedIn(session)) {
             return "redirect:/login";
@@ -96,7 +96,7 @@ public class LeaseAgreementController {
     }
     //This method is the same as the pageController. We retrieve all of the tables again, after an excpetion has been met.
     //If we dont do this, all of the tables will be modelless
-    private void reloadLeaseFormData(Model model) throws SQLException {
+    private void reloadLeaseFormData(Model model) {
         model.addAttribute("cars", carRepository.getAllCars());
         model.addAttribute("customers", customerRepository.getAllCustomers());
         model.addAttribute("leaseTypes", LeaseAgreement.LeaseType.values());
@@ -114,7 +114,7 @@ public class LeaseAgreementController {
     }
 
     @GetMapping("/createLeasePage")
-    public String showCreateLeasePage(Model model, HttpSession session) throws SQLException {
+    public String showCreateLeasePage(Model model, HttpSession session) {
 
         if (!isUserLoggedIn(session)) {
             return "redirect:/login";
@@ -133,7 +133,7 @@ public class LeaseAgreementController {
                                         double leasePrice,
                                                     Timestamp leaseStartDate,
                                                     Timestamp leaseEndDate,
-                                                    String returnLocation) throws SQLException {
+                                                    String returnLocation) {
 
 
         LeaseAgreement leaseAgreement = new LeaseAgreement(fkVehicleId,
@@ -162,7 +162,7 @@ public class LeaseAgreementController {
                                        @RequestParam("lease_start_date")Timestamp leaseStartDate,
                                        @RequestParam("lease_end_date") Timestamp leaseEndDate,
                                        @RequestParam("return_location") String returnLocation,
-                                       HttpSession session) throws SQLException {
+                                       HttpSession session) {
 
         if (!isUserLoggedIn(session)) {
             return "redirect:/login";
@@ -180,7 +180,7 @@ public class LeaseAgreementController {
     //Delete a specific leaseAgreement by its id
     @PostMapping("/deleteLease")
     public String deleteLeaseAgreement(@RequestParam("lease_agreement_id") int leaseAgreementId,
-                                       HttpSession session) throws SQLException {
+                                       HttpSession session) {
         if (!isUserLoggedIn(session)){
             return "redirect:/";
         }
@@ -191,7 +191,7 @@ public class LeaseAgreementController {
     //Get one specific leaseAgreement by its id
     @GetMapping("/leaseDetails")
     public String getLeaseAgreementById(@RequestParam("lease_agreement_id") int leaseAgreementId,
-                                        HttpSession session, Model model) throws SQLException {
+                                        HttpSession session, Model model) {
 
         if (!isUserLoggedIn(session)) {
             return "redirect:/login";
@@ -214,7 +214,7 @@ public class LeaseAgreementController {
         return "redirect:/dashboard";
     }
     @GetMapping("/toggleLeaseStatus")
-    public String toggleLeaseStatus(@RequestParam("lease_agreement_id") int leaseAgreementId,HttpSession session) throws SQLException {
+    public String toggleLeaseStatus(@RequestParam("lease_agreement_id") int leaseAgreementId,HttpSession session) {
         if (!isUserLoggedIn(session)) {
             return "redirect:/";
         }

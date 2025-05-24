@@ -50,7 +50,7 @@ public class PurchaseAgreementRepository {
 
 
 
-        public PurchaseAgreement getPurchaseAgreementById(int id) throws SQLException {
+        public PurchaseAgreement getPurchaseAgreementById(int id) {
         PurchaseAgreement purchaseAgreement = new PurchaseAgreement();
         String sql = "SELECT * FROM purchase_agreement WHERE purchase_agreement_id = ?";
 
@@ -73,7 +73,7 @@ public class PurchaseAgreementRepository {
         return purchaseAgreement;
     }
 
-    public void deletePurchaseAgreementById(int id) throws SQLException {
+    public void deletePurchaseAgreementById(int id) {
         String sql = "DELETE FROM purchase_agreement WHERE purchase_agreement_id = ?";
 
         try (Connection connection = dataSource.getConnection();
@@ -102,7 +102,7 @@ public class PurchaseAgreementRepository {
     }
 
 
-    public void updatePurchaseAgreement(PurchaseAgreement purchaseAgreement) throws SQLException {
+    public void updatePurchaseAgreement(PurchaseAgreement purchaseAgreement) {
         String sql = "UPDATE purchase_agreement SET fk_vehicle_id = ?, fk_customer_id = ?, car_price = ?, paid = ? WHERE purchase_agreement_id = ? ";
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)){

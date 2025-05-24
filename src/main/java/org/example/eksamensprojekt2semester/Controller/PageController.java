@@ -71,7 +71,7 @@ public class PageController {
 
 
     @GetMapping("/dashboard")
-    public String getEveryTable(Model model, HttpSession session) throws SQLException {
+    public String getEveryTable(Model model, HttpSession session) {
         if (!employeeController.isUserLoggedIn(session)) {
             return "redirect:/login";
         }

@@ -95,7 +95,7 @@ public class DamageRepository {
 
     }
 
-    public void updateDamage(Damage damage) throws SQLException {
+    public void updateDamage(Damage damage) {
         String sql = "UPDATE damage SET fk_condition_report_id = ?, damage_price = ?, damage_type = ? WHERE damage_id = ?";
 
         try(Connection connection = dataSource.getConnection();

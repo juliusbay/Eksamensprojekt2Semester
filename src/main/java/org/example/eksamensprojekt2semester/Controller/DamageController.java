@@ -36,7 +36,7 @@ public class DamageController {
                                @RequestParam("condition_report_id") int conditionReportId,
                                @RequestParam("damage_type") String damageType,
                                @RequestParam("damage_price") double damagePrice,
-                               HttpSession session) throws SQLException {
+                               HttpSession session) {
         if (!isUserLoggedIn(session)) {
             return "redirect:/";
         }

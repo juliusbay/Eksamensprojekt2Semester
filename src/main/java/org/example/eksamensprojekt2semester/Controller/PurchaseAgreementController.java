@@ -23,7 +23,7 @@ public class PurchaseAgreementController {
                                               @RequestParam("fk_customer_id") int fkCustomerId,
                                               @RequestParam("car_price") double carPrice,
                                               @RequestParam("paid") boolean paid,
-                                              HttpSession session) throws SQLException {
+                                              HttpSession session){
 
             if (!isUserLoggedIn(session)) {
                 return "redirect:/";
@@ -42,7 +42,7 @@ public class PurchaseAgreementController {
                                               @RequestParam("fk_customer_id") int fkCustomerId,
                                               @RequestParam("car_price") double carPrice,
                                               @RequestParam("paid") boolean paid,
-                                              HttpSession session) throws SQLException {
+                                              HttpSession session) {
 
             if (!isUserLoggedIn(session)) {
                 return "redirect:/";
@@ -57,7 +57,7 @@ public class PurchaseAgreementController {
         // Delete a purchase agreement
         @PostMapping("/deletePurchaseAgreement")
         public String deletePurchaseAgreement(@RequestParam("purchase_agreement_id") int purchaseAgreementId,
-                                              HttpSession session) throws SQLException {
+                                              HttpSession session) {
 
             if (!isUserLoggedIn(session)) {
                 return "redirect:/";
@@ -71,7 +71,7 @@ public class PurchaseAgreementController {
         @PostMapping("/purchase_agreement_details")
         public String getPurchaseAgreementById(@RequestParam("purchase_agreement_id") int purchaseAgreementId,
                                                Model model,
-                                               HttpSession session) throws SQLException {
+                                               HttpSession session) {
 
             if (!isUserLoggedIn(session)) {
                 return "redirect:/";

@@ -35,7 +35,7 @@ public class LeaseAgreementGetAllUnittest {
 
     @Test
     @DisplayName("getAllLeaseAgreements happyFlow")
-    void getAllLeaseAgreements() throws SQLException {
+    void getAllLeaseAgreements() {
         //Arrange
         LeaseAgreement leaseAgreement = new LeaseAgreement(
                 1,
@@ -64,7 +64,7 @@ public class LeaseAgreementGetAllUnittest {
 
     @Test
     @DisplayName("getAllLeaseAgreements alternate flow")
-    public void getAllLeaseAgreementsAlternateFlow() throws SQLException {
+    public void getAllLeaseAgreementsAlternateFlow() {
         //Arrange
 
         LeaseAgreement leaseAgreement = new LeaseAgreement(

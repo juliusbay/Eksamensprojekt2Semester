@@ -46,7 +46,7 @@ public class CustomerRepository {
         return customer;
     }
 
-    public ArrayList<Customer> getAllCustomers() throws SQLException {
+    public ArrayList<Customer> getAllCustomers() {
         ArrayList<Customer> customers = new ArrayList<>();
         String sql = "SELECT * FROM customer";
 
