@@ -7,7 +7,6 @@ import org.example.eksamensprojekt2semester.Model.Car;
 import org.example.eksamensprojekt2semester.Model.CarModel;
 import org.example.eksamensprojekt2semester.Repository.CarModelRepository;
 import org.example.eksamensprojekt2semester.Repository.CarRepository;
-import org.example.eksamensprojekt2semester.Repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,10 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.sql.DataSource;
-import java.sql.Date;
 import java.sql.Timestamp;
-import java.time.LocalDate;
-import java.util.ArrayList;
 
 @Controller
 public class CarController {

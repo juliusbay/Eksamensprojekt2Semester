@@ -1,6 +1,5 @@
 package org.example.eksamensprojekt2semester.Service;
 
-import org.example.eksamensprojekt2semester.Model.Car;
 import org.example.eksamensprojekt2semester.Model.LeaseAgreement;
 
 import org.springframework.stereotype.Service;

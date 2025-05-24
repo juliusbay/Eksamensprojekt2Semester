@@ -1,9 +1,6 @@
 package org.example.eksamensprojekt2semester.Controller;
 
 import jakarta.servlet.http.HttpSession;
-import org.example.eksamensprojekt2semester.Model.Car;
-import org.example.eksamensprojekt2semester.Model.ConditionReport;
-import org.example.eksamensprojekt2semester.Model.Customer;
 import org.example.eksamensprojekt2semester.Model.LeaseAgreement;
 import org.example.eksamensprojekt2semester.Repository.*;
 import org.example.eksamensprojekt2semester.Service.LeaseAgreementService;

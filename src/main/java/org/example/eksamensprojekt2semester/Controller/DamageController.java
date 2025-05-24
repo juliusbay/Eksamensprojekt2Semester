@@ -5,15 +5,9 @@ import org.example.eksamensprojekt2semester.Model.Damage;
 import org.example.eksamensprojekt2semester.Repository.DamageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
-import java.sql.Date;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
 @Controller
 public class DamageController {

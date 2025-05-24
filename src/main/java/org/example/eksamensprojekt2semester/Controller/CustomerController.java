@@ -2,7 +2,6 @@ package org.example.eksamensprojekt2semester.Controller;
 
 
 import org.example.eksamensprojekt2semester.Model.Customer;
-import org.example.eksamensprojekt2semester.Repository.CarRepository;
 import org.example.eksamensprojekt2semester.Repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

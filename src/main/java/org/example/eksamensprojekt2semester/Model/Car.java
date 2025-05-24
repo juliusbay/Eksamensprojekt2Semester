@@ -2,8 +2,6 @@ package org.example.eksamensprojekt2semester.Model;
 
 import org.example.eksamensprojekt2semester.Enum.Status;
 
-import java.sql.Date;
-import java.sql.Time;
 import java.sql.Timestamp;
 
 public class Car {

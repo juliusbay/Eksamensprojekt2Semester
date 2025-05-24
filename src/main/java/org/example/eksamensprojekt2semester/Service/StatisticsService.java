@@ -3,13 +3,11 @@ package org.example.eksamensprojekt2semester.Service;
 import org.example.eksamensprojekt2semester.Model.Car;
 import org.example.eksamensprojekt2semester.Model.ConditionReport;
 import org.example.eksamensprojekt2semester.Model.LeaseAgreement;
-import org.example.eksamensprojekt2semester.Repository.CarRepository;
 import org.example.eksamensprojekt2semester.Repository.ConditionReportRepository;
 import org.example.eksamensprojekt2semester.Repository.LeaseAgreementRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.sql.Timestamp;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;

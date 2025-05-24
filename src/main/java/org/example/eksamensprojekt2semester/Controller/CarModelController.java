@@ -4,12 +4,10 @@ import org.example.eksamensprojekt2semester.Enum.CarEquipment;
 import org.example.eksamensprojekt2semester.Enum.FuelType;
 import org.example.eksamensprojekt2semester.Enum.GearBox;
 import org.example.eksamensprojekt2semester.Model.CarModel;
-import org.example.eksamensprojekt2semester.Model.LeaseAgreement;
 import org.example.eksamensprojekt2semester.Repository.CarModelRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller

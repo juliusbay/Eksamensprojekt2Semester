@@ -1,6 +1,5 @@
 package org.example.eksamensprojekt2semester.Model;
 
-import java.sql.Date;
 import java.sql.Timestamp;
 
 public class ConditionReport {
