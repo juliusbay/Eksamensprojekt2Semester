@@ -74,7 +74,7 @@ input:focus {
 }
 
 .table {
-    max-height: 75vh;
+    max-height: 50vh;
     overflow: auto;
 }
 
