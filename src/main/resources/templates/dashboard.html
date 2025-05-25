@@ -774,25 +774,25 @@
                 x = rows[i].getElementsByTagName("td")[n];
                 y = rows[i + 1].getElementsByTagName("td")[n];
 
-                let xDate;
-                let yDate;
+                let xNum;
+                let yNum;
                 const dateRegex = /\d\d-\d\d-\d\d\d\d/g;
 
                 console.log(x.innerHTML);
-                if (Number(x.innerHTML)) {
-                    xDate = Number(x.innerHTML);
-                    yDate = Number(y.innerHTML);
+                if (Number(x.innerHTML.split(" ")[0])) {
+                    xNum = Number(x.innerHTML.split(" ")[0]);
+                    yNum = Number(y.innerHTML.split(" ")[0]);
                 } else if (dateRegex.test(x.innerHTML)) {
                     let from = x.innerHTML.split(/[-\s]+/);
-                    xDate = new Date(from[2], from[1] - 1, from[0]).getTime();
+                    xNum = new Date(from[2], from[1] - 1, from[0]).getTime();
                     from = y.innerHTML.split("-");
-                    yDate = new Date(from[2], from[1] - 1, from[0]).getTime();
+                    yNum = new Date(from[2], from[1] - 1, from[0]).getTime();
                 }
 
                 // Check if the two rows should switch place, based on the direction, asc or desc:
                 if (dir === "asc") {
-                    if (xDate !== undefined) {
-                        if (xDate > yDate) {
+                    if (xNum !== undefined) {
+                        if (xNum > yNum) {
                             // If so, mark as a switch and break the loop:
                             shouldSwitch = true;
                             break;
@@ -805,8 +805,8 @@
                         }
                     }
                 } else if (dir === "desc") {
-                    if (xDate !== undefined) {
-                        if (xDate < yDate) {
+                    if (xNum !== undefined) {
+                        if (xNum < yNum) {
                             console.log('numer sort')
                             // If so, mark as a switch and break the loop:
                             shouldSwitch = true;
