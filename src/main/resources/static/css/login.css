@@ -70,11 +70,18 @@ html {
     width: 292px;
 }
 
+.error {
+    background-color: #f8d7da;
+    color: red;
+    padding: 15px;
+    margin: auto;
+    width: 78%;
+    border-radius: 5px;
+    border: 1px solid #f5c6cb;
+}
+
 .error p {
     margin: 0;
-    padding: 0;
-    color: red;
-    text-align: center;
 }
 
 .login-container button {
