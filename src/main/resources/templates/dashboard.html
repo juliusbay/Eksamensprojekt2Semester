@@ -778,7 +778,6 @@
                 let yNum;
                 const dateRegex = /\d\d-\d\d-\d\d\d\d/g;
 
-                console.log(x.innerHTML);
                 if (Number(x.innerHTML.split(" ")[0])) {
                     xNum = Number(x.innerHTML.split(" ")[0]);
                     yNum = Number(y.innerHTML.split(" ")[0]);
@@ -807,13 +806,11 @@
                 } else if (dir === "desc") {
                     if (xNum !== undefined) {
                         if (xNum < yNum) {
-                            console.log('numer sort')
                             // If so, mark as a switch and break the loop:
                             shouldSwitch = true;
                             break;
                         }
                     } else {
-                        console.log('not nuimer sort')
                         if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
                             // If so, mark as a switch and break the loop:
                             shouldSwitch = true;
@@ -851,13 +848,10 @@
 
         // Loop through all table rows, and hide those who don't match the search query
         for (i = 0; i < rows.length; i++) {
-            console.log(rows[i].cells.length);
             for (let l = 0; l < rows[i].cells.length; l++) {
                 column = rows[i].getElementsByTagName("td")[l];
                 if (column) {
                     txtValue = column.textContent || column.innerText;
-                    console.log(txtValue);
-                    console.log(txtValue.indexOf(filter));
                     if (txtValue.toUpperCase().indexOf(filter) === 0) {
                         rows[i].style.display = "";
                         break;
