@@ -617,7 +617,7 @@
                         <select id="vehicle_purchase" name="fk_vehicle_id">
                             <option value=""> Vælg bil</option>
                             <option th:each="car : ${cars}" th:value="${car.vehicleId}"
-                                    th:text="${car.carModel.getBrand() + ' '+car.carModel.getCarEquipment()}"></option>
+                                    th:text="${car.carModel.getBrand() + ' '+car.carModel.getCarEquipment() + ' - ' + car.vinNumber}"></option>
                         </select>
                     </div>
 
