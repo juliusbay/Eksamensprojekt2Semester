@@ -124,8 +124,7 @@ public class EmployeeController {
             @RequestParam("password") String password,
             @RequestParam("role") String roleAsString) {
 
-        String upperCaseRole = roleAsString.toUpperCase();
-        Role role = Role.valueOf(upperCaseRole);
+        Role role = Role.fromString(roleAsString);
 
 
         Employee employee = new Employee(firstName, lastName, email, password, role);
