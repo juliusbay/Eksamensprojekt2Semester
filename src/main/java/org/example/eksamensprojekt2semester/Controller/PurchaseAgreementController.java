@@ -51,7 +51,7 @@ public class PurchaseAgreementController {
             PurchaseAgreement purchaseAgreement = new PurchaseAgreement(purchaseAgreementId, fkVehicleId, fkCustomerId, paid, carPrice);
             purchaseAgreementRepository.updatePurchaseAgreement(purchaseAgreement);
 
-            return "redirect:/purchase_dashboard";
+            return "redirect:/dashboard";
         }
 
         // Delete a purchase agreement
@@ -64,7 +64,7 @@ public class PurchaseAgreementController {
             }
 
             purchaseAgreementRepository.deletePurchaseAgreementById(purchaseAgreementId);
-            return "redirect:/purchase_dashboard";
+            return "redirect:/dashboard";
         }
 
         // Get a purchase agreement by ID

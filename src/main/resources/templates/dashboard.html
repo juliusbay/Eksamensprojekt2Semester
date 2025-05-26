@@ -489,7 +489,7 @@
         </div>
     </div>
 
-    <div class="selectable" id="employee">
+    <div class="selectable" id="d">
         <div class="data-table">
             <h2>Ansatte</h2>
             <div class="table">
@@ -593,7 +593,7 @@
                         <td>
                             <form th:action="@{/deletePurchaseAgreement}" method="post"
                                   onsubmit="return confirm('Er du sikker på du vil slette denne købsaftale?');">
-                                <input type="hidden" name="purchaseAgreementId"
+                                <input type="hidden" name="purchase_agreement_id"
                                        th:value="${purchaseAgreement.purchaseAgreementId}">
                                 <button type="submit">Slet</button>
                             </form>
