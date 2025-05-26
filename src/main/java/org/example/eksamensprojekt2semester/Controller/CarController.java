@@ -29,11 +29,7 @@ public class CarController {
     private CarModelRepository carModelRepository;
 
 
-    // SKAL HOMEREDIRECT SKAL ÆNDRES, BRUGES BARE TIL AT TESTE FOR NU!!
-    @GetMapping("/")
-    public String homeRedirect() {
-        return "redirect:/dashboard"; //Returnere til testsiden, skal ændres.
-    }
+
 
 
     @PostMapping("/createCar")

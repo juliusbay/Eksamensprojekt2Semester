@@ -56,7 +56,12 @@ public class PageController {
     private LeaseAgreementService leaseAgreementService;
 
 
-    //GetMapping for login-page
+
+    @GetMapping("/")
+    public String homeRedirect() {
+        return "redirect:/dashboard"; //Returnere til dashboard siden
+    }
+
     @GetMapping("/login")
     public String loginPage(){
         return "login";

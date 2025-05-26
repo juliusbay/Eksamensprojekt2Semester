@@ -178,10 +178,9 @@ public class CarRepository {
             statement.setString(3, car.getVinNumber());
             statement.setString(4, car.getColor());
             statement.setBoolean(5, car.isBought());
-            statement.setString(6, car.getStatus().name()); //Stores the string value of the Status enum by converting it to a string using .name();
-                                                            // OBS!!! Hvis der er problemer med setStatus, så er det muligvis her det sker.
-                                                                //Dog "burde" den automatisk konvertere tilbage til enum i databasen.
+            statement.setString(6, car.getStatus().name());
             statement.setInt(7,car.getVehicleId());
+
             statement.executeUpdate();
 
         }catch(SQLException e){
