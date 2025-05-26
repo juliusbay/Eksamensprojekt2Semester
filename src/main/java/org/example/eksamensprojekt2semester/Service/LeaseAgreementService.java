@@ -1,5 +1,6 @@
 package org.example.eksamensprojekt2semester.Service;
 
+import org.example.eksamensprojekt2semester.Enum.LeaseType;
 import org.example.eksamensprojekt2semester.Model.LeaseAgreement;
 
 import org.springframework.stereotype.Service;
@@ -31,7 +32,7 @@ public class LeaseAgreementService {
 
     public void minimum120daysAgreement(LeaseAgreement leaseAgreement) {
 
-        if (leaseAgreement.leaseType == LeaseAgreement.LeaseType.UNLIMITED) {
+        if (leaseAgreement.leaseType == LeaseType.UNLIMITED) {
             LocalDate startDate = leaseAgreement.leaseStartDate.toLocalDateTime().toLocalDate();
             LocalDate endDate = leaseAgreement.leaseEndDate.toLocalDateTime().toLocalDate();
 
@@ -47,7 +48,7 @@ public class LeaseAgreementService {
     }
 
     public void maximum120daysAgreement(LeaseAgreement leaseAgreement) {
-        if (leaseAgreement.leaseType == LeaseAgreement.LeaseType.LIMITED) {
+        if (leaseAgreement.leaseType == LeaseType.LIMITED) {
             LocalDate startDate = leaseAgreement.leaseStartDate.toLocalDateTime().toLocalDate();
             LocalDate endDate = leaseAgreement.leaseEndDate.toLocalDateTime().toLocalDate();
 

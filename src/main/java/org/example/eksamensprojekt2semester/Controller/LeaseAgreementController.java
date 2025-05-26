@@ -1,6 +1,7 @@
 package org.example.eksamensprojekt2semester.Controller;
 
 import jakarta.servlet.http.HttpSession;
+import org.example.eksamensprojekt2semester.Enum.LeaseType;
 import org.example.eksamensprojekt2semester.Model.LeaseAgreement;
 import org.example.eksamensprojekt2semester.Repository.*;
 import org.example.eksamensprojekt2semester.Service.LeaseAgreementService;
@@ -66,7 +67,7 @@ public class LeaseAgreementController {
         Timestamp leaseEndDateTS = Timestamp.valueOf(leaseEndDate.toString()+ " 00:00:00");
     //Following try catch block, is to show an error message instead of white label
     try{
-        LeaseAgreement.LeaseType leaseType = LeaseAgreement.LeaseType.fromString(leaseTypeString);
+        LeaseType leaseType = LeaseType.fromString(leaseTypeString);
 
         LeaseAgreement leaseAgreement = new LeaseAgreement(fkVehicleId,
                 fkCustomerId, leaseType,
@@ -99,7 +100,7 @@ public class LeaseAgreementController {
     private void reloadLeaseFormData(Model model) {
         model.addAttribute("cars", carRepository.getAllCars());
         model.addAttribute("customers", customerRepository.getAllCustomers());
-        model.addAttribute("leaseTypes", LeaseAgreement.LeaseType.values());
+        model.addAttribute("leaseTypes", LeaseType.values());
         model.addAttribute("leaseAgreements", leaseAgreementRepository.getAllLeaseAgreements());
         model.addAttribute("carModels", carModelRepository.getAllCarModels());
         model.addAttribute("conditionReport", conditionReportRepository.getAllConditionReports());
@@ -122,14 +123,14 @@ public class LeaseAgreementController {
 
         model.addAttribute("cars",carRepository.getAllCars());
         model.addAttribute("customers",customerRepository.getAllCustomers());
-        model.addAttribute("leaseTypes", LeaseAgreement.LeaseType.values());
+        model.addAttribute("leaseTypes", LeaseType.values());
         return "dashboard";
     }
 
     //Mock create lease without Http
     public LeaseAgreement createLeaseAgreementMock( int fkVehicleId,
                                         int fkCustomerId,
-                                       LeaseAgreement.LeaseType leaseType,
+                                       LeaseType leaseType,
                                         double leasePrice,
                                                     Timestamp leaseStartDate,
                                                     Timestamp leaseEndDate,
@@ -157,7 +158,7 @@ public class LeaseAgreementController {
     @PostMapping("saveUpdateLeaseAgreement")
     public String updateLeaseAgreement(@RequestParam("fk_vehicle_id") int fkVehicleId,
                                        @RequestParam("fk_customer_id") int fkCustomerId,
-                                       @RequestParam("lease_type")LeaseAgreement.LeaseType leaseType,
+                                       @RequestParam("lease_type")LeaseType leaseType,
                                        @RequestParam("lease_price") double leasePrice,
                                        @RequestParam("lease_start_date")Timestamp leaseStartDate,
                                        @RequestParam("lease_end_date") Timestamp leaseEndDate,

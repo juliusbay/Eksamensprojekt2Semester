@@ -1,6 +1,7 @@
 package org.example.eksamensprojekt2semester.Repository;
 
 import org.example.eksamensprojekt2semester.Controller.LeaseAgreementController;
+import org.example.eksamensprojekt2semester.Enum.LeaseType;
 import org.example.eksamensprojekt2semester.Model.Car;
 import org.example.eksamensprojekt2semester.Model.LeaseAgreement;
 import org.example.eksamensprojekt2semester.Service.LeaseAgreementService;
@@ -44,7 +45,7 @@ public class LeaseAgreementCreateUnittest {
         // Arrange
         int vehicle_id = 1;
         int customer_id = 1;
-        LeaseAgreement.LeaseType leaseType = LeaseAgreement.LeaseType.LIMITED;
+        LeaseType leaseType = LeaseType.LIMITED;
         double lease_price = 50000;
         Timestamp lease_start_date = Timestamp.valueOf(LocalDate.of(2025, 6, 1).atStartOfDay());
         Timestamp lease_end_date = Timestamp.valueOf(LocalDate.of(2025, 8, 1).atStartOfDay());
@@ -84,7 +85,7 @@ public class LeaseAgreementCreateUnittest {
 
         int vehicle_id = 1;
         int customer_id = 1;
-        LeaseAgreement.LeaseType leaseType = LeaseAgreement.LeaseType.LIMITED;
+        LeaseType leaseType = LeaseType.LIMITED;
         double leasePrice = -50000;
         Timestamp lease_start_date = Timestamp.valueOf(LocalDate.of(2025, 6, 1).atStartOfDay());
         Timestamp lease_end_date = Timestamp.valueOf(LocalDate.of(2025, 8, 1).atStartOfDay());
@@ -114,7 +115,7 @@ public class LeaseAgreementCreateUnittest {
 
         int vehicle_id = 1;
         int customer_id = 1;
-        LeaseAgreement.LeaseType leaseType = LeaseAgreement.LeaseType.UNLIMITED;
+        LeaseType leaseType = LeaseType.UNLIMITED;
         double leasePrice = 50000;
         Timestamp lease_start_date =  Timestamp.valueOf(LocalDate.of(2025, 6, 1).atStartOfDay());
         Timestamp lease_end_date =  Timestamp.valueOf(LocalDate.of(2025, 8, 1).atStartOfDay());

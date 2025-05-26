@@ -1,5 +1,6 @@
 package org.example.eksamensprojekt2semester.Repository;
 import org.example.eksamensprojekt2semester.Controller.LeaseAgreementController;
+import org.example.eksamensprojekt2semester.Enum.LeaseType;
 import org.example.eksamensprojekt2semester.Model.LeaseAgreement;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -40,7 +41,7 @@ public class LeaseAgreementGetAllUnittest {
         LeaseAgreement leaseAgreement = new LeaseAgreement(
                 1,
                 1,
-                LeaseAgreement.LeaseType.LIMITED,
+                LeaseType.LIMITED,
                 10000,
                 Timestamp.valueOf(LocalDate.of(2025, 6, 1).atStartOfDay()),
                 Timestamp.valueOf(LocalDate.of(2025, 8, 1).atStartOfDay()),
@@ -70,7 +71,7 @@ public class LeaseAgreementGetAllUnittest {
         LeaseAgreement leaseAgreement = new LeaseAgreement(
                 1,
                 1,
-                LeaseAgreement.LeaseType.LIMITED,
+                LeaseType.LIMITED,
                 10000,
                 Timestamp.valueOf(LocalDate.of(2025, 6, 1).atStartOfDay()),
                 Timestamp.valueOf(LocalDate.of(2025, 8, 1).atStartOfDay()),

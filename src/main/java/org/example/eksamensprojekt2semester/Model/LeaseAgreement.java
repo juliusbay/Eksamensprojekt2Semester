@@ -1,33 +1,10 @@
 package org.example.eksamensprojekt2semester.Model;
 
+import org.example.eksamensprojekt2semester.Enum.LeaseType;
+
 import java.sql.Timestamp;
 
 public class LeaseAgreement {
-    public enum LeaseType {
-        LIMITED("Limited"),
-        UNLIMITED("Unlimited");
-
-        private final String prettyprint;
-
-        LeaseType(String prettyprint) {
-            this.prettyprint = prettyprint;
-        }
-
-        @Override
-        public String toString() {
-            return prettyprint;
-        }
-
-        public static LeaseType fromString(String value) {
-            for (LeaseType type : LeaseType.values()) {
-                if (type.prettyprint.equalsIgnoreCase(value)) {
-                    return type;
-                }
-            }
-            return null;
-        }
-    }
-
     public int leaseAgreementId;
     public int fkVehicleId;
     public int fkCustomerId;
@@ -136,6 +113,10 @@ public class LeaseAgreement {
 
     public void setCar(Car car) {
         this.car = car;
+    }
+
+    public void setLeaseTypeFromString(String leaseType) {
+        this.leaseType = LeaseType.valueOf(leaseType);
     }
 
 }

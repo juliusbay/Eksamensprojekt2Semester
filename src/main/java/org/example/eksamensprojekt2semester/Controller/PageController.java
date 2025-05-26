@@ -1,6 +1,7 @@
 package org.example.eksamensprojekt2semester.Controller;
 
 import jakarta.servlet.http.HttpSession;
+import org.example.eksamensprojekt2semester.Enum.LeaseType;
 import org.example.eksamensprojekt2semester.Model.*;
 import org.example.eksamensprojekt2semester.Repository.*;
 import org.example.eksamensprojekt2semester.Service.LeaseAgreementService;
@@ -108,7 +109,7 @@ public class PageController {
         model.addAttribute("purchaseAgreements", purchaseAgreements);
         model.addAttribute("customers", customers);
         model.addAttribute("leaseAgreementMap", leaseAgreementMap);
-        model.addAttribute("leaseTypes", LeaseAgreement.LeaseType.values());
+        model.addAttribute("leaseTypes", LeaseType.values());
 
         return "dashboard";
     }

@@ -1,4 +1,5 @@
 package org.example.eksamensprojekt2semester.Repository;
+import org.example.eksamensprojekt2semester.Enum.LeaseType;
 import org.example.eksamensprojekt2semester.Model.LeaseAgreement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -35,7 +36,7 @@ public class LeaseAgreementRepository {
                 leaseAgreement.setLeaseAgreementId(resultSet.getInt("lease_agreement_id"));
                 leaseAgreement.setCar(carRepository.getCarById(resultSet.getInt("fk_vehicle_id")));
                 leaseAgreement.setCustomer(customerRepository.getCustomerByCustomerId(resultSet.getInt("fk_customer_id")));
-                leaseAgreement.setLeaseType(LeaseAgreement.LeaseType.valueOf(resultSet.getString("lease_type")));
+                leaseAgreement.setLeaseTypeFromString((resultSet.getString("lease_type")));
                 leaseAgreement.setLeasePrice(resultSet.getDouble("lease_price"));
                 leaseAgreement.setLeaseStartDate(resultSet.getTimestamp("lease_start_date"));
                 leaseAgreement.setLeaseEndDate(resultSet.getTimestamp("lease_end_date"));
@@ -69,7 +70,7 @@ public class LeaseAgreementRepository {
                     leaseAgreement.setLeaseAgreementId(resultSet.getInt("lease_agreement_id"));
                     leaseAgreement.setCar(carRepository.getCarById(resultSet.getInt("fk_vehicle_id")));
                     leaseAgreement.setCustomer(customerRepository.getCustomerByCustomerId(resultSet.getInt("fk_customer_id")));
-                    leaseAgreement.setLeaseType(LeaseAgreement.LeaseType.valueOf(resultSet.getString("lease_type")));
+                    leaseAgreement.setLeaseTypeFromString((resultSet.getString("lease_type")));
                     leaseAgreement.setLeasePrice(resultSet.getDouble("lease_price"));
                     leaseAgreement.setLeaseStartDate(resultSet.getTimestamp("lease_start_date"));
                     leaseAgreement.setLeaseEndDate(resultSet.getTimestamp("lease_end_date"));
@@ -102,7 +103,7 @@ public class LeaseAgreementRepository {
                     leaseAgreement.setLeaseAgreementId(resultSet.getInt("lease_agreement_id"));
                     leaseAgreement.setCar(carRepository.getCarById(resultSet.getInt("fk_vehicle_id")));
                     leaseAgreement.setCustomer(customerRepository.getCustomerByCustomerId(resultSet.getInt("fk_customer_id")));
-                    leaseAgreement.setLeaseType(LeaseAgreement.LeaseType.valueOf(resultSet.getString("lease_type")));
+                    leaseAgreement.setLeaseTypeFromString((resultSet.getString("lease_type")));
                     leaseAgreement.setLeasePrice(resultSet.getDouble("lease_price"));
                     leaseAgreement.setLeaseStartDate(resultSet.getTimestamp("lease_start_date"));
                     leaseAgreement.setLeaseEndDate(resultSet.getTimestamp("lease_end_date"));
@@ -136,7 +137,7 @@ public class LeaseAgreementRepository {
                     leaseAgreement.setLeaseAgreementId(resultSet.getInt("lease_agreement_id"));
                     leaseAgreement.setCar(carRepository.getCarById(resultSet.getInt("fk_vehicle_id")));
                     leaseAgreement.setCustomer(customerRepository.getCustomerByCustomerId(resultSet.getInt("fk_customer_id")));
-                    leaseAgreement.setLeaseType(LeaseAgreement.LeaseType.valueOf(resultSet.getString("lease_type")));
+                    leaseAgreement.setLeaseTypeFromString((resultSet.getString("lease_type")));
                     leaseAgreement.setLeasePrice(resultSet.getDouble("lease_price"));
                     leaseAgreement.setLeaseStartDate(resultSet.getTimestamp("lease_start_date"));
                     leaseAgreement.setLeaseEndDate(resultSet.getTimestamp("lease_end_date"));
@@ -173,7 +174,7 @@ public class LeaseAgreementRepository {
              PreparedStatement statement = connection.prepareStatement(sql)) {
                 statement.setInt(1, leaseAgreement.getCar().getVehicleId());
                 statement.setInt(2, leaseAgreement.getCustomer().getCustomerId());
-                statement.setString(3, leaseAgreement.getLeaseType().toString());
+                statement.setString(3, leaseAgreement.getLeaseType().name());
                 statement.setDouble(4, leaseAgreement.getLeasePrice());
                 statement.setTimestamp(5, leaseAgreement.getLeaseStartDate());
                 statement.setTimestamp(6, leaseAgreement.getLeaseEndDate());
@@ -193,7 +194,7 @@ public class LeaseAgreementRepository {
             PreparedStatement statement = connection.prepareStatement(sql)){
                 statement.setInt(1, leaseAgreement.getCar().getVehicleId());
                 statement.setInt(2, leaseAgreement.getCustomer().getCustomerId());
-                statement.setString(3, leaseAgreement.getLeaseType().toString());
+                statement.setString(3, leaseAgreement.getLeaseType().name());
                 statement.setDouble(4, leaseAgreement.getLeasePrice());
                 statement.setTimestamp(5, leaseAgreement.getLeaseStartDate());
                 statement.setTimestamp(6, leaseAgreement.getLeaseEndDate());
