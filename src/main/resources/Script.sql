@@ -14,11 +14,12 @@ CREATE TABLE employee
     role        ENUM ('ADMIN', 'BUSINESS_DEVELOPER', 'DATA_RECORDING', 'MECHANIC') NOT NULL
 );
 
-INSERT INTO employee (employee_id, first_name, last_name, short_name, email, password, role)
-VALUES (1, 'Demo', 'Demo', 'demo', 'demo@demo.demo', 'demo', 'ADMIN'),
-       (2, 'Jürgen', 'Hinterseer', 'JÜHIN', 'Jürgen@email.dk', 'Lagkage', 'DATA_RECORDING'),
-       (3, 'demo', 'forretningsudvikler', 'demof', 'forretning@email.dk', '1234', 'BUSINESS_DEVELOPER'),
-       (4, 'demo', 'mekaniker', 'demom', 'mekaniker@email.dk', '1234', 'MECHANIC');
+INSERT INTO employee (first_name, last_name, short_name, email, password, role)
+VALUES ('Demo', 'Demo', 'demo', 'demo@demo.demo', 'demo', 'ADMIN'),
+       ('Jürgen', 'Hinterseer', 'JÜHIN', 'Jürgen@email.dk', 'Lagkage', 'DATA_RECORDING'),
+       ('demo', 'forretningsudvikler', 'demof', 'forretning@email.dk', '1234', 'BUSINESS_DEVELOPER'),
+       ('demo', 'mekaniker', 'demom', 'mekaniker@email.dk', '1234', 'MECHANIC'),
+       ('demo', 'dataregistrering', 'demod', 'dataregistrering@email.com', '1234', 'DATA_RECORDING');
 
 CREATE TABLE car_model
 (
