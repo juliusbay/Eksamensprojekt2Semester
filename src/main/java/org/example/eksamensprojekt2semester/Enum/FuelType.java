@@ -1,5 +1,6 @@
 package org.example.eksamensprojekt2semester.Enum;
 
+// Enum designet og sat op af Tobias
 public enum FuelType {
     ELECTRIC("Elektrisk"),
     GASOLINE("Benzin"),

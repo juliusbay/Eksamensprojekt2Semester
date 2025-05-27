@@ -17,6 +17,7 @@ public class CustomerRepository {
     @Autowired
     DataSource dataSource;
 
+    // lavet af Tobias
     //Method for getting buyer by their BuyerID
     public Customer getCustomerByCustomerId(int id){
         Customer customer = new Customer();
@@ -73,6 +74,7 @@ public class CustomerRepository {
         return customers;
     }
 
+    // lavet af Tobias
     //Method for creating customer.
     public void createCustomer(Customer customer){
         String sql = "INSERT INTO customer (first_name, last_name, email, phone_number, address, city, postal_code, cpr_number) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
@@ -96,6 +98,7 @@ public class CustomerRepository {
         }
     }
 
+    // lavet af Tobias
     //Method for updating customer details
     public void updateCustomer(Customer customer){
         String sql = "UPDATE customer SET first_name = ?, last_name = ?, email = ?, phone_number = ?, address = ?, city = ?, postal_code = ?, cpr_number = ?" +
@@ -123,6 +126,7 @@ public class CustomerRepository {
         }
     }
 
+    // lavet af Tobias
     //Method for deleting buyer by their buyerId
     public void deleteCustomerFromCustomerId(int id){
         String sql = "DELETE FROM customer WHERE customer_id = ?";

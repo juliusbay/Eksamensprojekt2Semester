@@ -48,6 +48,7 @@ public class CarModelRepository {
         return carModels;
     }
 
+    // lavet af Tobias
     public CarModel getCarModelById (int id) {
         CarModel carModel = new CarModel();
         String sql = "SELECT * FROM car_model WHERE car_model_id = ?";
@@ -76,6 +77,7 @@ public class CarModelRepository {
         return carModel;
     }
 
+    // lavet af Tobias
     public void createCarModel (CarModel carModel) {
         String sql = "INSERT INTO car_model (model_name, brand, fuel_type, model_year, gear_box, car_emission, car_equipment, steel_price) " +
                 "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
@@ -96,25 +98,4 @@ public class CarModelRepository {
             e.printStackTrace();
         }
     }
-
-    public void updateCarModel (CarModel carModel) {
-        String sql = "UPDATE car_model SET model_name = ?, brand = ?, fuel_type = ?, model_year = ?, gear_box = ?, car_emission = ?, car_equipment = ?, steel_price = ?" +
-                "WHERE car_model_id = ?";
-
-        try (Connection connection = dataSource.getConnection();
-             PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setString(1, carModel.getModelName());
-            statement.setString(2, carModel.getBrand());
-            statement.setString(3, carModel.getFuelType().name());
-            statement.setInt(4, carModel.getModelYear());
-            statement.setInt(5, carModel.getCarEmission());
-            statement.setString(6, carModel.getCarEquipment());
-            statement.setDouble(7, carModel.getSteelPrice());
-
-            statement.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
 }

@@ -46,31 +46,6 @@ public class CarRepository {
         return car;
     }
 
-    public Car getCarByVinNumber(String vinNumber) {
-        Car car = new Car();
-        String sql = "SELECT * FROM car WHERE vin_number = ?";
-
-        try (Connection connection = dataSource.getConnection();
-             PreparedStatement statement = connection.prepareStatement(sql)){
-            statement.setString(1,vinNumber);
-
-            try (ResultSet resultSet = statement.executeQuery()){
-                if (resultSet.next()){
-                    car.setVehicleId(resultSet.getInt("vehicle_id"));
-                    car.setCarModel(carModelRepo.getCarModelById(resultSet.getInt("car_model_id")));
-                    car.setVinNumber(resultSet.getString("vin_number"));
-                    car.setColor(resultSet.getString("color"));
-                    car.setBought(resultSet.getBoolean("bought"));
-                    car.setStatusFromString(resultSet.getString("status"));
-                    car.setReceivedDate(resultSet.getTimestamp("received_date"));
-                }
-            }
-        } catch (SQLException e){
-            e.printStackTrace();
-        }
-        return car;
-    }
-
     public ArrayList<Car> getAllCars() {
         ArrayList<Car> cars = new ArrayList<>();
         String sql = "SELECT car.vehicle_id, car.vin_number, cm.car_model_id, cm.brand, cm.model_name, cm.car_equipment, car.color, car.bought, car.status, car.received_date " +

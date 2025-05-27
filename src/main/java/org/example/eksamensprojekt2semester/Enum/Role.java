@@ -1,5 +1,6 @@
 package org.example.eksamensprojekt2semester.Enum;
 
+// Enum designet og sat op af Tobias
 public enum Role {
     ADMIN("Admin"),
     BUSINESS_DEVELOPER("Forretningsudvikler"),

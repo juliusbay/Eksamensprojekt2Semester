@@ -1,5 +1,6 @@
 package org.example.eksamensprojekt2semester.Enum;
 
+// Enum designet og sat op af Tobias
 public enum Status {
     READY("Klar"),
     READY_FOR_TRANSPORT("Klar til transport"),

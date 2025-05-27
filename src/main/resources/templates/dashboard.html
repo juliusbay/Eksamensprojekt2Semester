@@ -17,6 +17,7 @@
 <header th:replace="~{fragments.html :: navbar}"></header>
 
 <div class="all-tables">
+    <!-- dropdown selectoren er lavet af Frederik, login verifikation er lavet af Julius -->
     <div class="functional">
         <div class="dropdown">
             <select id="table-selector">
@@ -53,6 +54,7 @@
                 </option>
             </select>
         </div>
+        <!-- Søge funktionen er lavet af Tobias -->
         <div>
             <input type="text" id="search" onkeyup="searchFunction()" placeholder="Search..">
         </div>
@@ -64,6 +66,7 @@
             <h2>Aktive leasing aftaler</h2>
             <div class="table">
                 <table id="lease_table">
+                    <!-- clickable headers er lavet af Tobias -->
                     <thead>
                     <tr>
                         <th class="clickableHeader" onclick="sortTable(0)">Stelnummer</th>
@@ -745,6 +748,7 @@
 </body>
 
 <script>
+    // al javascript er lavet af Tobias
     let tableId;
     $(document).ready(function () {
         // Cache the table selector
