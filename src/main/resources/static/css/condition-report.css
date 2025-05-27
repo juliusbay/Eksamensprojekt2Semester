@@ -22,7 +22,7 @@ html, body {
 }
 
 .left-div, .right-div {
-    width: 50%; /* Each side takes half the width */
+    width: 50%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;

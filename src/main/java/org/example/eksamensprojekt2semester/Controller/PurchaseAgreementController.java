@@ -5,11 +5,9 @@ import org.example.eksamensprojekt2semester.Model.PurchaseAgreement;
 import org.example.eksamensprojekt2semester.Repository.PurchaseAgreementRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.sql.SQLException;
 //Lavet af Frederik
 @Controller
 public class PurchaseAgreementController {

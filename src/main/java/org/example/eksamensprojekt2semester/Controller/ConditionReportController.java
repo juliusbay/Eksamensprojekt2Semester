@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.sql.Timestamp;
 import java.util.List;
+
 //Lavet af Julius
 @Controller
 public class ConditionReportController {
