@@ -5,7 +5,7 @@ import org.example.eksamensprojekt2semester.Enum.FuelType;
 import org.example.eksamensprojekt2semester.Enum.GearBox;
 
 public class CarModel {
-
+    //Lavet af tobias
     private int carModelId;
     private String modelName;
     private String brand;

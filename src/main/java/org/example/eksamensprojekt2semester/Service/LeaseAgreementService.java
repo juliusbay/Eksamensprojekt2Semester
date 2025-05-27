@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 
-
+//Lavet af Frederik
 @Service
 public class LeaseAgreementService {
 

@@ -1,5 +1,5 @@
 package org.example.eksamensprojekt2semester.Model;
-
+//Lavet af tobias
 public class Customer {
     private int customerId;
     private String firstName;

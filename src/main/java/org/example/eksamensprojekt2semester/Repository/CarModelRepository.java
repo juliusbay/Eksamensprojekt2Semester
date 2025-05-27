@@ -11,7 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-
+//Lavet og Tobias og Frederik
 @Repository
 public class CarModelRepository {
 

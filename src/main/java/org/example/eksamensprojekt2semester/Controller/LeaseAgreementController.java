@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.sql.Date;
 import java.util.HashMap;
 import java.util.Map;
-
+//Lavet af Frederik
 @Controller
 public class LeaseAgreementController {
 
@@ -154,30 +154,6 @@ public class LeaseAgreementController {
     }
 
 
-    //Update an existing leaseAgreement
-    @PostMapping("saveUpdateLeaseAgreement")
-    public String updateLeaseAgreement(@RequestParam("fk_vehicle_id") int fkVehicleId,
-                                       @RequestParam("fk_customer_id") int fkCustomerId,
-                                       @RequestParam("lease_type")LeaseType leaseType,
-                                       @RequestParam("lease_price") double leasePrice,
-                                       @RequestParam("lease_start_date")Timestamp leaseStartDate,
-                                       @RequestParam("lease_end_date") Timestamp leaseEndDate,
-                                       @RequestParam("return_location") String returnLocation,
-                                       HttpSession session) {
-
-        if (!isUserLoggedIn(session)) {
-            return "redirect:/login";
-        }
-
-        LeaseAgreement leaseAgreement = new LeaseAgreement(fkVehicleId,
-                fkCustomerId, leaseType, leasePrice,
-                leaseStartDate, leaseEndDate, returnLocation);
-        leaseAgreementRepository.updateLeaseAgreement(leaseAgreement);
-
-        return "redirect:/dashboard";
-    }
-
-
     //Delete a specific leaseAgreement by its id
     @PostMapping("/deleteLease")
     public String deleteLeaseAgreement(@RequestParam("lease_agreement_id") int leaseAgreementId,
@@ -205,8 +181,8 @@ public class LeaseAgreementController {
         return "show-leases-page";
     }
 
-    //Get all leaseAgreements
-    @GetMapping("/bingo")
+    //Get all leaseAgreements for the unit test
+    @GetMapping("/getAll")
     public String getAllLeaseAgreements(Model model) {
         ArrayList<LeaseAgreement> leaseAgreements= leaseAgreementRepository.getAllLeaseAgreements();
         model.addAttribute("leaseAgreements", leaseAgreements);

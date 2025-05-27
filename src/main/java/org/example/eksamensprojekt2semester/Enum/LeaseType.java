@@ -1,6 +1,7 @@
 package org.example.eksamensprojekt2semester.Enum;
 
 public enum LeaseType {
+        //Designet af tobias, lavet af frederik
         LIMITED("Limited"),
         UNLIMITED("Unlimited");
 

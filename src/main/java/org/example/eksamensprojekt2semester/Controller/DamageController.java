@@ -8,7 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import java.sql.SQLException;
-
+//Lavet af Frederik og julius
 @Controller
 public class DamageController {
 

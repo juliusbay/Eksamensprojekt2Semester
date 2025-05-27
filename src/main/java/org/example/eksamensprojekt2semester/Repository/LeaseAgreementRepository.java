@@ -1,5 +1,4 @@
 package org.example.eksamensprojekt2semester.Repository;
-import org.example.eksamensprojekt2semester.Enum.LeaseType;
 import org.example.eksamensprojekt2semester.Model.LeaseAgreement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -9,6 +8,8 @@ import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+
+//Lavet af Gruppen
 @Repository
 public class LeaseAgreementRepository {
 

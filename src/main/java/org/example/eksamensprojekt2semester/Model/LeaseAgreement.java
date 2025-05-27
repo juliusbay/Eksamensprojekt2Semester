@@ -3,7 +3,7 @@ package org.example.eksamensprojekt2semester.Model;
 import org.example.eksamensprojekt2semester.Enum.LeaseType;
 
 import java.sql.Timestamp;
-
+//Lavet af Frederik
 public class LeaseAgreement {
     public int leaseAgreementId;
     public int fkVehicleId;

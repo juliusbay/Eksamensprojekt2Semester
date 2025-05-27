@@ -22,7 +22,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
-
+//Lavet af Frederik
 @ExtendWith(MockitoExtension.class)
 public class LeaseAgreementCreateUnittest {
     // Mock dependencies

@@ -20,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 
-
+//Lavet af Frederik
 @ExtendWith(MockitoExtension.class)
 public class LeaseAgreementGetAllUnittest {
     @Mock

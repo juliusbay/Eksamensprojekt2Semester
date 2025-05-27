@@ -17,7 +17,7 @@ public class CustomerRepository {
     @Autowired
     DataSource dataSource;
 
-    // lavet af Tobias
+    // Lavet af Tobias
     //Method for getting buyer by their BuyerID
     public Customer getCustomerByCustomerId(int id){
         Customer customer = new Customer();

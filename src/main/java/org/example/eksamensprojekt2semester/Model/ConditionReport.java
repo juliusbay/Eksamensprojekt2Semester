@@ -1,7 +1,7 @@
 package org.example.eksamensprojekt2semester.Model;
 
 import java.sql.Timestamp;
-
+//Julius ansvar
 public class ConditionReport {
     private int conditionReportId;
     private int fkVehicleId;

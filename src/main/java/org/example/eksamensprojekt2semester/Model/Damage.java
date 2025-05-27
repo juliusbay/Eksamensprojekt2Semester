@@ -1,5 +1,5 @@
 package org.example.eksamensprojekt2semester.Model;
-
+// Lavet afFrederik
 public class Damage {
     private int damageId;
     private int conditionReportId;

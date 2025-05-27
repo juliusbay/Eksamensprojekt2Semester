@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.sql.SQLException;
-
+//Lavet af Frederik
 @Controller
 public class PurchaseAgreementController {
 
@@ -35,24 +35,6 @@ public class PurchaseAgreementController {
             return "redirect:/dashboard";
         }
 
-        // Update an existing purchase agreement
-        @PostMapping("/saveUpdatePurchaseAgreement")
-        public String updatePurchaseAgreement(@RequestParam("purchase_agreement_id") int purchaseAgreementId,
-                                              @RequestParam("fk_vehicle_id") int fkVehicleId,
-                                              @RequestParam("fk_customer_id") int fkCustomerId,
-                                              @RequestParam("car_price") double carPrice,
-                                              @RequestParam("paid") boolean paid,
-                                              HttpSession session) {
-
-            if (!isUserLoggedIn(session)) {
-                return "redirect:/";
-            }
-
-            PurchaseAgreement purchaseAgreement = new PurchaseAgreement(purchaseAgreementId, fkVehicleId, fkCustomerId, paid, carPrice);
-            purchaseAgreementRepository.updatePurchaseAgreement(purchaseAgreement);
-
-            return "redirect:/dashboard";
-        }
 
         // Delete a purchase agreement
         @PostMapping("/deletePurchaseAgreement")
@@ -65,22 +47,6 @@ public class PurchaseAgreementController {
 
             purchaseAgreementRepository.deletePurchaseAgreementById(purchaseAgreementId);
             return "redirect:/dashboard";
-        }
-
-        // Get a purchase agreement by ID
-        @PostMapping("/purchase_agreement_details")
-        public String getPurchaseAgreementById(@RequestParam("purchase_agreement_id") int purchaseAgreementId,
-                                               Model model,
-                                               HttpSession session) {
-
-            if (!isUserLoggedIn(session)) {
-                return "redirect:/";
-            }
-
-            PurchaseAgreement purchaseAgreement = purchaseAgreementRepository.getPurchaseAgreementById(purchaseAgreementId);
-            model.addAttribute("purchaseAgreement", purchaseAgreement);
-
-            return "redirect:/purchase_agreement_details" + purchaseAgreementId;
         }
 
         public boolean isUserLoggedIn(HttpSession session) {

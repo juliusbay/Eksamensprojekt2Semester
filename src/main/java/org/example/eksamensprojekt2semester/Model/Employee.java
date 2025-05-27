@@ -1,7 +1,7 @@
 package org.example.eksamensprojekt2semester.Model;
 
 import org.example.eksamensprojekt2semester.Enum.Role;
-
+// Lavet af Julius
 public class Employee {
     private int employeeId;
     private String firstName;

@@ -56,7 +56,7 @@ public class PageController {
     private LeaseAgreementService leaseAgreementService;
 
 
-
+    //Lavet af Gruppen
     @GetMapping("/")
     public String homeRedirect() {
         return "redirect:/dashboard"; //Returnere til dashboard siden

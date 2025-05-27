@@ -5,7 +5,7 @@ import org.example.eksamensprojekt2semester.Enum.Status;
 import java.sql.Timestamp;
 
 public class Car {
-
+    //Lavet af Noah
     private int vehicleId;
     private CarModel carModel;
     private String vinNumber;

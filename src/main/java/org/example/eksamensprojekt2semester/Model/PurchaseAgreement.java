@@ -1,5 +1,5 @@
 package org.example.eksamensprojekt2semester.Model;
-
+// Lavet af Frederik
 public class PurchaseAgreement {
 
         private int purchaseAgreementId;

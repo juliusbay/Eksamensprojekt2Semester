@@ -12,7 +12,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 @Repository
-
+//Lavet af Noah og Julius
 public class CarRepository {
 
    @Autowired
